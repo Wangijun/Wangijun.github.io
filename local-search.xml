@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>我出生了</title>
+    <link href="/2020/11/21/hello-world/"/>
+    <url>/2020/11/21/hello-world/</url>
+    
+    <content type="html"><![CDATA[<p>初来乍到，请多指教，献丑了。</p><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>也算是完成了一个flag吧，简简单单一个博客就这样成型了，也算是知道怎么用了，剩下的就是创造内容了。</p><h2 id="试试图床"><a href="#试试图床" class="headerlink" title="试试图床"></a>试试图床</h2><p>引入一张图片<br><img src="https://tvax1.sinaimg.cn/wap720/005NNTS5ly1gkxza8g0gzj326p1niwu7.jpg" alt="萨勒芬妮"></p><h3 id="一些介绍"><a href="#一些介绍" class="headerlink" title="一些介绍"></a>一些介绍</h3><p>兜兜转转，还是静态博客，从自己写博客程序，花里胡哨，然后找开源的博客，再到hexo，这一般就是正常程序员的博客之路。hexo的优点很多。作为一个博客，它可以说是完美。配上这个完美的主题，挺好的。博客，从它诞生以来重要的只有内容。内容展示md格式足以。</p><h3 id="网站信息"><a href="#网站信息" class="headerlink" title="网站信息"></a>网站信息</h3><p>网址： <a href="http://www.wangijun.com/">www.wangijun.com</a></p><p>跳转服务器： 阿里云服务器</p><p>真实地址：<a href="https://wlf213.gitee.io/">挽君博客 (gitee.io)</a></p><h3 id="完"><a href="#完" class="headerlink" title="完"></a>完</h3><p>我爱她。君の名</p><p><img src="https://tvax1.sinaimg.cn/wap720/005NNTS5ly1gl1boed5z9j32q11m07ny.jpg" alt="你的名字"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>前端</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>hexo建站</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  
+</search>
