@@ -1,0 +1,765 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="趁年轻早点拼，挽君ing">
+  <meta name="author" content="无👉良芳">
+  <meta name="keywords" content="博客，爱情">
+  <title>Vue基本语法 - 挽君博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>挽君博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Vue基本语法">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      无👉良芳
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-11-27 22:27" pubdate>
+        2020年11月27日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      42
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Vue基本语法</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：15 分钟前
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h2 id="文档官网已经足够详细，所以这里直接上代码"><a href="#文档官网已经足够详细，所以这里直接上代码" class="headerlink" title="文档官网已经足够详细，所以这里直接上代码"></a>文档官网已经足够详细，所以这里直接上代码</h2><blockquote>
+<p>这里主要介绍基础语法，这个基础语法已经很好用了<br>大道至简，所以我们就聊一聊这个至简后的大道</p>
+</blockquote>
+<h2 id="Vue语法介绍"><a href="#Vue语法介绍" class="headerlink" title="Vue语法介绍"></a>Vue语法介绍</h2><p>如果使用过Jsp之类的Java模板引擎，那么对Vue肯定不陌生。如果没学过呢，也不用慌。Vue的不难，难的是前端开发思想上的转变。</p>
+<blockquote>
+<p>再说几句废话</p>
+</blockquote>
+<p>起码要有一丢丢的web开发经历，注意是web开发，web开发不是单纯的指html，css,javasrcipt,这三剑客，还有，服务器，页面与服务器之间的交互。起码要有servlet的开发经历，知道服务器和页面之间怎么传值再来看Vue,记住MVVM模式是MVC模式的进化版，一口气吃不成胖子的啦。先把MVC搞个七七八八。</p>
+<blockquote>
+<p>Vue长这个样子</p>
+</blockquote>
+<p>这是Vue的基本模式，官方建议主要用来学习，其实就算只是基本模式，在我们处理数据的时候就已经十分好用了。淦，好冻手，连个空调都木得，绝了，不打了，上班有空调我在打字吧，手冻的通红。</p>
+<pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span> /&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+		<span class="hljs-comment">&lt;!-- 这些都是cdn，就是说代码可以直接拷贝下来玩哦 --&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css&quot;</span> <span class="hljs-attr">integrity</span>=<span class="hljs-string">&quot;sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk&quot;</span></span>
+<span class="hljs-tag">		 <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">&quot;anonymous&quot;</span>&gt;</span>
+		<span class="hljs-comment">&lt;!-- JS, Popper.js, and jQuery --&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js&quot;</span> <span class="hljs-attr">integrity</span>=<span class="hljs-string">&quot;sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj&quot;</span></span>
+<span class="hljs-tag">		 <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">&quot;anonymous&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js&quot;</span> <span class="hljs-attr">integrity</span>=<span class="hljs-string">&quot;sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo&quot;</span></span>
+<span class="hljs-tag">		 <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">&quot;anonymous&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js&quot;</span> <span class="hljs-attr">integrity</span>=<span class="hljs-string">&quot;sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI&quot;</span></span>
+<span class="hljs-tag">		 <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">&quot;anonymous&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/vue&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+		<span class="hljs-comment">&lt;!--兴趣才是最好的老师嘛，我尝试用Vue写一些小Demo，希望你们喜欢 --&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;row&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;padding: 0.625rem;&quot;</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col-md-3&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;padding-top: 0.625rem;&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;padding-top: 0.625rem;&quot;</span>&gt;</span>
+					<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;width: 18rem; height: ;&quot;</span>&gt;</span>
+					  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-body&quot;</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">h5</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-title&quot;</span>&gt;</span>普通的模板语法<span class="hljs-tag">&lt;/<span class="hljs-name">h5</span>&gt;</span>
+						<span class="hljs-tag">&lt;<span class="hljs-name">h6</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-subtitle mb-2 text-muted&quot;</span>&gt;</span>&#x27;&#123;&#123;&#125;&#125;&#x27;<span class="hljs-tag">&lt;/<span class="hljs-name">h6</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-text&quot;</span>&gt;</span>&#123;&#123;msg&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-link&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;app.msg= app.msg + &#x27;, 玻璃瓶里插满小小森林&#x27; &quot;</span>&gt;</span>加一句<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-link&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;app.msg = &#x27;竹篱上停留着蜻蜓&#x27;&quot;</span>&gt;</span>复原<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+					  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+					<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+				<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col-md-3&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;padding-top: 0.625rem;&quot;</span>&gt;</span>
+					<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;width: 18rem;&quot;</span>&gt;</span>
+					  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-body&quot;</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">h5</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-title&quot;</span>&gt;</span>绑定元素的属性<span class="hljs-tag">&lt;/<span class="hljs-name">h5</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">h6</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-subtitle mb-2 text-muted&quot;</span>&gt;</span>v-bind：<span class="hljs-tag">&lt;/<span class="hljs-name">h6</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-text&quot;</span> <span class="hljs-attr">v-bind:title</span>=<span class="hljs-string">&quot;de&quot;</span>&gt;</span>鼠标放上来看看<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-link&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;app.de = &#x27;从前从前有个人爱你很久&#x27;&quot;</span>&gt;</span>点一下再试试<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-link&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;app.de=&#x27;但偏偏风渐渐把距离吹得好远&#x27;&quot;</span>&gt;</span>同左边<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+					  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+					<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+				<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col-md-3&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;padding-top: 0.625rem;&quot;</span>&gt;</span>
+					<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;width: 18rem;&quot;</span>&gt;</span>
+					  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-body&quot;</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">h5</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-title&quot;</span>&gt;</span>条件渲染<span class="hljs-tag">&lt;/<span class="hljs-name">h5</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">h6</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-subtitle mb-2 text-muted&quot;</span>&gt;</span>v-if ; v-else<span class="hljs-tag">&lt;/<span class="hljs-name">h6</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-text&quot;</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">&quot;flag&quot;</span>&gt;</span>而我听见下雨的声音<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-text&quot;</span> <span class="hljs-attr">v-else</span>&gt;</span>想起你用唇语说爱情<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-link&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;app.flag = false&quot;</span>&gt;</span>出现下一句<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-link&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;app.flag = true&quot;</span>&gt;</span>复原<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+					  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+					<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+				<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col-md-3&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;padding-top: 0.625rem;&quot;</span>&gt;</span>
+					<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;width: 18rem;&quot;</span>&gt;</span>
+					  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-body&quot;</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">h5</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-title&quot;</span>&gt;</span>循环普通变量<span class="hljs-tag">&lt;/<span class="hljs-name">h5</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">h6</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-subtitle mb-2 text-muted&quot;</span>&gt;</span>v-for<span class="hljs-tag">&lt;/<span class="hljs-name">h6</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-text&quot;</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">&quot;item in items&quot;</span>&gt;</span>
+							&#123;&#123;item&#125;&#125;
+						<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-link&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;app.items.push(&#x27;好不容易&#x27;)&quot;</span>&gt;</span>好不容易<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-link&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;app.items.push(&#x27;又能在多爱一天&#x27;)&quot;</span>&gt;</span>多爱一天<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-link&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;app.items = [&#x27;从前从前&#x27;,&#x27;有个人爱你很久&#x27;,&#x27;偏偏风渐渐把距离吹得好远&#x27;]&quot;</span>&gt;</span>复原<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+					  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+					<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+				<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col-md-3&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;padding-top: 0.625rem;&quot;</span>&gt;</span>
+					<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;width: 18rem;&quot;</span>&gt;</span>
+					  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-body&quot;</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">h5</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-title&quot;</span>&gt;</span>循环对象<span class="hljs-tag">&lt;/<span class="hljs-name">h5</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">h6</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-subtitle mb-2 text-muted&quot;</span>&gt;</span>v-for<span class="hljs-tag">&lt;/<span class="hljs-name">h6</span>&gt;</span>
+						<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-text&quot;</span>&gt;</span>一个对象就够了，你还想遍历你的对象啊<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-text&quot;</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">&quot;item in items2&quot;</span>&gt;</span>
+							&#123;&#123;item.title&#125;&#125; ----&#123;&#123;item.auther&#125;&#125;
+						<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-link&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;app.items2.push(&#123;title: &#x27;床边故事&#x27;,auther: &#x27;小周周&#x27;&#125;)&quot;</span>&gt;</span>加一张专辑<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-link&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;app.items2.pop()&quot;</span>&gt;</span>减一张专辑<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+					  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+					<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+				<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col-md-3&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;padding-top: 0.625rem;&quot;</span>&gt;</span>
+					<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;width: 18rem;&quot;</span>&gt;</span>
+					  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-body&quot;</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">h5</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-title&quot;</span>&gt;</span>用户交互<span class="hljs-tag">&lt;/<span class="hljs-name">h5</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">h6</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-subtitle mb-2 text-muted&quot;</span>&gt;</span>v-on<span class="hljs-tag">&lt;/<span class="hljs-name">h6</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-text&quot;</span>&gt;</span>&#123;&#123;msg2&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-link&quot;</span> <span class="hljs-attr">v-on:click</span>=<span class="hljs-string">&quot;test1&quot;</span>&gt;</span>反转消息<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-link&quot;</span> <span class="hljs-attr">v-on:dblclick</span>=<span class="hljs-string">&quot;test2&quot;</span>&gt;</span>双击看看<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+					  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+					<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+				<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col-md-3&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;padding-top: 0.625rem;&quot;</span>&gt;</span>
+					<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;width: 18rem;&quot;</span>&gt;</span>
+					  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-body&quot;</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">h5</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-title&quot;</span>&gt;</span>用户输入<span class="hljs-tag">&lt;/<span class="hljs-name">h5</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">h6</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-subtitle mb-2 text-muted&quot;</span>&gt;</span>v-model<span class="hljs-tag">&lt;/<span class="hljs-name">h6</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-text&quot;</span>&gt;</span>
+							<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">&quot;msg3&quot;</span>/&gt;</span>
+							<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>这里显示你输入的内容：&#123;&#123;msg3&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+							
+						<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-link&quot;</span> <span class="hljs-attr">v-on:click</span>=<span class="hljs-string">&quot;test3&quot;</span>&gt;</span>一键输入我爱你<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-link&quot;</span> <span class="hljs-attr">v-on:click</span>=<span class="hljs-string">&quot;msg3 = &#x27;&#x27;&quot;</span>&gt;</span>清空<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+					  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+					<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+				<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col-md-3&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;padding-top: 0.625rem;&quot;</span>&gt;</span>
+					<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;width: 18rem;&quot;</span>&gt;</span>
+					  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-body&quot;</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">h5</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-title&quot;</span>&gt;</span>组件化<span class="hljs-tag">&lt;/<span class="hljs-name">h5</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">h6</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-subtitle mb-2 text-muted&quot;</span>&gt;</span>一生二，二生四，四象生八卦，八卦衍万物<span class="hljs-tag">&lt;/<span class="hljs-name">h6</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-text&quot;</span>&gt;</span>
+							<span class="hljs-comment">&lt;!-- 这里引入了组件 并输出count下一 --&gt;</span>
+							<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">&quot;item in count&quot;</span>&gt;</span>
+								<span class="hljs-tag">&lt;<span class="hljs-name">com1</span>&gt;</span>
+								<span class="hljs-tag">&lt;/<span class="hljs-name">com1</span>&gt;</span>
+							<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+						<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-link&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;app.count++&quot;</span>&gt;</span>加一条<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+					    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card-link&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;app.count--&quot;</span>&gt;</span>减一条<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+					  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+					<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+				<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;display: flex; margin: auto;&quot;</span>&gt;</span>准备好了吗<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;display: flex; margin: auto;&quot;</span>&gt;</span>
+					我们刚才简单介绍了 Vue 核心最基本的功能——本教程的其余部分将更加详细地涵盖这些功能以及其它高级功能，所以请务必读完整个教程！
+				<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+		<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span>
+<span class="javascript">		<span class="hljs-keyword">let</span> com2 = Vue.component(<span class="hljs-string">&#x27;com2&#x27;</span>,&#123;</span>
+<span class="handlebars"><span class="xml">			template: &#x27;<span class="hljs-tag">&lt;<span class="hljs-name">h6</span>&gt;</span>我是一个无聊的组件2<span class="hljs-tag">&lt;/<span class="hljs-name">h6</span>&gt;</span>&#x27;</span></span>
+		&#125;)
+<span class="javascript">		Vue.component(<span class="hljs-string">&#x27;com1&#x27;</span>,&#123;</span>
+<span class="handlebars"><span class="xml">			template: `<span class="hljs-tag">&lt;<span class="hljs-name">h5</span>&gt;</span>我是一个无聊的组件,<span class="hljs-tag">&lt;<span class="hljs-name">com2</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">com2</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h5</span>&gt;</span>`,</span></span>
+<span class="javascript">			<span class="hljs-comment">// 在组件1中引入组件2,</span></span>
+			components: &#123;
+				com2
+			&#125;
+		&#125;)
+		
+<span class="javascript">		<span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> Vue(&#123;</span>
+<span class="javascript">			<span class="hljs-comment">// 这里就是绑定了上面的id，</span></span>
+<span class="javascript">			el: <span class="hljs-string">&quot;#app&quot;</span>,</span>
+			data: &#123;
+<span class="javascript">				msg: <span class="hljs-string">&#x27;竹篱上停留着蜻蜓&#x27;</span>,</span>
+<span class="javascript">				msg2: <span class="hljs-string">&#x27;你爱我&#x27;</span>,</span>
+<span class="javascript">				msg3: <span class="hljs-string">&#x27;&#x27;</span>,</span>
+				count: 2,
+<span class="javascript">				de: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(),</span>
+<span class="javascript">				flag: <span class="hljs-literal">true</span>,</span>
+				items: [
+<span class="javascript">					<span class="hljs-string">&#x27;从前从前&#x27;</span>,</span>
+<span class="javascript">					<span class="hljs-string">&#x27;有个人爱你很久&#x27;</span>,</span>
+<span class="javascript">					<span class="hljs-string">&#x27;偏偏风渐渐把距离吹得好远&#x27;</span></span>
+				],
+				items2: [
+					&#123;
+<span class="javascript">						title: <span class="hljs-string">&#x27;依然范特西&#x27;</span>,</span>
+<span class="javascript">						auther: <span class="hljs-string">&#x27;周婕纶&#x27;</span></span>
+					&#125;,
+					&#123;
+<span class="javascript">						title: <span class="hljs-string">&#x27;叶惠美&#x27;</span>,</span>
+<span class="javascript">						auther: <span class="hljs-string">&#x27;周杰伦&#x27;</span></span>
+					&#125;,
+					&#123;
+<span class="javascript">						title: <span class="hljs-string">&#x27;七里香&#x27;</span>,</span>
+<span class="javascript">						auther: <span class="hljs-string">&#x27;周杰棍&#x27;</span></span>
+					&#125;
+					
+						
+				]
+			&#125;,
+			methods:&#123;
+<span class="javascript">				<span class="hljs-comment">// 反转消息事件</span></span>
+<span class="javascript">				test1: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span>
+<span class="javascript">					<span class="hljs-built_in">this</span>.msg2 = <span class="hljs-built_in">this</span>.msg2.split(<span class="hljs-string">&#x27;&#x27;</span>).reverse().join(<span class="hljs-string">&#x27;&#x27;</span>)</span>
+				&#125;,
+<span class="javascript">				<span class="hljs-comment">// 双击事件</span></span>
+<span class="javascript">				test2: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span>
+<span class="javascript">					<span class="hljs-keyword">let</span> name,age;</span>
+<span class="javascript">					name=prompt(<span class="hljs-string">&quot;请问你叫什么名字?&quot;</span>); <span class="hljs-comment">/*在页面上弹出提示对话框，</span></span>
+					将用户输入的结果赋给变量name*/
+<span class="javascript">					alert(name); <span class="hljs-comment">//输出用户输入的信息</span></span>
+<span class="javascript">					age=prompt(<span class="hljs-string">&quot;你今年多大了?&quot;</span>,<span class="hljs-string">&quot;请在这里输入年龄&quot;</span>); <span class="hljs-comment">/*在页面上再一次弹出提示对话框，</span></span>
+					讲用户输入的信息赋给变量age*/
+<span class="javascript">					alert(age)<span class="hljs-comment">//输出用户输入的信息</span></span>
+				&#125;,
+<span class="javascript">				test3: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span>
+<span class="javascript">					<span class="hljs-built_in">this</span>.msg3 = <span class="hljs-string">&#x27;从前从前，有个人爱你很久&#x27;</span></span>
+				&#125;
+			&#125;
+		&#125;)
+	<span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+
+<blockquote>
+<p>详解</p>
+</blockquote>
+<p>详解，官网就是最好的详解，这个只是演示了Vue的基础语法。在使用中，已经很方便了。起码不用手动拼接字符串，已经非常好用了。提一下，v-if和v-show,这两个，在基本模式中，建议不要使用v-if，会有坑。好了，demo没有什么实用价值，就是一些简单的Vue演示，你用jQuery也可以做到，但肯定没有用Vue这么方便。</p>
+<h2 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h2><blockquote>
+<p>老规矩，献上封面原图</p>
+</blockquote>
+<p><img src="https://tva4.sinaimg.cn/large/005NNTS5ly1gl43wr9my0j32yo1o0npd.jpg" srcset="/img/loading.gif" alt="LOL英雄联盟塞尔菲娅"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/vue/">vue</a>
+                    
+                      <a class="hover-with-bg" href="/tags/js%E6%A1%86%E6%9E%B6/">js框架</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/11/26/hello-world/">
+                        <span class="hidden-mobile">我出生了</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'Wangijun/utterances');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <a href="http://beian.miit.gov.cn/" target="_blank"
+       rel="nofollow noopener">皖ICP备20012571号</a>
+    
+      
+        <a
+          href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=34042202000089"
+          rel="nofollow noopener"
+          class="beian-police"
+          target="_blank"
+        >
+          
+            <span style="visibility: hidden; width: 0">|</span>
+            <img src="/img/police_beian.png" srcset="/img/loading.gif" alt="police-icon"/>
+          
+          <span>京公网安备34042202000089号</span>
+        </a>
+      
+    
+  </div>
+
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
