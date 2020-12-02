@@ -201,7 +201,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      27
+      28
        分钟
     </span>
   
@@ -281,6 +281,13 @@ User user1 = list.stream().filter(user -&gt; user.getUserName().equals(<span cla
 
 <span class="hljs-comment">// 这种也是获取第一个,这个的效率比上面的高，一般查找唯一数据，用这个比较快。</span>
 User user2 = list.stream().filter(user -&gt; user.getUserName().equals(<span class="hljs-string">&quot;王0&quot;</span>)).findAny().orElse(<span class="hljs-keyword">new</span> User());</code></pre>
+
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><pre><code class="hljs java">
+<span class="hljs-comment">// 按年龄从小到大排序</span>
+List&lt;User&gt; collect7 = list.stream().sorted(Comparator.comparing(User::getAge)).collect(Collectors.toList());
+
+<span class="hljs-comment">// 按年龄从大到小排序</span>
+List&lt;User&gt; collect8 = list.stream().sorted(Comparator.comparing(User::getAge).reversed()).collect(Collectors.toList());</code></pre>
 <h3 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h3><pre><code class="hljs java"><span class="hljs-comment">// 分组</span>
 <span class="hljs-comment">// 以班级分组, 返回一个map,key为部门ID，value为分组的集合</span>
 Map&lt;Integer, List&lt;User&gt;&gt; collect3 = list.stream().collect(Collectors.groupingBy(User::getGradeId));
