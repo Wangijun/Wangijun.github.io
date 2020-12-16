@@ -4,6 +4,77 @@
   
   
   <entry>
+    <title></title>
+    <link href="/2020/12/14/index/"/>
+    <url>/2020/12/14/index/</url>
+    
+    <content type="html"><![CDATA[<!DOCTYPE html><html><head><meta charset="utf-8"><title></title></head><body></body></html>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>碎碎念1</title>
+    <link href="/2020/12/13/think1/"/>
+    <url>/2020/12/13/think1/</url>
+    
+    <content type="html"><![CDATA[<h3 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h3>]]></content>
+    
+    
+    <categories>
+      
+      <category>随想篇</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>碎碎念</tag>
+      
+      <tag>网抑云</tag>
+      
+      <tag>我爱她</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Vue实现原理-源码篇</title>
+    <link href="/2020/12/07/vue-study2/"/>
+    <url>/2020/12/07/vue-study2/</url>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>其实硬刚源码的意义不是很大，不仅意义不是很大，而且过程还很痛苦，这是就有人嚷嚷了，没啥意义还痛苦，你是不是吃饱了撑的。没错，每天上班中午会有2个小时的空闲时间，12点吃午饭，吃饭算半个小时，然后有一个半小时的空闲时间，这个时间就属于吃撑了的时刻。既然都吃撑了，那我做什么也在情理之中嘛，嘿嘿嘿😁。</p><blockquote><p>网抑云语录</p></blockquote><p>我多想把嘴边的碎碎念，变成身边的岁岁年年。</p><blockquote><p>碎碎念</p></blockquote><p>其实我是一个后端程序员，奈何后端过于无聊，学的东西就那么点，现成的解决问题的方案太多了，乃至于人们口中所说的调包程序员，你把spring的包都给整明白了，能随心所欲的玩，随心的调包，就已经登堂入室了，Java难的从来都不是语言本身，难的就是那些框架。spring的依赖反转，以及面向切面编程。这个面向切面编程类似Js里的回调函数，可惜我也不是太懂，这是个很牛逼的东西。在Java中的spring框架里有这样一句话，在我们spring框架中，没有什么不是加一个注解解决不了的，如果有，那就加两个。妙啊。此处应有表情包<br><img src="https://tva3.sinaimg.cn/wap720/005NNTS5ly1glfnz6l893j30b40ciwey.jpg" alt="spring框架"><br>都说crud程序员是废物，可后端的分布式，微服务，本质上来说就是为了稳定的crud。难道我们努力变秃就是为了成为一个会分布式和微服务的大废物么。考核一个程序员的功力，算法，是最有效的途径。算法，设计模式，编程思想。编程语言可能会过时，这三样永远都不会过时。编程语言只是工具，Vue框架也是一个工具。万一哪天谷歌人浏览器直接就自带mvvn了，Vue也会被淘汰。</p><h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>js牛逼的一点我感觉就是，代码即文本，文本即代码。自由度高到离谱，你说它是代码，它也能是文本，说它是文本，它下一秒钟就变成了代码，你想怎么写（玩）就怎么写（玩），直接硬刚原生js不合适啊，我就用Jquey稍微简化一下操作，包括解析dom，更新dom，以及绑定数据。重要的是思想，重要的是思想，😄😄😄</p><h3 id="正常的Vue"><a href="#正常的Vue" class="headerlink" title="正常的Vue"></a>正常的Vue</h3><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../js/vue.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">&quot;msg&quot;</span> /&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>&#123;&#123;msg&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">v-html</span>=<span class="hljs-string">&quot;msg&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;changeEvent&quot;</span>&gt;</span>修改msg<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><span class="javascript"><span class="hljs-keyword">let</span> ops = &#123;</span><span class="javascript">el: <span class="hljs-string">&#x27;#app&#x27;</span>,</span>data: &#123;<span class="javascript">msg: <span class="hljs-string">&#x27;从前从前&#x27;</span>,</span><span class="javascript">username: <span class="hljs-string">&#x27;王亮芳&#x27;</span></span>&#125;,methods: &#123;<span class="javascript">changeEv: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span><span class="javascript"><span class="hljs-built_in">this</span>.msg = <span class="hljs-string">&#x27;有个人爱你很久&#x27;</span></span>&#125;&#125;&#125;<span class="javascript"><span class="hljs-keyword">let</span> app = <span class="hljs-keyword">new</span> Vue(ops)</span><span class="javascript"><span class="hljs-built_in">console</span>.log(app);</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre><h3 id="Vue的原理"><a href="#Vue的原理" class="headerlink" title="Vue的原理"></a>Vue的原理</h3><p>Vue是以数据驱动视图的一个前端框架。数据，就是视图，视图反过来也能驱动数据，这就是大家伙常说的MVVM，先说一下MVC，M是数据模型V是视图，C是控制器，C用来控制视图和数据的交互。MVVM，就是没有C，VV这之间形成了绑定。我没学过别的MVVM框架，Vue就是一个实现了MVVM的前端框架。</p><p>对于数据绑定视图大家不难理解，直接$(“#xx”).val(),这就绑定上了，想要实时绑定输入的内容，在绑定一下input事件。以下代码都用了Jqury，你如果钟爱原生js也可以把用到Jquery的代码换成原生Js。</p><blockquote><p>未完待续。。。。</p></blockquote><p>因为一些事这篇文章先鸽到这里，有时间把剩下的内容补上。</p><h2 id="尾声"><a href="#尾声" class="headerlink" title="尾声"></a>尾声</h2><p>封面原图：<br><img src="https://tvax3.sinaimg.cn/large/005NNTS5ly1glf7ljgywvj32yo1o0x6p.jpg" alt="萨勒芬妮"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>前端</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>vue</tag>
+      
+      <tag>js框架</tag>
+      
+      <tag>vue源码</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Vue基本语法</title>
     <link href="/2020/11/27/vue-study1/"/>
     <url>/2020/11/27/vue-study1/</url>
