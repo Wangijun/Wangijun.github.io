@@ -1,0 +1,780 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="趁年轻早点拼，挽君ing">
+  <meta name="author" content="无👉良芳">
+  <meta name="keywords" content="博客，爱情">
+  <title>Web开发统一数据返回格式 - 挽君博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>挽君博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Web开发统一数据返回格式">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      无👉良芳
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-15 16:52" pubdate>
+        2021年1月15日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      18
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Web开发统一数据返回格式</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：3 天前
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>碎碎念</p>
+</blockquote>
+<p>想到初中数学老师说的一些话，当时老师训我，简单的题你不想写，难的你又你不会，最后你啥也没有，写博客亦是如此，一些基础的我不想写，但是难的东西我自己都弄不明白我怎么写嘞，最后可能就是啥也没有。所以转变思路，与其想着写一些高大上的技术博客，还不如把博客当成一个记录自己的一些见解的地方，自己的灵光一闪，加上日积月累的思路，在经过语言的整合，说不定能碰撞出一些巧妙的思路呢</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="基础版本"><a href="#基础版本" class="headerlink" title="基础版本"></a>基础版本</h3><p>这种大家应该用的比较多，这个泛型大家仁者见仁智者见智，你也可以不用泛型，直接用Object来玩。从结果看都一样。用泛型代码提示会友好一点。建议整个泛型，当然你要是觉得麻烦，你不应该觉得麻烦，如果觉得麻烦就应该直接全员Map了。</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ResultBean</span>&lt;<span class="hljs-title">T</span>&gt; </span>&#123;
+	<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">long</span> serialVersionUID = <span class="hljs-number">1L</span>;
+
+    <span class="hljs-comment">// 状态码</span>
+    <span class="hljs-keyword">private</span> Integer code;
+    
+    <span class="hljs-comment">// 返回消息</span>
+    <span class="hljs-keyword">private</span> String msg;
+
+    <span class="hljs-comment">// 数据实体</span>
+    <span class="hljs-keyword">private</span> T data;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ResultBean</span><span class="hljs-params">()</span> </span>&#123;
+
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ResultBean</span><span class="hljs-params">(Integer code, String msg)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.code = code;
+        <span class="hljs-keyword">this</span>.msg = msg;
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ResultBean</span><span class="hljs-params">(Integer code, String msg, T data)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.code = code;
+        <span class="hljs-keyword">this</span>.msg = msg;
+        <span class="hljs-keyword">this</span>.data = data;
+    &#125;
+    <span class="hljs-comment">// 省略getset方法</span>
+&#125;</code></pre>
+
+
+<p>上面这个版本，优点就是实现简单，但和我们要求的返回格式统一还是有点距离，魔法值太多，可以有千奇百怪的状态码，这远远达不到我们要求达到的统一返回格式。而且用起来也不方便，比如需要一个成功的返回数据，都是一样的，我们依然要写很多代码。懒是推动技术发展的第一动力啊。</p>
+<h3 id="进阶版本"><a href="#进阶版本" class="headerlink" title="进阶版本"></a>进阶版本</h3><pre><code class="hljs java"><span class="hljs-comment">// 进阶版本</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ResultBean2</span>&lt;<span class="hljs-title">T</span>&gt; </span>&#123;
+	<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">long</span> serialVersionUID = <span class="hljs-number">1L</span>;
+    <span class="hljs-comment">// 状态码</span>
+    <span class="hljs-keyword">private</span> Integer code;
+
+    <span class="hljs-comment">// 返回消息</span>
+    <span class="hljs-keyword">private</span> String msg;
+
+    <span class="hljs-comment">// 数据实体</span>
+    <span class="hljs-keyword">private</span> T data;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">getCode</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">return</span> code;
+    &#125;
+
+    <span class="hljs-comment">// 注释写多了烦，淦。直接看吧</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ResultBean2</span><span class="hljs-params">()</span> </span>&#123;&#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ResultBean2</span><span class="hljs-params">(Integer code, String msg)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.code = code;
+        <span class="hljs-keyword">this</span>.msg = msg;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ResultBean2</span><span class="hljs-params">(Integer code, String msg, T data)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.code = code;
+        <span class="hljs-keyword">this</span>.msg = msg;
+        <span class="hljs-keyword">this</span>.data = data;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ResultBean2</span><span class="hljs-params">(ResultCode resultCode)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.code = resultCode.getCode();
+        <span class="hljs-keyword">this</span>.msg = resultCode.getMessage();
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ResultBean2</span><span class="hljs-params">(ResultCode resultCode, T data)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.code = resultCode.getCode();
+        <span class="hljs-keyword">this</span>.msg = resultCode.getMessage();
+        <span class="hljs-keyword">this</span>.data = data;
+    &#125;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> ResultBean2&lt;?&gt; successfully() &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ResultBean2&lt;&gt;(ResultCode.SUCCESS);
+    &#125;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> ResultBean2&lt;?&gt; failed() &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ResultBean2&lt;&gt;(ResultCode.FAILURE);
+    &#125;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> ResultBean2&lt;?&gt; error() &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ResultBean2&lt;&gt;(ResultCode.ERROR);
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 成功时可以带入数据</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> data</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> ResultBean2&lt;?&gt; successfully(Object data) &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ResultBean2&lt;&gt;(ResultCode.SUCCESS,data);
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 一般不建议手动填写状态码喔，</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setCode</span><span class="hljs-params">(Integer code)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.code = code;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getMsg</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">return</span> msg;
+    &#125;
+
+	<span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 这里是一处细节</span>
+<span class="hljs-comment">     * 方便链式调用</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-keyword">public</span> ResultBean2&lt;?&gt; setMsg(String msg) &#123;
+        <span class="hljs-keyword">this</span>.msg = msg;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> T <span class="hljs-title">getData</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">return</span> data;
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 这里是一处细节</span>
+<span class="hljs-comment">     * 方便链式调用</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-keyword">public</span> ResultBean2&lt;?&gt; setData(T data) &#123;
+        <span class="hljs-keyword">this</span>.data = data;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+    &#125;
+&#125;
+
+<span class="hljs-comment">/*</span>
+<span class="hljs-comment"> * 这里我们定义一个枚举类，也可以用一个普通的类。看个人喜好。 </span>
+<span class="hljs-comment"> * 定义一些状态码</span>
+<span class="hljs-comment"> */</span>
+
+<span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">ResultCode</span> </span>&#123;
+    SUCCESS(<span class="hljs-number">200</span>, <span class="hljs-string">&quot;成功&quot;</span>), FAILURE(<span class="hljs-number">400</span>, <span class="hljs-string">&quot;失败&quot;</span>), ERROR(<span class="hljs-number">500</span>, <span class="hljs-string">&quot;错误&quot;</span>);
+
+    <span class="hljs-keyword">private</span> Integer code;
+    <span class="hljs-keyword">private</span> String message;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">ResultCode</span><span class="hljs-params">(Integer code, String message)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.code = code;
+        <span class="hljs-keyword">this</span>.message = message;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">getCode</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">return</span> code;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getMessage</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">return</span> message;
+    &#125;
+&#125;</code></pre>
+
+<p>这个就解决了第一个基础版本的多个痛点，比如一些简单的状态，你可以直接调用静态方法，但是规范和自由从来都不可能两者兼顾，大家可以自己看着来</p>
+<h3 id="另辟奇径版"><a href="#另辟奇径版" class="headerlink" title="另辟奇径版"></a>另辟奇径版</h3><blockquote>
+<p>这个版本我也是看了一个开源项目这样干的，当时就感觉有点东西，但是咋说呢。看代码吧</p>
+</blockquote>
+<pre><code class="hljs java">
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ResultMap</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">HashMap</span>&lt;<span class="hljs-title">String</span>, <span class="hljs-title">Object</span>&gt; </span>&#123;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     *</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">long</span> serialVersionUID = <span class="hljs-number">1L</span>;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 状态码</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String CODE = <span class="hljs-string">&quot;code&quot;</span>;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 返回消息</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String MSG = <span class="hljs-string">&quot;msg&quot;</span>;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 数据</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String DATA = <span class="hljs-string">&quot;data&quot;</span>;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 总数,一些前台需要表格数据用的</span>
+<span class="hljs-comment">     */</span>
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String COUNT = <span class="hljs-string">&quot;count&quot;</span>;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 可以写很多，这种写法就是自由度高 配合状态码枚举，自由度高的同时也不忘优雅。应该是一个比较中和的方法</span>
+<span class="hljs-comment">     * 劣势就是数据类型被模糊化了，但是传到前台JS中并不需要Java的数据类型啊。 越说越感觉这种方式好用。（我仅仅是感觉啊，实际中我第二种用的比较多，大家自己看着）</span>
+<span class="hljs-comment">     * </span>
+<span class="hljs-comment">     */</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> ResultMap <span class="hljs-title">getResultMap</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ResultMap();
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ResultMap</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">super</span>();
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ResultMap</span><span class="hljs-params">(Integer code, String msg)</span> </span>&#123;
+        getResultMap().put(ResultMap.CODE, code).put(ResultMap.MSG, msg);
+    &#125;
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ResultMap</span><span class="hljs-params">(Integer code, String msg,Object data)</span> </span>&#123;
+        getResultMap().put(ResultMap.CODE, code).put(ResultMap.MSG, msg).put(ResultMap.DATA, data);
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 剩下的感觉都一样了，一个状态枚举，以及一些静态方法。我就不写了，这种方式我也不好判断，就是路子很野的感觉。😂😂😂</span>
+<span class="hljs-comment">     */</span>
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 重写一下方便链式赋值。</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> ResultMap <span class="hljs-title">put</span><span class="hljs-params">(String key, Object value)</span> </span>&#123;
+        <span class="hljs-keyword">super</span>.put(key, value);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+    &#125;
+
+&#125;
+</code></pre>
+
+<p>好了，常见的就这几种咯，以后前后台传数据不用在用map了呦。😁😁😁😁</p>
+<p>表情还挺好玩的😁😂😊🤣❤😍😒👌😘💕👍🙌🤦‍♀️🤦‍♂️🤷‍♀️🤷‍♂️✌🤞😉😎🎶😢💖😜👏💋🌹🎉🎂🤳🐱‍👤🐱‍🏍🐱‍💻🐱‍🐉🐱‍👓🐱‍🚀✔👀😃✨😆🤔🤢🤢🎁👧👦🧒👧🧑👨🧓🧓👩‍🦰👨‍🦰👱‍♀️👱‍♀️👨‍🦳👸🤴👮‍♂️👮‍♂️🥩🥙🥞🧇🥖🍖🍜🥡🌯</p>
+<h2 id="封面原图"><a href="#封面原图" class="headerlink" title="封面原图"></a>封面原图</h2><blockquote>
+<p>郭德纲的一些话</p>
+</blockquote>
+<p>店里的招牌是红烧肉，而你是一盘花生米，大家都来店里吃饭，点了红烧肉，也点了花生米，你要认清自己。要搞清楚，人们始终是奔着红烧肉来的，而不是花生米，你有自己的价值，但撑不起一桌菜。</p>
+<p><img src="https://tvax4.sinaimg.cn/large/005NNTS5ly1gmohefelqoj33y8280u0z.jpg" srcset="/img/loading.gif" alt="天空 太阳 树 鸟儿"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/WEB%E5%BC%80%E5%8F%91/">WEB开发</a>
+                    
+                      <a class="hover-with-bg" href="/tags/JAVA/">JAVA</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92/">数据交互</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/01/13/think2/">
+                        <span class="hidden-mobile">碎碎念2</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'Wangijun/utterances');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <a href="http://beian.miit.gov.cn/" target="_blank"
+       rel="nofollow noopener">皖ICP备20012572号</a>
+    
+      
+        <a
+          href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=34042202000089"
+          rel="nofollow noopener"
+          class="beian-police"
+          target="_blank"
+        >
+          
+            <span style="visibility: hidden; width: 0">|</span>
+            <img src="/img/police_beian.png" srcset="/img/loading.gif" alt="police-icon"/>
+          
+          <span>京公网安备34042202000089号</span>
+        </a>
+      
+    
+  </div>
+
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
