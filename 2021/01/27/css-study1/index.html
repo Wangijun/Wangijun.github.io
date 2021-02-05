@@ -19,7 +19,7 @@
   <meta name="description" content="趁年轻早点拼，挽君ing">
   <meta name="author" content="无👉良芳">
   <meta name="keywords" content="博客，爱情">
-  <title>用Python读写Excel文件。 - 挽君博客</title>
+  <title>CSS之布局 - 挽君博客</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
 
@@ -164,7 +164,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="用Python读写Excel文件。">
+            <span class="h2" id="subtitle" title="CSS之布局">
               
             </span>
 
@@ -179,8 +179,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-01-26 15:17" pubdate>
-        2021年1月26日 下午
+      <time datetime="2021-01-27 15:10" pubdate>
+        2021年1月27日 下午
       </time>
     </span>
   
@@ -191,7 +191,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      890 字
+      834 字
     </span>
   
 
@@ -201,7 +201,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      10
+      8
        分钟
     </span>
   
@@ -239,98 +239,42 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">用Python读写Excel文件。</h1>
+            <h1 style="display: none">CSS之布局</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：10 天前
+                  本文最后更新于：4 分钟前
                 
               </p>
             
             <div class="markdown-body">
-              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>一次偶然的机会，工作中需要处理七百多个excel文件，当时可怜加心疼我们的运维。</p>
-<p>想了想自己貌似在哪里看过python的广告，她男朋友会Python，用几行代码批量处理了几百个excel，然后提前下班。约会逛街吃饭。而你不会Python，还没男朋友，只能苦逼加班。</p>
-<p>现在这世道啥都内卷，男朋友都内卷，淦。于是，我这么乐于助人的小朋友便百度了一下Python处理Excel，然后随便拷了点代码居然跑起来了。这语言没有什么难度。处理Excel，你问我Java能做么，我回答说能，那你为什么不用Java呢，更何况你本身就是主学Java，我回答因为python确实太简单，而且够用。</p>
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="安装Python环境"><a href="#安装Python环境" class="headerlink" title="安装Python环境"></a>安装Python环境</h3><p>首先你需要有Python的环境，不知道怎么装没关系，win10的系统直接打开cmd命令行，然后输入<code>python</code>，回车，应该会跳转到应用商店，傻瓜式点安装就行了.</p>
-<p>好的，如何判断自己是否安装了Python环境呢，还是cmd命令行，如果不晓得什么是命令行，那建议找个男朋友。输入<code>python</code>,回车出现这样。如果是这样的</p>
-<p><img src="https://tva3.sinaimg.cn/large/005NNTS5ly1gn14x8kf4yj31480aa3z9.jpg" srcset="/img/loading.gif" alt="python"></p>
-<p>那么好的，这样说明已经成功安装python了，天才也有穿纸尿裤的时候，别慌。</p>
-<h3 id="安装我们需要的库"><a href="#安装我们需要的库" class="headerlink" title="安装我们需要的库"></a>安装我们需要的库</h3><p>什么是库啊，怎么安装啊，没关系，不用操心这个。还是命令行，</p>
-<p><code>pip install xlrd</code></p>
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>布局是让你搭架子，然后一点一点实现里面的细节，关键我不会搭架子啊，大部分时候我写页面，都是准备一套现成的，虽说够用，但是还是想学学布局。<br>前阵子看了看安卓，妈的，安卓布局好舒服啊，会拖组件出来就能布局，回看HTML，淦。好好学，好好看。</p>
 <blockquote>
-<p>这个是安装读取Excel的库 ，这个貌似只支持xsl格式</p>
+<p>加油嗷，哪有什么天才，我只不过把摸鱼的时间用来写博客了。</p>
 </blockquote>
-<p><code>pip install xlwt</code></p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>CSS从来都不简单喔，大家别想的太简单了。现在最简单的可能是HTML了，JS是编程语言嘛，不是很难。CSS的动画，以及布局，感觉是很难的。深造了一段时间，<br>好吧，前端最难的JS我都会，CSS这种会看就能会啊。哈哈哈，鸽鸽</p>
+<h3 id="盒子模型介绍"><a href="#盒子模型介绍" class="headerlink" title="盒子模型介绍"></a>盒子模型介绍</h3><p>CSS盒子模型就是在网页设计中经常用到的CSS技术所使用的一种思维模型，从里到外，每个盒子都有：内容、填充<code>padding</code>、背景<code>background</code>、边框<code>border</code>[圆角<code>border-radius</code>]、边界<code>margin</code>[阴影<code>shadow</code>]等属性；同时也可以定义盒子的透明度<code>opacity</code>。</p>
+<p>这些属性我们可以把它转移到我们日常生活中的盒子（箱子）上来理解，日常生活中所见的盒子也就是能装东西的一种箱子，也具有这些属性，所以叫它盒子模式。</p>
+<p>每个HTML标记都可看作一个盒子，如最常用的div标签，一个div即为一个盒子，适用于盒子模型：</p>
+<ul>
+<li>每个盒子模型包含：内容、填充.padding、背景.bg、边框.border[圆角.radius]、边界.margin[阴影.shadow]、透明度.opacity八个属性；</li>
+<li>每个属性都包括四个位置：上top、右right、下bottom、左left；这四个位置可同时设置，也可分别设置；</li>
+<li>每个位置都可定义尺寸：微小mini、小small、大big、特大large和默认的五个大小尺寸等级。</li>
+</ul>
+<p>举个箱子例子，最里面是存放物品的空间由泡沫(填充)保护着、箱子有颜色(背景)、然后箱子(边框)、最后是箱子离你的距离(边界)以及盒子的阴影，这就是一个完整的盒子模型。</p>
+<p><img src="https://tva2.sinaimg.cn/large/005NNTS5ly1gnd1wbnev2j31cc0uc40x.jpg" srcset="/img/loading.gif" alt="图示"></p>
+<p>大致了解盒子模型，就可以定义HTML元素的内容、填充、背景、边框[圆角]、边界[阴影]、透明度等相关位置、大小、样式等属性了</p>
+<p>平时用的最多的应该是内边距<code>margin</code>,<code>padding</code>和这个属性，千万不要有什么2021年了，还用盒模型布局，简单粗暴，能实现自己想要看的内容就行了，管你用什么布局模式。</p>
+<h3 id="好吧我承认"><a href="#好吧我承认" class="headerlink" title="好吧我承认"></a>好吧我承认</h3><p>这是一篇水文，额，布局我也不是很懂，而且高深的弹性布局我只能说了解一点点，关键平时都是盒模型布局，布局模式也没有什么优劣之分，能达到你想要的效果就行了。</p>
 <blockquote>
-<p> 这个是安装写Excel的库</p>
+<p>水了水了，下次不能随便随便新建MD文件，不然又要鸽了</p>
 </blockquote>
-<h3 id="所需工具"><a href="#所需工具" class="headerlink" title="所需工具"></a>所需工具</h3><p>下载个VsCode，百度搜索VsCode，进入主页下载安装即可。这个很好用的，在写动态类型的语言时，这个和Idea系列的不分上下，写Python更简单咯。</p>
+<h2 id="尾声"><a href="#尾声" class="headerlink" title="尾声"></a>尾声</h2><p>你不能一边伤害这喜欢你的人，另一边又肆无忌惮的爱着你喜欢的人，不是希望你别这样，是你不能这样。</p>
 <blockquote>
-<p>一站式解决，微软出品必属精品</p>
+<p>网抑云语录</p>
 </blockquote>
-<h3 id="上面都是废话上代码"><a href="#上面都是废话上代码" class="headerlink" title="上面都是废话上代码"></a>上面都是废话上代码</h3><pre><code class="hljs python"><span class="hljs-keyword">import</span> os
-<span class="hljs-keyword">import</span> xlrd
-<span class="hljs-keyword">import</span> xlwt  <span class="hljs-comment"># 不支持excel2007的xlsx格式</span>
-
-
-<span class="hljs-comment"># 这里填你自己的路径</span>
-dirname = <span class="hljs-string">r&#x27;D:\File\Mixed\用户文件夹\桌面\mz报表\合肥市直主副卡记录(1)\合肥市直主副卡记录&#x27;</span>
-filename = <span class="hljs-string">&quot;.xls&quot;</span>
-
-result = []
-<span class="hljs-comment"># 这个方法是搜寻上面目录下的所有Excel文件</span>
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">search</span>(<span class="hljs-params">dirname=dirname, filename=<span class="hljs-string">&quot;&quot;</span></span>):</span>
-    <span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> os.listdir(dirname):
-        item_path = os.path.join(dirname, item)
-        <span class="hljs-keyword">if</span> os.path.isdir(item_path):
-            <span class="hljs-comment"># 这里用了递归，</span>
-            search(item_path, filename)
-        <span class="hljs-keyword">elif</span> os.path.isfile(item_path):
-            <span class="hljs-keyword">if</span> filename <span class="hljs-keyword">in</span> item:
-                <span class="hljs-keyword">global</span> result
-                <span class="hljs-comment"># 很简单吧，不需要解释了，好累你直接拷下来就行了</span>
-                result.append(item_path)
-
-<span class="hljs-comment"># 主方法，py文件就是从这里执行的</span>
-<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:
-    <span class="hljs-comment"># 调用方法</span>
-    search(dirname, filename)
-    <span class="hljs-comment"># 创建写Excel文件的对象</span>
-    workbook = xlwt.Workbook()
-    <span class="hljs-comment"># 创建sheet</span>
-    worksheet = workbook.add_sheet(<span class="hljs-string">&#x27;test&#x27;</span>)
-    a = <span class="hljs-number">0</span>
-    <span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> result:
-        <span class="hljs-comment"># print(item)</span>
-        <span class="hljs-comment"># 获取数据</span>
-        book = xlrd.open_workbook(item)
-        sheet = book.sheet_by_index(<span class="hljs-number">0</span>)
-        <span class="hljs-comment"># 获取值</span>
-        value = sheet.col_values(colx=<span class="hljs-number">0</span>)
-        <span class="hljs-comment"># 获取值</span>
-        value1 = sheet.row_values(rowx=<span class="hljs-number">2</span>);
-        <span class="hljs-comment"># 读取客户编码</span>
-        
-        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(value)):
-            <span class="hljs-comment"># print(i)</span>
-            a = a + <span class="hljs-number">1</span>
-            print(value[i])
-            <span class="hljs-comment"># 写入</span>
-            worksheet.write(a,<span class="hljs-number">0</span>,value[i])
-            temp = item.replace(<span class="hljs-string">&#x27;D:\File\Mixed\用户文件夹\桌面\mz报表\合肥市直主副卡记录(1)\合肥市直主副卡记录\\&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>)
-            <span class="hljs-comment"># 写入</span>
-            worksheet.write(a,<span class="hljs-number">1</span>,value1)
-            <span class="hljs-comment"># 写入</span>
-            worksheet.write(a,<span class="hljs-number">2</span>,temp)
-    <span class="hljs-comment"># 保存文件</span>
-    workbook.save(<span class="hljs-string">r&#x27;D:\File\Mixed\用户文件夹\桌面\mz报表\excelwrite1.xls&#x27;</span>)</code></pre>
-
-<blockquote>
-<p>就是上面的代码咯，有编程基础的不难理解，看看就懂了。</p>
-</blockquote>
-<h3 id="网抑云"><a href="#网抑云" class="headerlink" title="网抑云"></a>网抑云</h3><p>回想起那些年的执着，到真像是一场笑话。</p>
-<h2 id="尾声"><a href="#尾声" class="headerlink" title="尾声"></a>尾声</h2><p>封面原图： </p>
-<p><img src="https://tvax2.sinaimg.cn/large/005NNTS5ly1gn149uvxaaj32yo1o0u0x.jpg" srcset="/img/loading.gif" alt="动漫女孩 黑发 露肩"></p>
+<p>封面原图</p>
+<p><img src="https://tva2.sinaimg.cn/large/005NNTS5ly1gn29xi0hq6j328f1cknpe.jpg" srcset="/img/loading.gif" alt="鬼刀"></p>
 
             </div>
             <hr>
@@ -340,7 +284,7 @@ result = []
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
                     
                   </div>
                 
@@ -348,9 +292,9 @@ result = []
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/python/">python</a>
+                      <a class="hover-with-bg" href="/tags/css/">css</a>
                     
-                      <a class="hover-with-bg" href="/tags/excel/">excel</a>
+                      <a class="hover-with-bg" href="/tags/%E5%B8%83%E5%B1%80/">布局</a>
                     
                   </div>
                 
@@ -363,18 +307,12 @@ result = []
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/01/26/think4/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">晚闻（晚上下班路上的一些见闻）</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/01/19/think3/">
-                        <span class="hidden-mobile">郭德纲写给儿子郭麒麟的信</span>
+                      <a href="/2021/01/26/think4/">
+                        <span class="hidden-mobile">晚闻（晚上下班路上的一些见闻）</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

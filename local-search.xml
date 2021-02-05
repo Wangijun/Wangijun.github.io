@@ -4,6 +4,62 @@
   
   
   <entry>
+    <title>CSS之布局</title>
+    <link href="/2021/01/27/css-study1/"/>
+    <url>/2021/01/27/css-study1/</url>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>布局是让你搭架子，然后一点一点实现里面的细节，关键我不会搭架子啊，大部分时候我写页面，都是准备一套现成的，虽说够用，但是还是想学学布局。<br>前阵子看了看安卓，妈的，安卓布局好舒服啊，会拖组件出来就能布局，回看HTML，淦。好好学，好好看。</p><blockquote><p>加油嗷，哪有什么天才，我只不过把摸鱼的时间用来写博客了。</p></blockquote><h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>CSS从来都不简单喔，大家别想的太简单了。现在最简单的可能是HTML了，JS是编程语言嘛，不是很难。CSS的动画，以及布局，感觉是很难的。深造了一段时间，<br>好吧，前端最难的JS我都会，CSS这种会看就能会啊。哈哈哈，鸽鸽</p><h3 id="盒子模型介绍"><a href="#盒子模型介绍" class="headerlink" title="盒子模型介绍"></a>盒子模型介绍</h3><p>CSS盒子模型就是在网页设计中经常用到的CSS技术所使用的一种思维模型，从里到外，每个盒子都有：内容、填充<code>padding</code>、背景<code>background</code>、边框<code>border</code>[圆角<code>border-radius</code>]、边界<code>margin</code>[阴影<code>shadow</code>]等属性；同时也可以定义盒子的透明度<code>opacity</code>。</p><p>这些属性我们可以把它转移到我们日常生活中的盒子（箱子）上来理解，日常生活中所见的盒子也就是能装东西的一种箱子，也具有这些属性，所以叫它盒子模式。</p><p>每个HTML标记都可看作一个盒子，如最常用的div标签，一个div即为一个盒子，适用于盒子模型：</p><ul><li>每个盒子模型包含：内容、填充.padding、背景.bg、边框.border[圆角.radius]、边界.margin[阴影.shadow]、透明度.opacity八个属性；</li><li>每个属性都包括四个位置：上top、右right、下bottom、左left；这四个位置可同时设置，也可分别设置；</li><li>每个位置都可定义尺寸：微小mini、小small、大big、特大large和默认的五个大小尺寸等级。</li></ul><p>举个箱子例子，最里面是存放物品的空间由泡沫(填充)保护着、箱子有颜色(背景)、然后箱子(边框)、最后是箱子离你的距离(边界)以及盒子的阴影，这就是一个完整的盒子模型。</p><p><img src="https://tva2.sinaimg.cn/large/005NNTS5ly1gnd1wbnev2j31cc0uc40x.jpg" alt="图示"></p><p>大致了解盒子模型，就可以定义HTML元素的内容、填充、背景、边框[圆角]、边界[阴影]、透明度等相关位置、大小、样式等属性了</p><p>平时用的最多的应该是内边距<code>margin</code>,<code>padding</code>和这个属性，千万不要有什么2021年了，还用盒模型布局，简单粗暴，能实现自己想要看的内容就行了，管你用什么布局模式。</p><h3 id="好吧我承认"><a href="#好吧我承认" class="headerlink" title="好吧我承认"></a>好吧我承认</h3><p>这是一篇水文，额，布局我也不是很懂，而且高深的弹性布局我只能说了解一点点，关键平时都是盒模型布局，布局模式也没有什么优劣之分，能达到你想要的效果就行了。</p><blockquote><p>水了水了，下次不能随便随便新建MD文件，不然又要鸽了</p></blockquote><h2 id="尾声"><a href="#尾声" class="headerlink" title="尾声"></a>尾声</h2><p>你不能一边伤害这喜欢你的人，另一边又肆无忌惮的爱着你喜欢的人，不是希望你别这样，是你不能这样。</p><blockquote><p>网抑云语录</p></blockquote><p>封面原图</p><p><img src="https://tva2.sinaimg.cn/large/005NNTS5ly1gn29xi0hq6j328f1cknpe.jpg" alt="鬼刀"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>前端</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>css</tag>
+      
+      <tag>布局</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>晚闻（晚上下班路上的一些见闻）</title>
+    <link href="/2021/01/26/think4/"/>
+    <url>/2021/01/26/think4/</url>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>拿得起，放得下，不是一件简单的事。</p><h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>晚上下班，下了公交车，悠哉游哉的走在路上，突然冒出来一只流浪狗，一开始没注意，大街上流浪狗很多，我只是一个路人而已，不经意撇了一眼，是一只我也不太会形容，个子不高，四肢短小，因为流浪的缘故，还是夜色笼罩的缘故，我看着是只灰溜溜的小狗，不过眼睛很亮，不知道为什么，我就跟了它一阵子，想试试能不能把它带走，下了班也没有什么事，我便跟着它走了一段时间，小狗的戒心比较重，根本不让我靠近，这也是它存活到现在的原因吧，我不是一个很有耐心的人，跟着的时候，我心里知道，我可以采取强硬的方式，我也知道我不会害它，我没有别的行动，我唯一做的就是跟在后面尝试如果它回过头来我就蹲下，看看它会不会过来，最后的最后它没有过来，我也转身就走了，我对自己说，这就是没有缘分啊，不仅人与人，人与狗也是。我可以从店里买两块骨头，也许会增加它过来的几率，可我不想，这种事还是相信缘分吧，买骨头这种行为只是在骗自己。这也不是坏事，我就一打工人，就算它跟我走了，我可以让它“锦衣玉食”，“干干净净”一段时间，我没有汽车，我没有办法带它上高铁，带它回老家。在过年回家这一铁律下，它被我抛弃的可能性很高。那时候才是真正的好心办了坏事，它本来就是流浪的，原本就是，一直如此就挺好。因为你的一点“善意”。你打破它平静的生活，故事的最后，你还表现出一幅我已经尽力的表情。很无耻。</p><p>全世界都在催你长大，只要迪士尼为你保留着童年。</p><blockquote><p>冰雪奇缘–</p></blockquote><p><img src="https://tvax3.sinaimg.cn/large/005NNTS5ly1gn29an6abhj356o2667wl.jpg" alt="冰雪奇缘2"></p><blockquote><p>安娜，艾萨，克里斯托夫。</p></blockquote><h2 id="尾声"><a href="#尾声" class="headerlink" title="尾声"></a>尾声</h2><p>封面原图</p><p><img src="https://tva1.sinaimg.cn/large/005NNTS5ly1gn1ef16raej32yo1o0nkx.jpg" alt="牛年2021新年快乐"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>随想篇</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>碎碎念</tag>
+      
+      <tag>网抑云</tag>
+      
+      <tag>一些想法</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>用Python读写Excel文件。</title>
     <link href="/2021/01/26/python-thinks/"/>
     <url>/2021/01/26/python-thinks/</url>
@@ -159,11 +215,11 @@
     
     <tags>
       
-      <tag>vue源码</tag>
-      
       <tag>vue</tag>
       
       <tag>js框架</tag>
+      
+      <tag>vue源码</tag>
       
     </tags>
     

@@ -173,13 +173,25 @@
                 
 
 <div class="list-group">
-  <p class="h4">共计 9 篇文章</p>
+  <p class="h4">共计 11 篇文章</p>
   <hr>
   
   
     
       
       <p class="h5">2021</p>
+    
+    <a href="/2021/01/27/css-study1/" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">CSS之布局</span>
+      <time style="float: right;">01-27</time>
+    </a>
+  
+    
+    <a href="/2021/01/26/think4/" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">晚闻（晚上下班路上的一些见闻）</span>
+      <time style="float: right;">01-26</time>
+    </a>
+  
     
     <a href="/2021/01/26/python-thinks/" class="list-group-item list-group-item-action">
       <span class="archive-post-title">用Python读写Excel文件。</span>
@@ -231,14 +243,20 @@
       <time style="float: right;">11-26</time>
     </a>
   
-    
-    <a href="/2020/11/26/java-stream/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">关于Java集合的流操作，整理一下加深印象。</span>
-      <time style="float: right;">11-26</time>
-    </a>
-  
 </div>
 
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
 
 
 
