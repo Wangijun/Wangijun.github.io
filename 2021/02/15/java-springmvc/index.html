@@ -1,0 +1,728 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="趁年轻早点拼，挽君ing">
+  <meta name="author" content="无👉良芳">
+  <meta name="keywords" content="博客，爱情">
+  <title>SpringMVC与Jquery使用的一些方方面面， - 挽君博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>挽君博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="SpringMVC与Jquery使用的一些方方面面，">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      无👉良芳
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-02-15 21:18" pubdate>
+        2021年2月15日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      25
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">SpringMVC与Jquery使用的一些方方面面，</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：4 天前
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>说起前后台交互，同步，异步，Ajax一套一套的，自己一操作就错，可谓是人间真实。于是乎写个博客记录一下，加深印象。目前前后端分离是主流，JavaScript的日益繁荣，一些后端模板引擎其实没多大用处，就算前后端不分离，我们依然可以用全异步进行交互，后台只用来拦截路由以及输出页面，页面中的数据可以全部通过Ajax来获取。这种方式是主流的，JS的性能以及语法在处理页面中不输后端语言了。至于前后端完全分离，也不是不行，看项目，看钱呗只要你JS玩的六，前后端分不分离，不重要，你可以做到视图和数据分离。归功与Ajax十分好用，也归功于js引擎性能的提升（除了IE6,7）这种非人使用的浏览器。</p>
+<h2 id="碎碎念"><a href="#碎碎念" class="headerlink" title="碎碎念"></a>碎碎念</h2><p>先从前台说起吧，前台发送Ajax请求，这里就使用Jquery封装的Ajax来操作。</p>
+<p>首先，我们知道，前后台数据交互的数据格式。常用的只有三种，表单数据，JSON数据，文件数据。SpringMVC接收这三种数据的方式也是不同的，说起不同，其实也就是方法形参不同，亦或加一个注解的事。</p>
+<h2 id="使用Jquery封装的Ajax发送数据"><a href="#使用Jquery封装的Ajax发送数据" class="headerlink" title="使用Jquery封装的Ajax发送数据"></a>使用Jquery封装的Ajax发送数据</h2><p>不是百分百原创，我也不盈利，我也是看了好多博客一点一点（博客鬼裁）总结出来的，有些内容我是凭印象写的，但大部分我是实践过的，网上资源多是多，但难找啊，好不容易找到了，又是一些很旧的的版本的了，我是学习的，框架，依赖，我下意识的用的都是最新的，就算不是最新的，也会是非常稳定的。</p>
+<blockquote>
+<p>baba完了，进入正文。</p>
+</blockquote>
+<h3 id="ajax"><a href="#ajax" class="headerlink" title="$.ajax()"></a>$.ajax()</h3><p>该方法用于执行Ajax请求，常用于其他jQuery Ajax方法不能完成的请求，也许我们可以把它称为”jQuery中Ajax系列方法之母”。</p>
+<p>形式：<code>$.ajax(&#123;name:val, name:val,...&#125;)</code>;</p>
+<p>可选字段：</p>
+<ul>
+<li>url：链接地址，字符串表示</li>
+<li>data：需发送到服务器的数据，<code>GET</code>，<code>POST</code>，<code>put</code>,<code>delete</code>都可以，格式为{A: ‘…’, B: ‘…’}，在contentType为”application/json”时data必须要为JSON数据，这时我们要使用JSON.stringify({A: ‘…’,B: ‘…’})来把普通对象转为JSON格式的数据。</li>
+<li>type：”<code>POST</code>“，”<code>GET</code>“，”<code>PUT</code>“,”<code>DELETE</code>“,请求类型不分大小写</li>
+<li>timeout: 请求超时时间，单位为毫秒，数值表示</li>
+<li>cache：是否缓存请求结果，bool表示</li>
+<li>contentType：内容类型，默认为”application/x-www-form-urlencoded”，需要发送JSON数据时则为”application/json”, 在发送文件数据时，要设为false布尔类型，无需设置请求头</li>
+<li>processData: 是否将将数据序列化，除了在发送文件时需要设为false，其他情况不需要设置此属性。</li>
+<li>dataType：服务器响应的数据类型，字符串表示；当填写为json时，回调函数中无需再对数据反序列化为json,除特殊情况，一般无需设置。</li>
+<li>success：请求成功后，服务器回调的函数，</li>
+<li>error：请求失败后，服务器回调的函数</li>
+<li>complete：请求完成后调用的函数，无论请求是成功还是失败，都会调用该函数；如果设置了success与error函数，则该函数在它们之后被调用</li>
+<li>async：是否异步处理，bool表示，默认为<code>true</code>；设置该值为<code>false</code>后，JS不会向下执行，而是原地等待服务器返回数据，并完成相应的回调函数后，再向下执行</li>
+</ul>
+<p>举个栗子：</p>
+<pre><code class="hljs javascript">$.ajax(&#123;
+    url: <span class="hljs-string">&quot;/greet&quot;</span>,
+    data: <span class="hljs-built_in">JSON</span>.stringify(&#123;<span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;jenny&#x27;</span>&#125;),
+    type: <span class="hljs-string">&quot;POST&quot;</span>,
+	contentType: <span class="hljs-string">&#x27;application/json&#x27;</span>
+    success: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>&#123;
+        <span class="hljs-comment">// data就是mvc回传给前台的数据。是个JS对象。</span>
+    &#125;
+&#125;);</code></pre>
+
+<h3 id="post"><a href="#post" class="headerlink" title="$.post()"></a>$.post()</h3><p>该方法使用POST方式执行Ajax请求，从服务器加载数据。</p>
+<p>形式：<code>$.post(url, data, func, dataType)</code>;<br>可选参数：</p>
+<ul>
+<li>url：链接地址，字符串表示</li>
+<li>data：需要发送到服务器的数据，格式为{<code>A: &#39;...&#39;, B: &#39;...&#39;&#125;</code></li>
+<li>func：请求成功后，服务器回调的函数；<code>function(data, status, xhr)</code>，其中data为服务器回传的数据，status为响应状态，xhr为XMLHttpRequest对象，个人感觉关注data参数即可</li>
+<li>dataType：服务器返回数据的格式</li>
+</ul>
+<p>举个栗子</p>
+<pre><code class="hljs javascript">$.post(
+    <span class="hljs-string">&quot;/greet&quot;</span>,
+    &#123;<span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Brad&#x27;</span>&#125;,
+    <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>&#123;
+        ...
+    &#125;,
+    <span class="hljs-string">&quot;json&quot;</span>
+);</code></pre>
+
+
+<h3 id="get"><a href="#get" class="headerlink" title="$.get()"></a>$.get()</h3><p>该方法使用GET方式执行Ajax请求，从服务器加载数据。</p>
+<p>形式：<code>$.get(url, data, func, dataType)</code>;<br>其各个参数所示意义与<code>$.post()</code>一致，在此不再列出，唯一区别就是请求类型是GET。</p>
+<p>举个栗子</p>
+<pre><code class="hljs javascript">$.get(
+    <span class="hljs-string">&quot;/greet&quot;</span>,
+    &#123;<span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Brad&#x27;</span>&#125;,
+    <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>&#123;
+        ...
+    &#125;,
+    <span class="hljs-string">&quot;json&quot;</span>
+);</code></pre>
+
+<h3 id="getJSON"><a href="#getJSON" class="headerlink" title="$.getJSON()"></a>$.getJSON()</h3><p>该方法使用GET方式执行Ajax请求，从服务器加载JSON格式数据。</p>
+<p>形式：<code>$.getJSON(url, data, func)</code>;</p>
+<p>因为确定服务器返回json编码的数据，故相较于<code>$.get()</code>不必再指定<code>dataType</code>。</p>
+<p>举个栗子</p>
+<pre><code class="hljs javascript">$.getJSON(
+    <span class="hljs-string">&quot;/greet&quot;</span>,
+    &#123;<span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;jenny&#x27;</span>&#125;,
+    <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>&#123;
+        ...
+    &#125;
+);</code></pre>
+
+<p>上面就是几种常见的，除了文件上传和发送JSON数据时注意一下，其他的不需要过多的配置</p>
+<h2 id="使用SpringMVC接收数据"><a href="#使用SpringMVC接收数据" class="headerlink" title="使用SpringMVC接收数据"></a>使用SpringMVC接收数据</h2><p>为了方便，这里我是用springboot来构建一个服务端，用来演示springMVC接收数据。</p>
+<p>说的再多，不如上代码。代码里面有注释。</p>
+<pre><code class="hljs java"><span class="hljs-meta">@RestController</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestController</span> </span>&#123;
+
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 这是普通的获取url中的数据，</span>
+<span class="hljs-comment">     * 如请求为</span>
+<span class="hljs-comment">     * user/1</span>
+<span class="hljs-comment">     * user/2</span>
+<span class="hljs-comment">     * user/3</span>
+<span class="hljs-comment">     * 等等，都会进入这个方法，方法参数就是user/后面的值。</span>
+<span class="hljs-comment">     * ps这种方法据说性能很差，所以一般不建议这么搞</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@RequestMapping(&quot;/user/&#123;id&#125;&quot;)</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Map&lt;String,Object&gt; <span class="hljs-title">get1</span><span class="hljs-params">(<span class="hljs-meta">@PathVariable</span> String id)</span></span>&#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 这一般用来获取普通的表单数据，这是基本类型</span>
+<span class="hljs-comment">     * 前台发送的Ajax</span>
+<span class="hljs-comment">     * $.ajax(&#123;</span>
+<span class="hljs-comment">     *     url: &quot;/user&quot;,</span>
+<span class="hljs-comment">     *     data: &#123;id: &#x27;231&#125;,</span>
+<span class="hljs-comment">     *     type: &quot;get&quot;,</span>
+<span class="hljs-comment">     *     success: function(data) &#123;</span>
+<span class="hljs-comment">     *         // data就是mvc回传给前台的数据。是个JS对象。</span>
+<span class="hljs-comment">     *     &#125;</span>
+<span class="hljs-comment">     * &#125;);</span>
+<span class="hljs-comment">     *</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@RequestMapping(&quot;/user&quot;)</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Map&lt;String, Object&gt; <span class="hljs-title">get2</span><span class="hljs-params">(String id)</span></span>&#123;
+        <span class="hljs-comment">// 这个id就是获取请求中的id的值</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 上面时基本类型，有时我们需要接收的一个对象类型的数据，也就是引用类型。</span>
+<span class="hljs-comment">     * SpringMVC也很方便</span>
+<span class="hljs-comment">     * $.ajax(&#123;</span>
+<span class="hljs-comment">     *     url: &quot;/user&quot;,</span>
+<span class="hljs-comment">     *     data: &#123;id: &#x27;231&#x27;,name:&#x27;小王&#x27;,age: 23&#125;,</span>
+<span class="hljs-comment">     *     type: &quot;get&quot;,</span>
+<span class="hljs-comment">     *     success: function(data) &#123;</span>
+<span class="hljs-comment">     *         // data就是mvc回传给前台的数据。是个JS对象。</span>
+<span class="hljs-comment">     *     &#125;</span>
+<span class="hljs-comment">     * &#125;);</span>
+<span class="hljs-comment">     * 只要引用类型的属性名和前台传送的键对应上，就能进行封装，这是表单数据。</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@RequestMapping(&quot;/user&quot;)</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Map&lt;String, Object&gt; <span class="hljs-title">get3</span><span class="hljs-params">(User user)</span></span>&#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 如何接收JSON数据，</span>
+<span class="hljs-comment">     * $.ajax(&#123;</span>
+<span class="hljs-comment">     *     url: &quot;/greet&quot;,</span>
+<span class="hljs-comment">     *     data: JSON.stringify(&#123;id: &#x27;231&#x27;,name:&#x27;小王&#x27;,age: 23&#125;),</span>
+<span class="hljs-comment">     *     type: &quot;POST&quot;,</span>
+<span class="hljs-comment">     * 	   contentType: &#x27;application/json&#x27;</span>
+<span class="hljs-comment">     *     success: function(data) &#123;</span>
+<span class="hljs-comment">     *         // data就是mvc回传给前台的数据。是个JS对象。</span>
+<span class="hljs-comment">     *     &#125;</span>
+<span class="hljs-comment">     * &#125;);</span>
+<span class="hljs-comment">     * </span>
+<span class="hljs-comment">     * 这个Ajax发送的就是JSON数据，和上面的data：&#123;&#125;不一样，</span>
+<span class="hljs-comment">     * springMVC接收JSON数据，需要在参数上加一个<span class="hljs-doctag">@RequestBody</span>注解即可，封装逻辑也是属性名对应JSON的键名。</span>
+<span class="hljs-comment">     * 这里我多说两句，建议集合类型，以及复杂的对象，什么叫复杂的对象呢，属性名超过3个以上的JSON对象，在前后台交互时都采用JSON格式。</span>
+<span class="hljs-comment">     * 性能好，还稳定</span>
+<span class="hljs-comment">     * </span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@RequestMapping(&quot;/user&quot;)</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Map&lt;String,Object&gt; <span class="hljs-title">get4</span><span class="hljs-params">(<span class="hljs-meta">@RequestBody</span> User user)</span></span>&#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 文件上传就用这个方法参数接收，文件上传，我在写一篇博客，都不一定说的完。</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@RequestMapping(&quot;/user&quot;)</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Map&lt;String,Object&gt; <span class="hljs-title">get5</span><span class="hljs-params">(MultipartFile multipartFile)</span></span>&#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+    &#125;
+&#125;
+<span class="hljs-comment">// 这里使用了Lombok，害虽说意识中不想使用这东西，但是，咋说呢，香呗，希望JDK早点更新自带这玩意就好了。不过目前来看，只是时间问题而已。</span>
+<span class="hljs-meta">@Data</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span></span>&#123;
+    <span class="hljs-keyword">private</span> Integer id;
+    <span class="hljs-keyword">private</span> String name;
+    <span class="hljs-keyword">private</span> Integer age;
+&#125;</code></pre>
+
+<p>好了，也写完了，风格慢慢形成，废话还是一点一点在变多啊。</p>
+<p>世人皆论你风趣幽默 却未曾见你手捧星辰对我说我们互相拯救。</p>
+<blockquote>
+<p>网抑时刻</p>
+</blockquote>
+<h2 id="封面原图"><a href="#封面原图" class="headerlink" title="封面原图"></a>封面原图</h2><p>想在博客里面整些不一样的，但再想想，没有必要，花里胡哨没啥用，酒好也怕巷子深，我这酒也不咋滴啊，不怕。</p>
+<p><img src="https://tva3.sinaimg.cn/large/005NNTS5ly1gnojfclesij30xc0i9qdn.jpg" srcset="/img/loading.gif" alt="侠客"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/springMVC/">springMVC</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Java/">Java</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Jquery/">Jquery</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/02/15/java-mybatis/">
+                        <span class="hidden-mobile">Mybatis-Plus与SpringMVC的整合</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'Wangijun/utterances');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <a href="http://beian.miit.gov.cn/" target="_blank"
+       rel="nofollow noopener">皖ICP备20012572号</a>
+    
+      
+        <a
+          href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=34042202000089"
+          rel="nofollow noopener"
+          class="beian-police"
+          target="_blank"
+        >
+          
+            <span style="visibility: hidden; width: 0">|</span>
+            <img src="/img/police_beian.png" srcset="/img/loading.gif" alt="police-icon"/>
+          
+          <span>京公网安备34042202000089号</span>
+        </a>
+      
+    
+  </div>
+
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
