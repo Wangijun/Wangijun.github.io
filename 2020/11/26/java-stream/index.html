@@ -57,7 +57,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":200}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -158,7 +158,7 @@
   </div>
 </nav>
 
-    <div class="banner intro-2" id="background" parallax=true
+    <div class="banner" id="banner" parallax=true
          style="background: url('/img/default.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
@@ -231,11 +231,11 @@
     
       
 
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
     <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
@@ -257,153 +257,15 @@
 <h2 id="Stream流的用法"><a href="#Stream流的用法" class="headerlink" title="Stream流的用法"></a>Stream流的用法</h2><blockquote>
 <p>话不多说，直接上代码，</p>
 </blockquote>
-<pre><code class="hljs java">
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 代码就是最好的文章</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LocalDateTimeDemoTest</span> </span>&#123;<br><br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        ArrayList&lt;User&gt; list = getUserList();<br></code></pre></td></tr></table></figure>
 
-<span class="hljs-comment">/**</span>
-<span class="hljs-comment"> * 代码就是最好的文章</span>
-<span class="hljs-comment"> */</span>
-<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LocalDateTimeDemoTest</span> </span>&#123;
+<h3 id="过滤"><a href="#过滤" class="headerlink" title="过滤"></a>过滤</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 过滤</span><br><span class="hljs-comment">// 年龄大于10的</span><br>List&lt;User&gt; collect = list.stream().filter(user -&gt; user.getAge() &gt; <span class="hljs-number">10</span>).collect(Collectors.toList());<br><span class="hljs-comment">// 名字最后是2的</span><br>List&lt;User&gt; collect1 = list.stream().filter(user -&gt; user.getUserName().endsWith(<span class="hljs-string">&quot;2&quot;</span>)).collect(Collectors.toList());<br><span class="hljs-comment">// 组合过滤</span><br>List&lt;User&gt; collect2 = list.stream().filter(user -&gt; user.getAge() &gt; <span class="hljs-number">10</span>).filter(user -&gt; user.getUserName().endsWith(<span class="hljs-string">&quot;2&quot;</span>)).collect(Collectors.toList());<br><br><span class="hljs-comment">// 查找名为王0的，如果有重名的取第一个,如果为空则初始化一个(这种写法主要是让程序更加健壮，避免的空指针),你也可以在orElse(这里写null,但是你写null的意义不是很大喔)</span><br>User user1 = list.stream().filter(user -&gt; user.getUserName().equals(<span class="hljs-string">&quot;王0&quot;</span>)).findFirst().orElse(<span class="hljs-keyword">new</span> User());<br><br><span class="hljs-comment">// 这种也是获取第一个,这个的效率比上面的高，一般查找唯一数据，用这个比较快。</span><br>User user2 = list.stream().filter(user -&gt; user.getUserName().equals(<span class="hljs-string">&quot;王0&quot;</span>)).findAny().orElse(<span class="hljs-keyword">new</span> User());<br></code></pre></td></tr></table></figure>
 
-
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
-        ArrayList&lt;User&gt; list = getUserList();</code></pre>
-
-<h3 id="过滤"><a href="#过滤" class="headerlink" title="过滤"></a>过滤</h3><pre><code class="hljs java"><span class="hljs-comment">// 过滤</span>
-<span class="hljs-comment">// 年龄大于10的</span>
-List&lt;User&gt; collect = list.stream().filter(user -&gt; user.getAge() &gt; <span class="hljs-number">10</span>).collect(Collectors.toList());
-<span class="hljs-comment">// 名字最后是2的</span>
-List&lt;User&gt; collect1 = list.stream().filter(user -&gt; user.getUserName().endsWith(<span class="hljs-string">&quot;2&quot;</span>)).collect(Collectors.toList());
-<span class="hljs-comment">// 组合过滤</span>
-List&lt;User&gt; collect2 = list.stream().filter(user -&gt; user.getAge() &gt; <span class="hljs-number">10</span>).filter(user -&gt; user.getUserName().endsWith(<span class="hljs-string">&quot;2&quot;</span>)).collect(Collectors.toList());
-
-<span class="hljs-comment">// 查找名为王0的，如果有重名的取第一个,如果为空则初始化一个(这种写法主要是让程序更加健壮，避免的空指针),你也可以在orElse(这里写null,但是你写null的意义不是很大喔)</span>
-User user1 = list.stream().filter(user -&gt; user.getUserName().equals(<span class="hljs-string">&quot;王0&quot;</span>)).findFirst().orElse(<span class="hljs-keyword">new</span> User());
-
-<span class="hljs-comment">// 这种也是获取第一个,这个的效率比上面的高，一般查找唯一数据，用这个比较快。</span>
-User user2 = list.stream().filter(user -&gt; user.getUserName().equals(<span class="hljs-string">&quot;王0&quot;</span>)).findAny().orElse(<span class="hljs-keyword">new</span> User());</code></pre>
-
-<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><pre><code class="hljs java">
-<span class="hljs-comment">// 按年龄从小到大排序</span>
-List&lt;User&gt; collect7 = list.stream().sorted(Comparator.comparing(User::getAge)).collect(Collectors.toList());
-
-<span class="hljs-comment">// 按年龄从大到小排序</span>
-List&lt;User&gt; collect8 = list.stream().sorted(Comparator.comparing(User::getAge).reversed()).collect(Collectors.toList());</code></pre>
-<h3 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h3><pre><code class="hljs java"><span class="hljs-comment">// 分组</span>
-<span class="hljs-comment">// 以班级分组, 返回一个map,key为部门ID，value为分组的集合</span>
-Map&lt;Integer, List&lt;User&gt;&gt; collect3 = list.stream().collect(Collectors.groupingBy(User::getGradeId));
-
-<span class="hljs-comment">// 多级分组 这个就比较好玩了，Map里面嵌套Map，哈哈和上面一样，先以班级分组，然后再按年龄分组</span>
-<span class="hljs-comment">// 外层的Map的Key为班级ID，里面的Map的Key为年龄。</span>
-Map&lt;Integer, Map&lt;Integer, List&lt;User&gt;&gt;&gt; collect4 = list.stream().collect(Collectors.groupingBy(User::getGradeId, Collectors.groupingBy(User::getAge)));
-
-<span class="hljs-comment">// 分组加汇总，以班级为单位总薪酬</span>
-<span class="hljs-comment">// Map的Key 为班级ID，Value为分过组后的总和，注意这里喔，直接用double来进行总和计算，一般来说肯定会发生精度丢失。所以这种这种double运算，一般来说是不可以直接sum的</span>
-Map&lt;Integer, Double&gt; collect5 = list.stream().collect(Collectors.groupingBy(User::getGradeId, Collectors.summingDouble(User::getSalary)));
-</code></pre>
-<h3 id="归总"><a href="#归总" class="headerlink" title="归总"></a>归总</h3><pre><code class="hljs java">    <span class="hljs-comment">// 归总，</span>
-    <span class="hljs-comment">// 何为归总，就是结果集是一个。</span>
-
-    <span class="hljs-comment">//求所有人年龄总和（好像没啥意义，）</span>
-    <span class="hljs-keyword">int</span> sum = list.stream().mapToInt(User::getAge).sum();
-
-    <span class="hljs-comment">// 也可以先过滤班级编号为3的同学再进行年龄求和</span>
-    <span class="hljs-keyword">int</span> sum1 = list.stream().filter(user -&gt; user.getGradeId() == <span class="hljs-number">3</span>).mapToInt(User::getAge).sum();
-
-    <span class="hljs-comment">// 找到年龄最小的同学</span>
-    User user = list.stream().min(Comparator.comparing(User::getAge)).orElse(<span class="hljs-keyword">new</span> User());
-
-    <span class="hljs-comment">// 找到年龄最大的同学并输出最小年龄是多少（强行凑代码，哈哈）</span>
-    <span class="hljs-keyword">int</span> age = list.stream().max(Comparator.comparing(User::getAge)).orElse(<span class="hljs-keyword">new</span> User()).getAge();
-
-    <span class="hljs-comment">// 获取按班级分组后年龄总和最小值是多少（乍一听感觉很绕，实际有啥绕的,自己写了一下，确实有点绕，淦。）</span>
-    <span class="hljs-comment">// 实际意义待斟酌啊。。</span>
-    Integer integer = list.stream().collect(Collectors.groupingBy(User::getGradeId, Collectors.summingInt(User::getAge))).values().stream()
-            .min(Comparator.comparing(Integer::valueOf)).orElse(<span class="hljs-number">0</span>);
-
-
-    <span class="hljs-comment">// 演示一下BigDecimal的运算吧，差点忘了,</span>
-    <span class="hljs-comment">// 啥也不干直接就是算金额总和</span>
-    BigDecimal bigDecimal = list.stream().map(User::getMoney).reduce(BigDecimal::add).orElse(BigDecimal.valueOf(<span class="hljs-number">0</span>));
-
-    <span class="hljs-comment">// 先进行简单的过滤，再进行计算</span>
-    BigDecimal bigDecimal1 = list.stream().filter(user3 -&gt; user3.getMoney() != <span class="hljs-keyword">null</span>).map(User::getMoney).reduce(BigDecimal::add).orElse(BigDecimal.valueOf(<span class="hljs-number">0</span>));
-    
-    <span class="hljs-comment">// 计算所有同学的年龄</span>
-    <span class="hljs-keyword">int</span> sum2 = list.stream().mapToInt(User::getAge).sum();
-    
-    <span class="hljs-comment">// 计算Double型的Salary,这里肯定会发生精度丢失，具体怎么处理，大家可以百度一下，提示要想不丢精度，肯定是要用BigDecimal的</span>
-    <span class="hljs-keyword">double</span> sum3 = list.stream().mapToDouble(User::getSalary).sum();
-    
-    <span class="hljs-comment">// 计算年轻平均数</span>
-    Double collect6 = list.stream().collect(Collectors.averagingDouble(User::getAge));
-    
-
-    <span class="hljs-comment">// 看看姓王的崽子有几个.</span>
-    <span class="hljs-keyword">long</span> count = list.stream().filter(user3 -&gt; user3.getUserName().startsWith(<span class="hljs-string">&quot;王&quot;</span>)).count();
-
-
-&#125;</code></pre>
-<h3 id="用来测试的数据"><a href="#用来测试的数据" class="headerlink" title="用来测试的数据"></a>用来测试的数据</h3><pre><code class="hljs java">    <span class="hljs-comment">// 模拟数据组，真是数据远远比这复杂，但是你只需要用关键数据即可。</span>
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> ArrayList&lt;User&gt; <span class="hljs-title">getUserList</span><span class="hljs-params">()</span> </span>&#123;
-        ArrayList&lt;User&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
-        list.add(<span class="hljs-keyword">new</span> User(<span class="hljs-number">0</span>,<span class="hljs-string">&quot;王0&quot;</span>,<span class="hljs-number">3</span>,<span class="hljs-number">22</span>,<span class="hljs-number">12.3</span>,BigDecimal.valueOf(<span class="hljs-number">1600</span>)));
-        list.add(<span class="hljs-keyword">new</span> User(<span class="hljs-number">1</span>,<span class="hljs-string">&quot;王1&quot;</span>,<span class="hljs-number">3</span>,<span class="hljs-number">8</span>,<span class="hljs-number">11.7</span>,BigDecimal.valueOf(<span class="hljs-number">1300</span>)));
-        list.add(<span class="hljs-keyword">new</span> User(<span class="hljs-number">2</span>,<span class="hljs-string">&quot;王2&quot;</span>,<span class="hljs-number">3</span>,<span class="hljs-number">25</span>,<span class="hljs-number">16.3</span>,BigDecimal.valueOf(<span class="hljs-number">1500</span>)));
-        list.add(<span class="hljs-keyword">new</span> User(<span class="hljs-number">3</span>,<span class="hljs-string">&quot;王3&quot;</span>,<span class="hljs-number">2</span>,<span class="hljs-number">17</span>,<span class="hljs-number">19.3</span>,BigDecimal.valueOf(<span class="hljs-number">1800</span>)));
-        list.add(<span class="hljs-keyword">new</span> User(<span class="hljs-number">4</span>,<span class="hljs-string">&quot;王4&quot;</span>,<span class="hljs-number">2</span>,<span class="hljs-number">22</span>,<span class="hljs-number">11.3</span>,BigDecimal.valueOf(<span class="hljs-number">2344</span>)));
-        list.add(<span class="hljs-keyword">new</span> User(<span class="hljs-number">5</span>,<span class="hljs-string">&quot;王5&quot;</span>,<span class="hljs-number">2</span>,<span class="hljs-number">13</span>,<span class="hljs-number">15.3</span>,BigDecimal.valueOf(<span class="hljs-number">1120</span>)));
-        list.add(<span class="hljs-keyword">new</span> User(<span class="hljs-number">6</span>,<span class="hljs-string">&quot;王6&quot;</span>,<span class="hljs-number">1</span>,<span class="hljs-number">8</span>,<span class="hljs-number">19.3</span>,BigDecimal.valueOf(<span class="hljs-number">9980</span>)));
-        list.add(<span class="hljs-keyword">new</span> User(<span class="hljs-number">7</span>,<span class="hljs-string">&quot;王7&quot;</span>,<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">111.3</span>,BigDecimal.valueOf(<span class="hljs-number">1112</span>)));
-        <span class="hljs-keyword">return</span> list;
-    &#125;
-&#125;</code></pre>
-<h3 id="模拟数据实体类"><a href="#模拟数据实体类" class="headerlink" title="模拟数据实体类"></a>模拟数据实体类</h3><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> </span>&#123;
-    <span class="hljs-comment">/**</span>
-<span class="hljs-comment">     * 主键Id</span>
-<span class="hljs-comment">     */</span>
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> id;
-    <span class="hljs-comment">/**</span>
-<span class="hljs-comment">     * 用户名</span>
-<span class="hljs-comment">     */</span>
-    <span class="hljs-keyword">private</span> String userName;
-    <span class="hljs-comment">/**</span>
-<span class="hljs-comment">     * 班级ID</span>
-<span class="hljs-comment">     */</span>
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> gradeId;
-    <span class="hljs-comment">/**</span>
-<span class="hljs-comment">     * 年龄</span>
-<span class="hljs-comment">     */</span>
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> age;
-
-    <span class="hljs-comment">/**</span>
-<span class="hljs-comment">     * 薪酬</span>
-<span class="hljs-comment">     */</span>
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">double</span> salary;
-
-
-    <span class="hljs-comment">/**</span>
-<span class="hljs-comment">     * 强行增加一个金额，用来演示BigDecimal运算</span>
-<span class="hljs-comment">     */</span>
-
-    <span class="hljs-keyword">private</span> BigDecimal money;
-
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">User</span><span class="hljs-params">()</span> </span>&#123;
-    &#125;
-
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">User</span><span class="hljs-params">(<span class="hljs-keyword">int</span> id, String userName, <span class="hljs-keyword">int</span> gradeId, <span class="hljs-keyword">int</span> age, <span class="hljs-keyword">double</span> salary, BigDecimal money)</span> </span>&#123;
-        <span class="hljs-keyword">this</span>.id = id;
-        <span class="hljs-keyword">this</span>.userName = userName;
-        <span class="hljs-keyword">this</span>.gradeId = gradeId;
-        <span class="hljs-keyword">this</span>.age = age;
-        <span class="hljs-keyword">this</span>.salary = salary;
-        <span class="hljs-keyword">this</span>.money = money;
-    &#125;
-	<span class="hljs-comment">/**</span>
-<span class="hljs-comment">	 * 省略get,set方法</span>
-<span class="hljs-comment">	 */</span>
-&#125;
-
-</code></pre>
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><br><span class="hljs-comment">// 按年龄从小到大排序</span><br>List&lt;User&gt; collect7 = list.stream().sorted(Comparator.comparing(User::getAge)).collect(Collectors.toList());<br><br><span class="hljs-comment">// 按年龄从大到小排序</span><br>List&lt;User&gt; collect8 = list.stream().sorted(Comparator.comparing(User::getAge).reversed()).collect(Collectors.toList());<br></code></pre></td></tr></table></figure>
+<h3 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 分组</span><br><span class="hljs-comment">// 以班级分组, 返回一个map,key为部门ID，value为分组的集合</span><br>Map&lt;Integer, List&lt;User&gt;&gt; collect3 = list.stream().collect(Collectors.groupingBy(User::getGradeId));<br><br><span class="hljs-comment">// 多级分组 这个就比较好玩了，Map里面嵌套Map，哈哈和上面一样，先以班级分组，然后再按年龄分组</span><br><span class="hljs-comment">// 外层的Map的Key为班级ID，里面的Map的Key为年龄。</span><br>Map&lt;Integer, Map&lt;Integer, List&lt;User&gt;&gt;&gt; collect4 = list.stream().collect(Collectors.groupingBy(User::getGradeId, Collectors.groupingBy(User::getAge)));<br><br><span class="hljs-comment">// 分组加汇总，以班级为单位总薪酬</span><br><span class="hljs-comment">// Map的Key 为班级ID，Value为分过组后的总和，注意这里喔，直接用double来进行总和计算，一般来说肯定会发生精度丢失。所以这种这种double运算，一般来说是不可以直接sum的</span><br>Map&lt;Integer, Double&gt; collect5 = list.stream().collect(Collectors.groupingBy(User::getGradeId, Collectors.summingDouble(User::getSalary)));<br><br></code></pre></td></tr></table></figure>
+<h3 id="归总"><a href="#归总" class="headerlink" title="归总"></a>归总</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs java">    <span class="hljs-comment">// 归总，</span><br>    <span class="hljs-comment">// 何为归总，就是结果集是一个。</span><br><br>    <span class="hljs-comment">//求所有人年龄总和（好像没啥意义，）</span><br>    <span class="hljs-keyword">int</span> sum = list.stream().mapToInt(User::getAge).sum();<br><br>    <span class="hljs-comment">// 也可以先过滤班级编号为3的同学再进行年龄求和</span><br>    <span class="hljs-keyword">int</span> sum1 = list.stream().filter(user -&gt; user.getGradeId() == <span class="hljs-number">3</span>).mapToInt(User::getAge).sum();<br><br>    <span class="hljs-comment">// 找到年龄最小的同学</span><br>    User user = list.stream().min(Comparator.comparing(User::getAge)).orElse(<span class="hljs-keyword">new</span> User());<br><br>    <span class="hljs-comment">// 找到年龄最大的同学并输出最小年龄是多少（强行凑代码，哈哈）</span><br>    <span class="hljs-keyword">int</span> age = list.stream().max(Comparator.comparing(User::getAge)).orElse(<span class="hljs-keyword">new</span> User()).getAge();<br><br>    <span class="hljs-comment">// 获取按班级分组后年龄总和最小值是多少（乍一听感觉很绕，实际有啥绕的,自己写了一下，确实有点绕，淦。）</span><br>    <span class="hljs-comment">// 实际意义待斟酌啊。。</span><br>    Integer integer = list.stream().collect(Collectors.groupingBy(User::getGradeId, Collectors.summingInt(User::getAge))).values().stream()<br>            .min(Comparator.comparing(Integer::valueOf)).orElse(<span class="hljs-number">0</span>);<br><br><br>    <span class="hljs-comment">// 演示一下BigDecimal的运算吧，差点忘了,</span><br>    <span class="hljs-comment">// 啥也不干直接就是算金额总和</span><br>    BigDecimal bigDecimal = list.stream().map(User::getMoney).reduce(BigDecimal::add).orElse(BigDecimal.valueOf(<span class="hljs-number">0</span>));<br><br>    <span class="hljs-comment">// 先进行简单的过滤，再进行计算</span><br>    BigDecimal bigDecimal1 = list.stream().filter(user3 -&gt; user3.getMoney() != <span class="hljs-keyword">null</span>).map(User::getMoney).reduce(BigDecimal::add).orElse(BigDecimal.valueOf(<span class="hljs-number">0</span>));<br>    <br>    <span class="hljs-comment">// 计算所有同学的年龄</span><br>    <span class="hljs-keyword">int</span> sum2 = list.stream().mapToInt(User::getAge).sum();<br>    <br>    <span class="hljs-comment">// 计算Double型的Salary,这里肯定会发生精度丢失，具体怎么处理，大家可以百度一下，提示要想不丢精度，肯定是要用BigDecimal的</span><br>    <span class="hljs-keyword">double</span> sum3 = list.stream().mapToDouble(User::getSalary).sum();<br>    <br>    <span class="hljs-comment">// 计算年轻平均数</span><br>    Double collect6 = list.stream().collect(Collectors.averagingDouble(User::getAge));<br>    <br><br>    <span class="hljs-comment">// 看看姓王的崽子有几个.</span><br>    <span class="hljs-keyword">long</span> count = list.stream().filter(user3 -&gt; user3.getUserName().startsWith(<span class="hljs-string">&quot;王&quot;</span>)).count();<br><br><br>&#125;<br>	<br></code></pre></td></tr></table></figure>
+<h3 id="用来测试的数据"><a href="#用来测试的数据" class="headerlink" title="用来测试的数据"></a>用来测试的数据</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java">    <span class="hljs-comment">// 模拟数据组，真是数据远远比这复杂，但是你只需要用关键数据即可。</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> ArrayList&lt;User&gt; <span class="hljs-title">getUserList</span><span class="hljs-params">()</span> </span>&#123;<br>        ArrayList&lt;User&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();<br>        list.add(<span class="hljs-keyword">new</span> User(<span class="hljs-number">0</span>,<span class="hljs-string">&quot;王0&quot;</span>,<span class="hljs-number">3</span>,<span class="hljs-number">22</span>,<span class="hljs-number">12.3</span>,BigDecimal.valueOf(<span class="hljs-number">1600</span>)));<br>        list.add(<span class="hljs-keyword">new</span> User(<span class="hljs-number">1</span>,<span class="hljs-string">&quot;王1&quot;</span>,<span class="hljs-number">3</span>,<span class="hljs-number">8</span>,<span class="hljs-number">11.7</span>,BigDecimal.valueOf(<span class="hljs-number">1300</span>)));<br>        list.add(<span class="hljs-keyword">new</span> User(<span class="hljs-number">2</span>,<span class="hljs-string">&quot;王2&quot;</span>,<span class="hljs-number">3</span>,<span class="hljs-number">25</span>,<span class="hljs-number">16.3</span>,BigDecimal.valueOf(<span class="hljs-number">1500</span>)));<br>        list.add(<span class="hljs-keyword">new</span> User(<span class="hljs-number">3</span>,<span class="hljs-string">&quot;王3&quot;</span>,<span class="hljs-number">2</span>,<span class="hljs-number">17</span>,<span class="hljs-number">19.3</span>,BigDecimal.valueOf(<span class="hljs-number">1800</span>)));<br>        list.add(<span class="hljs-keyword">new</span> User(<span class="hljs-number">4</span>,<span class="hljs-string">&quot;王4&quot;</span>,<span class="hljs-number">2</span>,<span class="hljs-number">22</span>,<span class="hljs-number">11.3</span>,BigDecimal.valueOf(<span class="hljs-number">2344</span>)));<br>        list.add(<span class="hljs-keyword">new</span> User(<span class="hljs-number">5</span>,<span class="hljs-string">&quot;王5&quot;</span>,<span class="hljs-number">2</span>,<span class="hljs-number">13</span>,<span class="hljs-number">15.3</span>,BigDecimal.valueOf(<span class="hljs-number">1120</span>)));<br>        list.add(<span class="hljs-keyword">new</span> User(<span class="hljs-number">6</span>,<span class="hljs-string">&quot;王6&quot;</span>,<span class="hljs-number">1</span>,<span class="hljs-number">8</span>,<span class="hljs-number">19.3</span>,BigDecimal.valueOf(<span class="hljs-number">9980</span>)));<br>        list.add(<span class="hljs-keyword">new</span> User(<span class="hljs-number">7</span>,<span class="hljs-string">&quot;王7&quot;</span>,<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">111.3</span>,BigDecimal.valueOf(<span class="hljs-number">1112</span>)));<br>        <span class="hljs-keyword">return</span> list;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="模拟数据实体类"><a href="#模拟数据实体类" class="headerlink" title="模拟数据实体类"></a>模拟数据实体类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> </span>&#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 主键Id</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> id;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 用户名</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String userName;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 班级ID</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> gradeId;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 年龄</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> age;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 薪酬</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">double</span> salary;<br><br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 强行增加一个金额，用来演示BigDecimal运算</span><br><span class="hljs-comment">     */</span><br><br>    <span class="hljs-keyword">private</span> BigDecimal money;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">User</span><span class="hljs-params">()</span> </span>&#123;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">User</span><span class="hljs-params">(<span class="hljs-keyword">int</span> id, String userName, <span class="hljs-keyword">int</span> gradeId, <span class="hljs-keyword">int</span> age, <span class="hljs-keyword">double</span> salary, BigDecimal money)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.id = id;<br>        <span class="hljs-keyword">this</span>.userName = userName;<br>        <span class="hljs-keyword">this</span>.gradeId = gradeId;<br>        <span class="hljs-keyword">this</span>.age = age;<br>        <span class="hljs-keyword">this</span>.salary = salary;<br>        <span class="hljs-keyword">this</span>.money = money;<br>    &#125;<br>	<span class="hljs-comment">/**</span><br><span class="hljs-comment">	 * 省略get,set方法</span><br><span class="hljs-comment">	 */</span><br>&#125;<br><br><br></code></pre></td></tr></table></figure>
 
 <h2 id="尾声"><a href="#尾声" class="headerlink" title="尾声"></a>尾声</h2><blockquote>
 <p>害小说看多了，不bb两句难受</p>
@@ -441,7 +303,7 @@ Map&lt;Integer, Double&gt; collect5 = list.stream().collect(Collectors.groupingB
                 <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
               
               
-                <div class="post-prevnext row">
+                <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
                     
@@ -581,22 +443,27 @@ Map&lt;Integer, Double&gt; collect5 = list.stream().collect(Collectors.groupingB
   
   <!-- 备案信息 -->
   <div class="beian">
-    <a href="http://beian.miit.gov.cn/" target="_blank"
-       rel="nofollow noopener">皖ICP备20012572号</a>
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        皖ICP备20012572号
+      </a>
+    </span>
     
       
-        <a
-          href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=34042202000089"
-          rel="nofollow noopener"
-          class="beian-police"
-          target="_blank"
-        >
-          
-            <span style="visibility: hidden; width: 0">|</span>
-            <img src="/img/police_beian.png" srcset="/img/loading.gif" alt="police-icon"/>
-          
-          <span>京公网安备34042202000089号</span>
-        </a>
+        <span>
+          <a
+            href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=34042202000089"
+            rel="nofollow noopener"
+            class="beian-police"
+            target="_blank"
+          >
+            
+              <span style="visibility: hidden; width: 0">|</span>
+              <img src="/img/police_beian.png" srcset="/img/loading.gif" alt="police-icon"/>
+            
+            <span>京公网安备34042202000089号</span>
+          </a>
+        </span>
       
     
   </div>
@@ -613,9 +480,6 @@ Map&lt;Integer, Double&gt; collect5 = list.stream().collect(Collectors.groupingB
   <script>
     NProgress.configure({"showSpinner":false,"trickleSpeed":200})
     NProgress.start()
-    document.addEventListener('DOMContentLoaded', function() {
-      window.NProgress && window.NProgress.inc();
-    })
     window.addEventListener('load', function() {
       NProgress.done();
     })
@@ -658,6 +522,7 @@ Map&lt;Integer, Double&gt; collect5 = list.stream().collect(Collectors.groupingB
 
 
   <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
 
 
 

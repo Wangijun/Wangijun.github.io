@@ -57,7 +57,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":200}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -158,7 +158,7 @@
   </div>
 </nav>
 
-    <div class="banner intro-2" id="background" parallax=true
+    <div class="banner" id="banner" parallax=true
          style="background: url('/img/default.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
@@ -231,11 +231,11 @@
     
       
 
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
     <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
@@ -258,116 +258,19 @@
 </blockquote>
 <p>其实我是一个后端程序员，奈何后端过于无聊，学的东西就那么点，现成的解决问题的方案太多了，乃至于人们口中所说的调包程序员，你把spring的包都给整明白了，能随心所欲的玩，随心的调包，就已经登堂入室了，Java难的从来都不是语言本身，难的就是那些框架。spring的依赖反转，以及面向切面编程。这个面向切面编程类似Js里的回调函数，可惜我也不是太懂，这是个很牛逼的东西。在Java中的spring框架里有这样一句话，在我们spring框架中，没有什么不是加一个注解解决不了的，如果有，那就加两个。妙啊。此处应有表情包<br><img src="https://tva3.sinaimg.cn/wap720/005NNTS5ly1glfnz6l893j30b40ciwey.jpg" srcset="/img/loading.gif" alt="spring框架"><br>都说crud程序员是废物，可后端的分布式，微服务，本质上来说就是为了稳定的crud。难道我们努力变秃就是为了成为一个会分布式和微服务的大废物么。考核一个程序员的功力，算法，是最有效的途径。算法，设计模式，编程思想。编程语言可能会过时，这三样永远都不会过时。编程语言只是工具，Vue框架也是一个工具。万一哪天谷歌人浏览器直接就自带mvvn了，Vue也会被淘汰。</p>
 <h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>js牛逼的一点我感觉就是，代码即文本，文本即代码。自由度高到离谱，你说它是代码，它也能是文本，说它是文本，它下一秒钟就变成了代码，你想怎么写（玩）就怎么写（玩），直接硬刚原生js不合适啊，我就用Jquey稍微简化一下操作，包括解析dom，更新dom，以及绑定数据。重要的是思想，重要的是思想，😄😄😄</p>
-<h3 id="正常的Vue"><a href="#正常的Vue" class="headerlink" title="正常的Vue"></a>正常的Vue</h3><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
-	<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
-		<span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span>&gt;</span>
-		<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
-		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../js/vue.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-	<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
-	<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
-		<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span>&gt;</span>
-			<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">&quot;msg&quot;</span> /&gt;</span>
-			<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>&#123;&#123;msg&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
-			<span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">v-html</span>=<span class="hljs-string">&quot;msg&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
-			<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;changeEvent&quot;</span>&gt;</span>修改msg<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-		<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-	<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
-	<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span>
-<span class="javascript">		<span class="hljs-keyword">let</span> ops = &#123;</span>
-<span class="javascript">			el: <span class="hljs-string">&#x27;#app&#x27;</span>,</span>
-			data: &#123;
-<span class="javascript">				msg: <span class="hljs-string">&#x27;从前从前&#x27;</span>,</span>
-<span class="javascript">				username: <span class="hljs-string">&#x27;王亮芳&#x27;</span></span>
-			&#125;,
-			methods: &#123;
-<span class="javascript">				changeEv: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span>
-<span class="javascript">					<span class="hljs-built_in">this</span>.msg = <span class="hljs-string">&#x27;有个人爱你很久&#x27;</span></span>
-				&#125;
-			&#125;
-		&#125;
-<span class="javascript">		<span class="hljs-keyword">let</span> app = <span class="hljs-keyword">new</span> Vue(ops)</span>
-<span class="javascript">		<span class="hljs-built_in">console</span>.log(app);</span>
-	<span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
-</code></pre>
+<h3 id="正常的Vue"><a href="#正常的Vue" class="headerlink" title="正常的Vue"></a>正常的Vue</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../js/vue.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">&quot;msg&quot;</span> /&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>&#123;&#123;msg&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">v-html</span>=<span class="hljs-string">&quot;msg&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;changeEvent&quot;</span>&gt;</span>修改msg<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>		<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><br><span class="javascript">		<span class="hljs-keyword">let</span> ops = &#123;</span><br><span class="javascript">			el: <span class="hljs-string">&#x27;#app&#x27;</span>,</span><br>			data: &#123;<br><span class="javascript">				msg: <span class="hljs-string">&#x27;从前从前&#x27;</span>,</span><br><span class="javascript">				username: <span class="hljs-string">&#x27;王亮芳&#x27;</span></span><br>			&#125;,<br>			methods: &#123;<br><span class="javascript">				changeEv: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span><br><span class="javascript">					<span class="hljs-built_in">this</span>.msg = <span class="hljs-string">&#x27;有个人爱你很久&#x27;</span></span><br>				&#125;<br>			&#125;<br>		&#125;<br><span class="javascript">		<span class="hljs-keyword">let</span> app = <span class="hljs-keyword">new</span> Vue(ops)</span><br><span class="javascript">		<span class="hljs-built_in">console</span>.log(app);</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br><br></code></pre></td></tr></table></figure>
 
 <h3 id="Vue的原理"><a href="#Vue的原理" class="headerlink" title="Vue的原理"></a>Vue的原理</h3><p>Vue是以数据驱动视图的一个前端框架。数据，就是视图，视图反过来也能驱动数据，这就是大家伙常说的MVVM，先说一下MVC，M是数据模型V是视图，<br>C是控制器，C用来控制视图和数据的交互。MVVM，就是没有C，VV这之间形成了绑定。我没学过别的MVVM框架，Vue就是一个实现了MVVM的前端框架。<br>对于数据绑定视图大家不难理解，直接$(“#xx”).val(),这就绑定上了，想要实时绑定输入的内容，<br>在绑定一下input事件。以下代码都用了Jqury，你如果钟爱原生js也可以把用到Jquery的代码换成原生Js。</p>
 <blockquote>
 <p>这里实现了一个最基本的表单输入绑定。</p>
 </blockquote>
-<pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
-	<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
-		<span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span> /&gt;</span>
-		<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
-		<span class="hljs-comment">&lt;!-- 换成自己的jq地址 --&gt;</span>
-		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;js/jquery.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-	<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
-	<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
-		<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;name&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;你好世界&quot;</span> <span class="hljs-attr">oninput</span>=<span class="hljs-string">&quot;updata()&quot;</span> /&gt;</span>
-		<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;span&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
-	<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
-	<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span>
-		
-<span class="javascript">		<span class="hljs-keyword">let</span> name = $(<span class="hljs-string">&#x27;#name&#x27;</span>).val()</span>
-<span class="javascript">		$(<span class="hljs-string">&#x27;#span&#x27;</span>).html(name)</span>
-		
-<span class="javascript">		<span class="hljs-keyword">let</span> updata = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span>
-<span class="javascript">			<span class="hljs-keyword">let</span> name = $(<span class="hljs-string">&#x27;#name&#x27;</span>).val()</span>
-<span class="javascript">			$(<span class="hljs-string">&#x27;#span&#x27;</span>).html(name)</span>
-		&#125;
-<span class="javascript">		<span class="hljs-comment">// </span></span>
-		
-<span class="javascript">		<span class="hljs-comment">// 这是最简单的一次性表单绑定</span></span>
-		
-	<span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
-</code></pre>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span> /&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>		<span class="hljs-comment">&lt;!-- 换成自己的jq地址 --&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;js/jquery.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;name&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;你好世界&quot;</span> <span class="hljs-attr">oninput</span>=<span class="hljs-string">&quot;updata()&quot;</span> /&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;span&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><br>		<br><span class="javascript">		<span class="hljs-keyword">let</span> name = $(<span class="hljs-string">&#x27;#name&#x27;</span>).val()</span><br><span class="javascript">		$(<span class="hljs-string">&#x27;#span&#x27;</span>).html(name)</span><br>		<br><span class="javascript">		<span class="hljs-keyword">let</span> updata = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span><br><span class="javascript">			<span class="hljs-keyword">let</span> name = $(<span class="hljs-string">&#x27;#name&#x27;</span>).val()</span><br><span class="javascript">			$(<span class="hljs-string">&#x27;#span&#x27;</span>).html(name)</span><br>		&#125;<br><span class="javascript">		<span class="hljs-comment">// </span></span><br>		<br><span class="javascript">		<span class="hljs-comment">// 这是最简单的一次性表单绑定</span></span><br>		<br>	<span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br><br></code></pre></td></tr></table></figure>
 
 <blockquote>
 <p>数据驱动视图内容</p>
 </blockquote>
 <p>我们操作js的值是不需要什么getXXX,setXXX什么的，但这并不代表js中没有喔，核心就是get和set方法，下面就是一个最最最简单的数据和视图的双向绑定，<br>在控制台中改变obj.name的值，视图也会跟着发生相应的改变。</p>
-<pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
-	<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
-		<span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span> /&gt;</span>
-		<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
-		<span class="hljs-comment">&lt;!-- 这里换成自己的路径 --&gt;</span>
-		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;js/jquery.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-	<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
-	<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
-		<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;name&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;你好世界&quot;</span> <span class="hljs-attr">oninput</span>=<span class="hljs-string">&quot;updata()&quot;</span> /&gt;</span>
-		<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;span&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
-	<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
-	<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span>
-<span class="javascript">		<span class="hljs-comment">// 这里需要一个对象</span></span>
-<span class="javascript">		<span class="hljs-keyword">let</span> obj = &#123;&#125;</span>
-<span class="javascript">		<span class="hljs-comment">// 这里看不懂，可以去百度，我就普通的说一下，就是给对象里面的属性加上还是重写get和set方法，。</span></span>
-<span class="javascript">		<span class="hljs-built_in">Object</span>.defineProperty(obj, <span class="hljs-string">&#x27;name&#x27;</span>, &#123;</span>
-<span class="javascript">			get: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span>
-<span class="javascript">				<span class="hljs-keyword">return</span> name;</span>
-			&#125;,
-<span class="javascript">			set: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">newValue</span>) </span>&#123;</span>
-<span class="javascript">				<span class="hljs-comment">// 原有的行为</span></span>
-				name = newValue;
-<span class="javascript">				<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;set: &#x27;</span> + newValue);</span>
-<span class="javascript">				<span class="hljs-comment">// 这是我们加上的行为</span></span>
-<span class="javascript">				$(<span class="hljs-string">&#x27;#name&#x27;</span>).val(name)</span>
-<span class="javascript">				$(<span class="hljs-string">&#x27;#span&#x27;</span>).html(name)</span>
-			&#125;
-		&#125;)
-<span class="javascript">		<span class="hljs-comment">// 这步做完之后，就已经形成了一个最简单的双向绑定，你在控制台中改变obj.name的值视图就会发生相应的改变</span></span>
-<span class="javascript">		obj.name = $(<span class="hljs-string">&#x27;#name&#x27;</span>).val()</span>
-<span class="javascript">		$(<span class="hljs-string">&#x27;#span&#x27;</span>).html(name)</span>
-
-<span class="javascript">		<span class="hljs-keyword">let</span> updata = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span>
-<span class="javascript">			obj.name = $(<span class="hljs-string">&#x27;#name&#x27;</span>).val()</span>
-<span class="javascript">			$(<span class="hljs-string">&#x27;#span&#x27;</span>).html(name)</span>
-		&#125;
-	<span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span> /&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>		<span class="hljs-comment">&lt;!-- 这里换成自己的路径 --&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;js/jquery.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;name&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;你好世界&quot;</span> <span class="hljs-attr">oninput</span>=<span class="hljs-string">&quot;updata()&quot;</span> /&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;span&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><br><span class="javascript">		<span class="hljs-comment">// 这里需要一个对象</span></span><br><span class="javascript">		<span class="hljs-keyword">let</span> obj = &#123;&#125;</span><br><span class="javascript">		<span class="hljs-comment">// 这里看不懂，可以去百度，我就普通的说一下，就是给对象里面的属性加上还是重写get和set方法，。</span></span><br><span class="javascript">		<span class="hljs-built_in">Object</span>.defineProperty(obj, <span class="hljs-string">&#x27;name&#x27;</span>, &#123;</span><br><span class="javascript">			get: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span><br><span class="javascript">				<span class="hljs-keyword">return</span> name;</span><br>			&#125;,<br><span class="javascript">			set: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">newValue</span>) </span>&#123;</span><br><span class="javascript">				<span class="hljs-comment">// 原有的行为</span></span><br>				name = newValue;<br><span class="javascript">				<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;set: &#x27;</span> + newValue);</span><br><span class="javascript">				<span class="hljs-comment">// 这是我们加上的行为</span></span><br><span class="javascript">				$(<span class="hljs-string">&#x27;#name&#x27;</span>).val(name)</span><br><span class="javascript">				$(<span class="hljs-string">&#x27;#span&#x27;</span>).html(name)</span><br>			&#125;<br>		&#125;)<br><span class="javascript">		<span class="hljs-comment">// 这步做完之后，就已经形成了一个最简单的双向绑定，你在控制台中改变obj.name的值视图就会发生相应的改变</span></span><br><span class="javascript">		obj.name = $(<span class="hljs-string">&#x27;#name&#x27;</span>).val()</span><br><span class="javascript">		$(<span class="hljs-string">&#x27;#span&#x27;</span>).html(name)</span><br><br><span class="javascript">		<span class="hljs-keyword">let</span> updata = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span><br><span class="javascript">			obj.name = $(<span class="hljs-string">&#x27;#name&#x27;</span>).val()</span><br><span class="javascript">			$(<span class="hljs-string">&#x27;#span&#x27;</span>).html(name)</span><br>		&#125;<br>	<span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
 
 <p>Vue的基本理念就是这样，剩下的太考验算法，文本解析，以及对dom树的了解，要加上很多细节，一个技术火起来，代码硬实力是一部分，但社区维护以及文档的详细度，也是不能少的。</p>
 <h2 id="尾声"><a href="#尾声" class="headerlink" title="尾声"></a>尾声</h2><p>好兄弟，我怎么会鸽你呢，尴尬。<br>封面原图：<br><img src="https://tvax3.sinaimg.cn/large/005NNTS5ly1glf7ljgywvj32yo1o0x6p.jpg" srcset="/img/loading.gif" alt="萨勒芬妮"></p>
@@ -401,7 +304,7 @@
                 <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
               
               
-                <div class="post-prevnext row">
+                <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
                     
@@ -547,22 +450,27 @@
   
   <!-- 备案信息 -->
   <div class="beian">
-    <a href="http://beian.miit.gov.cn/" target="_blank"
-       rel="nofollow noopener">皖ICP备20012572号</a>
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        皖ICP备20012572号
+      </a>
+    </span>
     
       
-        <a
-          href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=34042202000089"
-          rel="nofollow noopener"
-          class="beian-police"
-          target="_blank"
-        >
-          
-            <span style="visibility: hidden; width: 0">|</span>
-            <img src="/img/police_beian.png" srcset="/img/loading.gif" alt="police-icon"/>
-          
-          <span>京公网安备34042202000089号</span>
-        </a>
+        <span>
+          <a
+            href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=34042202000089"
+            rel="nofollow noopener"
+            class="beian-police"
+            target="_blank"
+          >
+            
+              <span style="visibility: hidden; width: 0">|</span>
+              <img src="/img/police_beian.png" srcset="/img/loading.gif" alt="police-icon"/>
+            
+            <span>京公网安备34042202000089号</span>
+          </a>
+        </span>
       
     
   </div>
@@ -579,9 +487,6 @@
   <script>
     NProgress.configure({"showSpinner":false,"trickleSpeed":200})
     NProgress.start()
-    document.addEventListener('DOMContentLoaded', function() {
-      window.NProgress && window.NProgress.inc();
-    })
     window.addEventListener('load', function() {
       NProgress.done();
     })
@@ -624,6 +529,7 @@
 
 
   <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
 
 
 

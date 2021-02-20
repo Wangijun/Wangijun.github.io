@@ -41,7 +41,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":200}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -142,7 +142,7 @@
   </div>
 </nav>
 
-    <div class="banner intro-2" id="background" parallax=true
+    <div class="banner" id="banner" parallax=true
          style="background: url('/img/default.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
@@ -163,7 +163,7 @@
 
   <main>
     
-      <div class="container nopadding-md">
+      <div class="container nopadding-x-md">
         <div class="py-5" id="board"
           >
           
@@ -188,7 +188,7 @@
     <div class="category row">
       <a
         class="category-item collapsed list-group-item category-item-action col-10 col-md-11"
-        id="heading-ckld63v3p0003ecvk8of32m0u" role="tab" data-toggle="collapse" href="#collapse-ckld63v3p0003ecvk8of32m0u"
+        id="heading-ckldf6m8h000318vkfwq19bfi" role="tab" data-toggle="collapse" href="#collapse-ckldf6m8h000318vkfwq19bfi"
         aria-expanded="false"
       >
         前端
@@ -201,8 +201,8 @@
       <div class="category-collapse">
         
           
-  <div id="collapse-ckld63v3p0003ecvk8of32m0u" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-ckld63v3p0003ecvk8of32m0u">
+  <div id="collapse-ckldf6m8h000318vkfwq19bfi" class="collapse in" role="tabpanel"
+       aria-labelledby="heading-ckldf6m8h000318vkfwq19bfi">
     
     
     
@@ -252,7 +252,7 @@
     <div class="category row">
       <a
         class="category-item collapsed list-group-item category-item-action col-10 col-md-11"
-        id="heading-ckld63v41000cecvk0zum6l5g" role="tab" data-toggle="collapse" href="#collapse-ckld63v41000cecvk0zum6l5g"
+        id="heading-ckldf6m8u000c18vk8sosg6lf" role="tab" data-toggle="collapse" href="#collapse-ckldf6m8u000c18vk8sosg6lf"
         aria-expanded="false"
       >
         后端
@@ -265,8 +265,8 @@
       <div class="category-collapse">
         
           
-  <div id="collapse-ckld63v41000cecvk0zum6l5g" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-ckld63v41000cecvk0zum6l5g">
+  <div id="collapse-ckldf6m8u000c18vk8sosg6lf" class="collapse in" role="tabpanel"
+       aria-labelledby="heading-ckldf6m8u000c18vk8sosg6lf">
     
     
     
@@ -316,7 +316,7 @@
     <div class="category row">
       <a
         class="category-item collapsed list-group-item category-item-action col-10 col-md-11"
-        id="heading-ckld63v4d000zecvk2l1xg8xq" role="tab" data-toggle="collapse" href="#collapse-ckld63v4d000zecvk2l1xg8xq"
+        id="heading-ckldf6m97000y18vkfzquaj5t" role="tab" data-toggle="collapse" href="#collapse-ckldf6m97000y18vkfzquaj5t"
         aria-expanded="false"
       >
         随想篇
@@ -329,8 +329,8 @@
       <div class="category-collapse">
         
           
-  <div id="collapse-ckld63v4d000zecvk2l1xg8xq" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-ckld63v4d000zecvk2l1xg8xq">
+  <div id="collapse-ckldf6m97000y18vkfzquaj5t" class="collapse in" role="tabpanel"
+       aria-labelledby="heading-ckldf6m97000y18vkfzquaj5t">
     
     
     
@@ -443,22 +443,27 @@
   
   <!-- 备案信息 -->
   <div class="beian">
-    <a href="http://beian.miit.gov.cn/" target="_blank"
-       rel="nofollow noopener">皖ICP备20012572号</a>
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        皖ICP备20012572号
+      </a>
+    </span>
     
       
-        <a
-          href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=34042202000089"
-          rel="nofollow noopener"
-          class="beian-police"
-          target="_blank"
-        >
-          
-            <span style="visibility: hidden; width: 0">|</span>
-            <img src="/img/police_beian.png" srcset="/img/loading.gif" alt="police-icon"/>
-          
-          <span>京公网安备34042202000089号</span>
-        </a>
+        <span>
+          <a
+            href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=34042202000089"
+            rel="nofollow noopener"
+            class="beian-police"
+            target="_blank"
+          >
+            
+              <span style="visibility: hidden; width: 0">|</span>
+              <img src="/img/police_beian.png" srcset="/img/loading.gif" alt="police-icon"/>
+            
+            <span>京公网安备34042202000089号</span>
+          </a>
+        </span>
       
     
   </div>
@@ -475,9 +480,6 @@
   <script>
     NProgress.configure({"showSpinner":false,"trickleSpeed":200})
     NProgress.start()
-    document.addEventListener('DOMContentLoaded', function() {
-      window.NProgress && window.NProgress.inc();
-    })
     window.addEventListener('load', function() {
       NProgress.done();
     })
@@ -514,6 +516,7 @@
 
 
   <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
 
 
 

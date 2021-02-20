@@ -57,7 +57,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":200}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -158,7 +158,7 @@
   </div>
 </nav>
 
-    <div class="banner intro-2" id="background" parallax=true
+    <div class="banner" id="banner" parallax=true
          style="background: url('/img/default.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
@@ -191,7 +191,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      890 字
+      886 字
     </span>
   
 
@@ -231,11 +231,11 @@
     
       
 
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
     <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
@@ -268,62 +268,7 @@
 <blockquote>
 <p>一站式解决，微软出品必属精品</p>
 </blockquote>
-<h3 id="上面都是废话上代码"><a href="#上面都是废话上代码" class="headerlink" title="上面都是废话上代码"></a>上面都是废话上代码</h3><pre><code class="hljs python"><span class="hljs-keyword">import</span> os
-<span class="hljs-keyword">import</span> xlrd
-<span class="hljs-keyword">import</span> xlwt  <span class="hljs-comment"># 不支持excel2007的xlsx格式</span>
-
-
-<span class="hljs-comment"># 这里填你自己的路径</span>
-dirname = <span class="hljs-string">r&#x27;D:\File\Mixed\用户文件夹\桌面\mz报表\合肥市直主副卡记录(1)\合肥市直主副卡记录&#x27;</span>
-filename = <span class="hljs-string">&quot;.xls&quot;</span>
-
-result = []
-<span class="hljs-comment"># 这个方法是搜寻上面目录下的所有Excel文件</span>
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">search</span>(<span class="hljs-params">dirname=dirname, filename=<span class="hljs-string">&quot;&quot;</span></span>):</span>
-    <span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> os.listdir(dirname):
-        item_path = os.path.join(dirname, item)
-        <span class="hljs-keyword">if</span> os.path.isdir(item_path):
-            <span class="hljs-comment"># 这里用了递归，</span>
-            search(item_path, filename)
-        <span class="hljs-keyword">elif</span> os.path.isfile(item_path):
-            <span class="hljs-keyword">if</span> filename <span class="hljs-keyword">in</span> item:
-                <span class="hljs-keyword">global</span> result
-                <span class="hljs-comment"># 很简单吧，不需要解释了，好累你直接拷下来就行了</span>
-                result.append(item_path)
-
-<span class="hljs-comment"># 主方法，py文件就是从这里执行的</span>
-<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:
-    <span class="hljs-comment"># 调用方法</span>
-    search(dirname, filename)
-    <span class="hljs-comment"># 创建写Excel文件的对象</span>
-    workbook = xlwt.Workbook()
-    <span class="hljs-comment"># 创建sheet</span>
-    worksheet = workbook.add_sheet(<span class="hljs-string">&#x27;test&#x27;</span>)
-    a = <span class="hljs-number">0</span>
-    <span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> result:
-        <span class="hljs-comment"># print(item)</span>
-        <span class="hljs-comment"># 获取数据</span>
-        book = xlrd.open_workbook(item)
-        sheet = book.sheet_by_index(<span class="hljs-number">0</span>)
-        <span class="hljs-comment"># 获取值</span>
-        value = sheet.col_values(colx=<span class="hljs-number">0</span>)
-        <span class="hljs-comment"># 获取值</span>
-        value1 = sheet.row_values(rowx=<span class="hljs-number">2</span>);
-        <span class="hljs-comment"># 读取客户编码</span>
-        
-        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(value)):
-            <span class="hljs-comment"># print(i)</span>
-            a = a + <span class="hljs-number">1</span>
-            print(value[i])
-            <span class="hljs-comment"># 写入</span>
-            worksheet.write(a,<span class="hljs-number">0</span>,value[i])
-            temp = item.replace(<span class="hljs-string">&#x27;D:\File\Mixed\用户文件夹\桌面\mz报表\合肥市直主副卡记录(1)\合肥市直主副卡记录\\&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>)
-            <span class="hljs-comment"># 写入</span>
-            worksheet.write(a,<span class="hljs-number">1</span>,value1)
-            <span class="hljs-comment"># 写入</span>
-            worksheet.write(a,<span class="hljs-number">2</span>,temp)
-    <span class="hljs-comment"># 保存文件</span>
-    workbook.save(<span class="hljs-string">r&#x27;D:\File\Mixed\用户文件夹\桌面\mz报表\excelwrite1.xls&#x27;</span>)</code></pre>
+<h3 id="上面都是废话上代码"><a href="#上面都是废话上代码" class="headerlink" title="上面都是废话上代码"></a>上面都是废话上代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> xlrd<br><span class="hljs-keyword">import</span> xlwt  <span class="hljs-comment"># 不支持excel2007的xlsx格式</span><br><br><br><span class="hljs-comment"># 这里填你自己的路径</span><br>dirname = <span class="hljs-string">r&#x27;D:\File\Mixed\用户文件夹\桌面\mz报表\合肥市直主副卡记录(1)\合肥市直主副卡记录&#x27;</span><br>filename = <span class="hljs-string">&quot;.xls&quot;</span><br><br>result = []<br><span class="hljs-comment"># 这个方法是搜寻上面目录下的所有Excel文件</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">search</span>(<span class="hljs-params">dirname=dirname, filename=<span class="hljs-string">&quot;&quot;</span></span>):</span><br>    <span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> os.listdir(dirname):<br>        item_path = os.path.join(dirname, item)<br>        <span class="hljs-keyword">if</span> os.path.isdir(item_path):<br>            <span class="hljs-comment"># 这里用了递归，</span><br>            search(item_path, filename)<br>        <span class="hljs-keyword">elif</span> os.path.isfile(item_path):<br>            <span class="hljs-keyword">if</span> filename <span class="hljs-keyword">in</span> item:<br>                <span class="hljs-keyword">global</span> result<br>                <span class="hljs-comment"># 很简单吧，不需要解释了，好累你直接拷下来就行了</span><br>                result.append(item_path)<br><br><span class="hljs-comment"># 主方法，py文件就是从这里执行的</span><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    <span class="hljs-comment"># 调用方法</span><br>    search(dirname, filename)<br>    <span class="hljs-comment"># 创建写Excel文件的对象</span><br>    workbook = xlwt.Workbook()<br>    <span class="hljs-comment"># 创建sheet</span><br>    worksheet = workbook.add_sheet(<span class="hljs-string">&#x27;test&#x27;</span>)<br>    a = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> result:<br>        <span class="hljs-comment"># print(item)</span><br>        <span class="hljs-comment"># 获取数据</span><br>        book = xlrd.open_workbook(item)<br>        sheet = book.sheet_by_index(<span class="hljs-number">0</span>)<br>        <span class="hljs-comment"># 获取值</span><br>        value = sheet.col_values(colx=<span class="hljs-number">0</span>)<br>        <span class="hljs-comment"># 获取值</span><br>        value1 = sheet.row_values(rowx=<span class="hljs-number">2</span>);<br>        <span class="hljs-comment"># 读取客户编码</span><br>        <br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(value)):<br>            <span class="hljs-comment"># print(i)</span><br>            a = a + <span class="hljs-number">1</span><br>            print(value[i])<br>            <span class="hljs-comment"># 写入</span><br>            worksheet.write(a,<span class="hljs-number">0</span>,value[i])<br>            temp = item.replace(<span class="hljs-string">&#x27;D:\File\Mixed\用户文件夹\桌面\mz报表\合肥市直主副卡记录(1)\合肥市直主副卡记录\\&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>)<br>            <span class="hljs-comment"># 写入</span><br>            worksheet.write(a,<span class="hljs-number">1</span>,value1)<br>            <span class="hljs-comment"># 写入</span><br>            worksheet.write(a,<span class="hljs-number">2</span>,temp)<br>    <span class="hljs-comment"># 保存文件</span><br>    workbook.save(<span class="hljs-string">r&#x27;D:\File\Mixed\用户文件夹\桌面\mz报表\excelwrite1.xls&#x27;</span>)<br></code></pre></td></tr></table></figure>
 
 <blockquote>
 <p>就是上面的代码咯，有编程基础的不难理解，看看就懂了。</p>
@@ -359,7 +304,7 @@ result = []
                 <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
               
               
-                <div class="post-prevnext row">
+                <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
                     
@@ -505,22 +450,27 @@ result = []
   
   <!-- 备案信息 -->
   <div class="beian">
-    <a href="http://beian.miit.gov.cn/" target="_blank"
-       rel="nofollow noopener">皖ICP备20012572号</a>
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        皖ICP备20012572号
+      </a>
+    </span>
     
       
-        <a
-          href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=34042202000089"
-          rel="nofollow noopener"
-          class="beian-police"
-          target="_blank"
-        >
-          
-            <span style="visibility: hidden; width: 0">|</span>
-            <img src="/img/police_beian.png" srcset="/img/loading.gif" alt="police-icon"/>
-          
-          <span>京公网安备34042202000089号</span>
-        </a>
+        <span>
+          <a
+            href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=34042202000089"
+            rel="nofollow noopener"
+            class="beian-police"
+            target="_blank"
+          >
+            
+              <span style="visibility: hidden; width: 0">|</span>
+              <img src="/img/police_beian.png" srcset="/img/loading.gif" alt="police-icon"/>
+            
+            <span>京公网安备34042202000089号</span>
+          </a>
+        </span>
       
     
   </div>
@@ -537,9 +487,6 @@ result = []
   <script>
     NProgress.configure({"showSpinner":false,"trickleSpeed":200})
     NProgress.start()
-    document.addEventListener('DOMContentLoaded', function() {
-      window.NProgress && window.NProgress.inc();
-    })
     window.addEventListener('load', function() {
       NProgress.done();
     })
@@ -582,6 +529,7 @@ result = []
 
 
   <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
 
 
 
