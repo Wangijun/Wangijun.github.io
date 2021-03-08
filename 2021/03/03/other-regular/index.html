@@ -203,7 +203,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.8k 字
+      1.9k 字
     </span>
   
 
@@ -213,7 +213,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      24
+      25
        分钟
     </span>
   
@@ -255,13 +255,13 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：17 小时前
+                  本文最后更新于：5 天前
                 
               </p>
             
             <div class="markdown-body">
               <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>日常开发工作中免不了和用户输入打交道，像这种表单校验，可能在开发是很难引起我们的重视，心里一直想着，等主要功能完成了我再加也来得及嘛，<br>不慌不慌，然后项目上线，用了一两周，就会出现这样的东西<br><img src="https://tvax2.sinaimg.cn/large/005NNTS5ly1go6wolx06sj30910eqt90.jpg" srcset="/img/loading.gif" alt="一张图片"></p>
-<p> 由于后台判断重复，重复合同编号无法添加，然后，他喵的竟然直接点了一下空格。好家伙，我直接好家伙。为了系统稳定和流畅运行，起码不能有空格这种符号。简直了。</p>
+<p> 这里面代填的字段有的是作为主键来用的，这个有空格我感觉出bug的几率应该不大，但是非常影响项目的严谨性，实际开发中是应该避免的。说起文本校验，自然要提起正则表达式，奈何我是真的没有时间记（懒），我也没有认真的看过以及记过正则，搜索引擎香啊，搜集了一些常用的正则。下此需要用正则时就很方便了。</p>
 <h2 id="校验数字的表达式"><a href="#校验数字的表达式" class="headerlink" title="校验数字的表达式"></a>校验数字的表达式</h2><ul>
 <li>数字：<code>^[0-9]*$</code></li>
 <li>n位的数字：<code>^\d&#123;n&#125;$</code></li>
