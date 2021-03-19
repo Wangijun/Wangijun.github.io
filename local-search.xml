@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>Docker入门安装</title>
+    <link href="/2021/03/19/docker01/"/>
+    <url>/2021/03/19/docker01/</url>
+    
+    <content type="html"><![CDATA[<h2 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h2><div class="note note-primary">            <p>Docker安装前的准备，这里只介绍在CentOS7下的安装，环境不同，有可能会失败</p>          </div><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> step 1: 安装必要的一些系统工具</span><br>sudo yum install -y yum-utils device-mapper-persistent-data lvm2<br><span class="hljs-meta">#</span><span class="bash"> Step 2: 添加软件源信息</span><br>sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo<br><span class="hljs-meta">#</span><span class="bash"> Step 3: 更新并安装 Docker-CE</span><br>sudo yum makecache fast<br><span class="hljs-meta">#</span><span class="bash"> 开始安装Docker</span><br>sudo yum -y install docker-ce<br><span class="hljs-meta">#</span><span class="bash"> Step 4: 开启Docker服务</span><br>sudo systemctl start docker<br><br>注意：其他注意事项在下面的注释中<br><span class="hljs-meta">#</span><span class="bash"> 官方软件源默认启用了最新的软件，您可以通过编辑软件源的方式获取各个版本的软件包。例如官方并没有将测试版本的软件源置为可用，你可以通过以下方式开启。同理可以开启各种测试版本等。</span><br><span class="hljs-meta">#</span><span class="bash"> vim /etc/yum.repos.d/docker-ce.repo</span><br><span class="hljs-meta">#</span><span class="bash">   将 [docker-ce-test] 下方的 enabled=0 修改为 enabled=1</span><br></code></pre></td></tr></table></figure><h2 id="安装完成后的校验"><a href="#安装完成后的校验" class="headerlink" title="安装完成后的校验"></a>安装完成后的校验</h2><div class="note note-success">            <p>安装完成后</p>          </div><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 查看Docker版本</span><br><br>docker version<br><br><span class="hljs-meta">#</span><span class="bash"> 运行HelloWorld项目</span><br><br>docker run hello-world<br></code></pre></td></tr></table></figure><p>运行Hello-World结果如图</p><p><img src="https://tvax3.sinaimg.cn/large/005NNTS5ly1gopbgxc30gj30vb0i6769.jpg" alt="结果"></p><div class="note note-info">            <p>配置加速镜像</p>          </div><p>配置加速镜像需要登陆自己的阿里云，然后点击容器镜像服务</p><blockquote><ol><li>安装／升级Docker客户端</li></ol></blockquote><p>推荐安装1.10.0以上版本的Docker客户端，参考文档 docker-ce</p><blockquote><ol start="2"><li>配置镜像加速器</li></ol></blockquote><p>针对Docker客户端版本大于 1.10.0 的用户</p><p>您可以通过修改daemon配置文件/etc/docker/daemon.json来使用加速器</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell"><br>sudo mkdir -p /etc/docker<br>sudo tee /etc/docker/daemon.json &lt;&lt;-&#x27;EOF&#x27;<br>&#123;<br>  &quot;registry-mirrors&quot;: [&quot;https://t5nc3nme.mirror.aliyuncs.com&quot;]<br>&#125;<br>EOF<br>sudo systemctl daemon-reload<br>sudo systemctl restart docker<br></code></pre></td></tr></table></figure><p><img src="https://tva4.sinaimg.cn/large/005NNTS5ly1gopbka0s3kj30wm0zhjun.jpg" alt="阿里云"></p><p><a href="https://developer.aliyun.com/article/110806">阿里云的教程</a></p><p><a href="https://docs.docker.com/engine/install/centos">docker官网</a></p><h2 id="封面原图"><a href="#封面原图" class="headerlink" title="封面原图"></a>封面原图</h2><p>程潇妹子</p><p><img src="https://tvax3.sinaimg.cn/large/005NNTS5ly1gopbvuf16wj32yo1o0e84.jpg" alt="程潇高清写真"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>后端</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>docker</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>毕设项目自己常用的一些依赖－－SpringBoot</title>
     <link href="/2021/03/11/think6/"/>
     <url>/2021/03/11/think6/</url>
@@ -21,8 +46,6 @@
     <tags>
       
       <tag>毕业设计</tag>
-      
-      <tag>无良芳</tag>
       
     </tags>
     

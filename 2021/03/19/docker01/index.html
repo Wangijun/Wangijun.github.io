@@ -19,7 +19,7 @@
   <meta name="description" content="趁年轻早点拼，挽君ing">
   <meta name="author" content="无👉良芳">
   <meta name="keywords" content="博客，爱情">
-  <title>碎碎念3 - 挽君博客</title>
+  <title>Docker入门安装 - 挽君博客</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
 
@@ -176,7 +176,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="碎碎念3">
+            <span class="h2" id="subtitle" title="Docker入门安装">
               
             </span>
 
@@ -191,8 +191,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-02-26 16:47" pubdate>
-        2021年2月26日 下午
+      <time datetime="2021-03-19 16:41" pubdate>
+        2021年3月19日 下午
       </time>
     </span>
   
@@ -203,7 +203,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      897 字
+      427 字
     </span>
   
 
@@ -213,7 +213,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      9
+      5
        分钟
     </span>
   
@@ -251,41 +251,55 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">碎碎念3</h1>
+            <h1 style="display: none">Docker入门安装</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：21 天前
+                  本文最后更新于：30 分钟前
                 
               </p>
             
             <div class="markdown-body">
-              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>我自己也没想到自己在一个隔断间里住了接近半年，从去年的8月初找工作，然后8月中旬找到工作，在这个东家干了大半年。半年的收获，微薄的薪水，不算收获，得亏我住的这“桥洞”，房租并不是很高，我勉强活下来，然后靠着偶尔一个要好的朋友介绍的一些毕设项目做一做，勉强活到了现在。一个人生活，不谈恋爱，根本没有什么花销。，所以压根就没有什么经济压力，只要不是特别黑的老板，压倒人的往往都是精神压力。</p>
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>上周和老板说的解决住宿的问题，公司几个人公司都安排了住处，不给安排不就不给安排，套话没必要，跑路就跑路，小了，格局小了，这个公司看不到未来，也没有必要久待,！！安逸？？，孑然一身的我需要这玩意，闹腾起来！！！</p>
-<div class="note note-success">
-            <p>经常换工作</p>
+              <h2 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h2><div class="note note-primary">
+            <p>Docker安装前的准备，这里只介绍在CentOS7下的安装，环境不同，有可能会失败</p>
           </div>
 
-<p>当开始从事软件开发这一职业时，通常的入门都是从初级开发人员开始，但是初级开发人员的薪酬通常都很低。无论你多么努力，想在一家公司取得快速的进步并不是一件容易的事，尤其是如果你所在的是一家小公司的话。如果你想快速提高你的技能和你的薪水，那么，就需要经常换工作，寻找一个更好的职位。</p>
-<p>如果生活中没有太多的负担，那就不要犹豫换工作。ing</p>
-<div class="note note-success">
-            <p>为你自己而不是为公司做好工作</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> step 1: 安装必要的一些系统工具</span><br>sudo yum install -y yum-utils device-mapper-persistent-data lvm2<br><span class="hljs-meta">#</span><span class="bash"> Step 2: 添加软件源信息</span><br>sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo<br><span class="hljs-meta">#</span><span class="bash"> Step 3: 更新并安装 Docker-CE</span><br>sudo yum makecache fast<br><span class="hljs-meta">#</span><span class="bash"> 开始安装Docker</span><br>sudo yum -y install docker-ce<br><span class="hljs-meta">#</span><span class="bash"> Step 4: 开启Docker服务</span><br>sudo systemctl start docker<br><br>注意：其他注意事项在下面的注释中<br><span class="hljs-meta">#</span><span class="bash"> 官方软件源默认启用了最新的软件，您可以通过编辑软件源的方式获取各个版本的软件包。例如官方并没有将测试版本的软件源置为可用，你可以通过以下方式开启。同理可以开启各种测试版本等。</span><br><span class="hljs-meta">#</span><span class="bash"> vim /etc/yum.repos.d/docker-ce.repo</span><br><span class="hljs-meta">#</span><span class="bash">   将 [docker-ce-test] 下方的 enabled=0 修改为 enabled=1</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="安装完成后的校验"><a href="#安装完成后的校验" class="headerlink" title="安装完成后的校验"></a>安装完成后的校验</h2><div class="note note-success">
+            <p>安装完成后</p>
           </div>
 
-<p>努力学习，努力提高技能，努力做正确的事情，但记得要为自己而不是为公司而做。因为当你的工作出了问题或者当公司不再需要你的时候，你就是一个可以牺牲的数字。</p>
-<p>你的时间属于你自己，它是你最宝贵的财富。</p>
-<h2 id="尾声"><a href="#尾声" class="headerlink" title="尾声"></a>尾声</h2><p>我是挺佩服那些B站的UP主的，文案这么难的东西，他们是怎么做到那么高产的，不过也有可能是全职的原因，我只是上班间隙抽点时间，积攒一点想法。强行写，很难受。尤其是那种有点想法的时候，想说的时候又考虑博客的文体结构，算了，束缚太多，私人博客嘛想怎么写就怎么写啊。我管那么多干啥。</p>
-<p>爷一不发朋友圈，而不发QQ空间，一个网名用六七年的我，写个博客还想那么多干啥。</p>
-<p>都是一些废话啊，我住的隔断间，房东分了六个房间，我刚来的时候人是满的，看着一个个屋子空起来，空荡荡的房间，是很压抑，一旦搬家，如果是搬离这个城市，它住的房子里的痕迹就是他在这个城市的唯一痕迹，在外奔波，这种心境每个人都有啊，这不可耻，别害怕，因为怕不能让你避免这种心理，真正孤独的人感觉不到自己的孤独，这种状态不也挺好嘛。</p>
-<div class="note note-success">
-            <p>一个主人养了两只小狗，一只很乖巧，不吵不闹，很是惹人喜欢。另一只脾气很坏，经常汪汪大叫。某天主人家里发生变故，需要丢掉小狗，你说会丢掉哪只？</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 查看Docker版本</span><br><br>docker version<br><br><span class="hljs-meta">#</span><span class="bash"> 运行HelloWorld项目</span><br><br>docker run hello-world<br></code></pre></td></tr></table></figure>
+
+<p>运行Hello-World结果如图</p>
+<p><img src="https://tvax3.sinaimg.cn/large/005NNTS5ly1gopbgxc30gj30vb0i6769.jpg" srcset="/img/loading.gif" alt="结果"></p>
+<div class="note note-info">
+            <p>配置加速镜像</p>
           </div>
 
-
+<p>配置加速镜像需要登陆自己的阿里云，然后点击容器镜像服务</p>
 <blockquote>
-<p>封面原图（不是原图，但作为博客封面够用了😁😁😁😁😁）</p>
+<ol>
+<li>安装／升级Docker客户端</li>
+</ol>
 </blockquote>
-<p><img src="https://tva2.sinaimg.cn/large/005NNTS5ly1go2jwquxwyj30xe0iswqc.jpg" srcset="/img/loading.gif" alt="风 女孩 闭上眼睛 和服 花"></p>
+<p>推荐安装1.10.0以上版本的Docker客户端，参考文档 docker-ce</p>
+<blockquote>
+<ol start="2">
+<li>配置镜像加速器</li>
+</ol>
+</blockquote>
+<p>针对Docker客户端版本大于 1.10.0 的用户</p>
+<p>您可以通过修改daemon配置文件/etc/docker/daemon.json来使用加速器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell"><br>sudo mkdir -p /etc/docker<br>sudo tee /etc/docker/daemon.json &lt;&lt;-&#x27;EOF&#x27;<br>&#123;<br>  &quot;registry-mirrors&quot;: [&quot;https://t5nc3nme.mirror.aliyuncs.com&quot;]<br>&#125;<br>EOF<br>sudo systemctl daemon-reload<br>sudo systemctl restart docker<br></code></pre></td></tr></table></figure>
+
+
+<p><img src="https://tva4.sinaimg.cn/large/005NNTS5ly1gopbka0s3kj30wm0zhjun.jpg" srcset="/img/loading.gif" alt="阿里云"></p>
+<p><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/110806">阿里云的教程</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/centos">docker官网</a></p>
+<h2 id="封面原图"><a href="#封面原图" class="headerlink" title="封面原图"></a>封面原图</h2><p>程潇妹子</p>
+<p><img src="https://tvax3.sinaimg.cn/large/005NNTS5ly1gopbvuf16wj32yo1o0e84.jpg" srcset="/img/loading.gif" alt="程潇高清写真"></p>
 
             </div>
             <hr>
@@ -295,7 +309,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E9%9A%8F%E6%83%B3%E7%AF%87/">随想篇</a>
+                      <a class="hover-with-bg" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
                     
                   </div>
                 
@@ -303,9 +317,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/">碎碎念</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E6%8F%90%E7%AC%94%E5%BE%80%E4%BA%8B/">提笔往事</a>
+                      <a class="hover-with-bg" href="/tags/docker/">docker</a>
                     
                   </div>
                 
@@ -318,18 +330,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/03/03/other-regular/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">常用正则（持续补充ing）</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/02/19/vue-think1/">
-                        <span class="hidden-mobile">说说Vue吧</span>
+                      <a href="/2021/03/11/think6/">
+                        <span class="hidden-mobile">毕设项目自己常用的一些依赖－－SpringBoot</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
