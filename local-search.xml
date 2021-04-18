@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>快速删除webpack项目目录中node_modules</title>
+    <link href="/2021/04/18/vue-idea/"/>
+    <url>/2021/04/18/vue-idea/</url>
+    
+    <content type="html"><![CDATA[<h2 id="方法一：使用rimraf模块的命令"><a href="#方法一：使用rimraf模块的命令" class="headerlink" title="方法一：使用rimraf模块的命令"></a>方法一：使用rimraf模块的命令</h2><p>在全局安装rimraf模块，然后通过其命令来快速删除node_modules目录：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm install rimraf -g<br>rimraf node_modules<br></code></pre></td></tr></table></figure><h2 id="方法二：使用命令来删除目录"><a href="#方法二：使用命令来删除目录" class="headerlink" title="方法二：使用命令来删除目录"></a>方法二：使用命令来删除目录</h2><h3 id="windows下"><a href="#windows下" class="headerlink" title="windows下"></a>windows下</h3><p>首先在cmd窗口中进入到node_modules文件夹所在的路径，接着执行命令：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">rmdir /s/q node_modules<br></code></pre></td></tr></table></figure><h3 id="linux下"><a href="#linux下" class="headerlink" title="linux下"></a>linux下</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">rm -f /node_modules<br></code></pre></td></tr></table></figure><h2 id="封面原图"><a href="#封面原图" class="headerlink" title="封面原图"></a>封面原图</h2><div class="note note-info">            <p>翻译翻译，什么叫TM的惊喜。。。</p>          </div><p><img src="https://tvax4.sinaimg.cn/large/005NNTS5ly1gpo8t35xs5j33341r8qv5.jpg" alt="少女马尾辫 夜晚 电脑 听音乐"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>前端</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>node_modules</tag>
+      
+      <tag>vue</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Docker常用命令</title>
     <link href="/2021/03/21/docker02/"/>
     <url>/2021/03/21/docker02/</url>
