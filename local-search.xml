@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>Vue-Cli4反向代理的配置方法</title>
+    <link href="/2021/04/19/vue-proxy/"/>
+    <url>/2021/04/19/vue-proxy/</url>
+    
+    <content type="html"><![CDATA[<h2 id="Vue为什么需要配置反向代理"><a href="#Vue为什么需要配置反向代理" class="headerlink" title="Vue为什么需要配置反向代理"></a>Vue为什么需要配置反向代理</h2><p>在前后端分离的情况下前端项目也是需要单独部署到服务器上的，也就是前端项目也需要占用一个端口号，后端服务器也需要占用一个端口号，也就是说就算在同一台服务器上端口号也不是一样的，最起码要做个代理，前端项目才能发请求给后端，一台服务器上不会有跨域的问题，但实际部署中可能会遇到前端一个服务器，后端一个服务器。这个时候我们就需要设置代理来完成这样的功能了。</p><h2 id="配置方法"><a href="#配置方法" class="headerlink" title="配置方法"></a>配置方法</h2><p>编辑项目根目录下vue.config.js文件里面加上这个，如果没有就新建一个。</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">module</span>.exports = &#123;<br>  devServer: &#123;<br>    proxy: &#123;<br>      <span class="hljs-string">&#x27;/api&#x27;</span>: &#123;<br>        target: process.env.NODE_ENV === <span class="hljs-string">&#x27;production&#x27;</span> ? <span class="hljs-string">&#x27;http://localhost:8085&#x27;</span> : <span class="hljs-string">&#x27;http://localhost:8085&#x27;</span>,<br>        ws: <span class="hljs-literal">true</span>, <span class="hljs-comment">// 这个是 开启websocket</span><br>        changeOrigin: <span class="hljs-literal">true</span>,<br>        pathRewrite: &#123;<br>          <span class="hljs-string">&#x27;^/api&#x27;</span>: <span class="hljs-string">&#x27;&#x27;</span><br>        &#125;<br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure><h2 id="关于这个process-env-NODE-ENV"><a href="#关于这个process-env-NODE-ENV" class="headerlink" title="关于这个process.env.NODE_ENV"></a>关于这个process.env.NODE_ENV</h2><p>这个东西是环境变量默认是<code>development</code>, 共有三种，<code>production</code>, <code>test</code>,<br><code>NODE_ENV</code> 将决定您的应用运行的模式，是开发，生产还是测试，因此也决定了创建哪种 webpack 配置。<br>官方文档就是最好的学习资料</p><p><a href="https://cli.vuejs.org/zh/guide/mode-and-env.html#%E6%A8%A1%E5%BC%8F">vueCli配置以及环境变量地址</a></p><h2 id="封面原图"><a href="#封面原图" class="headerlink" title="封面原图"></a>封面原图</h2><div class="note note-info">            <p>以前绝地求生能看飞机里面的情况，每个人都是垂头丧气的，因为他们知道，他们中只能活下来一个人。</p>          </div><p><img src="https://tvax4.sinaimg.cn/large/005NNTS5ly1gppzzxxc6dj32yo1o0npg.jpg" alt="pubg 绝地求生"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>前端</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>vue</tag>
+      
+      <tag>proxy</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>正向代理和反向代理</title>
     <link href="/2021/04/19/other0/"/>
     <url>/2021/04/19/other0/</url>
