@@ -203,7 +203,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      388 字
+      458 字
     </span>
   
 
@@ -213,7 +213,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      5
        分钟
     </span>
   
@@ -255,13 +255,23 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：4 分钟前
+                  本文最后更新于：1 天前
                 
               </p>
             
             <div class="markdown-body">
               <h2 id="Vue为什么需要配置反向代理"><a href="#Vue为什么需要配置反向代理" class="headerlink" title="Vue为什么需要配置反向代理"></a>Vue为什么需要配置反向代理</h2><p>在前后端分离的情况下前端项目也是需要单独部署到服务器上的，也就是前端项目也需要占用一个端口号，后端服务器也需要占用一个端口号，也就是说就算在同一台服务器上端口号也不是一样的，最起码要做个代理，前端项目才能发请求给后端，一台服务器上不会有跨域的问题，但实际部署中可能会遇到前端一个服务器，后端一个服务器。这个时候我们就需要设置代理来完成这样的功能了。</p>
 <h2 id="配置方法"><a href="#配置方法" class="headerlink" title="配置方法"></a>配置方法</h2><p>编辑项目根目录下vue.config.js文件里面加上这个，如果没有就新建一个。</p>
+<h2 id="Vue代理注意点"><a href="#Vue代理注意点" class="headerlink" title="Vue代理注意点"></a>Vue代理注意点</h2><p>在Vue项目中配置了代理，但是部署之后不生效，并且报404；</p>
+<div class="note note-info">
+            <p>这是因为Vue配置的代理仅在本地开发下有效；</p>
+          </div>
+
+<p>部署之后，需要：</p>
+<ul>
+<li>在nginx中进行配置代理</li>
+<li>或者后端配置跨域；</li>
+</ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">module</span>.exports = &#123;<br>  devServer: &#123;<br>    proxy: &#123;<br>      <span class="hljs-string">&#x27;/api&#x27;</span>: &#123;<br>        target: process.env.NODE_ENV === <span class="hljs-string">&#x27;production&#x27;</span> ? <span class="hljs-string">&#x27;http://localhost:8085&#x27;</span> : <span class="hljs-string">&#x27;http://localhost:8085&#x27;</span>,<br>        ws: <span class="hljs-literal">true</span>, <span class="hljs-comment">// 这个是 开启websocket</span><br>        changeOrigin: <span class="hljs-literal">true</span>,<br>        pathRewrite: &#123;<br>          <span class="hljs-string">&#x27;^/api&#x27;</span>: <span class="hljs-string">&#x27;&#x27;</span><br>        &#125;<br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
 
 <h2 id="关于这个process-env-NODE-ENV"><a href="#关于这个process-env-NODE-ENV" class="headerlink" title="关于这个process.env.NODE_ENV"></a>关于这个process.env.NODE_ENV</h2><p>这个东西是环境变量默认是<code>development</code>, 共有三种，<code>production</code>, <code>test</code>,<br><code>NODE_ENV</code> 将决定您的应用运行的模式，是开发，生产还是测试，因此也决定了创建哪种 webpack 配置。<br>官方文档就是最好的学习资料</p>
@@ -303,6 +313,12 @@
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2021/04/22/nginx01/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Nginx安装以及常用命令</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">

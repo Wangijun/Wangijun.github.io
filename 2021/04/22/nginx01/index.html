@@ -19,7 +19,7 @@
   <meta name="description" content="趁年轻早点拼，挽君ing">
   <meta name="author" content="无👉良芳">
   <meta name="keywords" content="博客，爱情">
-  <title>正向代理和反向代理 - 挽君博客</title>
+  <title>Nginx安装以及常用命令 - 挽君博客</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
 
@@ -176,7 +176,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="正向代理和反向代理">
+            <span class="h2" id="subtitle" title="Nginx安装以及常用命令">
               
             </span>
 
@@ -191,8 +191,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-04-19 13:27" pubdate>
-        2021年4月19日 下午
+      <time datetime="2021-04-22 11:50" pubdate>
+        2021年4月22日 中午
       </time>
     </span>
   
@@ -203,7 +203,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.9k 字
+      1.5k 字
     </span>
   
 
@@ -213,7 +213,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      19
+      17
        分钟
     </span>
   
@@ -251,57 +251,108 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">正向代理和反向代理</h1>
+            <h1 style="display: none">Nginx安装以及常用命令</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：4 天前
+                  本文最后更新于：1 天前
                 
               </p>
             
             <div class="markdown-body">
-              <h2 id="正向代理"><a href="#正向代理" class="headerlink" title="正向代理"></a>正向代理</h2><p><strong>正向代理（forward proxy）</strong>：是一个位于客户端和目标服务器之间的服务器(代理服务器)，为了从目标服务器取得内容，客户端向代理服务器发送一个请求并指定目标，然后代理服务器向目标服务器转交请求并将获得的内容返回给客户端。</p>
-<p>这种代理其实在生活中是比较常见的，比如科学上网技术，其用到的就是代理技术。</p>
-<p>有时候，用户想要访问某国外网站，该网站无法在国内直接访问，但是我们可以访问到一个代理服务器，这个代理服务器可以访问到这个国外网站。这样呢，用户对该国外网站的访问就需要通过代理服务器来转发请求，</p>
-<p><img src="https://tva2.sinaimg.cn/large/005NNTS5ly1gpp0j9o2e4j30rc0bsweq.jpg" srcset="/img/loading.gif" alt="正向代理"></p>
-<p>这个过程其实和租房子很像。</p>
-<p>租房子的时候，一般情况下，我们很难联系到房东，因为有些房东为了图方便，只把自己的房屋信息和钥匙交给中介了。而房客想要租房子，只能通过中介才能联系到房东。而对于房东来说，他可能根本不知道真正要租他的房子的人是谁，他只知道是中介在联系他。</p>
-<p>这里面一共有三个角色，租客（用户）、中介（代理服务器）和房东（国外网站，目标服务器）。引入中介（代理服务器）的原因是用户无法联系上房东（用户无法访问国外网站）。</p>
-<p>正向代理，其实是”代理服务器”代理了”客户端”，去和”目标服务器”进行交互。</p>
-<p>通过正向代理服务器访问目标服务器，目标服务器是不知道真正的客户端是谁的，甚至不知道访问自己的是一个代理（有时候中介也直接冒充租客）。</p>
-<h2 id="二、正向代理的用途"><a href="#二、正向代理的用途" class="headerlink" title="二、正向代理的用途"></a>二、正向代理的用途</h2><h3 id="突破访问限制"><a href="#突破访问限制" class="headerlink" title="突破访问限制"></a>突破访问限制</h3><p>通过代理服务器，可以突破自身IP访问限制，访问国外网站，教育网等。</p>
-<p>即，租客可以通过中介，来解决无法联系上房东的问题。</p>
-<h3 id="提高访问速度"><a href="#提高访问速度" class="headerlink" title="提高访问速度"></a>提高访问速度</h3><p>通常代理服务器都设置一个较大的硬盘缓冲区，会将部分请求的响应保存到缓冲区中，当其他用户再访问相同的信息时， 则直接由缓冲区中取出信息，传给用户，以提高访问速度。</p>
-<p>即，中介手里留存了很多房源信息和钥匙，可以直接带租客去看房。</p>
-<h3 id="隐藏客户端真实IP"><a href="#隐藏客户端真实IP" class="headerlink" title="隐藏客户端真实IP"></a>隐藏客户端真实IP</h3><p>上网者也可以通过这种方法隐藏自己的IP，免受攻击。</p>
-<p>即，房东并不知道租客的真实身份。PS：但是中介知道了，可能骚扰更多….</p>
-<h2 id="三、反向代理"><a href="#三、反向代理" class="headerlink" title="三、反向代理"></a>三、反向代理</h2><p><strong>反向代理（reverse proxy）</strong>：是指以代理服务器来接受internet上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给internet上请求连接的客户端，此时代理服务器对外就表现为一个反向代理服务器。</p>
-<p>我们在租房子的过程中，除了有些房源需要通过中介以外，还有一些是可以直接通过房东来租的。用户直接找到房东租房的这种情况就是我们不使用代理直接访问国内的网站的情况。</p>
-<p>还有一种情况，就是我们以为我们接触的是房东，其实有时候也有可能并非房主本人，有可能是他的亲戚、朋友，甚至是二房东。但是我们并不知道和我们沟通的并不是真正的房东。这种帮助真正的房主租房的二房东其实就是反向代理服务器。这个过程就是反向代理。</p>
-<p>对于常用的场景，就是我们在Web开发中用到的负载均衡服务器（二房东），客户端（租客）发送请求到负载均衡服务器（二房东）上，负载均衡服务器（二房东）再把请求转发给一台真正的服务器（房东）来执行，再把执行结果返回给客户端（租客）。</p>
-<p><img src="https://tva3.sinaimg.cn/large/005NNTS5ly1gpp0ktcu1lj30jm07pzkc.jpg" srcset="/img/loading.gif" alt="反向代理"></p>
-<p>反向代理，其实是”代理服务器”代理了”目标服务器”，去和”客户端”进行交互。</p>
-<p>通过反向代理服务器访问目标服务器时，客户端是不知道真正的目标服务器是谁的，甚至不知道自己访问的是一个代理。</p>
-<h2 id="四、反向代理的用途"><a href="#四、反向代理的用途" class="headerlink" title="四、反向代理的用途"></a>四、反向代理的用途</h2><h3 id="隐藏服务器真实IP"><a href="#隐藏服务器真实IP" class="headerlink" title="隐藏服务器真实IP"></a>隐藏服务器真实IP</h3><p>使用反向代理，可以对客户端隐藏服务器的IP地址。</p>
-<p>即，租客并不房东知道的真实身份。</p>
-<h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h3><p>反向代理服务器可以做负载均衡，根据所有真实服务器的负载情况，将客户端请求分发到不同的真实服务器上。</p>
-<p>即，二房东发现房主本人很忙，于是找到房主的妻子帮忙处理租房事宜。</p>
-<h3 id="提高访问速度-1"><a href="#提高访问速度-1" class="headerlink" title="提高访问速度"></a>提高访问速度</h3><p>反向代理服务器可以对于静态内容及短时间内有大量访问请求的动态内容提供缓存服务，提高访问速度。</p>
-<p>即，二房东同样有房屋信息和钥匙。</p>
-<h3 id="提供安全保障"><a href="#提供安全保障" class="headerlink" title="提供安全保障"></a>提供安全保障</h3><p>反向代理服务器可以作为应用层防火墙，为网站提供对基于Web的攻击行为（例如DoS/DDoS）的防护，更容易排查恶意软件等。还可以为后端服务器统一提供加密和SSL加速（如SSL终端代理），提供HTTP访问认证等。</p>
-<p>即，二房东可以有效的保护房东的安全。</p>
-<h2 id="五、正向代理和反向代理的区别"><a href="#五、正向代理和反向代理的区别" class="headerlink" title="五、正向代理和反向代理的区别"></a>五、正向代理和反向代理的区别</h2><p>虽然正向代理服务器和反向代理服务器所处的位置都是客户端和真实服务器之间，所做的事情也都是把客户端的请求转发给服务器，再把服务器的响应转发给客户端，但是二者之间还是有一定的差异的。</p>
+              <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>nginx是个好东西, 程序员嘛，对于牛逼东西的爱不亚于女生对于那些<code>红色</code>口红的爱，这么牛逼的东西还免费，不学会简直可惜，一个字。学。学习技术嘛，最好的学习还是要在工作中学习啊，没有实际项目给你练手，自己鼓捣，效率不是很高，如果是跟着教程来搞的话，那就更扯淡了，实际环境怎么可能和教学环境一样。至于这个坑，工作中应该会感受到，这里就不多介绍了。话说，2021年了，还有XP系统？？？？</p>
+<h1 id="Window10"><a href="#Window10" class="headerlink" title="Window10"></a>Window10</h1><blockquote>
+<p>实际开发中一般都是win10的多吧，什么，你用win7，不至于不至于，升个win10吧，这是趋势，程序员应该是互联网的弄潮儿，走在前列不碍事的。</p>
+</blockquote>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>官网下载地址： <a target="_blank" rel="noopener" href="http://nginx.org/en/download.html">nginx</a></p>
+<p><img src="https://tvax3.sinaimg.cn/large/005NNTS5ly1gptj58dufej31q10vldms.jpg" srcset="/img/loading.gif" alt="如图"></p>
+<p>是不是有点啰嗦了，不需要这么啰嗦，</p>
+<p>下载下来是这样<img src="https://tva1.sinaimg.cn/large/005NNTS5ly1gptj8ckyd0j30t7093dgd.jpg" srcset="/img/loading.gif" alt="一个文件夹里"></p>
+<p>解压打开是这样<img src="https://tva4.sinaimg.cn/large/005NNTS5ly1gptja1435cj310e0ddjss.jpg" srcset="/img/loading.gif" alt="这就是主目录"></p>
+<p>实际上到这里，已经安装完成了，就是这么简单，这就是win10的快乐😀😀😀</p>
+<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><p>还是在这个文件夹<img src="https://tvax3.sinaimg.cn/large/005NNTS5ly1gptjbym5qpj31200e5q4e.jpg" srcset="/img/loading.gif" alt="图片"></p>
+<p>点击上面的地址栏，<img src="https://tva3.sinaimg.cn/large/005NNTS5ly1gptjcqbp8sj30xk0ds75m.jpg" srcset="/img/loading.gif" alt="图片"></p>
+<p>输入cmd <img src="https://tvax1.sinaimg.cn/large/005NNTS5ly1gptjd6m5a3j311k0eegmw.jpg" srcset="/img/loading.gif" alt="图片"></p>
+<p>然后回车 得到一个黑窗口，，就是我们的操作界面 <img src="https://tva4.sinaimg.cn/large/005NNTS5ly1gptjdphem8j31ie0t6405.jpg" srcset="/img/loading.gif" alt="cmd"></p>
+<p>然后就开始介绍常用的命令</p>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p>这里我建议用命令操作啊。就是在上面哪个窗口敲命令即可，不建议直接运行双击nginx.exe文件，这样启动有坑，坑就是nginx停不掉，可能是我的电脑的原因。只能用命令来杀掉。</p>
+<p>假设你安装在 D:\server\nginx-1.20.0目录下，</p>
+<p>cmd命令进入安装目录下，就是有nginx.exe的文件夹下；</p>
 <ul>
-<li>正向代理其实是客户端的代理，帮助客户端访问其无法访问的服务器资源。反向代理则是服务器的代理，帮助服务器做负载均衡，安全防护等。</li>
-<li>正向代理一般是客户端架设的，比如在自己的机器上安装一个代理软件。而反向代理一般是服务器架设的，比如在自己的机器集群中部署一个反向代理服务器。</li>
-<li>正向代理中，服务器不知道真正的客户端到底是谁，以为访问自己的就是真实的客户端。而在反向代理中，客户端不知道真正的服务器是谁，以为自己访问的就是真实的服务器。</li>
-<li>正向代理和反向代理的作用和目的不同。正向代理主要是用来解决访问限制问题。而反向代理则是提供负载均衡、安全防护等作用。二者均能提高访问速度。</li>
+<li><p>1、启动：</p>
+<p>  D:\server\nginx-1.20.0&gt;<code>start nginx</code><br>  或<br>  D:\server\nginx-1.20.0&gt;<code>nginx.exe</code></p>
+<p>  注：建议使用第一种，第二种会使你的cmd窗口一直处于执行中，不能进行其他命令操作。建议不要直接使用双击目录下的exe文件，会有坑。<br>  如果停不掉可以用管理员权限打开cmd ,运行这条命令   <code>taskkill /fi &quot;imagename eq nginx.EXE&quot; /f</code></p>
+</li>
 </ul>
-<h2 id="封面原图"><a href="#封面原图" class="headerlink" title="封面原图"></a>封面原图</h2><div class="note note-success">
-            <p>我见过真正的龙神，知道他们是一对兄弟，我见过代表死亡与生存的死神和天使，见过经历人间沧桑的老兵，见过在月球上生存的重情意的猩猩，见过一对英雄母女，见过智能机械，见过宁静的少林寺和尚，去过黑帮基地，去过种种地方，感受过世间万物。</p>
+<ul>
+<li><p>2、停止：</p>
+<p>  D:\server\nginx-1.20.0&gt;<code>nginx.exe -s stop</code></p>
+<p>  或</p>
+<p>  D:\server\nginx-1.20.0&gt;<code>nginx.exe -s quit</code></p>
+<p>  注：stop是快速停止nginx，可能并不保存相关信息；quit是完整有序的停止nginx，并保存相关信息。</p>
+</li>
+<li><p>3、重新载入Nginx：</p>
+<p>  D:\server\nginx-1.20.0&gt;<code>nginx.exe -s reload</code></p>
+<p>  当配置信息修改，需要重新载入这些配置时使用此命令。</p>
+</li>
+<li><p>4、重新打开日志文件：</p>
+<p>  D:\server\nginx-1.20.0&gt;<code>nginx.exe -s reopen</code></p>
+</li>
+<li><p>5、查看Nginx版本：</p>
+<p>  D:\server\nginx-1.20.0&gt;<code>nginx -v</code></p>
+</li>
+</ul>
+<h1 id="Liunx"><a href="#Liunx" class="headerlink" title="Liunx"></a>Liunx</h1><p>一般都是在liunx上使用啊，liunx由于是命令行操作，应该挺难记的，好记性不如烂键盘啊。</p>
+<h2 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h2><p>Linux上面安装软件是有一点麻烦的，麻烦是指习惯可视化操作界面的人来说的，对于那些大佬可能来说Liunx上安装更方便。这里采用自己手动下载压缩包的方式安装，这种方式最万能。不排除有些服务器不能连外网。不过我又想，服务器不能连外网，我用nginx干嘛？？？好吧，这是个没营养的问题，继续开始。</p>
+<p>下载</p>
+<p><img src="https://tva1.sinaimg.cn/large/005NNTS5ly1gptp5wd9bkj31nf0mujvw.jpg" srcset="/img/loading.gif" alt="下载"></p>
+<p>下载得到这样一个文件</p>
+<p><img src="https://tva3.sinaimg.cn/large/005NNTS5ly1gptpdos6orj307f09eglo.jpg" srcset="/img/loading.gif" alt="一个文件"></p>
+<p>接下来我们就需要把这个文件上传到我的服务器上。</p>
+<p>连上我们的服务器<br><img src="https://tvax1.sinaimg.cn/large/005NNTS5ly1gptp75x7jjj314j0u141z.jpg" srcset="/img/loading.gif" alt="连接服务器"></p>
+<p>创建并进入nginx目录</p>
+<p><img src="https://tva4.sinaimg.cn/large/005NNTS5ly1gptpbq6sl1j314j0u142a.jpg" srcset="/img/loading.gif" alt="很简单咯"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><br><span class="hljs-comment"># 进入这个目录</span><br><span class="hljs-built_in">cd</span> /usr/<span class="hljs-built_in">local</span><br><br><span class="hljs-comment"># 创建nginx文件夹</span><br>mkdir nginx<br><br><span class="hljs-comment"># 进入nginx文件夹</span><br><span class="hljs-built_in">cd</span> nginx<br><br></code></pre></td></tr></table></figure>
+
+<p>上传到我们的服务器上，至于上传方式有很多种方法，各显神通即可。</p>
+<p><img src="https://tva2.sinaimg.cn/large/005NNTS5ly1gptpjs86lqj314j0u1djl.jpg" srcset="/img/loading.gif" alt="上传后"></p>
+<p>下面就是全部是命令操作了，就不放图了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs bash"><br><span class="hljs-comment"># 初始化安装工具</span><br><span class="hljs-comment"># //一键安装四个依赖</span><br>yum -y install gcc zlib zlib-devel pcre-devel openssl openssl-devel<br><br><span class="hljs-comment"># 解压文件</span><br>tar -xvf nginx-1.20.0.tar.gz<br><br><span class="hljs-comment"># 进入文件夹</span><br><span class="hljs-built_in">cd</span> nginx-1.20.0<br><br><span class="hljs-comment"># 安装ssl的模块，这个先不用在意，</span><br><br>./configure --prefix=/usr/<span class="hljs-built_in">local</span>/nginx --with-http_ssl_module<br><br>//执行make命令<br>make<br>//执行make install命令<br>make install<br><br></code></pre></td></tr></table></figure>
+
+<p>上面的执行完了，到这就算安装完了，下面的配置的话，liunx和win通用<br>所以放在一起说。</p>
+<h2 id="常用命令-1"><a href="#常用命令-1" class="headerlink" title="常用命令"></a>常用命令</h2><p>和win10基本一样</p>
+<p>只不过我们需要进入安装目录下的sbin目录执行命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 重启</span><br>/usr/<span class="hljs-built_in">local</span>/nginx/sbin/nginx -s reload<br><br><span class="hljs-comment"># 启动</span><br>/usr/<span class="hljs-built_in">local</span>/nginx/sbin/nginx<br><br><span class="hljs-comment"># 如果出现报错：nginx: [error] open() ＂/usr/local/nginx/logs/nginx.pid＂ failed</span><br><br><span class="hljs-comment"># 则运行： /usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf</span><br><br><span class="hljs-comment"># 停止</span><br><br>/usr/<span class="hljs-built_in">local</span>/nginx/sbin/nginx -s stop<br><br><br><span class="hljs-comment"># 查看nginx进程是否启动：</span><br><br>ps -ef | grep nginx<br><br></code></pre></td></tr></table></figure>
+
+<p>安装完成一般常用命令</p>
+<p>进入安装目录中，</p>
+<p>命令： <code>cd /usr/local/nginx/sbin</code></p>
+<p>启动，关闭，重启，命令：</p>
+<p><code>./nginx</code> 启动</p>
+<p><code>./nginx -s stop</code> 关闭</p>
+<p><code>./nginx -s reload</code> 重启</p>
+<p><code>./nginx -v</code> 查看版本</p>
+<h1 id="nginx配置"><a href="#nginx配置" class="headerlink" title="nginx配置"></a>nginx配置</h1><p><strong>打开配置文件</strong></p>
+<p><code>vim /usr/local/nginx/conf/nginx.conf</code></p>
+<p>看图</p>
+<p><img src="https://tvax1.sinaimg.cn/large/005NNTS5ly1gptpuxpj5yj314j0u1td3.jpg" srcset="/img/loading.gif" alt="image"></p>
+<p>正常情况下我们已经能看到<br><img src="https://tva1.sinaimg.cn/large/005NNTS5ly1gptqip402nj31cj0f9768.jpg" srcset="/img/loading.gif" alt="如图"></p>
+<p>证明一下我们成功了，我们改一下这里面的东西</p>
+<p>先执行命令<code>vim /usr/local/nginx/html/index.html</code></p>
+<p><img src="https://tvax1.sinaimg.cn/large/005NNTS5ly1gptqlpx83ej31er0u1te3.jpg" srcset="/img/loading.gif" alt="改前"></p>
+<p><img src="https://tvax4.sinaimg.cn/large/005NNTS5ly1gptqnlipngj31er0u1gqx.jpg" srcset="/img/loading.gif" alt="改后"></p>
+<p>在回看我们的页面</p>
+<p><img src="https://tva1.sinaimg.cn/large/005NNTS5ly1gptqo8gij3j31i20hyq59.jpg" srcset="/img/loading.gif" alt="已经变了"></p>
+<p>乱码是因为编码格式的问题，不用中文，用数字加英文就可以我在改一下。改成，23333333</p>
+<p>看已经编程2333333了，到此nginx的安装已经完成了。</p>
+<p><img src="https://tvax2.sinaimg.cn/large/005NNTS5ly1gptqpkdug3j31fd0gewgf.jpg" srcset="/img/loading.gif" alt="Ok"></p>
+<p>具体配置，因为我用到的配置太少了，就是配置反向代理。很简单。</p>
+<h1 id="封面原图"><a href="#封面原图" class="headerlink" title="封面原图"></a>封面原图</h1><div class="note note-info">
+            <p>“你既知人生如戏，更应该尽力演出，搭起的舞台过了一幕又沉入暗中。此刻你在台下仰望，且把你的艳美哀伤毫不吝惜交给我，如此曲终人散后，你仍在我身心存活”生命太短，所爱的人却相忘于江湖，走散的人都没再遇……</p>
           </div>
 
-<p><img src="https://tva3.sinaimg.cn/large/005NNTS5ly1gpp02y56v8j32yo1o07wj.jpg" srcset="/img/loading.gif" alt="守望先锋dva"></p>
+
+<p><img src="https://tva1.sinaimg.cn/large/005NNTS5ly1gptoug62xcj33341izqv6.jpg" srcset="/img/loading.gif" alt="女孩背影 男孩钢琴"></p>
 
             </div>
             <hr>
@@ -319,9 +370,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/net/">net</a>
+                      <a class="hover-with-bg" href="/tags/nginx/">nginx</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/">网络代理</a>
+                      <a class="hover-with-bg" href="/tags/linux/">linux</a>
                     
                   </div>
                 
@@ -334,18 +385,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/04/19/vue-proxy/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Vue-Cli4反向代理的配置方法</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/04/18/vue-idea/">
-                        <span class="hidden-mobile">快速删除webpack项目目录中node_modules</span>
+                      <a href="/2021/04/19/vue-proxy/">
+                        <span class="hidden-mobile">Vue-Cli4反向代理的配置方法</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
