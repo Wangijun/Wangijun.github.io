@@ -16,29 +16,13 @@
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="当安装了较多模块后，node_modules目录下的文件会很多，直接删除整个目录会很慢，记一下快速删除node_modules目录的方法。">
+  <meta name="description" content="趁年轻早点拼，挽君ing">
   <meta name="author" content="无👉良芳">
   <meta name="keywords" content="博客，爱情">
   
-  <title>快速删除webpack项目目录中node_modules - 挽君博客</title>
+  <title>归档 - 挽君博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
-
-  
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
-    
-  
-
-  
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-  
 
 
 
@@ -66,7 +50,7 @@
 
 
 <body>
-  <header style="height: 70vh;">
+  <header style="height: 60vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -172,64 +156,14 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
+         style="background: url('/img/yy1.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="快速删除webpack项目目录中node_modules">
+            <span class="h2" id="subtitle" title="归档">
               
             </span>
-
-            
-              <div class="mt-3">
-  
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-author" aria-hidden="true"></i>
-      无👉良芳
-    </span>
-  
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-04-18 21:54" pubdate>
-        2021年4月18日 晚上
-      </time>
-    </span>
-  
-</div>
-
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      98 字
-    </span>
-  
-
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      1
-       分钟
-    </span>
-  
-
-  
-  
-    
-      <!-- 不蒜子统计文章PV -->
-      <span id="busuanzi_container_page_pv" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="busuanzi_value_page_pv"></span> 次
-      </span>
-    
-  
-</div>
 
             
           </div>
@@ -242,150 +176,40 @@
 
   <main>
     
+      <div class="container nopadding-x-md">
+        <div class="py-5" id="board"
+          >
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+<div class="list-group">
+  <p class="h4">共计 25 篇文章</p>
+  <hr>
+  
+  
+    
       
+      <p class="h5">2021</p>
+    
+    <a href="/2021/05/01/think8/" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">回村碎碎念</span>
+      <time style="float: right;">05-01</time>
+    </a>
+  
+</div>
 
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">快速删除webpack项目目录中node_modules</h1>
-            
-              <p class="note note-info">
-                
-                  本文最后更新于：16 天前
-                
-              </p>
-            
-            <div class="markdown-body">
-              <h2 id="方法一：使用rimraf模块的命令"><a href="#方法一：使用rimraf模块的命令" class="headerlink" title="方法一：使用rimraf模块的命令"></a>方法一：使用rimraf模块的命令</h2><p>在全局安装rimraf模块，然后通过其命令来快速删除node_modules目录：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm install rimraf -g<br>rimraf node_modules<br></code></pre></td></tr></table></figure>
 
-<h2 id="方法二：使用命令来删除目录"><a href="#方法二：使用命令来删除目录" class="headerlink" title="方法二：使用命令来删除目录"></a>方法二：使用命令来删除目录</h2><h3 id="windows下"><a href="#windows下" class="headerlink" title="windows下"></a>windows下</h3><p>首先在cmd窗口中进入到node_modules文件夹所在的路径，接着执行命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">rmdir /s/q node_modules<br></code></pre></td></tr></table></figure>
 
-<h3 id="linux下"><a href="#linux下" class="headerlink" title="linux下"></a>linux下</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">rm -f /node_modules<br></code></pre></td></tr></table></figure>
 
-<h2 id="封面原图"><a href="#封面原图" class="headerlink" title="封面原图"></a>封面原图</h2><div class="note note-info">
-            <p>翻译翻译，什么叫TM的惊喜。。。</p>
-          </div>
 
-<p><img src="https://tvax4.sinaimg.cn/large/005NNTS5ly1gpo8t35xs5j33341r8qv5.jpg" srcset="/img/loading.gif" lazyload alt="少女马尾辫 夜晚 电脑 听音乐"></p>
-
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/node-modules/">node_modules</a>
-                    
-                      <a class="hover-with-bg" href="/tags/vue/">vue</a>
-                    
-                  </div>
-                
               </div>
-              
-                <p class="note note-warning">
-                  
-                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
-                  
-                </p>
-              
-              
-                <div class="post-prevnext">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2021/04/19/other0/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">正向代理和反向代理</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2021/03/21/docker02/">
-                        <span class="hidden-mobile">Docker常用命令</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
             </div>
-
-            
-              <!-- Comments -->
-              <article class="comments" id="comments" lazyload>
-                
-                  
-                
-                
-  <script type="text/javascript">
-    Fluid.utils.loadComments('#comments', function() {
-      var light = 'github-light';
-      var dark = 'github-dark';
-      var schema = document.documentElement.getAttribute('data-user-color-scheme');
-      if (schema === 'dark') {
-        schema = dark;
-      } else {
-        schema = light;
-      }
-      window.UtterancesThemeLight = light;
-      window.UtterancesThemeDark = dark;
-      var s = document.createElement('script');
-      s.setAttribute('src', 'https://utteranc.es/client.js');
-      s.setAttribute('repo', 'Wangijun/utterances');
-      s.setAttribute('issue-term', 'pathname');
-      
-      s.setAttribute('label', 'utterances');
-      
-      s.setAttribute('theme', schema);
-      s.setAttribute('crossorigin', 'anonymous');
-      document.getElementById('comments').appendChild(s);
-    })
-  </script>
-  <noscript>Please enable JavaScript to view the comments</noscript>
-
-
-              </article>
-            
-          </article>
+          </div>
         </div>
       </div>
-    </div>
-    
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-      </div>
-    
-  </div>
-</div>
-
-<!-- Custom -->
-
-
     
 
     
@@ -516,15 +340,9 @@
 
 
 
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
 
 
 
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
 
 
 
