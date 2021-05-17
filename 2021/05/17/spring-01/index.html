@@ -16,11 +16,11 @@
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="nginx双环境win和Linux的安装，以及双环境下的常用命令以及注意点。只有完全了解，至于什么程度，就是你敢给别人使用nginx部署项目为完全了解。比的就是解决问题的能力。">
+  <meta name="description" content="你不读点好文章，你就不知道自己作文写的有多差，不看点优秀项目的源码，你就不知道自己写的代码有多烂。">
   <meta name="author" content="无👉良芳">
   <meta name="keywords" content="博客，爱情">
   
-  <title>Nginx安装以及常用命令 - 挽君博客</title>
+  <title>spring的前世今生 - 挽君博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -177,7 +177,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Nginx安装以及常用命令">
+            <span class="h2" id="subtitle" title="spring的前世今生">
               
             </span>
 
@@ -192,8 +192,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-04-22 11:50" pubdate>
-        2021年4月22日 中午
+      <time datetime="2021-05-17 19:17" pubdate>
+        2021年5月17日 晚上
       </time>
     </span>
   
@@ -204,7 +204,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.5k 字
+      2.3k 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      17
+      26
        分钟
     </span>
   
@@ -252,108 +252,102 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Nginx安装以及常用命令</h1>
+            <h1 style="display: none">spring的前世今生</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：25 天前
+                  本文最后更新于：3 小时前
                 
               </p>
             
             <div class="markdown-body">
-              <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>nginx是个好东西, 程序员嘛，对于牛逼东西的爱不亚于女生对于那些<code>红色</code>口红的爱，这么牛逼的东西还免费，不学会简直可惜，一个字。学。学习技术嘛，最好的学习还是要在工作中学习啊，没有实际项目给你练手，自己鼓捣，效率不是很高，如果是跟着教程来搞的话，那就更扯淡了，实际环境怎么可能和教学环境一样。至于这个坑，工作中应该会感受到，这里就不多介绍了。话说，2021年了，还有XP系统？？？？</p>
-<h1 id="Window10"><a href="#Window10" class="headerlink" title="Window10"></a>Window10</h1><blockquote>
-<p>实际开发中一般都是win10的多吧，什么，你用win7，不至于不至于，升个win10吧，这是趋势，程序员应该是互联网的弄潮儿，走在前列不碍事的。</p>
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><div class="note note-info">
+            <p>换工作，搬家，回想起来就是一瞬间的事，从一个地方，搬到另一个地方，人们充满希望的期待新的环境，关于之前居住地方的全部记忆自动变成灰色，然后慢慢褪色，直至透明。然后被覆盖。关于我在合肥的那些事。多捞呦。</p>
+          </div>
+
+<h2 id="碎碎念"><a href="#碎碎念" class="headerlink" title="碎碎念"></a>碎碎念</h2><p>换工作了嘛，新环境，新同事，得适应，是一家银行IT（外包），外包就外包嘛，自评现在我写的代码，还远远达不到可以当作一个优秀互联网产品里的一块砖，当然胶水代码不算，胶水代码编辑器都会写。多学习，学思考，不要把学工具当成是自己的本事啊，在这个编程教程漫天飞，培训机构烂大街的时代，如果仅限于学习工具，那得多无聊啊。什么，不怕无聊，那你怕不怕被取代啊，虽说在一家公司不管你干的多好，老板永远可以找到取代你的人，但是我们可不可以争点气，让老板决定取代的时候掂量掂量，不要大街上随便拉一个就能顶得上你啊，这多可悲，多可笑啊。</p>
+<h2 id="spring第一个版本0-9"><a href="#spring第一个版本0-9" class="headerlink" title="spring第一个版本0.9"></a>spring第一个版本0.9</h2><blockquote>
+<p>03年发布，这时，IT公司基本手里都有一套类似这种的框架，因为就是简单的封装了一下第三方库，这个版本过于久远，且功能太过落后，已经没有什么研究意义了。</p>
 </blockquote>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>官网下载地址： <a target="_blank" rel="noopener" href="http://nginx.org/en/download.html">nginx</a></p>
-<p><img src="https://tvax3.sinaimg.cn/large/005NNTS5ly1gptj58dufej31q10vldms.jpg" srcset="/img/loading.gif" lazyload alt="如图"></p>
-<p>是不是有点啰嗦了，不需要这么啰嗦，</p>
-<p>下载下来是这样<img src="https://tva1.sinaimg.cn/large/005NNTS5ly1gptj8ckyd0j30t7093dgd.jpg" srcset="/img/loading.gif" lazyload alt="一个文件夹里"></p>
-<p>解压打开是这样<img src="https://tva4.sinaimg.cn/large/005NNTS5ly1gptja1435cj310e0ddjss.jpg" srcset="/img/loading.gif" lazyload alt="这就是主目录"></p>
-<p>实际上到这里，已经安装完成了，就是这么简单，这就是win10的快乐😀😀😀</p>
-<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><p>还是在这个文件夹<img src="https://tvax3.sinaimg.cn/large/005NNTS5ly1gptjbym5qpj31200e5q4e.jpg" srcset="/img/loading.gif" lazyload alt="图片"></p>
-<p>点击上面的地址栏，<img src="https://tva3.sinaimg.cn/large/005NNTS5ly1gptjcqbp8sj30xk0ds75m.jpg" srcset="/img/loading.gif" lazyload alt="图片"></p>
-<p>输入cmd <img src="https://tvax1.sinaimg.cn/large/005NNTS5ly1gptjd6m5a3j311k0eegmw.jpg" srcset="/img/loading.gif" lazyload alt="图片"></p>
-<p>然后回车 得到一个黑窗口，，就是我们的操作界面 <img src="https://tva4.sinaimg.cn/large/005NNTS5ly1gptjdphem8j31ie0t6405.jpg" srcset="/img/loading.gif" lazyload alt="cmd"></p>
-<p>然后就开始介绍常用的命令</p>
-<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p>这里我建议用命令操作啊。就是在上面哪个窗口敲命令即可，不建议直接运行双击nginx.exe文件，这样启动有坑，坑就是nginx停不掉，可能是我的电脑的原因。只能用命令来杀掉。</p>
-<p>假设你安装在 D:\server\nginx-1.20.0目录下，</p>
-<p>cmd命令进入安装目录下，就是有nginx.exe的文件夹下；</p>
-<ul>
-<li><p>1、启动：</p>
-<p>  D:\server\nginx-1.20.0&gt;<code>start nginx</code><br>  或<br>  D:\server\nginx-1.20.0&gt;<code>nginx.exe</code></p>
-<p>  注：建议使用第一种，第二种会使你的cmd窗口一直处于执行中，不能进行其他命令操作。建议不要直接使用双击目录下的exe文件，会有坑。<br>  如果停不掉可以用管理员权限打开cmd ,运行这条命令   <code>taskkill /fi &quot;imagename eq nginx.EXE&quot; /f</code></p>
-</li>
-</ul>
-<ul>
-<li><p>2、停止：</p>
-<p>  D:\server\nginx-1.20.0&gt;<code>nginx.exe -s stop</code></p>
-<p>  或</p>
-<p>  D:\server\nginx-1.20.0&gt;<code>nginx.exe -s quit</code></p>
-<p>  注：stop是快速停止nginx，可能并不保存相关信息；quit是完整有序的停止nginx，并保存相关信息。</p>
-</li>
-<li><p>3、重新载入Nginx：</p>
-<p>  D:\server\nginx-1.20.0&gt;<code>nginx.exe -s reload</code></p>
-<p>  当配置信息修改，需要重新载入这些配置时使用此命令。</p>
-</li>
-<li><p>4、重新打开日志文件：</p>
-<p>  D:\server\nginx-1.20.0&gt;<code>nginx.exe -s reopen</code></p>
-</li>
-<li><p>5、查看Nginx版本：</p>
-<p>  D:\server\nginx-1.20.0&gt;<code>nginx -v</code></p>
-</li>
-</ul>
-<h1 id="Liunx"><a href="#Liunx" class="headerlink" title="Liunx"></a>Liunx</h1><p>一般都是在liunx上使用啊，liunx由于是命令行操作，应该挺难记的，好记性不如烂键盘啊。</p>
-<h2 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h2><p>Linux上面安装软件是有一点麻烦的，麻烦是指习惯可视化操作界面的人来说的，对于那些大佬可能来说Liunx上安装更方便。这里采用自己手动下载压缩包的方式安装，这种方式最万能。不排除有些服务器不能连外网。不过我又想，服务器不能连外网，我用nginx干嘛？？？好吧，这是个没营养的问题，继续开始。</p>
-<p>下载</p>
-<p><img src="https://tva1.sinaimg.cn/large/005NNTS5ly1gptp5wd9bkj31nf0mujvw.jpg" srcset="/img/loading.gif" lazyload alt="下载"></p>
-<p>下载得到这样一个文件</p>
-<p><img src="https://tva3.sinaimg.cn/large/005NNTS5ly1gptpdos6orj307f09eglo.jpg" srcset="/img/loading.gif" lazyload alt="一个文件"></p>
-<p>接下来我们就需要把这个文件上传到我的服务器上。</p>
-<p>连上我们的服务器<br><img src="https://tvax1.sinaimg.cn/large/005NNTS5ly1gptp75x7jjj314j0u141z.jpg" srcset="/img/loading.gif" lazyload alt="连接服务器"></p>
-<p>创建并进入nginx目录</p>
-<p><img src="https://tva4.sinaimg.cn/large/005NNTS5ly1gptpbq6sl1j314j0u142a.jpg" srcset="/img/loading.gif" lazyload alt="很简单咯"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><br><span class="hljs-comment"># 进入这个目录</span><br><span class="hljs-built_in">cd</span> /usr/<span class="hljs-built_in">local</span><br><br><span class="hljs-comment"># 创建nginx文件夹</span><br>mkdir nginx<br><br><span class="hljs-comment"># 进入nginx文件夹</span><br><span class="hljs-built_in">cd</span> nginx<br><br></code></pre></td></tr></table></figure>
+<p><img src="https://tvax3.sinaimg.cn/large/005NNTS5ly1gqlowfx3rhj30x3046t8t.jpg" srcset="/img/loading.gif" lazyload alt="spring0.9"></p>
+<p>第一个版本结构，</p>
+<p><img src="https://tvax3.sinaimg.cn/large/005NNTS5ly1gqlotxo7pxj30c30w6t9p.jpg" srcset="/img/loading.gif" lazyload alt="spring0.9"></p>
+<div class="note note-info">
+            <p>不知道大家有没有发现，这个包结构没有大家熟悉的springframework，其实这时候spring还不叫spring，叫interface21。第一版spring不叫spring，叫interface21。记住了啊，虽然没啥大用，装逼能用。🤣🤣😂😂😁</p>
+          </div>
 
-<p>上传到我们的服务器上，至于上传方式有很多种方法，各显神通即可。</p>
-<p><img src="https://tva2.sinaimg.cn/large/005NNTS5ly1gptpjs86lqj314j0u1djl.jpg" srcset="/img/loading.gif" lazyload alt="上传后"></p>
-<p>下面就是全部是命令操作了，就不放图了</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs bash"><br><span class="hljs-comment"># 初始化安装工具</span><br><span class="hljs-comment"># //一键安装四个依赖</span><br>yum -y install gcc zlib zlib-devel pcre-devel openssl openssl-devel<br><br><span class="hljs-comment"># 解压文件</span><br>tar -xvf nginx-1.20.0.tar.gz<br><br><span class="hljs-comment"># 进入文件夹</span><br><span class="hljs-built_in">cd</span> nginx-1.20.0<br><br><span class="hljs-comment"># 安装ssl的模块，这个先不用在意，</span><br><br>./configure --prefix=/usr/<span class="hljs-built_in">local</span>/nginx --with-http_ssl_module<br><br>//执行make命令<br>make<br>//执行make install命令<br>make install<br><br></code></pre></td></tr></table></figure>
+<p><strong>0.9版本特性</strong></p>
+<span class="label label-info">AOP</span>
+<span class="label label-info">IOC</span>
+<span class="label label-info">JDBC</span>
+<span class="label label-info">Web</span>
+<span class="label label-info">MVC</span>
+<span class="label label-info">事务</span>
+<span class="label label-info">国际化</span>
+<span class="label label-info">主题切换</span>
+<span class="label label-info">参数校验</span>
 
-<p>上面的执行完了，到这就算安装完了，下面的配置的话，liunx和win通用<br>所以放在一起说。</p>
-<h2 id="常用命令-1"><a href="#常用命令-1" class="headerlink" title="常用命令"></a>常用命令</h2><p>和win10基本一样</p>
-<p>只不过我们需要进入安装目录下的sbin目录执行命令。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 重启</span><br>/usr/<span class="hljs-built_in">local</span>/nginx/sbin/nginx -s reload<br><br><span class="hljs-comment"># 启动</span><br>/usr/<span class="hljs-built_in">local</span>/nginx/sbin/nginx<br><br><span class="hljs-comment"># 如果出现报错：nginx: [error] open() ＂/usr/local/nginx/logs/nginx.pid＂ failed</span><br><br><span class="hljs-comment"># 则运行： /usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf</span><br><br><span class="hljs-comment"># 停止</span><br><br>/usr/<span class="hljs-built_in">local</span>/nginx/sbin/nginx -s stop<br><br><br><span class="hljs-comment"># 查看nginx进程是否启动：</span><br><br>ps -ef | grep nginx<br><br></code></pre></td></tr></table></figure>
+<p>实际我们发现是不是有的都有了，这就是编程思想的哲学，以及牛逼高效的编码能力，这时不叫spring的时候以及初露锋芒。有时间我会研究研究这东西怎么用。</p>
+<h2 id="spring1-X"><a href="#spring1-X" class="headerlink" title="spring1.X"></a>spring1.X</h2><blockquote>
+<p>1.0第一个版本</p>
+</blockquote>
+<p><img src="https://tva2.sinaimg.cn/large/005NNTS5ly1gqlqyiuuvnj30xj0433yh.jpg" srcset="/img/loading.gif" lazyload alt="1.0"></p>
+<blockquote>
+<p>1.0最后的一个版本</p>
+</blockquote>
+<p><img src="https://tva2.sinaimg.cn/large/005NNTS5ly1gqlp452z7yj311t03xjre.jpg" srcset="/img/loading.gif" lazyload alt="spring1.x"></p>
+<p>毕竟是Java写的，在维护上面，还是挺给力的。后面发布2.0具体原因不清楚，但我想那时候JDK也在更新吧，JDK有些太香的特性，对于程序员来说可是有着致命的吸引力啊。</p>
+<p>spring1.x的包结构。</p>
+<p><img src="https://tvax3.sinaimg.cn/large/005NNTS5ly1gqlr43ir3sj30kq0r8gna.jpg" srcset="/img/loading.gif" lazyload alt="spring1.x"></p>
+<p>一个一个的jar包，就是这一个一个不到1m的jar包，蕴含着多少人的智慧啊。<br><img src="https://tva2.sinaimg.cn/large/005NNTS5ly1gqlr5zgz1jj30sg0h1jsy.jpg" srcset="/img/loading.gif" lazyload alt="spring1.x"></p>
+<div class="note note-info">
+            <p>Spring 1.0当时只包含一个完整的项目，他把所有的功能都集中在一个项目中，其中包含了核心的Ioc、AOP，同时也包含了其他的诸多功能，例如：JDBC、Mail、ORM、事务、定时任务、Spring MVC等。</p><p>由于Spring超前的眼光和博大的精神，在第一个版本的时候已经支持了很多第三方的框架，例如：Hibernate、ibatis、模板引擎等。</p><p>尽管如此，此时的Spring除了最核心的Ioc和AOP之外，其他的模块犹如我们现在众多的开源项目一样，大多是对第三方框架的简单封装！我也相信很多个人或企业也基本都维护了一套类似这种的框架供项目开发使用。</p>
+          </div>
 
-<p>安装完成一般常用命令</p>
-<p>进入安装目录中，</p>
-<p>命令： <code>cd /usr/local/nginx/sbin</code></p>
-<p>启动，关闭，重启，命令：</p>
-<p><code>./nginx</code> 启动</p>
-<p><code>./nginx -s stop</code> 关闭</p>
-<p><code>./nginx -s reload</code> 重启</p>
-<p><code>./nginx -v</code> 查看版本</p>
-<h1 id="nginx配置"><a href="#nginx配置" class="headerlink" title="nginx配置"></a>nginx配置</h1><p><strong>打开配置文件</strong></p>
-<p><code>vim /usr/local/nginx/conf/nginx.conf</code></p>
-<p>看图</p>
-<p><img src="https://tvax1.sinaimg.cn/large/005NNTS5ly1gptpuxpj5yj314j0u1td3.jpg" srcset="/img/loading.gif" lazyload alt="image"></p>
-<p>正常情况下我们已经能看到<br><img src="https://tva1.sinaimg.cn/large/005NNTS5ly1gptqip402nj31cj0f9768.jpg" srcset="/img/loading.gif" lazyload alt="如图"></p>
-<p>证明一下我们成功了，我们改一下这里面的东西</p>
-<p>先执行命令<code>vim /usr/local/nginx/html/index.html</code></p>
-<p><img src="https://tvax1.sinaimg.cn/large/005NNTS5ly1gptqlpx83ej31er0u1te3.jpg" srcset="/img/loading.gif" lazyload alt="改前"></p>
-<p><img src="https://tvax4.sinaimg.cn/large/005NNTS5ly1gptqnlipngj31er0u1gqx.jpg" srcset="/img/loading.gif" lazyload alt="改后"></p>
-<p>在回看我们的页面</p>
-<p><img src="https://tva1.sinaimg.cn/large/005NNTS5ly1gptqo8gij3j31i20hyq59.jpg" srcset="/img/loading.gif" lazyload alt="已经变了"></p>
-<p>乱码是因为编码格式的问题，不用中文，用数字加英文就可以我在改一下。改成，23333333</p>
-<p>看已经变成2333333了，到此nginx的安装已经完成了。</p>
-<p><img src="https://tvax2.sinaimg.cn/large/005NNTS5ly1gptqpkdug3j31fd0gewgf.jpg" srcset="/img/loading.gif" lazyload alt="Ok"></p>
-<p>具体配置，因为我用到的配置太少了，就是配置反向代理。很简单。</p>
-<h1 id="封面原图"><a href="#封面原图" class="headerlink" title="封面原图"></a>封面原图</h1><div class="note note-info">
-            <p>“你既知人生如戏，更应该尽力演出，搭起的舞台过了一幕又沉入暗中。此刻你在台下仰望，且把你的艳美哀伤毫不吝惜交给我，如此曲终人散后，你仍在我身心存活”生命太短，所爱的人却相忘于江湖，走散的人都没再遇……</p>
+<h2 id="spring2-0"><a href="#spring2-0" class="headerlink" title="spring2.0"></a>spring2.0</h2><p>这个版本，和2.5版本差距太多了，所以可以直接分成两个版本说，这个版本印象中是增强了web,提一下那个年代是没有前端的，且那时候ie当道，浏览器准确来说是js的性能弱鸡，出没出我都不清楚。😂😂不是前端，前端的发展史感觉嘚从谷歌浏览器开始说起，还是node.不对应该从js说起。<br>当时没有前端这个概念，jsp是当时主流的web开发技术，于是便有了各种各样的奇淫技巧。在spring的加持下，spring的web模块接管了百分之八十以上的交互功能，什么浏览器发个Ajax请求，当时好像真的没有🤣🤣🤣。不说了，我们公司目前还用spring2系列的呢，一个用的就是经典的2.0，一个是2.5，下载了源码看了以看确实优雅。好好看，好好学</p>
+<div class="note note-info">
+            <p>1.引入基于Xml-Schema的配置语法，简化了Xml的配置<br>2.引入新的Bean作用域(request和session范围)<br>3.可扩展的容器级Xml配置(Spring官方文档将这个功能上升到了DSL级别)<br>4.AOP有了很大改进,更无缝地整合了AspectJ，为管理Spring容器外的对象提供了可能<br>5.JdbcTemplate的改进(增加了NamedParameterJdbcTemplate和SimpleJdbcTemplate)<br>6.更简单的事务配置<br>7.Spring Web MVC的大幅改进和增强(引入了CoC的观点和增强了的标签库)<br>8.Spring的Scheduling支持引入TaskExecutor抽象<br>9.支持JPA,支持异步JMS,更好的JMX支持<br>10.支持动态语言，JRuby,Groovy,BeanShell</p>
+          </div>
+
+<h2 id="spring2-5"><a href="#spring2-5" class="headerlink" title="spring2.5"></a>spring2.5</h2><div class="note note-info">
+            <p>这里只列出Spring2.5中我们常用到需要注意的新特性，来源是Spring2.5的官方文档，既然文档中有我还在这里列出来的原因是相当于来个归纳总结，给初学者省时省力，免得看那么长的文档，当然在后续的文章中，涉及到实例的我都会举例，理论方面的就免了。<br>Spring经历了两次大修订，第一次是2006年10月的Spring2.0，另一次是2007年11月的Spring2.5。</p>
           </div>
 
 
-<p><img src="https://tva1.sinaimg.cn/large/005NNTS5ly1gptoug62xcj33341izqv6.jpg" srcset="/img/loading.gif" lazyload alt="女孩背影 男孩钢琴"></p>
+<p><strong>简介：</strong></p>
+<ul>
+<li>Spring对Java SE的支持<br>  Spring框架继续保持对Java1.4.2及以后版本的兼容。但Spring的一些高级功能无法在Java 1.4.2中使用，Spring2.5完全支持Java 6，而Spring2.0在支持Java 5比较好。</li>
+<li>Spring对Java EE的支持<br>  Spring框架继续保持对Java EE1.3及以后版本的兼容，完全支持Java EE 5。</li>
+<li>Spring对服务器(应用服务器和Web服务器)的支持<br>  WebLogic：8.1、9.0、9.2、10<br>  WebSphere：5.1、6.0、6.1<br>  OC4J(Oracle)：10.1.3、11<br>  JBoss：3.2、4.0、4.2<br>  Tomcat：4.1、5.0、5.5、6.0<br>  Jetty：4.2、5.1、6.1<br>  Resin：2.1、3.0、3.1<br>  GlassFish：v1、v2</li>
+</ul>
+<p><strong>控制反转(IoC)容器：</strong></p>
+<ul>
+<li>新的bean作用域<br>  Spring2.0 IoC容器中只支持singleton和prototype两个不同的bean作用域，而在Spring2.5中则还支持request、session、global session三个在web环境下使用的bean作用域，且提供了hooks，可以让用户创建自己的作用域。</li>
+<li>XML配置更简单<br>  Spring2.5对Spring 2.0的DTD进行了更新，使用时：  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">beans</span> <span class="hljs-meta-keyword">PUBLIC</span> <span class="hljs-meta-string">&quot;-//SPRING//DTD BEAN 2.0//EN&quot;</span></span><br><span class="hljs-meta">    <span class="hljs-meta-string">&quot;http://www.springframework.org/dtd/spring-beans-2.0.dtd&quot;</span>&gt;</span><br></code></pre></td></tr></table></figure>
+  spring-beans-2.0.dtd可在发布包下的dist/resources下找到。</li>
+<li>Annotation(注解)驱动配置<br>  Spring2.5引入了完整的Annotation集合如：@Resource、@Autowired等</li>
+</ul>
+<p><strong>面向切面编程(AOP)：</strong></p>
+<ul>
+<li>更简单的AOP XML配置<br>  支持定义从JAVA对象中发展中来的切面</li>
+<li>对@AspectJ的支持<br>  加入了对bean(…)pointcut 元素的支持，在 spring定义的bean命名中对指定的命名进行匹配</li>
+<li>对AspectJ load-time weaving的支持</li>
+</ul>
+<p><strong>中间层：</strong></p>
+<ul>
+<li>XML声明式事务配置更简单<br>  以前版本的事务配置方式仍然支持，Spring2.5支持装载时织入和注解驱动的事务管理，这是通过context:load-time-weaver 和tx:annotation-driven mode=”aspectj”的联合使用进行的。</li>
+<li>对Websphere 事务管理的完整支持<br>  自动探测底层的JTA 事务平台，可以使用Spring 2.5的新 tx:jta-transaction-manager 配置元素。它会自动探测BEA WebLogic和IBM WebSphere,注册正确的PlatformTransactionManager。</li>
+<li>JPA<br>  Spring 2.5对OpenJPA的支持升级到了OpenJPA 1.0，支持savepoint这样的高级特性</li>
+<li>异步的JMS<br>  在Spring 2.5中， JCA风格的异步消息监听器设置也通过GenericMessageEndpointManager工具得到了支持。这是对标准JMS监听器工具的补充，允许对ActionMQ和JORAM这些消息broker进行更深入的集成。Spring 2.5 还引入了一个XML namespace来简化JMS配置，可以对大量监听器进行简明配置。这一命名空间支持标准的JMS监听器和JCA setup风格，在配置时只有很小的改变。</li>
+<li>JDBC<br>  引入了新类，Spring 2.5显著的扩充了SimpleJdbcTemplate的功能，引入了SimpleJdbcCall 和SimpleJdbcInsert操作对象。</li>
+</ul>
+<h2 id="spring3-x"><a href="#spring3-x" class="headerlink" title="spring3.x"></a>spring3.x</h2><div class="note note-info">
+            <p>spring3大概是15年以后发布的了，就算不是15年至少也维护到15年以后了，因为我当时学Java时用的就是spring3.x系列了，这个也没什么多说的，已成趋势，我感觉spring2.5是很经典的一个版本。因为从这个版本开始提出了注解驱动，不得不说，spring团队的思想是非常牛逼的，从interface21便一直如此。面向接口编程，spring玩的那叫一个优雅，jdk1.5有了注解，spring直接起飞的那种，乃至与在后来很长一段时间spring被人津津乐道<br><span class="label label-success">在我们spring框架中没有什么不是加一个注解解决不了的，如果有，那就加两个。</span></p>
+          </div>
+
+
+
+<h2 id="封面原图"><a href="#封面原图" class="headerlink" title="封面原图"></a>封面原图</h2><p><img src="https://tva3.sinaimg.cn/large/005NNTS5ly1gqlnnzybxmj31hc0u0x2p.jpg" srcset="/img/loading.gif" lazyload alt="尼尔机械纪元 A2"></p>
 
             </div>
             <hr>
@@ -363,7 +357,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
                     
                   </div>
                 
@@ -371,9 +365,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/nginx/">nginx</a>
-                    
-                      <a class="hover-with-bg" href="/tags/linux/">linux</a>
+                      <a class="hover-with-bg" href="/tags/spring/">spring</a>
                     
                   </div>
                 
@@ -390,18 +382,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/04/27/think7/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">依然碎碎念</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/04/19/vue-proxy/">
-                        <span class="hidden-mobile">Vue-Cli4反向代理的配置方法</span>
+                      <a href="/2021/05/01/think8/">
+                        <span class="hidden-mobile">回村碎碎念</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
