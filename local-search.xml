@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>spring2.5碎碎念IOC</title>
+    <link href="/2021/05/20/spring-02/"/>
+    <url>/2021/05/20/spring-02/</url>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>我现在很想造轮子，奈何没有这个实力，尤雨溪说过，多造轮子 不是什么坏事。可以加深自己的对代码的理解，既然没有实力造轮子，那就先研究研究轮子吧。说要研究，Java界最有名的轮子莫过于如日中天的spring了，现在是2021年了，spring经过几代的迭代，源码复杂到没有办法去看了。深思熟虑的一下下，最终决定选择spring2.5x版本来研究。</p><h2 id="碎碎念"><a href="#碎碎念" class="headerlink" title="碎碎念"></a>碎碎念</h2><p>spring中一切皆是Bean</p><h2 id="spring框架部分UML图"><a href="#spring框架部分UML图" class="headerlink" title="spring框架部分UML图"></a>spring框架部分UML图</h2><p><img src="https://tvax3.sinaimg.cn/large/005NNTS5ly1gqpyod849fj30w70fhaaq.jpg" alt="接口图"></p><h3 id="BeanFactory"><a href="#BeanFactory" class="headerlink" title="BeanFactory"></a>BeanFactory</h3><p>如图所示这是个顶层接口，接口是可以多继承的。看一下接口里面定义的抽象方法</p><p><img src="https://tva3.sinaimg.cn/large/005NNTS5ly1gqpyszji4qj30fw0dd0tr.jpg" alt="BeanFactory定义的抽象方法"></p><p>常用的方法getBean(String name)，就是根据bean的名字来获取实例。</p><h3 id="ClassPathXmlApplicationContext"><a href="#ClassPathXmlApplicationContext" class="headerlink" title="ClassPathXmlApplicationContext"></a>ClassPathXmlApplicationContext</h3><p><img src="https://tvax3.sinaimg.cn/large/005NNTS5ly1gqpywq4yu4j315f01iaab.jpg" alt="依据文件加载bean"></p><p>UML图<br><img src="https://tvax1.sinaimg.cn/large/005NNTS5ly1gqpyysvo19j30po0t4myl.jpg" alt="ClassPathXmlApplicationContext UML图"></p><h2 id="算了"><a href="#算了" class="headerlink" title="算了"></a>算了</h2><p>有点小复杂和不自量力，鸽了鸽了，这种工程量的代码，一两篇博客不可能写完还是需要有一个整体的了解之后在进行分析吧。</p><p>代码实现很复杂，可是做的事情，用人的大脑去想的话并不复杂，就是一个实现了IOC的框架，IOC是Inversion of Control是缩写，字面的意思就是控制反转，有的人也称为依赖注入。</p><p>实现IOC容器的业务一般来说可以分成两部分，一部分就是读取xml文件，或者是加载配置类，都是一个道理，就是从外部加载配置，来帮助Bean的构建，<br>还有一个部分就是我们常用的@Resource注解，就是对象绑定，或者依赖注入？？这个也没什么好说的，看怎么理解，就是读取配置，把类里需要的对象从容器里面取出来赋值，不需要硬编码了，如果是用面向接口编程，可以做到不改动源代码的同时增强功能或者改变功能。天天写业务哪有时间研究这东西。</p><p>也许只是借口罢了，，</p><div class="note note-info">            <p>君子不自大其事，不自尚其功</p>          </div><p>现在这些老祖宗留下来的好东西都没了。人人都是厚黑学家，为啥，都是那句话，挣钱嘛，不寒掺。也不知是否还有姜文的那一句，寒掺，很TM寒掺！！</p><h2 id="封面原图"><a href="#封面原图" class="headerlink" title="封面原图"></a>封面原图</h2><p><img src="https://tva4.sinaimg.cn/large/005NNTS5ly1gqp0yoiv0jj33h01wix6r.jpg" alt="明日方舟斯卡蒂"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Java</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>spring</tag>
+      
+      <tag>spring2.5源码</tag>
+      
+      <tag>IOC</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>spring的前世今生</title>
     <link href="/2021/05/17/spring-01/"/>
     <url>/2021/05/17/spring-01/</url>
