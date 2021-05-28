@@ -16,11 +16,11 @@
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="我多想把嘴边的碎碎念。变成身边的碎碎年年。">
+  <meta name="description" content="我向所有人炫耀了你，但你却让我收不了场。">
   <meta name="author" content="无👉良芳">
   <meta name="keywords" content="博客，爱情">
   
-  <title>碎碎念2 - 挽君博客</title>
+  <title>午休碎碎念 - 挽君博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -177,7 +177,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="碎碎念2">
+            <span class="h2" id="subtitle" title="午休碎碎念">
               
             </span>
 
@@ -192,8 +192,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-01-13 11:11" pubdate>
-        2021年1月13日 上午
+      <time datetime="2021-05-28 16:49" pubdate>
+        2021年5月28日 下午
       </time>
     </span>
   
@@ -204,7 +204,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      500 字
+      1.1k 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      11
        分钟
     </span>
   
@@ -252,28 +252,38 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">碎碎念2</h1>
+            <h1 style="display: none">午休碎碎念</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：5 个月前
+                  本文最后更新于：37 分钟前
                 
               </p>
             
             <div class="markdown-body">
-              <h2 id="上班的闲暇时间"><a href="#上班的闲暇时间" class="headerlink" title="上班的闲暇时间"></a>上班的闲暇时间</h2><blockquote>
-<p>上班无聊时的思绪总是会无限发散。</p>
+              <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>作为一个喜欢碎碎念的人，由于程序员这份工作原因，天天和我对话的只有电脑屏幕，久而久之，我反到习惯了，面对电脑，手指随思绪在键盘上忙忙碌碌，何尝不是一种身在高楼心在北大荒的感觉。PC听不见的，实际只是–和自己对话。有时回看，也是一种乐趣，这里还是有一句话不得不说，正经人不写日记！！</p>
+<p>说是一些随笔，但是键盘敲出来怎么可能不经过润色呢。想到了一个段子</p>
+<ul>
+<li>记者：你还有什么想说的呢？</li>
+<li>路人：可以说脏话么？</li>
+<li>记者：不可以哦。</li>
+<li>路人：那我没什么好说的了。</li>
+</ul>
+<p>主要是记录生活中的一些灵感，为这个博客积累素材，放心，这不是第一稿，我别的软件不多，日记软件贼多。还是那句话，正经人不写日记！！手机电脑，都有。想到什么了，感觉好的，<span class="label label-info">可以说脏话么？</span> <span class="label label-success">不可以。</span>  <span class="label label-info">那我没什么好说的了</span><br>我都会选择掏出手机或敲敲键盘记录下来。</p>
+<h1 id="技术探讨"><a href="#技术探讨" class="headerlink" title="技术探讨"></a>技术探讨</h1><blockquote>
+<p>技术也是需要积累的</p>
 </blockquote>
-<p>明明是个技术博客，天天搁这干啥呢。这些都是很久以前写的东西了。我寻思就放在博客上面吧。博客也进行了一些小小的改动，比如有独立的域名了，这个域名就是博客的专属域名了。我又续费了一年，挺好的。有个东西能记录自己的一些话。</p>
-<blockquote>
-<p>一些小想法</p>
+<ul>
+<li>springboot开启事务并不需要在启动类加上@EnableXXXX注解，这个注解名字很长我记不下来，直接在服务层加@Transaction注解就能开启事务，不过这只是在博客上面看见的，具体能否开启事务，我本人还需求证。</li>
+<li>单条SQL本身就具有原子性，所以，如果是执行单条SQL，没有必要开启事务，</li>
+</ul>
+<p>最近在深入研究事务，说是深入研究，其实就是研究在springboot中怎么开启这个事务。以及使用mybatis-plus时如何让框架增强的方法事务生效，我转念一想，mp自带的方法大部分都只有是单表操作，貌似没有必要开启事务。实际中需要事务，是需要分别执行两条以上的SQL才需要事务的管理。而这种情况我们一般都会单独弄一个方法进行操作，自己写自己的方法加事务就比较简单。嗯回想我写的项目貌似都很低级都太低级了，加上后台管理系统居多，用到事务的地方竟屈指可数。尴尬尴尬。事务是保证数据一致的强有力依靠。这很重要。严谨是一个程序员最基本的品质，用不到，是一回事，可不知道又是一回事，你可以用不到没但是不能不知道。</p>
+<h1 id="昨天的叛逆某天终将成熟"><a href="#昨天的叛逆某天终将成熟" class="headerlink" title="昨天的叛逆某天终将成熟"></a>昨天的叛逆某天终将成熟</h1><blockquote>
+<p>我向所有人炫耀了你，但你却让我收不了场。</p>
 </blockquote>
-<p>我可能是从帮做毕业设计里面找到了一些甜头，大部分的毕业设计，网上都是有差不多的，我想做一个收集毕业设计信息的聚合网站，解决一些不太好院校的计算机相关专业的学生的毕业设计问题。</p>
-<h3 id="碎碎念正文"><a href="#碎碎念正文" class="headerlink" title="碎碎念正文"></a>碎碎念正文</h3><p>你我都知道破镜难重圆，是重归于好还是重蹈覆辙，就如莎士比亚说的生存还是毁灭，这是个问题，这确实是个问题，我说几句认真的话，这次不是不着调的话 ，世界很大，我们很小，我虽然一直都想着以后怎么样怎么样的，但是，有一个词叫现实，以前我说，恋爱中的男女，女生是男生最好的老师，现在啊现实生活才是最好的老师。我得承认你确确实实的在我的生命中留下了不可磨灭的印象，我一直很感谢你，尽管有时你的行为也会让我恼火，就算是恼火我也谢谢你，这不是反话，我有很多的碎碎念，吃着饭，突然冒出一句，**(她的名字)，然后脑海中莫名奇妙的回荡着各种各种样的语言和画面，有些时候控制不住的就从嘴里蹦了出来，我自己都表示很纳闷。</p>
-<h2 id="封面原图"><a href="#封面原图" class="headerlink" title="封面原图"></a>封面原图</h2><blockquote>
-<p>人家根本就不在意你，就你还搁这伤感的不行，</p>
-</blockquote>
-<p><img src="https://tva3.sinaimg.cn/large/005NNTS5ly1gmlwabdvdwj32yo1o0b2h.jpg" srcset="/img/loading.gif" lazyload alt="阿尔卑斯山风景"></p>
+<p>看到这句话，我自然想到我的小学校长兼任中学校长，我升初中，小学校长上任中学校长。由于我在小学表现尚可。他向校里应该是称赞了我，奈何当时的我确实不争气，第一次月考，我连语文作文都没来的及写，我当时不知道考试时间，以为还是和小学一样的铃声。回想起来，我当时确实不怎么讨喜，别人越是期待的事，我基本十拿九稳的搞砸，我将淘气，顽劣这种特性在那个年纪发挥的淋漓尽致，我确确实实让他收不了场。</p>
+<p>上了高中，我感觉就像是疯够了一样，高中那时心智略显稚嫩，我回想起来自己都感觉好笑。笑一笑吧。一些不好的习惯随着我熟悉环境后慢慢展现出来，叛逆，但不张扬，绝不是个听话孩子，逃课，上网，早恋，除了读书我什么事都要去掺和一下。我当时从没想过在家人眼里我会是什么样子的，由于读书，在家的时日并不多。我学校的样子在家里我就忘了。我记得每次从家里来学校时，我都要休整一下才能回到学校的状态。而休整的方法一般都是叫人出去喝点。出去喝点那是大学的事了，我也有风光的时候，罢了，罢了，有点累，也无所谓。</p>
+<h1 id="封面原图"><a href="#封面原图" class="headerlink" title="封面原图"></a>封面原图</h1><p><img src="https://tvax4.sinaimg.cn/large/005NNTS5ly1gqy8mhjzfmj32yo1o07wh.jpg" srcset="/img/loading.gif" lazyload alt="两位女仆 黑裤袜黑丝"></p>
 
             </div>
             <hr>
@@ -293,10 +303,6 @@
                     
                       <a class="hover-with-bg" href="/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/">碎碎念</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E7%BD%91%E6%8A%91%E4%BA%91/">网抑云</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E5%A5%B9%E4%B8%8D%E7%88%B1%E6%88%91/">她不爱我</a>
-                    
                   </div>
                 
               </div>
@@ -312,18 +318,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/01/15/java-result/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Web开发统一数据返回格式</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/12/13/think1/">
-                        <span class="hidden-mobile">碎碎念1</span>
+                      <a href="/2021/05/20/spring-02/">
+                        <span class="hidden-mobile">spring2.5碎碎念IOC</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
