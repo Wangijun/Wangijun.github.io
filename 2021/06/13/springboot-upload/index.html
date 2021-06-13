@@ -1,0 +1,593 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="带上版本号写这种类似记录的博客，看起来应该会好一点。文件上传，说难吧，需要的时候总是不能很随意的写出来，说简单吧，百度一下，花个十几分钟也能解决，苦恼。">
+  <meta name="author" content="无👉良芳">
+  <meta name="keywords" content="博客，爱情">
+  
+  <title>springboot2.4.5的文件上传和生成文件访问路径 - 挽君博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>挽君博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="springboot2.4.5的文件上传和生成文件访问路径">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      无👉良芳
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-06-13 12:29" pubdate>
+        2021年6月13日 中午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      22
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">springboot2.4.5的文件上传和生成文件访问路径</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：3 小时前
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>端午节回家，三天假期，加上路程，也就两天假期，回家嫌键盘太沉，于是我就没有带，没有键盘，使用笔记本自带的打字挺麻烦的，码代码更烦。烦归烦，闹归闹，博客不要开玩笑。🎋🎋🎋</p>
+<span class="label label-info">tips：题外话</span> 就使用键盘这块，我有时自己都觉得自己矫情，不就键盘么，笔记本自带的键盘又不是不能打字，非要单独再买一个键盘，我也有想过，笔记本自带的键盘是能用的，可是每个笔记本的键盘手感是不一样的，这时又有人说了，手感这东西真的有那么重要么，好，不重要。打个字，码个代码，键盘能用不就行了。确实能用，但也是仅仅能用，我是相当讨厌自定义的东西的，默认才是最好的。包括编辑技术相关的，我对那种一个项目一个util的东西很反感，有没要的轮子没必要造，没封装前，按着文档好好的用着，你在加一层黑匣子，出问题了只会增加排错成本。
+
+<p>再说说开发工具，一些刚开始学编程的，喜欢各种定义类头文件，各种auther等注释，我想说我们还达不到需要在代码里署名的境界，安安静静，本本分分的写个代码就行，这个开发工具自定义，我是没啥研究，我甚至举例子我都不知道怎么举例子，尴尬尴尬，我是什么理念，既然它提供了开箱即用的功能，那我就开个箱就用。不做任何设置。孰优孰劣，各有千秋。</p>
+<p>回到使用键盘，我是想着，不管我使用什么电脑，我自己买的键盘就是一种规范，属于我自己的规范，这个规范不应该跟随笔记本电脑的品牌。现在笔记本键盘，我连IDEA都不想打开，跟别说写博客了，淦，还是要写啊。不然博客封面浪费了、</p>
+<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><h2 id="新建springboot项目，添加所需的依赖"><a href="#新建springboot项目，添加所需的依赖" class="headerlink" title="新建springboot项目，添加所需的依赖"></a>新建springboot项目，添加所需的依赖</h2><p>什么？不会？去新建一百次就行了，这么简单的问题。</p>
+<p>添加如下依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!--前台摸板--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-thymeleaf<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-comment">&lt;!--web--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-comment">&lt;!--一个工具类--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>cn.hutool<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>hutool-all<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>5.6.4<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br></code></pre></td></tr></table></figure>
+
+<p>然后配置文件服务器，就是让本地的一个路径挂载在我们内置的tomcat中，让我们可以通过HTTP请求访问到。一般来说这个路径和上传的文件的路径需要对应上，因为我们做的就是文件上传和下载。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WebConfig</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">WebMvcConfigurer</span> </span>&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addResourceHandlers</span><span class="hljs-params">(ResourceHandlerRegistry registry)</span> </span>&#123;<br>        <span class="hljs-comment">// 所有能匹配上这个路径的都会被映射到下面指定的那个文件夹中</span><br>        registry.addResourceHandler(<span class="hljs-string">&quot;/ql_img/**&quot;</span>)<br>                <span class="hljs-comment">// 指定的文件夹下</span><br>                .addResourceLocations(<span class="hljs-string">&quot;file:&quot;</span> + <span class="hljs-string">&quot;D:/File/home/ql/&quot;</span>);<br>        WebMvcConfigurer.<span class="hljs-keyword">super</span>.addResourceHandlers(registry);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>上面的配置就是相当于创建了一个文件服务器。我们上传文件一般就上传到上面代码file：后面的绝对路径。</p>
+<h2 id="文件上传核心"><a href="#文件上传核心" class="headerlink" title="文件上传核心"></a>文件上传核心</h2><p>文件上传分为两个部分，一个前端一个是后端，前端又有很多框架都封装的十分好用和简单，后端是统一的，很简单，看代码就行，既然作为博客，来说还是从基础开始，通过原始file表单上传文件。</p>
+<h3 id="Java端"><a href="#Java端" class="headerlink" title="Java端"></a>Java端</h3><p>核心代码，主要做了重命名，按日期生成生成文件夹，以及生成并返回web访问路径。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs java"><br><span class="hljs-comment">// 代码里面有用到Hutool的工具类。关于文件的IO我貌似越学越乱，尴尬尴尬。</span><br>    <span class="hljs-meta">@PostMapping(&quot;upload&quot;)</span><br>    <span class="hljs-function">ResponseEntity&lt;Object&gt; <span class="hljs-title">upload</span><span class="hljs-params">(MultipartFile file)</span></span>&#123;<br>        <span class="hljs-comment">// 获取文件尾名，不带.</span><br>        String extName = FileUtil.extName(file.getOriginalFilename());<br>        <span class="hljs-comment">// 获取主文件名，不带.</span><br>        String mainName = FileUtil.mainName(file.getOriginalFilename());<br>        <span class="hljs-comment">// 按日期新建文件夹</span><br>        String day = DateUtil.format(<span class="hljs-keyword">new</span> Date(), <span class="hljs-string">&quot;yyyyMMdd&quot;</span>);<br>        <span class="hljs-comment">// 文件名重命名</span><br>        String fileName = mainName + <span class="hljs-string">&quot;_&quot;</span> + RandomUtil.randomString(<span class="hljs-number">6</span>) + <span class="hljs-string">&quot;.&quot;</span> + extName;<br>        String filePath = <span class="hljs-string">&quot;D:/File/home/ql/&quot;</span> + day + <span class="hljs-string">&quot;/&quot;</span> + fileName;<br>        File file1 = <span class="hljs-keyword">new</span> File(filePath);<br>        <span class="hljs-comment">// 创建文件夹</span><br>        FileUtil.mkParentDirs(file1);<br>        String webPath = <span class="hljs-string">&quot;/ql_img/&quot;</span> + day + <span class="hljs-string">&quot;/&quot;</span> + fileName;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">// 保存文件</span><br>            file.transferTo(file1);<br>        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>           e.printStackTrace();<br>        &#125;<br>        HashMap&lt;String, Object&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();<br>        map.put(<span class="hljs-string">&quot;msg&quot;</span>,<span class="hljs-string">&quot;上传成功&quot;</span>);<br>        map.put(<span class="hljs-string">&quot;data&quot;</span>,webPath);<br>        <span class="hljs-keyword">return</span> ResponseEntity.ok(map);<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="HTML端"><a href="#HTML端" class="headerlink" title="HTML端"></a>HTML端</h3><p>使用原始的方式上传，为了方便我还是使用了Jquery，很方便哈。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>文件上传<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;/jquery.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br><br>选择文件：<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;file&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;file&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;file&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript"><span class="hljs-comment">// 监听改变事件</span></span><br><span class="javascript">    $(<span class="hljs-string">&#x27;#file&#x27;</span>).on(<span class="hljs-string">&#x27;change&#x27;</span>,<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="javascript">        <span class="hljs-comment">// 如果是多文件上传怎么处理呢？？实际上也不难，多文件，是不是就是files有两个，</span></span><br><span class="javascript">        <span class="hljs-comment">// 直接获取files遍历下面的操作就OK了，至少我知道Element-UI就是这么干的，很生猛。</span></span><br><span class="javascript">        <span class="hljs-keyword">let</span> file = $(<span class="hljs-string">&#x27;#file&#x27;</span>).get(<span class="hljs-number">0</span>).files[<span class="hljs-number">0</span>]</span><br><span class="javascript">        <span class="hljs-comment">// 这个对象也可以深入研究一下喔。貌似append加值第一个值是可以重复的，也可以循环加加来实现多文件上传。</span></span><br><span class="javascript">        <span class="hljs-keyword">let</span> formData = <span class="hljs-keyword">new</span> FormData();</span><br><span class="javascript">        formData.append(<span class="hljs-string">&quot;file&quot;</span> , file);</span><br><br><span class="javascript">        $.ajax(&#123;</span><br><span class="javascript">            url: <span class="hljs-string">&#x27;/upload&#x27;</span>,</span><br><span class="javascript">            type: <span class="hljs-string">&#x27;post&#x27;</span>,</span><br>            data: formData,<br><span class="javascript">            <span class="hljs-comment">// 上传文件时需要特殊指定的</span></span><br><span class="javascript">            processData: <span class="hljs-literal">false</span>,</span><br><span class="javascript">            <span class="hljs-comment">// 同上</span></span><br><span class="javascript">            contentType: <span class="hljs-literal">false</span>,</span><br><span class="javascript">            <span class="hljs-function"><span class="hljs-title">success</span>(<span class="hljs-params">res</span>)</span> &#123;</span><br><span class="javascript">                alert(res.msg +<span class="hljs-string">&#x27;: ,web路径为：&#x27;</span> + res.data);</span><br>            &#125;<br>        &#125;)<br>    &#125;)<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>原始的文件上传和访问解决了，但实际上路径还有问题，如果我们在Linux上运行，这个D：的绝对路径绝对会出问题。web路径应该没有什么问题，写博客的时候我在想假如我配置了contextPath，web路径会不会出问题，转念一想应该不会出问题。感兴趣可以自己试试，还有就是和现在各种封装的上传组件，如基于Jquery的Layui，基于Vue的Element，这些都需要自己去研究的，但是这些组件的文档可以说是十分齐全了，看看文档也就能写得出来，那就可以着重研究后端，比如一个Windows和Linux下的路径应该怎么解决，亦或者怎么跨服务器上传文件，小文件貌似没啥难的，大文件上传一般应该也有方案，暂时并没有深入研究过，🤣🤣🤣</p>
+<h1 id="封面原图"><a href="#封面原图" class="headerlink" title="封面原图"></a>封面原图</h1><div class="note note-info">
+            <blockquote><p>网抑云评论</p></blockquote><p>看完《伴我同行》，内心怅然，这就是我的童年的伙伴，童年的快乐，现在的感动。 很感谢哆啦A梦，在我的成年礼上，献出这样一份礼物！ 就算某天，我们各自走远，我也会记得，那些，对光而笑的日子。 风景会变，心，不会变。</p><p>看完《哆啦A梦-伴我同行》感觉每个人，终究要学会独自长大。其实我一向不对“情怀”二字吹毛求疵，往往最真挚的都是最简单的，也是最美好的。这歌曲也好听啊！</p>
+          </div>
+
+<p><img src="https://tvax2.sinaimg.cn/large/005NNTS5ly1grgj7do4e0j32yo1o04qp.jpg" srcset="/img/loading.gif" lazyload alt="哆啦A梦：伴我同行"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/springboot/">springboot</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD/">文件上传下载</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD/">图片上传下载</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/06/01/java-io/">
+                        <span class="hidden-mobile">说说Java的IO流和六一儿童节快乐</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'Wangijun/utterances');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        皖ICP备20012572号
+      </a>
+    </span>
+    
+      
+        <span>
+          <a
+            href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=34042202000089"
+            rel="nofollow noopener"
+            class="beian-police"
+            target="_blank"
+          >
+            
+              <span style="visibility: hidden; width: 0">|</span>
+              <img src="/img/police_beian.png" srcset="/img/loading.gif" lazyload alt="police-icon"/>
+            
+            <span>京公网安备34042202000089号</span>
+          </a>
+        </span>
+      
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
