@@ -204,7 +204,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      544 字
+      692 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      9
        分钟
     </span>
   
@@ -256,7 +256,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：17 小时前
+                  本文最后更新于：19 小时前
                 
               </p>
             
@@ -264,10 +264,6 @@
               <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>加班加的有点烦，我也不知道想说啥，就是烦，我天生对领导没什么好感，下面玩命，上面领赏，我知道这种规则，或者说谁都知道这种规则。却无力挣脱这种规则。三个字，没意思。</p>
 <p>springboot2.点几的版本应该通用，打包的一些tips!!🥈🥈🥈🥇</p>
 <p>此博文对应springboot打成Jar包，打War包，没用到，不清楚。</p>
-<div class="note note-primary">
-            <p>有更新，一个错误配置会导致项目无法启动</p>
-          </div>
-
 <h1 id="maven打包"><a href="#maven打包" class="headerlink" title="maven打包"></a>maven打包</h1><p>直接上pom结构吧</p>
 <p>对应Pom文件中properties标签如果以及存在，那就把<span class="label label-info"><skipTests>true</skipTests></span>加进去就行了。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">properties</span>&gt;</span><br>        <span class="hljs-comment">&lt;!-- 跳过测试 不是必须，在想加快打包速度，或者打包成线上的项目，或者就是说配置弄成线上的后项目跑不起来，就需要加上这个跳过测试来打包 --&gt;</span> <br>        <span class="hljs-tag">&lt;<span class="hljs-name">skipTests</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">skipTests</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">properties</span>&gt;</span><br></code></pre></td></tr></table></figure>
@@ -286,12 +282,25 @@
 </ul>
 <p>代码写的越多，越羡慕英文好的人。</p>
 <div class="note note-info">
-            <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">resources</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">resource</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">directory</span>&gt;</span>$&#123;project.basedir&#125;/lib<span class="hljs-tag">&lt;/<span class="hljs-name">directory</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">targetPath</span>&gt;</span>BOOT-INF/lib/<span class="hljs-tag">&lt;/<span class="hljs-name">targetPath</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">includes</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">include</span>&gt;</span>**/*.jar<span class="hljs-tag">&lt;/<span class="hljs-name">include</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">includes</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">resource</span>&gt;</span><br>    <span class="hljs-comment">&lt;!-- 这个是不需要的，直接删除或注释。加上这个项目可能无法启动 --&gt;</span><br> <span class="hljs-comment">&lt;!--    &lt;resource&gt;</span><br><span class="hljs-comment">        &lt;directory&gt;src/main/resources&lt;/directory&gt;</span><br><span class="hljs-comment">        &lt;targetPath&gt;BOOT-INF/classes/&lt;/targetPath&gt;</span><br><span class="hljs-comment">    &lt;/resource&gt; --&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">resources</span>&gt;</span><br></code></pre></td></tr></table></figure>
+            <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">resources</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">resource</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">directory</span>&gt;</span>$&#123;project.basedir&#125;/lib<span class="hljs-tag">&lt;/<span class="hljs-name">directory</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">targetPath</span>&gt;</span>BOOT-INF/lib/<span class="hljs-tag">&lt;/<span class="hljs-name">targetPath</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">includes</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">include</span>&gt;</span>**/*.jar<span class="hljs-tag">&lt;/<span class="hljs-name">include</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">includes</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">resource</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">resource</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">directory</span>&gt;</span>src/main/resources<span class="hljs-tag">&lt;/<span class="hljs-name">directory</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">targetPath</span>&gt;</span>BOOT-INF/classes/<span class="hljs-tag">&lt;/<span class="hljs-name">targetPath</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">resource</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">resources</span>&gt;</span><br></code></pre></td></tr></table></figure>
           </div>
 
 
 <p>然后执行install,或者package命令打包就行了。</p>
+<div class="note note-success">
+            <p>这种方法有一个坑，就是项目无法正常运行了,必须要将</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"> <span class="hljs-tag">&lt;<span class="hljs-name">resource</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">directory</span>&gt;</span>src/main/resources<span class="hljs-tag">&lt;/<span class="hljs-name">directory</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">targetPath</span>&gt;</span>BOOT-INF/classes/<span class="hljs-tag">&lt;/<span class="hljs-name">targetPath</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">resource</span>&gt;</span><br></code></pre></td></tr></table></figure><p>这行配置删掉，项目才能正常运行。因为我们改变了原本的打包规则。然后打包时加上，运行时去掉，我觉得有点捞。</p>
+          </div>
+
+
 <p>新老项目的碰撞，总时 能产生一些奇妙的问题。</p>
+<p>还有一种就是就比较简单,</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">plugin</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span><br>        <span class="hljs-comment">&lt;!-- 将SystemScope配置的依赖打包到构建包中 --&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">includeSystemScope</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">includeSystemScope</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">plugin</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<div class="note note-info">
+            <p>推荐这种，上面那种属实有点蠢，这种方式最重要不影响运行，不破坏运行时的编译规则。</p>
+          </div>
+
+
 <h1 id="封面原图"><a href="#封面原图" class="headerlink" title="封面原图"></a>封面原图</h1><p><img src="https://tvax3.sinaimg.cn/large/005NNTS5ly1grx04es36yj32yo1z14qp.jpg" srcset="/img/loading.gif" lazyload alt="睡衣女孩"></p>
 
             </div>
