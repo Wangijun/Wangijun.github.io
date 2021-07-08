@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>主键应该怎么选，介绍mybatis-plus的全局主键</title>
+    <link href="/2021/07/08/java-ql2/"/>
+    <url>/2021/07/08/java-ql2/</url>
+    
+    <content type="html"><![CDATA[<h1 id="序"><a href="#序" class="headerlink" title="序"></a>序</h1><p>数据库主键应该怎么选，MYSQL党，熟知的自增主键，这个不推荐，弊端太多，比如主键有规律，别人容易分析数据。</p><p>面试官经常问的脑残问题，数据库自增主键用完了怎么办？就假设MySQL自增主键的类型为int(11),话说这个能装多少数据。百度一下：最大20多亿，嗯，20多亿，加上平时的增增删删，好去掉5亿，自增主键用完或者快用完前，数据量至少超过10亿，一张表能存放十亿数据的架构，当我没说，这种情况应该不用先考虑数据库自增主键用完的情况，建议先杀几个架构师祭祭天。</p><p>这都不是主要的，主要是，主键自增，这个数据库的功能，万一有的数据库没有这个功能怎么处理呢，直接改线上运行的项目代码？敢改么。</p><p>暂时得出结论，自增主键不建议，还有选项，UUID和雪花ID，uuid是无规律，且无序的，而雪花ID是有规律，且有序的，🤣🤣🤣🤣怎么选知道了么？？</p><p>我是中途改成了雪花ID，优点就是克服了自增主键的缺点，缺点就是性能稍有损耗。改个主键类型，代码到数据库到测试。脑壳疼！</p><h1 id="主"><a href="#主" class="headerlink" title="主"></a>主</h1><p>介绍一下mybatis-plus 的全局主键生成。</p><div class="note note-info">            <p>yml配置</p><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">mybatis-plus:</span><br>  <span class="hljs-attr">global-config:</span><br>    <span class="hljs-attr">db-config:</span><br><span class="hljs-comment">#      全局ID生成，雪花ID，优先级：实体类中的配置 &gt; 全局配置</span><br>      <span class="hljs-attr">id-type:</span> <span class="hljs-string">assign_id</span><br></code></pre></td></tr></table></figure><p>bean（数据库映射实体类）中的配置，</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 主键</span><br><span class="hljs-comment"> * 此处配置优先级高于全局配置，就是会覆盖，最终以实体类中的配置为准，如果实体类中未配置那就走全局。</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@TableId(value = &quot;user_id&quot;, type = IdType.ASSIGN_ID)</span><br><span class="hljs-meta">@ApiModelProperty(value = &quot;主键&quot;)</span><br><span class="hljs-keyword">private</span> String userId;<br></code></pre></td></tr></table></figure>          </div><div class="note note-primary">            <p>！！！！只有当插入对象ID为空，才自动填充。！！！</p><p>主键重复的情况一般在批量操作的时候容易出问题，解决问题的办法就是记住这句话。主键为空时！才自动填充。</p>          </div><p>因为雪花ID是19位，数据库的类型我设置成char(19)，没有设置成数字类型，因为自然界很难有这样大的数。Java中我也没有使用Long，而是直接使用了String类型，用Long直接往JS里面传会发生精度丢失的问题，实际上不应该是数字，更没有什么精度丢失的问题。我索性全部用String了。</p><h1 id="尾"><a href="#尾" class="headerlink" title="尾"></a>尾</h1><div class="note note-info">            <p>2021听到最大笑话是：别人家几代人的努力，你凭什么认为会输给你的寒窗苦读。最近为什么“躺平”引起热议，我听到一种回答“达者不再兼济天下，却怪穷者独善其身。” 最想”躺平“是资本家，他们知道制造业累，激烈，投入大，所以选择金融选择放贷，然后再垄断教育医疗市场，让阶级固化，这下好了子孙后代都能躺平，结果跳出来指责劳动人民躺平。我们年轻人不是不奋斗，而是拒绝为别人的利益奋斗 。</p><p>一线城市的年轻人，集中家族力量，争分夺秒，激烈的抢占各种优质资产，</p><p>二线的年轻人加班，房贷，各种学习班，买学区房，鸡娃，努力往上爬，</p><p>三四线五线的年轻人，岁月静好，打牌生娃，</p><p>十八线小县城农村的年轻人，安逸，无聊，没压力，自我放逐</p>          </div><blockquote><p>封面原图</p></blockquote><p><img src="https://tvax4.sinaimg.cn/large/005NNTS5ly1gs9fkxt9dlj34mo334e86.jpg" alt="绿色的心"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>后端</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>全栈之路</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>一个小项目的开发心路</title>
     <link href="/2021/07/07/java-ql1/"/>
     <url>/2021/07/07/java-ql1/</url>
