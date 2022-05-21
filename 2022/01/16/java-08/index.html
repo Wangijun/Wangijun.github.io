@@ -47,6 +47,8 @@
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
 
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.26.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
   <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
 
 
@@ -235,7 +237,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          1k 字
         
       </span>
     
@@ -246,7 +248,7 @@
         
         
         
-          11 分钟
+          9 分钟
         
       </span>
     
@@ -460,10 +462,31 @@
               <p>最近写了一些请求第三方接口的需求，基于http协议的接口，实际上写起来并不麻烦，因为就三个核心要素，地址，请求方式，请求内容。地址他们给的是什么地址就是什么地址，没有变数，请求方式是写死的，复杂且容易出错的地方就是请求内容，不同的请求方式又有不同的传参方式。请求内容是JSON数据还是表单数据，等等，有时因为提供接口的开发者描述不准确，这个时候我们怎么办呢，很简单的一个一个试，基本上只需要试两到三下就能解决问题。你问人是表单数据还是JSON数据可能他们自己也说不清楚，因为这个表单数据的数据格式我也不知道官方的叫法是什么，表单数据，是我自己的理解，意义可能就是为了区分不是JSON数据，有这个问的时间，你已经试出来了。因为就这三种数据，还有一种数据是上传的文件数据，除去文件数据就两种数据。get请求只能发送表单数据，post能发送表单数据，也能发送json数据，一般post用的多。所以记住这两种传参方式就可以了。</p>
 <p>实际操作中使用了hutool这个工具类，当然你也可以用大家更为熟知一点的okhttp这个http工具，萝卜青菜都能写，只不过我感觉hutool提供的工具代码比较简洁也便于理解。</p>
 <p>依赖</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">implementation(<span class="hljs-string">&#x27;cn.hutool:hutool-all:5.7.19&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">implementation<span class="token punctuation">(</span><span class="token string">'cn.hutool:hutool-all:5.7.19'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 
 <p>实际操作代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><br><span class="hljs-comment">// 发起get请求，并获取返回内容</span><br><span class="hljs-type">String</span> <span class="hljs-variable">body</span> <span class="hljs-operator">=</span> HttpRequest.get(<span class="hljs-string">&quot;url&quot;</span>) <span class="hljs-comment">// 请求方式，以及url</span><br>        .form(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;小红&quot;</span>)<span class="hljs-comment">// 参数，重复调用即可</span><br>        .form(<span class="hljs-string">&quot;age&quot;</span>, <span class="hljs-string">&quot;24&quot;</span>)<br>        .execute().body();<span class="hljs-comment">// 获取body内容</span><br><br><span class="hljs-comment">// 发起post请求发送表单数据，并获取返回数据</span><br><span class="hljs-type">String</span> <span class="hljs-variable">body1</span> <span class="hljs-operator">=</span> HttpRequest.post(<span class="hljs-string">&quot;utl&quot;</span>) <span class="hljs-comment">// post请求</span><br>        .form(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;小红&quot;</span>)<br>        .form(<span class="hljs-string">&quot;age&quot;</span>, <span class="hljs-string">&quot;24&quot;</span>)<br>        .execute().body();<br><br><span class="hljs-comment">// 发送post请求并发送JSON数据，并获取返回信息</span><br><span class="hljs-type">String</span> <span class="hljs-variable">body2</span> <span class="hljs-operator">=</span> HttpRequest.post(<span class="hljs-string">&quot;url&quot;</span>)<br>        .body(JSONUtil<br>                .createObj()<br>                .set(<span class="hljs-string">&quot;name&quot;</span>,<span class="hljs-string">&quot;小红&quot;</span>)<br>                .set(<span class="hljs-string">&quot;age&quot;</span>,<span class="hljs-string">&quot;24&quot;</span>)<br>                .toString())<br>        .execute().body();<br><br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java">
+<span class="token comment">// 发起get请求，并获取返回内容</span>
+<span class="token class-name">String</span> body <span class="token operator">=</span> <span class="token class-name">HttpRequest</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"url"</span><span class="token punctuation">)</span> <span class="token comment">// 请求方式，以及url</span>
+        <span class="token punctuation">.</span><span class="token function">form</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">,</span> <span class="token string">"小红"</span><span class="token punctuation">)</span><span class="token comment">// 参数，重复调用即可</span>
+        <span class="token punctuation">.</span><span class="token function">form</span><span class="token punctuation">(</span><span class="token string">"age"</span><span class="token punctuation">,</span> <span class="token string">"24"</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">body</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">// 获取body内容</span>
+
+<span class="token comment">// 发起post请求发送表单数据，并获取返回数据</span>
+<span class="token class-name">String</span> body1 <span class="token operator">=</span> <span class="token class-name">HttpRequest</span><span class="token punctuation">.</span><span class="token function">post</span><span class="token punctuation">(</span><span class="token string">"utl"</span><span class="token punctuation">)</span> <span class="token comment">// post请求</span>
+        <span class="token punctuation">.</span><span class="token function">form</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">,</span> <span class="token string">"小红"</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">form</span><span class="token punctuation">(</span><span class="token string">"age"</span><span class="token punctuation">,</span> <span class="token string">"24"</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">body</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 发送post请求并发送JSON数据，并获取返回信息</span>
+<span class="token class-name">String</span> body2 <span class="token operator">=</span> <span class="token class-name">HttpRequest</span><span class="token punctuation">.</span><span class="token function">post</span><span class="token punctuation">(</span><span class="token string">"url"</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">body</span><span class="token punctuation">(</span><span class="token class-name">JSONUtil</span>
+                <span class="token punctuation">.</span><span class="token function">createObj</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">,</span><span class="token string">"小红"</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">"age"</span><span class="token punctuation">,</span><span class="token string">"24"</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">body</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>如果确认传递的参数没有问题，一个一个试基本就能解决问题。如果还有特殊的需求，阅读源码，建议直接看源码，注释都是中文的，使用起来基本没有任何障碍。<a target="_blank" rel="noopener" href="https://www.hutool.cn/docs/#/http/Http%E8%AF%B7%E6%B1%82-HttpRequest">官网文档地址</a></p>
 <h2 id="封面"><a href="#封面" class="headerlink" title="封面"></a>封面</h2><p><img src="https://tva2.sinaimg.cn/large/005NNTS5ly1gyfnlrsvuyj32yo1o0kjl.jpg" srcset="/img/loading.gif" lazyload alt="海琴烟 同人"></p>
@@ -780,6 +803,8 @@
   });
 </script>
 
+
+  <script  src="https://lib.baomitu.com/prism/1.26.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
 
   <script>
   (function() {

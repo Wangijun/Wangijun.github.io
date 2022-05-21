@@ -46,6 +46,8 @@
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
 
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.26.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
   <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
 
 
@@ -234,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          21k 字
+          19k 字
         
       </span>
     
@@ -245,7 +247,7 @@
         
         
         
-          176 分钟
+          158 分钟
         
       </span>
     
@@ -379,12 +381,119 @@
 <h2 id="教程准备"><a href="#教程准备" class="headerlink" title="教程准备"></a>教程准备</h2><h3 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h3><p>如日中天的CenterOs倒了（停止维护）。于是我就换上了Ubuntu。</p>
 <p>Linux系统：Ubuntu20.x.x</p>
 <h3 id="安装方式"><a href="#安装方式" class="headerlink" title="安装方式"></a>安装方式</h3><p>两种安装方式，使用命令式的安装是最为简单的，但受限于网络。下载源码编译安装最为通用，但是有一点繁琐。</p>
-<h4 id="APT（软件源）安装"><a href="#APT（软件源）安装" class="headerlink" title="APT（软件源）安装"></a>APT（软件源）安装</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装之前的准备</span><br>sudo apt install curl gnupg2 ca-certificates lsb-release ubuntu-keyring<br><br><span class="hljs-comment"># 导入官方的nginx签名密钥，以便apt能够验证软件包的真实性</span><br>curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor \<br>    | sudo <span class="hljs-built_in">tee</span> /usr/share/keyrings/nginx-archive-keyring.gpg &gt;/dev/null<br><br><span class="hljs-comment"># 验证下载的文件是否包含正确的密钥</span><br>gpg --dry-run --quiet --import --import-options import-show /usr/share/keyrings/nginx-archive-keyring.gpg<br><br><span class="hljs-comment"># 输出即可</span><br>pub   rsa2048 2011-08-19 [SC] [expires: 2024-06-14]<br>      573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62<br>uid                      nginx signing key &lt;signing-key@nginx.com&gt;<br><br><span class="hljs-comment"># 更新</span><br>sudo apt update<br><br><span class="hljs-comment"># 安装 有提示，y 回车即可</span><br>sudo apt install nginx<br><br><span class="hljs-comment"># 测试是否成功安装, 输出版本号，即安装完成</span><br>nginx -v<br><br><span class="hljs-comment"># 测试访问</span><br>curl https://localhost<br><br><span class="hljs-comment"># 输出</span><br>&lt;!DOCTYPE html&gt;<br>&lt;html&gt;<br>&lt;<span class="hljs-built_in">head</span>&gt;<br>&lt;title&gt;Welcome to nginx!&lt;/title&gt;<br>&lt;style&gt;<br>    body &#123;<br>        width: 35em;<br>        margin: 0 auto;<br>        font-family: Tahoma, Verdana, Arial, sans-serif;<br>    &#125;<br>&lt;/style&gt;<br>&lt;/head&gt;<br>&lt;body&gt;<br>&lt;h1&gt;Welcome to nginx!&lt;/h1&gt;<br>&lt;p&gt;If you see this page, the nginx web server is successfully installed and<br>working. Further configuration is required.&lt;/p&gt;<br><br>&lt;p&gt;For online documentation and support please refer to<br>&lt;a href=<span class="hljs-string">&quot;http://nginx.org/&quot;</span>&gt;nginx.org&lt;/a&gt;.&lt;br/&gt;<br>Commercial support is available at<br>&lt;a href=<span class="hljs-string">&quot;http://nginx.com/&quot;</span>&gt;nginx.com&lt;/a&gt;.&lt;/p&gt;<br><br>&lt;p&gt;&lt;em&gt;Thank you <span class="hljs-keyword">for</span> using nginx.&lt;/em&gt;&lt;/p&gt;<br>&lt;/body&gt;<br>&lt;/html&gt;<br><br></code></pre></td></tr></table></figure>
+<h4 id="APT（软件源）安装"><a href="#APT（软件源）安装" class="headerlink" title="APT（软件源）安装"></a>APT（软件源）安装</h4><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 安装之前的准备</span>
+<span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> <span class="token function">curl</span> gnupg2 ca-certificates lsb-release ubuntu-keyring
+
+<span class="token comment"># 导入官方的nginx签名密钥，以便apt能够验证软件包的真实性</span>
+<span class="token function">curl</span> https://nginx.org/keys/nginx_signing.key <span class="token operator">|</span> gpg --dearmor <span class="token punctuation">\</span>
+    <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">tee</span> /usr/share/keyrings/nginx-archive-keyring.gpg <span class="token operator">></span>/dev/null
+
+<span class="token comment"># 验证下载的文件是否包含正确的密钥</span>
+gpg --dry-run --quiet --import --import-options import-show /usr/share/keyrings/nginx-archive-keyring.gpg
+
+<span class="token comment"># 输出即可</span>
+pub   rsa2048 <span class="token number">2011</span>-08-19 <span class="token punctuation">[</span>SC<span class="token punctuation">]</span> <span class="token punctuation">[</span>expires: <span class="token number">2024</span>-06-14<span class="token punctuation">]</span>
+      573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
+uid                      nginx signing key <span class="token operator">&lt;</span>signing-key@nginx.com<span class="token operator">></span>
+
+<span class="token comment"># 更新</span>
+<span class="token function">sudo</span> <span class="token function">apt</span> update
+
+<span class="token comment"># 安装 有提示，y 回车即可</span>
+<span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> nginx
+
+<span class="token comment"># 测试是否成功安装, 输出版本号，即安装完成</span>
+nginx -v
+
+<span class="token comment"># 测试访问</span>
+<span class="token function">curl</span> https://localhost
+
+<span class="token comment"># 输出</span>
+<span class="token operator">&lt;</span><span class="token operator">!</span>DOCTYPE html<span class="token operator">></span>
+<span class="token operator">&lt;</span>html<span class="token operator">></span>
+<span class="token operator">&lt;</span>head<span class="token operator">></span>
+<span class="token operator">&lt;</span>title<span class="token operator">></span>Welcome to nginx<span class="token operator">!</span><span class="token operator">&lt;</span>/title<span class="token operator">></span>
+<span class="token operator">&lt;</span>style<span class="token operator">></span>
+    body <span class="token punctuation">&#123;</span>
+        width: 35em<span class="token punctuation">;</span>
+        margin: <span class="token number">0</span> auto<span class="token punctuation">;</span>
+        font-family: Tahoma, Verdana, Arial, sans-serif<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token operator">&lt;</span>/style<span class="token operator">></span>
+<span class="token operator">&lt;</span>/head<span class="token operator">></span>
+<span class="token operator">&lt;</span>body<span class="token operator">></span>
+<span class="token operator">&lt;</span>h<span class="token operator"><span class="token file-descriptor important">1</span>></span>Welcome to nginx<span class="token operator">!</span><span class="token operator">&lt;</span>/h<span class="token operator"><span class="token file-descriptor important">1</span>></span>
+<span class="token operator">&lt;</span>p<span class="token operator">></span>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.<span class="token operator">&lt;</span>/p<span class="token operator">></span>
+
+<span class="token operator">&lt;</span>p<span class="token operator">></span>For online documentation and support please refer to
+<span class="token operator">&lt;</span>a <span class="token assign-left variable">href</span><span class="token operator">=</span><span class="token string">"http://nginx.org/"</span><span class="token operator">></span>nginx.org<span class="token operator">&lt;</span>/a<span class="token operator">></span>.<span class="token operator">&lt;</span>br/<span class="token operator">></span>
+Commercial support is available at
+<span class="token operator">&lt;</span>a <span class="token assign-left variable">href</span><span class="token operator">=</span><span class="token string">"http://nginx.com/"</span><span class="token operator">></span>nginx.com<span class="token operator">&lt;</span>/a<span class="token operator">></span>.<span class="token operator">&lt;</span>/p<span class="token operator">></span>
+
+<span class="token operator">&lt;</span>p<span class="token operator">></span><span class="token operator">&lt;</span>em<span class="token operator">></span>Thank you <span class="token keyword">for</span> using nginx.<span class="token operator">&lt;</span>/em<span class="token operator">></span><span class="token operator">&lt;</span>/p<span class="token operator">></span>
+<span class="token operator">&lt;</span>/body<span class="token operator">></span>
+<span class="token operator">&lt;</span>/html<span class="token operator">></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>按照上面的操作如果出现最后的Html文档说明已经正确安装了。</p>
 <h4 id="源码安装"><a href="#源码安装" class="headerlink" title="源码安装"></a>源码安装</h4><p>比较通用的一种安装方法。首先下载安装包。<a target="_blank" rel="noopener" href="http://nginx.org/en/download.html">nginx下载</a>，下载稳定版的即可。我这里下载的是<a target="_blank" rel="noopener" href="http://nginx.org/download/nginx-1.20.2.tar.gz">nginx-1.20.2</a>，点击下载到本地，上传到你的Linux服务器上。上传方法不限，弄到服务器的文件夹里即可。</p>
 <p>进入存放tar.gz文件的目录下</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 解压源码文件</span><br>tar -zxcf nginx-1.20.2.tar.gz<br><br><span class="hljs-comment"># 进入解压后的文件中</span><br><span class="hljs-built_in">cd</span> nginx-1.20.2<br><br><span class="hljs-comment"># 创建一个缓存文件夹</span><br><span class="hljs-built_in">mkdir</span> /var/temp/nginx -p<br><br><span class="hljs-comment"># 安装生成安装文件前的必要依赖。</span><br><span class="hljs-comment"># 不建议手动编译安装属实是太麻烦了</span><br>apt install build-essential libssl-dev libghc-zlib-dev libpcre3-dev<br><br><span class="hljs-comment"># 在nginx目录，输入如下命令进行配置，目的是为了创建makefile文件</span><br><span class="hljs-comment"># 注意一下配置中的目录即可</span><br>./configure \<br>--prefix=/usr/local/nginx \<br>--pid-path=/var/run/nginx/nginx.pid \<br>--lock-path=/var/lock/nginx.lock \<br>--error-log-path=/var/log/nginx/error.log \<br>--http-log-path=/var/log/nginx/access.log \<br>--with-http_gzip_static_module \<br>--http-client-body-temp-path=/var/temp/nginx/client \<br>--http-proxy-temp-path=/var/temp/nginx/proxy \<br>--http-fastcgi-temp-path=/var/temp/nginx/fastcgi \<br>--http-uwsgi-temp-path=/var/temp/nginx/uwsgi \<br>--http-scgi-temp-path=/var/temp/nginx/scgi  \<br>--with-http_ssl_module<br><br><span class="hljs-comment"># 如果报错如下，</span><br>checking <span class="hljs-keyword">for</span> OS<br> + Linux 5.13.0-37-generic x86_64<br>checking <span class="hljs-keyword">for</span> C compiler ... not found<br><br>./configure: error: C compiler cc is not found<br><br><span class="hljs-comment"># 说明缺少编译依赖。再次执行此命令。</span><br>apt install build-essential libssl-dev libghc-zlib-dev libpcre3-dev<br><br><span class="hljs-comment"># 生成安装文件成功后应该会输出类似下面的内容</span><br>  nginx path prefix: <span class="hljs-string">&quot;/usr/local/nginx&quot;</span><br>  nginx binary file: <span class="hljs-string">&quot;/usr/local/nginx/sbin/nginx&quot;</span><br>  nginx modules path: <span class="hljs-string">&quot;/usr/local/nginx/modules&quot;</span><br>  nginx configuration prefix: <span class="hljs-string">&quot;/usr/local/nginx/conf&quot;</span><br>  nginx configuration file: <span class="hljs-string">&quot;/usr/local/nginx/conf/nginx.conf&quot;</span><br>  nginx pid file: <span class="hljs-string">&quot;/var/run/nginx/nginx.pid&quot;</span><br>  nginx error <span class="hljs-built_in">log</span> file: <span class="hljs-string">&quot;/var/log/nginx/error.log&quot;</span><br>  nginx http access <span class="hljs-built_in">log</span> file: <span class="hljs-string">&quot;/var/log/nginx/access.log&quot;</span><br>  nginx http client request body temporary files: <span class="hljs-string">&quot;/var/temp/nginx/client&quot;</span><br>  nginx http proxy temporary files: <span class="hljs-string">&quot;/var/temp/nginx/proxy&quot;</span><br>  nginx http fastcgi temporary files: <span class="hljs-string">&quot;/var/temp/nginx/fastcgi&quot;</span><br>  nginx http uwsgi temporary files: <span class="hljs-string">&quot;/var/temp/nginx/uwsgi&quot;</span><br>  nginx http scgi temporary files: <span class="hljs-string">&quot;/var/temp/nginx/scgi&quot;</span><br><br><br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 解压源码文件</span>
+<span class="token function">tar</span> -zxcf nginx-1.20.2.tar.gz
+
+<span class="token comment"># 进入解压后的文件中</span>
+<span class="token builtin class-name">cd</span> nginx-1.20.2
+
+<span class="token comment"># 创建一个缓存文件夹</span>
+<span class="token function">mkdir</span> /var/temp/nginx -p
+
+<span class="token comment"># 安装生成安装文件前的必要依赖。</span>
+<span class="token comment"># 不建议手动编译安装属实是太麻烦了</span>
+<span class="token function">apt</span> <span class="token function">install</span> build-essential libssl-dev libghc-zlib-dev libpcre3-dev
+
+<span class="token comment"># 在nginx目录，输入如下命令进行配置，目的是为了创建makefile文件</span>
+<span class="token comment"># 注意一下配置中的目录即可</span>
+./configure <span class="token punctuation">\</span>
+--prefix<span class="token operator">=</span>/usr/local/nginx <span class="token punctuation">\</span>
+--pid-path<span class="token operator">=</span>/var/run/nginx/nginx.pid <span class="token punctuation">\</span>
+--lock-path<span class="token operator">=</span>/var/lock/nginx.lock <span class="token punctuation">\</span>
+--error-log-path<span class="token operator">=</span>/var/log/nginx/error.log <span class="token punctuation">\</span>
+--http-log-path<span class="token operator">=</span>/var/log/nginx/access.log <span class="token punctuation">\</span>
+--with-http_gzip_static_module <span class="token punctuation">\</span>
+--http-client-body-temp-path<span class="token operator">=</span>/var/temp/nginx/client <span class="token punctuation">\</span>
+--http-proxy-temp-path<span class="token operator">=</span>/var/temp/nginx/proxy <span class="token punctuation">\</span>
+--http-fastcgi-temp-path<span class="token operator">=</span>/var/temp/nginx/fastcgi <span class="token punctuation">\</span>
+--http-uwsgi-temp-path<span class="token operator">=</span>/var/temp/nginx/uwsgi <span class="token punctuation">\</span>
+--http-scgi-temp-path<span class="token operator">=</span>/var/temp/nginx/scgi  <span class="token punctuation">\</span>
+--with-http_ssl_module
+
+<span class="token comment"># 如果报错如下，</span>
+checking <span class="token keyword">for</span> OS
+ + Linux <span class="token number">5.13</span>.0-37-generic x86_64
+checking <span class="token keyword">for</span> C compiler <span class="token punctuation">..</span>. not found
+
+./configure: error: C compiler cc is not found
+
+<span class="token comment"># 说明缺少编译依赖。再次执行此命令。</span>
+<span class="token function">apt</span> <span class="token function">install</span> build-essential libssl-dev libghc-zlib-dev libpcre3-dev
+
+<span class="token comment"># 生成安装文件成功后应该会输出类似下面的内容</span>
+  nginx path prefix: <span class="token string">"/usr/local/nginx"</span>
+  nginx binary file: <span class="token string">"/usr/local/nginx/sbin/nginx"</span>
+  nginx modules path: <span class="token string">"/usr/local/nginx/modules"</span>
+  nginx configuration prefix: <span class="token string">"/usr/local/nginx/conf"</span>
+  nginx configuration file: <span class="token string">"/usr/local/nginx/conf/nginx.conf"</span>
+  nginx pid file: <span class="token string">"/var/run/nginx/nginx.pid"</span>
+  nginx error log file: <span class="token string">"/var/log/nginx/error.log"</span>
+  nginx http access log file: <span class="token string">"/var/log/nginx/access.log"</span>
+  nginx http client request body temporary files: <span class="token string">"/var/temp/nginx/client"</span>
+  nginx http proxy temporary files: <span class="token string">"/var/temp/nginx/proxy"</span>
+  nginx http fastcgi temporary files: <span class="token string">"/var/temp/nginx/fastcgi"</span>
+  nginx http uwsgi temporary files: <span class="token string">"/var/temp/nginx/uwsgi"</span>
+  nginx http scgi temporary files: <span class="token string">"/var/temp/nginx/scgi"</span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <div class="note note-info">
             <p>配置相关信息汇总，看表格</p>
@@ -449,7 +558,22 @@
 <td>启用Https模块</td>
 </tr>
 </tbody></table>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># make编译</span><br>make<br><br><span class="hljs-comment"># 安装</span><br>make install<br><br><span class="hljs-comment"># 进入sbin目录启动nginx</span><br><br><span class="hljs-comment"># 启动：</span><br>./nginx<br><br><span class="hljs-comment"># 停止：</span><br>./nginx -s stop<br><br><span class="hljs-comment"># 重新加载：</span><br>./nginx -s reload<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># make编译</span>
+<span class="token function">make</span>
+
+<span class="token comment"># 安装</span>
+<span class="token function">make</span> <span class="token function">install</span>
+
+<span class="token comment"># 进入sbin目录启动nginx</span>
+
+<span class="token comment"># 启动：</span>
+./nginx
+
+<span class="token comment"># 停止：</span>
+./nginx -s stop
+
+<span class="token comment"># 重新加载：</span>
+./nginx -s reload<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>在Ubuntu上nginx安装的两种方式都已介绍完毕，如果你用的是CentOs,那很可惜，教程并不适用。我这边呢是建议使用apt,yum这种工具去安装nginx的，优点有很多。</p>
 <p>第一：节省服务器空间因为不需要编译环境，第二，节省开发者生命。</p>
@@ -462,79 +586,703 @@
             <p>apt（Advanced Packaging Tool）是一个在 Debian 和 Ubuntu 中的 Shell 前端软件包管理器。<br>apt 命令提供了查找、安装、升级、删除某一个、一组甚至全部软件包的命令，而且命令简洁而又好记。<br>apt 命令执行需要超级管理员权限(root)。</p>
           </div>
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs bash">root@ubuntu:/usr/local/nginx/sbin<span class="hljs-comment"># apt -h</span><br>apt 2.0.6 (amd64)<br>用法： apt [选项] 命令<br><br>命令行软件包管理器 apt 提供软件包搜索，管理和信息查询等功能。<br>它提供的功能与其他 APT 工具相同（像 apt-get 和 apt-cache），<br>但是默认情况下被设置得更适合交互。<br><br>常用命令：<br>  list - 根据名称列出软件包<br>  search - 搜索软件包描述<br>  show - 显示软件包细节<br>  install - 安装软件包<br>  reinstall - 重新安装软件包<br>  remove - 移除软件包<br>  autoremove - 卸载所有自动安装且不再使用的软件包<br>  update - 更新可用软件包列表<br>  upgrade - 通过 安装/升级 软件来更新系统<br>  full-upgrade - 通过 卸载/安装/升级 来更新系统<br>  edit-sources - 编辑软件源信息文件<br>  satisfy - 使系统满足依赖关系字符串<br><br>参见 apt(8) 以获取更多关于可用命令的信息。<br>程序配置选项及语法都已经在 apt.conf(5) 中阐明。<br>欲知如何配置软件源，请参阅 sources.list(5)。<br>软件包及其版本偏好可以通过 apt_preferences(5) 来设置。<br>关于安全方面的细节可以参考 apt-secure(8).<br>                                         本 APT 具有超级牛力。<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@ubuntu:/usr/local/nginx/sbin<span class="token comment"># apt -h</span>
+<span class="token function">apt</span> <span class="token number">2.0</span>.6 <span class="token punctuation">(</span>amd64<span class="token punctuation">)</span>
+用法： <span class="token function">apt</span> <span class="token punctuation">[</span>选项<span class="token punctuation">]</span> 命令
+
+命令行软件包管理器 <span class="token function">apt</span> 提供软件包搜索，管理和信息查询等功能。
+它提供的功能与其他 APT 工具相同（像 <span class="token function">apt-get</span> 和 apt-cache），
+但是默认情况下被设置得更适合交互。
+
+常用命令：
+  list - 根据名称列出软件包
+  search - 搜索软件包描述
+  show - 显示软件包细节
+  <span class="token function">install</span> - 安装软件包
+  reinstall - 重新安装软件包
+  remove - 移除软件包
+  autoremove - 卸载所有自动安装且不再使用的软件包
+  update - 更新可用软件包列表
+  upgrade - 通过 安装/升级 软件来更新系统
+  full-upgrade - 通过 卸载/安装/升级 来更新系统
+  edit-sources - 编辑软件源信息文件
+  satisfy - 使系统满足依赖关系字符串
+
+参见 apt<span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">)</span> 以获取更多关于可用命令的信息。
+程序配置选项及语法都已经在 apt.conf<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span> 中阐明。
+欲知如何配置软件源，请参阅 sources.list<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>。
+软件包及其版本偏好可以通过 apt_preferences<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span> 来设置。
+关于安全方面的细节可以参考 apt-secure<span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">)</span>.
+                                         本 APT 具有超级牛力。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <h3 id="Yum"><a href="#Yum" class="headerlink" title="Yum"></a>Yum</h3><div class="note note-info">
             <p>yum（ Yellow dog Updater, Modified）是一个在 Fedora 和 RedHat 以及 SUSE 中的 Shell 前端软件包管理器。（一般CentOS就用这个）<br>基于 RPM 包管理，能够从指定的服务器自动下载 RPM 包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软件包，无须繁琐地一次次下载、安装。<br>yum 提供了查找、安装、删除某一个、一组甚至全部软件包的命令，而且命令简洁而又好记。</p>
           </div>
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs bash">1. 列出所有可更新的软件清单命令：yum check-update<br><br>2. 更新所有软件命令：yum update<br><br>3. 仅安装指定的软件命令：yum install &lt;package_name&gt;<br><br>4. 仅更新指定的软件命令：yum update &lt;package_name&gt;<br><br>5. 列出所有可安裝的软件清单命令：yum list<br><br>6. 删除软件包命令：yum remove &lt;package_name&gt;<br><br>7. 查找软件包命令：yum search &lt;keyword&gt;<br><br>8. 清除缓存命令:<br><br>yum clean packages: 清除缓存目录下的软件包<br>yum clean headers: 清除缓存目录下的 headers<br>yum clean oldheaders: 清除缓存目录下旧的 headers<br>yum clean, yum clean all (= yum clean packages; yum clean oldheaders) :清除缓存目录下的软件包及旧的 headers<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>. 列出所有可更新的软件清单命令：yum check-update
 
-<h2 id="默认配置解读"><a href="#默认配置解读" class="headerlink" title="默认配置解读"></a>默认配置解读</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 运行用户，一般设置成root用户即可，百度了一下是用来控制权限的。根据Liunx系统的用户来配置即可，话说通过shell窗口来操作Linux的用户的相关命令，应该不常用。</span><br>user www-data;<br><br><span class="hljs-comment"># 启动进程,通常设置成和cpu的数量相等，auto 表示自动</span><br>worker_processes auto;<br><span class="hljs-comment"># 全局运行PID文件</span><br>pid /run/nginx.pid;<br><span class="hljs-comment"># 导入指定文件夹下所有以.conf结尾的配置文件，一般是一些模块的设置</span><br>include /etc/nginx/modules-enabled/*.conf;<br><br>events &#123;<br> <span class="hljs-comment"># 单个后台worker process进程的最大并发链接数</span><br> worker_connections 768;<br> <span class="hljs-comment"># multi_accept on;</span><br>&#125;<br><br><span class="hljs-comment"># #设定http服务器，利用它的反向代理功能提供负载均衡支持</span><br>http &#123;<br><br> <span class="hljs-comment">##</span><br> <span class="hljs-comment"># 基本设置</span><br> <span class="hljs-comment">##</span><br><br> <span class="hljs-comment"># sendfile 指令指定 nginx 是否调用 sendfile 函数（zero copy 方式）来输出文件，对于普通应用，</span><br> <span class="hljs-comment"># 必须设为 on,如果用来进行下载等应用磁盘IO重负载应用，可设置为 off，以平衡磁盘与网络I/O处理速度，降低系统的uptime.</span><br> sendfile on;<br> <span class="hljs-comment"># sendfile为on时这里也应该设为on，数据包会累积一下再一起传输，可以提高一些传输效率。</span><br> tcp_nopush on;<br> <span class="hljs-comment"># 小的数据包不等待直接传输。默认为on。</span><br> <span class="hljs-comment"># 看上去是和tcp_nopush相反的功能，但是两边都为on时nginx也可以平衡这两个功能的使用。</span><br> tcp_nodelay on;<br> <span class="hljs-comment"># 连接超时时间</span><br> keepalive_timeout 65;<br> <span class="hljs-comment"># types_hash_max_size影响散列表的冲突率。types_hash_max_size越大，就会消耗更多的内存，但散列key的冲突率会降低，检索速度就更快。types_hash_max_size越小，消耗的内存就越小，但散列key的冲突率可能上升。默认为1024</span><br> types_hash_max_size 2048;<br> <span class="hljs-comment"># server_tokens off;</span><br><br> <span class="hljs-comment"># server_names_hash_bucket_size 64;</span><br> <span class="hljs-comment"># server_name_in_redirect off;</span><br><br> <span class="hljs-comment"># 定义MIME类型和后缀名关联的文件的位置。</span><br> include /etc/nginx/mime.types;<br> <span class="hljs-comment"># 指定mime.types文件中没有记述到的后缀名的处理方法。默认值是text/plain。</span><br> default_type application/octet-stream;<br><br> <span class="hljs-comment">##</span><br> <span class="hljs-comment"># SSL设置</span><br> <span class="hljs-comment">##</span><br><br> ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3; <span class="hljs-comment"># Dropping SSLv3, ref: POODLE</span><br> ssl_prefer_server_ciphers on;<br><br> <span class="hljs-comment">##</span><br> <span class="hljs-comment"># 日志记录设置</span><br> <span class="hljs-comment">##</span><br><br> access_log /var/log/nginx/access.log;<br> error_log /var/log/nginx/error.log;<br><br> <span class="hljs-comment">##</span><br> <span class="hljs-comment"># Gzip设置</span><br> <span class="hljs-comment">##</span><br> <span class="hljs-comment">#开启gzip压缩</span><br> gzip on;<br><br> <span class="hljs-comment"># gzip_vary on;</span><br> <span class="hljs-comment"># gzip_proxied any;</span><br> <span class="hljs-comment"># gzip_comp_level 6;</span><br> <span class="hljs-comment"># gzip_buffers 16 8k;</span><br> <span class="hljs-comment"># gzip_http_version 1.1;</span><br> <span class="hljs-comment"># gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;</span><br><br> <span class="hljs-comment">##</span><br> <span class="hljs-comment"># 虚拟主机配置</span><br> <span class="hljs-comment">## </span><br><br> <span class="hljs-comment"># 重点就在这里，因为我们正常看这个配置文件，里面感觉是没有东西的。但是我们访问http://localhost是可以访问的到的。</span><br> <br> <span class="hljs-comment"># 主要就是下面这两行  sites-enabled 这个文件夹下有个 default 文件。就是这个文件里面配置的东西，conf.d 这个文件夹是空文件夹，不看。</span><br> include /etc/nginx/conf.d/*.conf;<br> <span class="hljs-comment"># 导入默认设置</span><br> include /etc/nginx/sites-enabled/*;<br>&#125;<br><br><span class="hljs-comment"># mail模块，用的不多</span><br><span class="hljs-comment">#mail &#123;</span><br><span class="hljs-comment"># # See sample authentication script at:</span><br><span class="hljs-comment"># # http://wiki.nginx.org/ImapAuthenticateWithApachePhpScript</span><br><span class="hljs-comment"># </span><br><span class="hljs-comment"># # auth_http localhost/auth.php;</span><br><span class="hljs-comment"># # pop3_capabilities &quot;TOP&quot; &quot;USER&quot;;</span><br><span class="hljs-comment"># # imap_capabilities &quot;IMAP4rev1&quot; &quot;UIDPLUS&quot;;</span><br><span class="hljs-comment"># </span><br><span class="hljs-comment"># server &#123;</span><br><span class="hljs-comment">#  listen     localhost:110;</span><br><span class="hljs-comment">#  protocol   pop3;</span><br><span class="hljs-comment">#  proxy      on;</span><br><span class="hljs-comment"># &#125;</span><br><span class="hljs-comment"># </span><br><span class="hljs-comment"># server &#123;</span><br><span class="hljs-comment">#  listen     localhost:143;</span><br><span class="hljs-comment">#  protocol   imap;</span><br><span class="hljs-comment">#  proxy      on;</span><br><span class="hljs-comment"># &#125;</span><br><span class="hljs-comment">#&#125;</span><br></code></pre></td></tr></table></figure>
+<span class="token number">2</span>. 更新所有软件命令：yum update
 
-<h3 id="Default文件"><a href="#Default文件" class="headerlink" title="Default文件"></a>Default文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">##</span><br><span class="hljs-comment"># 你应该看看下面的网址，以便掌握一个坚实的理解</span><br><span class="hljs-comment"># 为了充分发挥Nginx的威力，需要使用Nginx配置文件。</span><br><span class="hljs-comment"># https://www.nginx.com/resources/wiki/start/</span><br><span class="hljs-comment"># https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/</span><br><span class="hljs-comment"># https://wiki.debian.org/Nginx/DirectoryStructure</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># 在大多数情况下，管理员会从启用/和</span><br><span class="hljs-comment"># 将其保留为网站内的参考，以便继续使用</span><br><span class="hljs-comment"># 由nginx包装团队更新。</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># 此文件将自动加载其他用户提供的配置文件</span><br><span class="hljs-comment"># 应用程序，如Drupal或Wordpress。这些申请将被提出</span><br><span class="hljs-comment"># 在具有该包名称的路径下可用，例如/drupal8。</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># 请参阅/usr/share/doc/nginx doc/examples/了解更多详细示例。</span><br><span class="hljs-comment">##</span><br><br><span class="hljs-comment"># 默认服务配置</span><br><span class="hljs-comment">#</span><br>server &#123;<br> <span class="hljs-comment"># listen指定端口号。</span><br> listen 80 default_server;<br> listen [::]:80 default_server;<br><br> <span class="hljs-comment"># SSL配置</span><br> <span class="hljs-comment">#</span><br> <span class="hljs-comment"># listen 443 ssl default_server;</span><br> <span class="hljs-comment"># listen [::]:443 ssl default_server;</span><br> <span class="hljs-comment">#</span><br> <span class="hljs-comment"># 注意：您应该为SSL通信禁用gzip。</span><br> <span class="hljs-comment"># See: https://bugs.debian.org/773332</span><br> <span class="hljs-comment">#</span><br> <span class="hljs-comment"># 阅读ssl_密码以确保安全配置。</span><br> <span class="hljs-comment"># See: https://bugs.debian.org/765782</span><br> <span class="hljs-comment">#</span><br> <span class="hljs-comment"># ssl证书包生成的自签名证书</span><br> <span class="hljs-comment"># 不要在生产服务器中使用它们！</span><br> <span class="hljs-comment">#</span><br> <span class="hljs-comment"># include snippets/snakeoil.conf;</span><br><br> <span class="hljs-comment"># 定义服务器的默认网站根目录位置。</span><br> root /var/www/html;<br><br> <span class="hljs-comment"># 添加首页。如果使用php，请将php添加到列表中</span><br> index index.html index.htm index.nginx-debian.html;<br> <span class="hljs-comment"># 指定服务器的域名。这个_和localhost的区别我也不是很清楚</span><br> server_name _;<br><br> location / &#123;<br>  <span class="hljs-comment"># 首先尝试将请求作为文件，然后</span><br>  <span class="hljs-comment"># 作为目录，然后返回显示404。</span><br>  try_files <span class="hljs-variable">$uri</span> <span class="hljs-variable">$uri</span>/ =404;<br> &#125;<br><br> <span class="hljs-comment"># 将PHP脚本传递给FastCGI服务器</span><br> <span class="hljs-comment">#</span><br> <span class="hljs-comment">#location ~ \.php$ &#123;</span><br> <span class="hljs-comment"># include snippets/fastcgi-php.conf;</span><br> <span class="hljs-comment">#</span><br> <span class="hljs-comment"># # 使用php fpm（或其他unix套接字）:</span><br> <span class="hljs-comment"># fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;</span><br> <span class="hljs-comment"># # 使用php cgi（或其他tcp套接字）:</span><br> <span class="hljs-comment"># fastcgi_pass 127.0.0.1:9000;</span><br> <span class="hljs-comment">#&#125;</span><br><br> <span class="hljs-comment"># deny access to .htaccess files, if Apache&#x27;s document root</span><br> <span class="hljs-comment"># concurs with nginx&#x27;s one</span><br> <span class="hljs-comment"># 拒绝访问。htaccess文件，如果Apache的文档根</span><br> <span class="hljs-comment"># 同意nginx的观点</span><br> <span class="hljs-comment">#</span><br> <span class="hljs-comment">#location ~ /\.ht &#123;</span><br> <span class="hljs-comment"># deny all;</span><br> <span class="hljs-comment">#&#125;</span><br>&#125;<br><br><br><span class="hljs-comment"># Virtual Host configuration for example.com</span><br><span class="hljs-comment"># 例如，虚拟主机配置。example.com</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># 您可以将其移动到“可用站点”下的另一个文件中，并将其符号链接</span><br><span class="hljs-comment"># 到已启用的站点/以启用它。</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment">#server &#123;</span><br><span class="hljs-comment"># listen 80;</span><br><span class="hljs-comment"># listen [::]:80;</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># server_name example.com;</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># root /var/www/example.com;</span><br><span class="hljs-comment"># index index.html;</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># location / &#123;</span><br><span class="hljs-comment">#  try_files $uri $uri/ =404;</span><br><span class="hljs-comment"># &#125;</span><br><span class="hljs-comment">#&#125;</span><br></code></pre></td></tr></table></figure>
+<span class="token number">3</span>. 仅安装指定的软件命令：yum <span class="token function">install</span> <span class="token operator">&lt;</span>package_name<span class="token operator">></span>
+
+<span class="token number">4</span>. 仅更新指定的软件命令：yum update <span class="token operator">&lt;</span>package_name<span class="token operator">></span>
+
+<span class="token number">5</span>. 列出所有可安裝的软件清单命令：yum list
+
+<span class="token number">6</span>. 删除软件包命令：yum remove <span class="token operator">&lt;</span>package_name<span class="token operator">></span>
+
+<span class="token number">7</span>. 查找软件包命令：yum search <span class="token operator">&lt;</span>keyword<span class="token operator">></span>
+
+<span class="token number">8</span>. 清除缓存命令:
+
+yum clean packages: 清除缓存目录下的软件包
+yum clean headers: 清除缓存目录下的 headers
+yum clean oldheaders: 清除缓存目录下旧的 headers
+yum clean, yum clean all <span class="token punctuation">(</span><span class="token operator">=</span> yum clean packages<span class="token punctuation">;</span> yum clean oldheaders<span class="token punctuation">)</span> :清除缓存目录下的软件包及旧的 headers<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h2 id="默认配置解读"><a href="#默认配置解读" class="headerlink" title="默认配置解读"></a>默认配置解读</h2><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 运行用户，一般设置成root用户即可，百度了一下是用来控制权限的。根据Liunx系统的用户来配置即可，话说通过shell窗口来操作Linux的用户的相关命令，应该不常用。</span>
+user www-data<span class="token punctuation">;</span>
+
+<span class="token comment"># 启动进程,通常设置成和cpu的数量相等，auto 表示自动</span>
+worker_processes auto<span class="token punctuation">;</span>
+<span class="token comment"># 全局运行PID文件</span>
+pid /run/nginx.pid<span class="token punctuation">;</span>
+<span class="token comment"># 导入指定文件夹下所有以.conf结尾的配置文件，一般是一些模块的设置</span>
+include /etc/nginx/modules-enabled/*.conf<span class="token punctuation">;</span>
+
+events <span class="token punctuation">&#123;</span>
+ <span class="token comment"># 单个后台worker process进程的最大并发链接数</span>
+ worker_connections <span class="token number">768</span><span class="token punctuation">;</span>
+ <span class="token comment"># multi_accept on;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment"># #设定http服务器，利用它的反向代理功能提供负载均衡支持</span>
+http <span class="token punctuation">&#123;</span>
+
+ <span class="token comment">##</span>
+ <span class="token comment"># 基本设置</span>
+ <span class="token comment">##</span>
+
+ <span class="token comment"># sendfile 指令指定 nginx 是否调用 sendfile 函数（zero copy 方式）来输出文件，对于普通应用，</span>
+ <span class="token comment"># 必须设为 on,如果用来进行下载等应用磁盘IO重负载应用，可设置为 off，以平衡磁盘与网络I/O处理速度，降低系统的uptime.</span>
+ sendfile on<span class="token punctuation">;</span>
+ <span class="token comment"># sendfile为on时这里也应该设为on，数据包会累积一下再一起传输，可以提高一些传输效率。</span>
+ tcp_nopush on<span class="token punctuation">;</span>
+ <span class="token comment"># 小的数据包不等待直接传输。默认为on。</span>
+ <span class="token comment"># 看上去是和tcp_nopush相反的功能，但是两边都为on时nginx也可以平衡这两个功能的使用。</span>
+ tcp_nodelay on<span class="token punctuation">;</span>
+ <span class="token comment"># 连接超时时间</span>
+ keepalive_timeout <span class="token number">65</span><span class="token punctuation">;</span>
+ <span class="token comment"># types_hash_max_size影响散列表的冲突率。types_hash_max_size越大，就会消耗更多的内存，但散列key的冲突率会降低，检索速度就更快。types_hash_max_size越小，消耗的内存就越小，但散列key的冲突率可能上升。默认为1024</span>
+ types_hash_max_size <span class="token number">2048</span><span class="token punctuation">;</span>
+ <span class="token comment"># server_tokens off;</span>
+
+ <span class="token comment"># server_names_hash_bucket_size 64;</span>
+ <span class="token comment"># server_name_in_redirect off;</span>
+
+ <span class="token comment"># 定义MIME类型和后缀名关联的文件的位置。</span>
+ include /etc/nginx/mime.types<span class="token punctuation">;</span>
+ <span class="token comment"># 指定mime.types文件中没有记述到的后缀名的处理方法。默认值是text/plain。</span>
+ default_type application/octet-stream<span class="token punctuation">;</span>
+
+ <span class="token comment">##</span>
+ <span class="token comment"># SSL设置</span>
+ <span class="token comment">##</span>
+
+ ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3<span class="token punctuation">;</span> <span class="token comment"># Dropping SSLv3, ref: POODLE</span>
+ ssl_prefer_server_ciphers on<span class="token punctuation">;</span>
+
+ <span class="token comment">##</span>
+ <span class="token comment"># 日志记录设置</span>
+ <span class="token comment">##</span>
+
+ access_log /var/log/nginx/access.log<span class="token punctuation">;</span>
+ error_log /var/log/nginx/error.log<span class="token punctuation">;</span>
+
+ <span class="token comment">##</span>
+ <span class="token comment"># Gzip设置</span>
+ <span class="token comment">##</span>
+ <span class="token comment">#开启gzip压缩</span>
+ <span class="token function">gzip</span> on<span class="token punctuation">;</span>
+
+ <span class="token comment"># gzip_vary on;</span>
+ <span class="token comment"># gzip_proxied any;</span>
+ <span class="token comment"># gzip_comp_level 6;</span>
+ <span class="token comment"># gzip_buffers 16 8k;</span>
+ <span class="token comment"># gzip_http_version 1.1;</span>
+ <span class="token comment"># gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;</span>
+
+ <span class="token comment">##</span>
+ <span class="token comment"># 虚拟主机配置</span>
+ <span class="token comment">## </span>
+
+ <span class="token comment"># 重点就在这里，因为我们正常看这个配置文件，里面感觉是没有东西的。但是我们访问http://localhost是可以访问的到的。</span>
+ 
+ <span class="token comment"># 主要就是下面这两行  sites-enabled 这个文件夹下有个 default 文件。就是这个文件里面配置的东西，conf.d 这个文件夹是空文件夹，不看。</span>
+ include /etc/nginx/conf.d/*.conf<span class="token punctuation">;</span>
+ <span class="token comment"># 导入默认设置</span>
+ include /etc/nginx/sites-enabled/*<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment"># mail模块，用的不多</span>
+<span class="token comment">#mail &#123;</span>
+<span class="token comment"># # See sample authentication script at:</span>
+<span class="token comment"># # http://wiki.nginx.org/ImapAuthenticateWithApachePhpScript</span>
+<span class="token comment"># </span>
+<span class="token comment"># # auth_http localhost/auth.php;</span>
+<span class="token comment"># # pop3_capabilities "TOP" "USER";</span>
+<span class="token comment"># # imap_capabilities "IMAP4rev1" "UIDPLUS";</span>
+<span class="token comment"># </span>
+<span class="token comment"># server &#123;</span>
+<span class="token comment">#  listen     localhost:110;</span>
+<span class="token comment">#  protocol   pop3;</span>
+<span class="token comment">#  proxy      on;</span>
+<span class="token comment"># &#125;</span>
+<span class="token comment"># </span>
+<span class="token comment"># server &#123;</span>
+<span class="token comment">#  listen     localhost:143;</span>
+<span class="token comment">#  protocol   imap;</span>
+<span class="token comment">#  proxy      on;</span>
+<span class="token comment"># &#125;</span>
+<span class="token comment">#&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h3 id="Default文件"><a href="#Default文件" class="headerlink" title="Default文件"></a>Default文件</h3><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">##</span>
+<span class="token comment"># 你应该看看下面的网址，以便掌握一个坚实的理解</span>
+<span class="token comment"># 为了充分发挥Nginx的威力，需要使用Nginx配置文件。</span>
+<span class="token comment"># https://www.nginx.com/resources/wiki/start/</span>
+<span class="token comment"># https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/</span>
+<span class="token comment"># https://wiki.debian.org/Nginx/DirectoryStructure</span>
+<span class="token comment">#</span>
+<span class="token comment"># 在大多数情况下，管理员会从启用/和</span>
+<span class="token comment"># 将其保留为网站内的参考，以便继续使用</span>
+<span class="token comment"># 由nginx包装团队更新。</span>
+<span class="token comment">#</span>
+<span class="token comment"># 此文件将自动加载其他用户提供的配置文件</span>
+<span class="token comment"># 应用程序，如Drupal或Wordpress。这些申请将被提出</span>
+<span class="token comment"># 在具有该包名称的路径下可用，例如/drupal8。</span>
+<span class="token comment">#</span>
+<span class="token comment"># 请参阅/usr/share/doc/nginx doc/examples/了解更多详细示例。</span>
+<span class="token comment">##</span>
+
+<span class="token comment"># 默认服务配置</span>
+<span class="token comment">#</span>
+server <span class="token punctuation">&#123;</span>
+ <span class="token comment"># listen指定端口号。</span>
+ listen <span class="token number">80</span> default_server<span class="token punctuation">;</span>
+ listen <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:80 default_server<span class="token punctuation">;</span>
+
+ <span class="token comment"># SSL配置</span>
+ <span class="token comment">#</span>
+ <span class="token comment"># listen 443 ssl default_server;</span>
+ <span class="token comment"># listen [::]:443 ssl default_server;</span>
+ <span class="token comment">#</span>
+ <span class="token comment"># 注意：您应该为SSL通信禁用gzip。</span>
+ <span class="token comment"># See: https://bugs.debian.org/773332</span>
+ <span class="token comment">#</span>
+ <span class="token comment"># 阅读ssl_密码以确保安全配置。</span>
+ <span class="token comment"># See: https://bugs.debian.org/765782</span>
+ <span class="token comment">#</span>
+ <span class="token comment"># ssl证书包生成的自签名证书</span>
+ <span class="token comment"># 不要在生产服务器中使用它们！</span>
+ <span class="token comment">#</span>
+ <span class="token comment"># include snippets/snakeoil.conf;</span>
+
+ <span class="token comment"># 定义服务器的默认网站根目录位置。</span>
+ root /var/www/html<span class="token punctuation">;</span>
+
+ <span class="token comment"># 添加首页。如果使用php，请将php添加到列表中</span>
+ index index.html index.htm index.nginx-debian.html<span class="token punctuation">;</span>
+ <span class="token comment"># 指定服务器的域名。这个_和localhost的区别我也不是很清楚</span>
+ server_name _<span class="token punctuation">;</span>
+
+ location / <span class="token punctuation">&#123;</span>
+  <span class="token comment"># 首先尝试将请求作为文件，然后</span>
+  <span class="token comment"># 作为目录，然后返回显示404。</span>
+  try_files <span class="token variable">$uri</span> <span class="token variable">$uri</span>/ <span class="token operator">=</span><span class="token number">404</span><span class="token punctuation">;</span>
+ <span class="token punctuation">&#125;</span>
+
+ <span class="token comment"># 将PHP脚本传递给FastCGI服务器</span>
+ <span class="token comment">#</span>
+ <span class="token comment">#location ~ \.php$ &#123;</span>
+ <span class="token comment"># include snippets/fastcgi-php.conf;</span>
+ <span class="token comment">#</span>
+ <span class="token comment"># # 使用php fpm（或其他unix套接字）:</span>
+ <span class="token comment"># fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;</span>
+ <span class="token comment"># # 使用php cgi（或其他tcp套接字）:</span>
+ <span class="token comment"># fastcgi_pass 127.0.0.1:9000;</span>
+ <span class="token comment">#&#125;</span>
+
+ <span class="token comment"># deny access to .htaccess files, if Apache's document root</span>
+ <span class="token comment"># concurs with nginx's one</span>
+ <span class="token comment"># 拒绝访问。htaccess文件，如果Apache的文档根</span>
+ <span class="token comment"># 同意nginx的观点</span>
+ <span class="token comment">#</span>
+ <span class="token comment">#location ~ /\.ht &#123;</span>
+ <span class="token comment"># deny all;</span>
+ <span class="token comment">#&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+
+<span class="token comment"># Virtual Host configuration for example.com</span>
+<span class="token comment"># 例如，虚拟主机配置。example.com</span>
+<span class="token comment">#</span>
+<span class="token comment"># 您可以将其移动到“可用站点”下的另一个文件中，并将其符号链接</span>
+<span class="token comment"># 到已启用的站点/以启用它。</span>
+<span class="token comment">#</span>
+<span class="token comment">#server &#123;</span>
+<span class="token comment"># listen 80;</span>
+<span class="token comment"># listen [::]:80;</span>
+<span class="token comment">#</span>
+<span class="token comment"># server_name example.com;</span>
+<span class="token comment">#</span>
+<span class="token comment"># root /var/www/example.com;</span>
+<span class="token comment"># index index.html;</span>
+<span class="token comment">#</span>
+<span class="token comment"># location / &#123;</span>
+<span class="token comment">#  try_files $uri $uri/ =404;</span>
+<span class="token comment"># &#125;</span>
+<span class="token comment">#&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>学习一途，欲速则不达，真的当你完全弄懂这些配置中的符号的意思之后，你再看这些配置你的感觉是不一样的。当然我也是在一点一点的学习，我甚至装了个有图形化的Ubuntu虚拟机，为了研究nginx,这个默认生成的配置文件，我一开始是看不懂的，我也看了很长时间。😂😂😂</p>
 <h2 id="安装nginx没有生成各类目录文件问题解决"><a href="#安装nginx没有生成各类目录文件问题解决" class="headerlink" title="安装nginx没有生成各类目录文件问题解决"></a>安装nginx没有生成各类目录文件问题解决</h2><p>由于途中我需要手动安装一次，我就把使用apt安装的nginx给卸载了，并且把配置文件给删了，我再次使用apt安装时，发现不重新生成默认配置了。解决办法。依次执行。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get --purge remove nginx-common<br><br>sudo apt-get --purge remove nginx*<br><br>sudo apt-get autoremove<br><br>sudo apt install nginx<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> --purge remove nginx-common
 
-<h2 id="常用配置的介绍以及样例"><a href="#常用配置的介绍以及样例" class="headerlink" title="常用配置的介绍以及样例"></a>常用配置的介绍以及样例</h2><h3 id="侦听端口"><a href="#侦听端口" class="headerlink" title="侦听端口"></a>侦听端口</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs shell">server &#123;  <br><span class="hljs-meta prompt_"># </span><span class="language-bash">Standard HTTP Protocol</span>  <br>listen 80;  <br><span class="hljs-meta prompt_"># </span><span class="language-bash">Standard HTTPS Protocol</span>  <br>listen 443 ssl;  <br><span class="hljs-meta prompt_"># </span><span class="language-bash">For http2</span>  <br>listen 443 ssl http2;  <br><span class="hljs-meta prompt_"># </span><span class="language-bash">Listen on 80 using IPv6</span>  <br>listen [::]:80;  <br><span class="hljs-meta prompt_"># </span><span class="language-bash">Listen only on using IPv6</span>  <br>listen [::]:80 ipv6only=on;  <br>&#125;  <br></code></pre></td></tr></table></figure>
+<span class="token function">sudo</span> <span class="token function">apt-get</span> --purge remove nginx*
 
-<h3 id="访问日志"><a href="#访问日志" class="headerlink" title="访问日志"></a>访问日志</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">server &#123;  <br><span class="hljs-meta prompt_"># </span><span class="language-bash">Relative or full path to <span class="hljs-built_in">log</span> file</span>  <br>access_log /path/to/file.log;  <br><span class="hljs-meta prompt_"># </span><span class="language-bash">Turn <span class="hljs-string">&#x27;on&#x27;</span> or <span class="hljs-string">&#x27;off&#x27;</span></span>    <br>access_log on;  <br>&#125;  <br></code></pre></td></tr></table></figure>
+<span class="token function">sudo</span> <span class="token function">apt-get</span> autoremove
 
-<h3 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs shell"><br>server &#123;  <br><span class="hljs-meta prompt_"># </span><span class="language-bash">Listen to yourdomain.com</span>  <br>server_name yourdomain.com;  <br><span class="hljs-meta prompt_"># </span><span class="language-bash">Listen to multiple domains server_name yourdomain.com www.yourdomain.com;</span>  <br><span class="hljs-meta prompt_"># </span><span class="language-bash">Listen to all domains</span>  <br>server_name *.yourdomain.com;  <br><span class="hljs-meta prompt_"># </span><span class="language-bash">Listen to all top-level domains</span>  <br>server_name yourdomain.*;  <br><span class="hljs-meta prompt_"># </span><span class="language-bash">Listen to unspecified Hostnames (Listens to IP address itself)</span>  <br>server_name &quot;&quot;;  <br>&#125; <br></code></pre></td></tr></table></figure>
+<span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> nginx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
-<h3 id="静态资产"><a href="#静态资产" class="headerlink" title="静态资产"></a>静态资产</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell"><br>server &#123;  <br>listen 80;  <br>server_name yourdomain.com;  <br>location / &#123;  <br>root /path/to/website;  <br>&#125;  <br>&#125;  <br></code></pre></td></tr></table></figure>
+<h2 id="常用配置的介绍以及样例"><a href="#常用配置的介绍以及样例" class="headerlink" title="常用配置的介绍以及样例"></a>常用配置的介绍以及样例</h2><h3 id="侦听端口"><a href="#侦听端口" class="headerlink" title="侦听端口"></a>侦听端口</h3><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">server <span class="token punctuation">&#123;</span>  
+<span class="token comment"># Standard HTTP Protocol  </span>
+listen <span class="token number">80</span><span class="token punctuation">;</span>  
+<span class="token comment"># Standard HTTPS Protocol  </span>
+listen <span class="token number">443</span> ssl<span class="token punctuation">;</span>  
+<span class="token comment"># For http2  </span>
+listen <span class="token number">443</span> ssl http2<span class="token punctuation">;</span>  
+<span class="token comment"># Listen on 80 using IPv6  </span>
+listen <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:80<span class="token punctuation">;</span>  
+<span class="token comment"># Listen only on using IPv6  </span>
+listen <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:80 <span class="token assign-left variable">ipv6only</span><span class="token operator">=</span>on<span class="token punctuation">;</span>  
+<span class="token punctuation">&#125;</span>  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
-<h3 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs shell">server &#123;  <br>listen 80;  <br>server_name www.yourdomain.com;  <br>return 301 http://yourdomain.com$request_uri;  <br>&#125;  <br>server &#123;  <br>listen 80;  <br>server_name www.yourdomain.com;  <br>location /redirect-url &#123;  <br>return 301 http://otherdomain.com;  <br>&#125;  <br>&#125;  <br></code></pre></td></tr></table></figure>
+<h3 id="访问日志"><a href="#访问日志" class="headerlink" title="访问日志"></a>访问日志</h3><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">server <span class="token punctuation">&#123;</span>  
+<span class="token comment"># Relative or full path to log file  </span>
+access_log /path/to/file.log<span class="token punctuation">;</span>  
+<span class="token comment"># Turn 'on' or 'off'    </span>
+access_log on<span class="token punctuation">;</span>  
+<span class="token punctuation">&#125;</span>  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
-<h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">[]表示需要填写，</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">nginx默认采用轮训的方式进行负载均衡</span><br>upstream [proxyName] &#123;<br>    server 192.168.1.173:8080;<br>    server 192.168.1.174:8080;<br>    server 192.168.1.175:8080;<br>&#125;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">加权轮询值越高访问频率越高</span><br>upstream [proxyName] &#123;<br>    server 192.168.1.173:8080 weight=1;<br>    server 192.168.1.174:8080 weight=5;<br>    server 192.168.1.175:8080 weight=2;<br>&#125;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash"> <span class="hljs-built_in">hash</span>负载均衡</span><br>upstream [proxyName] &#123;<br>    ip_hash<br><br>    server 192.168.1.173:8080;<br>    server 192.168.1.174:8080;<br>    server 192.168.1.175:8080;<br>&#125;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash"><span class="hljs-built_in">hash</span>算法实际上只会计算 192.168.1这段做哈希</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">使用ip_hash的注意点：不能把后台服务器直接移除，只能标记down.</span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">url <span class="hljs-built_in">hash</span>负载均衡</span><br>upstream [proxyName] &#123;<br>    hash $request_url;<br><br>    server 192.168.1.173:8080;<br>    server 192.168.1.174:8080;<br>    server 192.168.1.175:8080;<br>&#125;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">最小连接负载均衡</span><br>upstream [proxyName] &#123;<br>    least_conn;<br><br>    server 192.168.1.173:8080;<br>    server 192.168.1.174:8080;<br>    server 192.168.1.175:8080;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<h3 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h3><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">
+server <span class="token punctuation">&#123;</span>  
+<span class="token comment"># Listen to yourdomain.com  </span>
+server_name yourdomain.com<span class="token punctuation">;</span>  
+<span class="token comment"># Listen to multiple domains server_name yourdomain.com www.yourdomain.com;  </span>
+<span class="token comment"># Listen to all domains  </span>
+server_name *.yourdomain.com<span class="token punctuation">;</span>  
+<span class="token comment"># Listen to all top-level domains  </span>
+server_name yourdomain.*<span class="token punctuation">;</span>  
+<span class="token comment"># Listen to unspecified Hostnames (Listens to IP address itself)  </span>
+server_name <span class="token string">""</span><span class="token punctuation">;</span>  
+<span class="token punctuation">&#125;</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
-<h4 id="keepalived"><a href="#keepalived" class="headerlink" title="keepalived"></a>keepalived</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs shell">upstream [proxyName] &#123;<br>    server 192.168.1.173:8080 weight=1;<br>    server 192.168.1.174:8080 weight=5;<br>    server 192.168.1.175:8080 weight=2;<br><br>    keepalive 32; #保持的连接数<br>&#125;<br><br>server &#123;<br>    listem  80;<br>    server_name www.tomcats.com;<br><br>    location / &#123;<br>        proxy_pass http://tomcats;<br>        proxy_http_version 1.1; #连接的协议版本<br>        proxy_set_header Connection &quot;&quot;; 清空连接请求头<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="静态资产"><a href="#静态资产" class="headerlink" title="静态资产"></a>静态资产</h3><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">
+server <span class="token punctuation">&#123;</span>  
+listen <span class="token number">80</span><span class="token punctuation">;</span>  
+server_name yourdomain.com<span class="token punctuation">;</span>  
+location / <span class="token punctuation">&#123;</span>  
+root /path/to/website<span class="token punctuation">;</span>  
+<span class="token punctuation">&#125;</span>  
+<span class="token punctuation">&#125;</span>  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
-<h4 id="控制浏览器缓存"><a href="#控制浏览器缓存" class="headerlink" title="控制浏览器缓存"></a>控制浏览器缓存</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs shell">server &#123;<br>    listem  80;<br>    server_name www.tomcats.com;<br><br>    location / &#123;<br>        proxy_pass http://tomcats;<br>               expires 10s;  #浏览器缓存10秒钟<br>               #expires @22h30m  #在晚上10点30的时候过期<br>               #expires -1h  #缓存在一小时前时效<br>               #expires epoch  #不设置缓存<br>               #expires off  #缓存关闭，浏览器自己控制缓存<br>               #expires max  #最大过期时间<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h3><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">server <span class="token punctuation">&#123;</span>  
+listen <span class="token number">80</span><span class="token punctuation">;</span>  
+server_name www.yourdomain.com<span class="token punctuation">;</span>  
+<span class="token builtin class-name">return</span> <span class="token number">301</span> http://yourdomain.com<span class="token variable">$request_uri</span><span class="token punctuation">;</span>  
+<span class="token punctuation">&#125;</span>  
+server <span class="token punctuation">&#123;</span>  
+listen <span class="token number">80</span><span class="token punctuation">;</span>  
+server_name www.yourdomain.com<span class="token punctuation">;</span>  
+location /redirect-url <span class="token punctuation">&#123;</span>  
+<span class="token builtin class-name">return</span> <span class="token number">301</span> http://otherdomain.com<span class="token punctuation">;</span>  
+<span class="token punctuation">&#125;</span>  
+<span class="token punctuation">&#125;</span>  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
-<h4 id="反向代理缓存"><a href="#反向代理缓存" class="headerlink" title="反向代理缓存"></a>反向代理缓存</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs shell">upstream [proxyName] &#123;<br>    server 192.168.1.173:8080 weight=1;<br>    server 192.168.1.174:8080 weight=5;<br>    server 192.168.1.175:8080 weight=2;<br>&#125;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">proxy_cache_path 设置缓存保存的目录的位置</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">keys_zone设置共享内以及占用的空间大小</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">mas_size 设置缓存最大空间</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">inactive 缓存过期时间，错过此时间自动清理</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">use_temp_path 关闭零时目录</span><br>proxy_cache_path /usr/local/nginx/upsteam_cache keys_zone=mycache:5m max_size=1g inactive=8h use_temp_path=off;<br><br>server &#123;<br>    listem  80;<br>    server_name www.tomcats.com;<br>    #开启并使用缓存<br>    proxy_cache mycache;<br>    #针对200和304响应码的缓存过期时间<br>    proxy_cache_valid 200 304 8h;   <br><br>    location / &#123;<br>        proxy_pass http://tomcats;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h3><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># []表示需要填写，</span>
+<span class="token comment"># nginx默认采用轮训的方式进行负载均衡</span>
+upstream <span class="token punctuation">[</span>proxyName<span class="token punctuation">]</span> <span class="token punctuation">&#123;</span>
+    server <span class="token number">192.168</span>.1.173:8080<span class="token punctuation">;</span>
+    server <span class="token number">192.168</span>.1.174:8080<span class="token punctuation">;</span>
+    server <span class="token number">192.168</span>.1.175:8080<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
 
-<h3 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell">server &#123;  <br>listen 80;  <br>server_name yourdomain.com;  <br>location / &#123;  <br>proxy_pass http://0.0.0.0:3000;  <br><span class="hljs-meta prompt_"># </span><span class="language-bash"><span class="hljs-built_in">where</span> 0.0.0.0:3000 is your application server (Ex: node.js) bound on 0.0.0.0 listening on port 3000</span>  <br>&#125;  <br>&#125;  <br></code></pre></td></tr></table></figure>
 
-<h3 id="SSL-协议"><a href="#SSL-协议" class="headerlink" title="SSL 协议"></a>SSL 协议</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs shell">server &#123;  <br>listen 443 ssl;  <br>server_name yourdomain.com;  <br>ssl on;  <br>ssl_certificate /path/to/cert.pem;  <br>ssl_certificate_key /path/to/privatekey.pem;  <br>ssl_stapling on;  <br>ssl_stapling_verify on;  <br>ssl_trusted_certificate /path/to/fullchain.pem;  <br>ssl_protocols TLSv1 TLSv1.1 TLSv1.2;  <br>ssl_session_timeout 1h;  <br>ssl_session_cache shared:SSL:50m;  <br>add_header Strict-Transport-Security max-age=15768000;  <br>&#125;  <br><span class="hljs-meta prompt_"># </span><span class="language-bash">Permanent Redirect <span class="hljs-keyword">for</span> HTTP to HTTPS</span>  <br>server   <br>&#123;  <br>listen 80;  <br>server_name yourdomain.com;  <br>return 301 https://$host$request_uri;  <br>&#125;  <br></code></pre></td></tr></table></figure>
+<span class="token comment"># 加权轮询值越高访问频率越高</span>
+upstream <span class="token punctuation">[</span>proxyName<span class="token punctuation">]</span> <span class="token punctuation">&#123;</span>
+    server <span class="token number">192.168</span>.1.173:8080 <span class="token assign-left variable">weight</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
+    server <span class="token number">192.168</span>.1.174:8080 <span class="token assign-left variable">weight</span><span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">;</span>
+    server <span class="token number">192.168</span>.1.175:8080 <span class="token assign-left variable">weight</span><span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">#  hash负载均衡</span>
+upstream <span class="token punctuation">[</span>proxyName<span class="token punctuation">]</span> <span class="token punctuation">&#123;</span>
+    ip_hash
+
+    server <span class="token number">192.168</span>.1.173:8080<span class="token punctuation">;</span>
+    server <span class="token number">192.168</span>.1.174:8080<span class="token punctuation">;</span>
+    server <span class="token number">192.168</span>.1.175:8080<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment"># hash算法实际上只会计算 192.168.1这段做哈希</span>
+<span class="token comment"># 使用ip_hash的注意点：不能把后台服务器直接移除，只能标记down.</span>
+
+
+<span class="token comment"># url hash负载均衡</span>
+upstream <span class="token punctuation">[</span>proxyName<span class="token punctuation">]</span> <span class="token punctuation">&#123;</span>
+    <span class="token builtin class-name">hash</span> <span class="token variable">$request_url</span><span class="token punctuation">;</span>
+
+    server <span class="token number">192.168</span>.1.173:8080<span class="token punctuation">;</span>
+    server <span class="token number">192.168</span>.1.174:8080<span class="token punctuation">;</span>
+    server <span class="token number">192.168</span>.1.175:8080<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment"># 最小连接负载均衡</span>
+upstream <span class="token punctuation">[</span>proxyName<span class="token punctuation">]</span> <span class="token punctuation">&#123;</span>
+    least_conn<span class="token punctuation">;</span>
+
+    server <span class="token number">192.168</span>.1.173:8080<span class="token punctuation">;</span>
+    server <span class="token number">192.168</span>.1.174:8080<span class="token punctuation">;</span>
+    server <span class="token number">192.168</span>.1.175:8080<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h4 id="keepalived"><a href="#keepalived" class="headerlink" title="keepalived"></a>keepalived</h4><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">upstream <span class="token punctuation">[</span>proxyName<span class="token punctuation">]</span> <span class="token punctuation">&#123;</span>
+    server <span class="token number">192.168</span>.1.173:8080 <span class="token assign-left variable">weight</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
+    server <span class="token number">192.168</span>.1.174:8080 <span class="token assign-left variable">weight</span><span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">;</span>
+    server <span class="token number">192.168</span>.1.175:8080 <span class="token assign-left variable">weight</span><span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">;</span>
+
+    keepalive <span class="token number">32</span><span class="token punctuation">;</span> <span class="token comment">#保持的连接数</span>
+<span class="token punctuation">&#125;</span>
+
+server <span class="token punctuation">&#123;</span>
+    listem  <span class="token number">80</span><span class="token punctuation">;</span>
+    server_name www.tomcats.com<span class="token punctuation">;</span>
+
+    location / <span class="token punctuation">&#123;</span>
+        proxy_pass http://tomcats<span class="token punctuation">;</span>
+        proxy_http_version <span class="token number">1.1</span><span class="token punctuation">;</span> <span class="token comment">#连接的协议版本</span>
+        proxy_set_header Connection <span class="token string">""</span><span class="token punctuation">;</span> 清空连接请求头
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h4 id="控制浏览器缓存"><a href="#控制浏览器缓存" class="headerlink" title="控制浏览器缓存"></a>控制浏览器缓存</h4><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">server <span class="token punctuation">&#123;</span>
+    listem  <span class="token number">80</span><span class="token punctuation">;</span>
+    server_name www.tomcats.com<span class="token punctuation">;</span>
+
+    location / <span class="token punctuation">&#123;</span>
+        proxy_pass http://tomcats<span class="token punctuation">;</span>
+               expires 10s<span class="token punctuation">;</span>  <span class="token comment">#浏览器缓存10秒钟</span>
+               <span class="token comment">#expires @22h30m  #在晚上10点30的时候过期</span>
+               <span class="token comment">#expires -1h  #缓存在一小时前时效</span>
+               <span class="token comment">#expires epoch  #不设置缓存</span>
+               <span class="token comment">#expires off  #缓存关闭，浏览器自己控制缓存</span>
+               <span class="token comment">#expires max  #最大过期时间</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h4 id="反向代理缓存"><a href="#反向代理缓存" class="headerlink" title="反向代理缓存"></a>反向代理缓存</h4><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">upstream <span class="token punctuation">[</span>proxyName<span class="token punctuation">]</span> <span class="token punctuation">&#123;</span>
+    server <span class="token number">192.168</span>.1.173:8080 <span class="token assign-left variable">weight</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
+    server <span class="token number">192.168</span>.1.174:8080 <span class="token assign-left variable">weight</span><span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">;</span>
+    server <span class="token number">192.168</span>.1.175:8080 <span class="token assign-left variable">weight</span><span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">#proxy_cache_path 设置缓存保存的目录的位置</span>
+<span class="token comment">#keys_zone设置共享内以及占用的空间大小</span>
+<span class="token comment">#mas_size 设置缓存最大空间</span>
+<span class="token comment">#inactive 缓存过期时间，错过此时间自动清理</span>
+<span class="token comment">#use_temp_path 关闭零时目录</span>
+proxy_cache_path /usr/local/nginx/upsteam_cache <span class="token assign-left variable">keys_zone</span><span class="token operator">=</span>mycache:5m <span class="token assign-left variable">max_size</span><span class="token operator">=</span>1g <span class="token assign-left variable">inactive</span><span class="token operator">=</span>8h <span class="token assign-left variable">use_temp_path</span><span class="token operator">=</span>off<span class="token punctuation">;</span>
+
+server <span class="token punctuation">&#123;</span>
+    listem  <span class="token number">80</span><span class="token punctuation">;</span>
+    server_name www.tomcats.com<span class="token punctuation">;</span>
+    <span class="token comment">#开启并使用缓存</span>
+    proxy_cache mycache<span class="token punctuation">;</span>
+    <span class="token comment">#针对200和304响应码的缓存过期时间</span>
+    proxy_cache_valid <span class="token number">200</span> <span class="token number">304</span> 8h<span class="token punctuation">;</span>   
+
+    location / <span class="token punctuation">&#123;</span>
+        proxy_pass http://tomcats<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h3 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h3><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">server <span class="token punctuation">&#123;</span>  
+listen <span class="token number">80</span><span class="token punctuation">;</span>  
+server_name yourdomain.com<span class="token punctuation">;</span>  
+location / <span class="token punctuation">&#123;</span>  
+proxy_pass http://0.0.0.0:3000<span class="token punctuation">;</span>  
+<span class="token comment"># where 0.0.0.0:3000 is your application server (Ex: node.js) bound on 0.0.0.0 listening on port 3000  </span>
+<span class="token punctuation">&#125;</span>  
+<span class="token punctuation">&#125;</span>  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h3 id="SSL-协议"><a href="#SSL-协议" class="headerlink" title="SSL 协议"></a>SSL 协议</h3><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">server <span class="token punctuation">&#123;</span>  
+listen <span class="token number">443</span> ssl<span class="token punctuation">;</span>  
+server_name yourdomain.com<span class="token punctuation">;</span>  
+ssl on<span class="token punctuation">;</span>  
+ssl_certificate /path/to/cert.pem<span class="token punctuation">;</span>  
+ssl_certificate_key /path/to/privatekey.pem<span class="token punctuation">;</span>  
+ssl_stapling on<span class="token punctuation">;</span>  
+ssl_stapling_verify on<span class="token punctuation">;</span>  
+ssl_trusted_certificate /path/to/fullchain.pem<span class="token punctuation">;</span>  
+ssl_protocols TLSv1 TLSv1.1 TLSv1.2<span class="token punctuation">;</span>  
+ssl_session_timeout 1h<span class="token punctuation">;</span>  
+ssl_session_cache shared:SSL:50m<span class="token punctuation">;</span>  
+add_header Strict-Transport-Security max-age<span class="token operator">=</span><span class="token number">15768000</span><span class="token punctuation">;</span>  
+<span class="token punctuation">&#125;</span>  
+<span class="token comment"># Permanent Redirect for HTTP to HTTPS  </span>
+server   
+<span class="token punctuation">&#123;</span>  
+listen <span class="token number">80</span><span class="token punctuation">;</span>  
+server_name yourdomain.com<span class="token punctuation">;</span>  
+<span class="token builtin class-name">return</span> <span class="token number">301</span> https://<span class="token variable">$host</span><span class="token variable">$request_uri</span><span class="token punctuation">;</span>  
+<span class="token punctuation">&#125;</span>  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <div class="note note-info">
             <p>其实可以采用可视化的方式对 Nginx 进行配置，我在 GitHub 上发现了一款可以一键生成 Nginx 配置的神器，相当给力。</p><p>先来看看它都支持什么功能的配置：反向代理、HTTPS、HTTP&#x2F;2、IPv6, 缓存、WordPress、CDN、Node.js 支持、 Python (Django) 服务器等等。</p><p>如果你想在线进行配置，只需要打开网站：<a target="_blank" rel="noopener" href="https://nginxconfig.io/">https://nginxconfig.io/</a>，按照自己的需求进行操作就行了。</p><p>操作这个的前提，也是需要你懂！！别人的理所当然是了如指掌做到的。</p>
           </div>
 
 <h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><h3 id="简单的部署前后台分离的项目配置"><a href="#简单的部署前后台分离的项目配置" class="headerlink" title="简单的部署前后台分离的项目配置"></a>简单的部署前后台分离的项目配置</h3><p>部署前后台分离的项目，随便新建个html项目，里面写一个按钮用来发送Ajax请求。多说两句，webpack项目只是”方便“了开发，最终的产物依然是Html，Css，JavaScript。我们先手撸一个简单的项目前台项目。项目要求就是有个页面，有个按钮。点击能发送Ajax请求，且能把请求的返回内容回馈给用户。需求有了，idea打开，开码！！！</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span><br> <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span> /&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- 这里引入的JS放在nginx中也需要对应根目录存放一个 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;js/jq/jquery-3.6.0.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br> <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br> <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="language-css"></span><br><span class="language-css">  <span class="hljs-selector-class">.app</span> &#123;</span><br><span class="language-css">   <span class="hljs-attribute">display</span>: flex;</span><br><span class="language-css">   <span class="hljs-attribute">justify-content</span>: center;</span><br><span class="language-css">  &#125;</span><br><span class="language-css">  <span class="hljs-selector-class">.red</span>&#123;</span><br><span class="language-css">   <span class="hljs-attribute">color</span>: red;</span><br><span class="language-css">  &#125;</span><br><span class="language-css">  <span class="hljs-selector-class">.green</span>&#123;</span><br><span class="language-css">   <span class="hljs-attribute">color</span>: green;</span><br><span class="language-css">  &#125;</span><br><span class="language-css"> </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br> <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;app&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;msg&quot;</span>&gt;</span>请点击按钮<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;app&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;send()&quot;</span>&gt;</span>点击发送请求<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span><br><span class="language-javascript">   <span class="hljs-keyword">let</span> send = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;</span><br><span class="language-javascript">    $.<span class="hljs-title function_">ajax</span>(&#123;</span><br><span class="language-javascript">     <span class="hljs-attr">url</span>: <span class="hljs-string">&#x27;api/get&#x27;</span>,</span><br><span class="language-javascript">     <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;get&#x27;</span>,</span><br><span class="language-javascript">     <span class="hljs-attr">dataType</span>: <span class="hljs-string">&#x27;json&#x27;</span>,</span><br><span class="language-javascript">     <span class="hljs-attr">success</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) &#123;</span><br><span class="language-javascript">      $(<span class="hljs-string">&#x27;#msg&#x27;</span>).<span class="hljs-title function_">remove</span>();</span><br><span class="language-javascript">      $(<span class="hljs-string">&#x27;#app&#x27;</span>).<span class="hljs-title function_">html</span>(<span class="hljs-string">&#x27;&lt;div id=&quot;msg&quot; class=&quot;green&quot;&gt;返回内容：&#x27;</span>+res.<span class="hljs-property">msg</span>+<span class="hljs-string">&#x27;&lt;div&gt;&#x27;</span>)</span><br><span class="language-javascript">     &#125;,</span><br><span class="language-javascript">     <span class="hljs-attr">error</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">xhr,status,e</span>) &#123;</span><br><span class="language-javascript">      $(<span class="hljs-string">&#x27;#msg&#x27;</span>).<span class="hljs-title function_">remove</span>();</span><br><span class="language-javascript">      $(<span class="hljs-string">&#x27;#app&#x27;</span>).<span class="hljs-title function_">html</span>(<span class="hljs-string">&#x27;&lt;div id=&quot;msg&quot; class=&quot;red&quot;&gt;请求错误&lt;div&gt;&#x27;</span>)</span><br><span class="language-javascript">     &#125;</span><br><span class="language-javascript">    &#125;)</span><br><span class="language-javascript">   &#125;</span><br><span class="language-javascript">  </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br> <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br><br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>utf-8<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+  <span class="token comment">&lt;!-- 这里引入的JS放在nginx中也需要对应根目录存放一个 --></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text/javascript<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>js/jq/jquery-3.6.0.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style"><span class="token language-css">
+  <span class="token selector">.app</span> <span class="token punctuation">&#123;</span>
+   <span class="token property">display</span><span class="token punctuation">:</span> flex<span class="token punctuation">;</span>
+   <span class="token property">justify-content</span><span class="token punctuation">:</span> center<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token selector">.red</span><span class="token punctuation">&#123;</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token selector">.green</span><span class="token punctuation">&#123;</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> green<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+ </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>app<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>app<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>msg<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>请点击按钮<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>app<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token special-attr"><span class="token attr-name">onclick</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token value javascript language-javascript"><span class="token function">send</span><span class="token punctuation">(</span><span class="token punctuation">)</span></span><span class="token punctuation">"</span></span></span><span class="token punctuation">></span></span>点击发送请求<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script"><span class="token language-javascript">
+   <span class="token keyword">let</span> <span class="token function-variable function">send</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    $<span class="token punctuation">.</span><span class="token function">ajax</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+     <span class="token literal-property property">url</span><span class="token operator">:</span> <span class="token string">'api/get'</span><span class="token punctuation">,</span>
+     <span class="token literal-property property">type</span><span class="token operator">:</span> <span class="token string">'get'</span><span class="token punctuation">,</span>
+     <span class="token literal-property property">dataType</span><span class="token operator">:</span> <span class="token string">'json'</span><span class="token punctuation">,</span>
+     <span class="token function-variable function">success</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">res</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#msg'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#app'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">html</span><span class="token punctuation">(</span><span class="token string">'&lt;div id="msg" class="green">返回内容：'</span><span class="token operator">+</span>res<span class="token punctuation">.</span>msg<span class="token operator">+</span><span class="token string">'&lt;div>'</span><span class="token punctuation">)</span>
+     <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+     <span class="token function-variable function">error</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">xhr<span class="token punctuation">,</span>status<span class="token punctuation">,</span>e</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#msg'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#app'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">html</span><span class="token punctuation">(</span><span class="token string">'&lt;div id="msg" class="red">请求错误&lt;div>'</span><span class="token punctuation">)</span>
+     <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+   <span class="token punctuation">&#125;</span>
+  </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>代码写好了，部署。这个很简单啊，你要是图省事，直接覆盖默认配置文件夹中的index.html即可，</p>
 <p><img src="https://tvax4.sinaimg.cn/large/005NNTS5ly1h0s2ijjcdbj31z418gtm3.jpg" srcset="/img/loading.gif" lazyload alt="前台部署成功"></p>
 <p>很快啊，前台项目部署好了。</p>
 <p>这时候我们需要部署后端项目了。idea打开新建springboot项目。开码！！！</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/* 用来获取端口号项目运行的端口号，后面测试负载均衡时用到 */</span><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ConfigWeb</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">ApplicationListener</span>&lt;WebServerInitializedEvent&gt; &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> serverPort;<br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getUrl</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">InetAddress</span> <span class="hljs-variable">address</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            address = InetAddress.getLocalHost();<br>        &#125; <span class="hljs-keyword">catch</span> (UnknownHostException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;http://&quot;</span>+ address.getHostAddress() +<span class="hljs-string">&quot;:&quot;</span>+<span class="hljs-built_in">this</span>.serverPort;<br>    &#125;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onApplicationEvent</span><span class="hljs-params">(WebServerInitializedEvent event)</span> &#123;<br>        <span class="hljs-built_in">this</span>.serverPort = event.getWebServer().getPort();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/* 用来获取端口号项目运行的端口号，后面测试负载均衡时用到 */</span>
+<span class="token annotation punctuation">@Component</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ConfigWeb</span> <span class="token keyword">implements</span> <span class="token class-name">ApplicationListener</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">WebServerInitializedEvent</span><span class="token punctuation">></span></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> serverPort<span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getUrl</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">InetAddress</span> address <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+            address <span class="token operator">=</span> <span class="token class-name">InetAddress</span><span class="token punctuation">.</span><span class="token function">getLocalHost</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">UnknownHostException</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">return</span> <span class="token string">"http://"</span><span class="token operator">+</span> address<span class="token punctuation">.</span><span class="token function">getHostAddress</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span><span class="token string">":"</span><span class="token operator">+</span><span class="token keyword">this</span><span class="token punctuation">.</span>serverPort<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onApplicationEvent</span><span class="token punctuation">(</span><span class="token class-name">WebServerInitializedEvent</span> event<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>serverPort <span class="token operator">=</span> event<span class="token punctuation">.</span><span class="token function">getWebServer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getPort</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>核心代码，get请求返回项目运行端口号。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@RequestMapping(&quot;/api&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">IndexController</span> &#123;<br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> ConfigWeb configWeb;<br>    <span class="hljs-meta">@GetMapping(&quot;/get&quot;)</span><br>    ResponseEntity&lt;Map&lt;String,Object&gt;&gt; <span class="hljs-title function_">get</span><span class="hljs-params">()</span> &#123;<br>        HashMap&lt;String, Object&gt; map = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        map.put(<span class="hljs-string">&quot;msg&quot;</span>,<span class="hljs-string">&quot;服务端口&quot;</span>+configWeb.getUrl());<br>        <span class="hljs-keyword">return</span> ResponseEntity.ok(map);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@RestController</span>
+<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/api"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">IndexController</span> <span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@Resource</span>
+    <span class="token keyword">private</span> <span class="token class-name">ConfigWeb</span> configWeb<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"/get"</span><span class="token punctuation">)</span>
+    <span class="token class-name">ResponseEntity</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Map</span><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span><span class="token class-name">Object</span><span class="token punctuation">></span><span class="token punctuation">></span></span> <span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">HashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">></span></span> map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"msg"</span><span class="token punctuation">,</span><span class="token string">"服务端口"</span><span class="token operator">+</span>configWeb<span class="token punctuation">.</span><span class="token function">getUrl</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token class-name">ResponseEntity</span><span class="token punctuation">.</span><span class="token function">ok</span><span class="token punctuation">(</span>map<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>核心代码如上图。</p>
 <p>很快啊后端也不，后端快不起来，需要装Java环境。稍等，很快啊后端也部署好了。后台服务的端口是8081。这时候我们很自然的想到了，把之前的Ajax中的请求url<code>api/get</code>换成<code>http://localhost:8081/api/get</code>,这样前后台应该就能连通了。于是改了一下刷新页面，再次点击，还是不行。</p>
 <p>报错信息：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">已拦截跨源请求：同源策略禁止读取位于 http://localhost:8081/api/get 的远程资源。（原因：CORS 头缺少 <span class="hljs-string">&#x27;Access-Control-Allow-Origin&#x27;</span>）。状态码：200。<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">已拦截跨源请求：同源策略禁止读取位于 http://localhost:8081/api/get 的远程资源。（原因：CORS 头缺少 <span class="token string">'Access-Control-Allow-Origin'</span>）。状态码：200。<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 
 <p>火狐浏览器是这样提示的，别的浏览器可能会有些许的差别，但不重要，重要的是，我们的前后台并没有连通！！<br>这个时候我们需要配置反向代理了，来规避跨域的错误。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">在配置文件的根目录中块，upstream 后面的字符并不是标识符，</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">你可以写别的如tomcat,我这里是写成了nginx。</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">这个块里的server是可以有多个的。这就是传说中的负载均衡。</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">你配一个就用来做简单的反向代理即可。配多个就是负载均衡。 默认使用轮询，</span><br>upstream nginx &#123;<br>    server localhost:8081;<br>&#125;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">在server块中加一个location块。`/api/`,表示url中有`/api/`，</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">执行这个逻辑，且别的location不在处理这个url请求</span><br>location /api/ &#123;<br><span class="hljs-meta prompt_">  # </span><span class="language-bash">这里就是反向代理，http://后面的字符对应上面upstream块后的字符。</span><br> roxy_pass http://nginx;<br>&#125;<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在配置文件的根目录中块，upstream 后面的字符并不是标识符，</span>
+<span class="token comment"># 你可以写别的如tomcat,我这里是写成了nginx。</span>
+<span class="token comment"># 这个块里的server是可以有多个的。这就是传说中的负载均衡。</span>
+<span class="token comment"># 你配一个就用来做简单的反向代理即可。配多个就是负载均衡。 默认使用轮询，</span>
+upstream nginx <span class="token punctuation">&#123;</span>
+    server localhost:8081<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+
+<span class="token comment"># 在server块中加一个location块。`/api/`,表示url中有`/api/`，</span>
+<span class="token comment"># 执行这个逻辑，且别的location不在处理这个url请求</span>
+location /api/ <span class="token punctuation">&#123;</span>
+  <span class="token comment"># 这里就是反向代理，http://后面的字符对应上面upstream块后的字符。</span>
+ roxy_pass http://nginx<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>到这里配置结束，项目就是就可以正常启动了。需要弄负载均衡，你就多跑几个服务，能进行负载均衡的项目，对项目有一点点要求，要求项目本身必须是无状态的，不然的话可能会影响到正常使用，比如如果你这个项目中是在项目里也就是内存里保存的用户的登录状态，那么你负载均衡时，就会出问题，因为负载均衡默认是轮询，你可以理解成这个节点，你登陆过，你刷新一个页面，然后就访问了新的节点，但是你的登录信息是保存在上一个节点中的，这个新节点，并没有保存你的登录信息，你就需要重新登录。这就影响功能了。所以这种情况一般使用Redis来保存一些状态信息。就可以想跑几个项目就跑几个项目了。状态，这个概念可能难以理解，但是，官方文档英文就是这个意思，理解了自然也就理解了。加油。</p>
 <p>全部配置文件<code>nginx.conf</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs shell">user www-data;<br>worker_processes auto;<br>pid /run/nginx.pid;<br>include /etc/nginx/modules-enabled/*.conf;<br><br>events &#123;<br> worker_connections 768;<br><span class="hljs-meta prompt_"> # </span><span class="language-bash">multi_accept on;</span><br>&#125;<br><br>http &#123;<br> sendfile on;<br> tcp_nopush on;<br> tcp_nodelay on;<br> keepalive_timeout 65;<br> types_hash_max_size 2048;<br> include /etc/nginx/mime.types;<br> default_type application/octet-stream;<br> ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3; # Dropping SSLv3, ref: POODLE<br> ssl_prefer_server_ciphers on;<br> access_log /var/log/nginx/access.log;<br> error_log /var/log/nginx/error.log;<br> gzip on;<br> include /etc/nginx/conf.d/*.conf;<br> <br>  upstream nginx &#123;<br>    server localhost:8081;<br>  &#125;<br>  server &#123;<br>  listen 80 default_server;<br>  listen [::]:80 default_server;<br>  root /var/www/html;<br>  index index.html index.htm index.nginx-debian.html;<br>  server_name _;<br><br>  location /api/ &#123;<br>    proxy_pass http://nginx;<br>  &#125;<br><br>  location / &#123;<br>    try_files $uri $uri/ =404;<br>  &#125;<br>  &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">user www-data<span class="token punctuation">;</span>
+worker_processes auto<span class="token punctuation">;</span>
+pid /run/nginx.pid<span class="token punctuation">;</span>
+include /etc/nginx/modules-enabled/*.conf<span class="token punctuation">;</span>
+
+events <span class="token punctuation">&#123;</span>
+ worker_connections <span class="token number">768</span><span class="token punctuation">;</span>
+ <span class="token comment"># multi_accept on;</span>
+<span class="token punctuation">&#125;</span>
+
+http <span class="token punctuation">&#123;</span>
+ sendfile on<span class="token punctuation">;</span>
+ tcp_nopush on<span class="token punctuation">;</span>
+ tcp_nodelay on<span class="token punctuation">;</span>
+ keepalive_timeout <span class="token number">65</span><span class="token punctuation">;</span>
+ types_hash_max_size <span class="token number">2048</span><span class="token punctuation">;</span>
+ include /etc/nginx/mime.types<span class="token punctuation">;</span>
+ default_type application/octet-stream<span class="token punctuation">;</span>
+ ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3<span class="token punctuation">;</span> <span class="token comment"># Dropping SSLv3, ref: POODLE</span>
+ ssl_prefer_server_ciphers on<span class="token punctuation">;</span>
+ access_log /var/log/nginx/access.log<span class="token punctuation">;</span>
+ error_log /var/log/nginx/error.log<span class="token punctuation">;</span>
+ <span class="token function">gzip</span> on<span class="token punctuation">;</span>
+ include /etc/nginx/conf.d/*.conf<span class="token punctuation">;</span>
+ 
+  upstream nginx <span class="token punctuation">&#123;</span>
+    server localhost:8081<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  server <span class="token punctuation">&#123;</span>
+  listen <span class="token number">80</span> default_server<span class="token punctuation">;</span>
+  listen <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:80 default_server<span class="token punctuation">;</span>
+  root /var/www/html<span class="token punctuation">;</span>
+  index index.html index.htm index.nginx-debian.html<span class="token punctuation">;</span>
+  server_name _<span class="token punctuation">;</span>
+
+  location /api/ <span class="token punctuation">&#123;</span>
+    proxy_pass http://nginx<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  location / <span class="token punctuation">&#123;</span>
+    try_files <span class="token variable">$uri</span> <span class="token variable">$uri</span>/ <span class="token operator">=</span><span class="token number">404</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <h3 id="配置SSL"><a href="#配置SSL" class="headerlink" title="配置SSL"></a>配置SSL</h3><h4 id="使用openssl生成证书"><a href="#使用openssl生成证书" class="headerlink" title="使用openssl生成证书"></a>使用openssl生成证书</h4><p>openssl是目前最流行的SSL密码库工具，其提供了一个通用、健壮、功能完备的工具套件，用以支持SSL&#x2F;TLS协议的实现。</p>
 <p>比如生成到：<code>/usr/local/ssl</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">openssl req -x509 -nodes -days 36500 -newkey rsa:2048 -keyout /usr/local/ssl/nginx.key -out /usr/local/ssl/nginx.crt<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">openssl req -x509 -nodes -days <span class="token number">36500</span> -newkey rsa:2048 -keyout /usr/local/ssl/nginx.key -out /usr/local/ssl/nginx.crt<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 
 <p>生成好了，一般我们直接强制https，只需要配置一个重定向即可。</p>
 <p>完整的配置nginx.conf</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><code class="hljs shell"><br>user www-data;<br>worker_processes auto;<br>pid /run/nginx.pid;<br>include /etc/nginx/modules-enabled/*.conf;<br><br>events &#123;<br> worker_connections 768;<br><span class="hljs-meta prompt_"> # </span><span class="language-bash">multi_accept on;</span><br>&#125;<br><br>http &#123;<br> sendfile on;<br> tcp_nopush on;<br> tcp_nodelay on;<br> keepalive_timeout 65;<br> types_hash_max_size 2048;<br> include /etc/nginx/mime.types;<br> default_type application/octet-stream;<br> ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3; # Dropping SSLv3, ref: POODLE<br> ssl_prefer_server_ciphers on;<br> access_log /var/log/nginx/access.log;<br> error_log /var/log/nginx/error.log;<br> gzip on;<br> include /etc/nginx/conf.d/*.conf;<br><span class="hljs-meta prompt_"> # </span><span class="language-bash">这里是负载均衡。请求后端时建议使用这种方式。默认负载均衡是轮询，就是一个一个按顺序来</span><br>upstream nginx &#123;<br>    # 生产上这里一般配置域名或者ip地址<br>    server localhost:8081;<br>    server localhost:8082;<br>&#125;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">HTTP redirect</span><br>server &#123;<br>    listen      80;<br>    listen      [::]:80;<br>    # 生产上这里一般配置域名<br>    server_name localhost;<br>    # http强制跳转https，可以理解为强制https<br>    return  301 https://localhost$request_uri;<br>&#125;<br><br>server &#123;<br> listen              443 ssl http2;<br> listen              [::]:443 ssl http2;<br> server_name         localhost;<br><span class="hljs-meta prompt_"> # </span><span class="language-bash">SSL 这里生产上需要换成生产上的证书位置即可。自己生成的证书浏览器并不认可。</span><br> ssl_certificate     /usr/local/ssl/nginx.crt;<br> ssl_certificate_key /usr/local/ssl/nginx.key;<br><br> root /var/www/html;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"> # </span><span class="language-bash">首页设置</span><br> index index.html index.htm index.nginx-debian.html;<br><br> location /api/ &#123;<br><span class="hljs-meta prompt_">  # </span><span class="language-bash"> 请求后端服务，这里访问的是配置的负载均衡服务器。</span><br>  proxy_pass http://nginx;<br> &#125;<br><br> location / &#123;<br><span class="hljs-meta prompt_">  # </span><span class="language-bash">如果部署的是Vue等项目，这里可能需要改动，</span><br><span class="hljs-meta prompt_">  # </span><span class="language-bash">如果项目url中有<span class="hljs-comment">#这个的，那就不要动，如果没有#的，那就需要改动。</span></span><br>  try_files $uri $uri/ =404;<br> &#125;<br><br>&#125;<br> <br>&#125;<br><br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">
+user www-data<span class="token punctuation">;</span>
+worker_processes auto<span class="token punctuation">;</span>
+pid /run/nginx.pid<span class="token punctuation">;</span>
+include /etc/nginx/modules-enabled/*.conf<span class="token punctuation">;</span>
+
+events <span class="token punctuation">&#123;</span>
+ worker_connections <span class="token number">768</span><span class="token punctuation">;</span>
+ <span class="token comment"># multi_accept on;</span>
+<span class="token punctuation">&#125;</span>
+
+http <span class="token punctuation">&#123;</span>
+ sendfile on<span class="token punctuation">;</span>
+ tcp_nopush on<span class="token punctuation">;</span>
+ tcp_nodelay on<span class="token punctuation">;</span>
+ keepalive_timeout <span class="token number">65</span><span class="token punctuation">;</span>
+ types_hash_max_size <span class="token number">2048</span><span class="token punctuation">;</span>
+ include /etc/nginx/mime.types<span class="token punctuation">;</span>
+ default_type application/octet-stream<span class="token punctuation">;</span>
+ ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3<span class="token punctuation">;</span> <span class="token comment"># Dropping SSLv3, ref: POODLE</span>
+ ssl_prefer_server_ciphers on<span class="token punctuation">;</span>
+ access_log /var/log/nginx/access.log<span class="token punctuation">;</span>
+ error_log /var/log/nginx/error.log<span class="token punctuation">;</span>
+ <span class="token function">gzip</span> on<span class="token punctuation">;</span>
+ include /etc/nginx/conf.d/*.conf<span class="token punctuation">;</span>
+ <span class="token comment"># 这里是负载均衡。请求后端时建议使用这种方式。默认负载均衡是轮询，就是一个一个按顺序来</span>
+upstream nginx <span class="token punctuation">&#123;</span>
+    <span class="token comment"># 生产上这里一般配置域名或者ip地址</span>
+    server localhost:8081<span class="token punctuation">;</span>
+    server localhost:8082<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment"># HTTP redirect</span>
+server <span class="token punctuation">&#123;</span>
+    listen      <span class="token number">80</span><span class="token punctuation">;</span>
+    listen      <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:80<span class="token punctuation">;</span>
+    <span class="token comment"># 生产上这里一般配置域名</span>
+    server_name localhost<span class="token punctuation">;</span>
+    <span class="token comment"># http强制跳转https，可以理解为强制https</span>
+    <span class="token builtin class-name">return</span>  <span class="token number">301</span> https://localhost<span class="token variable">$request_uri</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+server <span class="token punctuation">&#123;</span>
+ listen              <span class="token number">443</span> ssl http2<span class="token punctuation">;</span>
+ listen              <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:443 ssl http2<span class="token punctuation">;</span>
+ server_name         localhost<span class="token punctuation">;</span>
+ <span class="token comment"># SSL 这里生产上需要换成生产上的证书位置即可。自己生成的证书浏览器并不认可。</span>
+ ssl_certificate     /usr/local/ssl/nginx.crt<span class="token punctuation">;</span>
+ ssl_certificate_key /usr/local/ssl/nginx.key<span class="token punctuation">;</span>
+
+ root /var/www/html<span class="token punctuation">;</span>
+
+ <span class="token comment"># 首页设置</span>
+ index index.html index.htm index.nginx-debian.html<span class="token punctuation">;</span>
+
+ location /api/ <span class="token punctuation">&#123;</span>
+  <span class="token comment">#  请求后端服务，这里访问的是配置的负载均衡服务器。</span>
+  proxy_pass http://nginx<span class="token punctuation">;</span>
+ <span class="token punctuation">&#125;</span>
+
+ location / <span class="token punctuation">&#123;</span>
+  <span class="token comment"># 如果部署的是Vue等项目，这里可能需要改动，</span>
+  <span class="token comment"># 如果项目url中有#这个的，那就不要动，如果没有#的，那就需要改动。</span>
+  try_files <span class="token variable">$uri</span> <span class="token variable">$uri</span>/ <span class="token operator">=</span><span class="token number">404</span><span class="token punctuation">;</span>
+ <span class="token punctuation">&#125;</span>
+
+<span class="token punctuation">&#125;</span>
+ 
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>常用的一般是反向代理和负载均衡。关于负载均衡的地方可以多看看，如果负载均衡中一个服务挂了的情况，会是怎么个处理情况，不同的负载均衡模式下，又有什么不同。等等，都是需要思考的。</p>
 <p>最后应该是关于Ngixn的高可用，作为静态服务器时，Nginx的性能应该够用，反向代理时，我们主要考虑的应该是反向代理目标服务器的稳定。所以就暂且不研究Ngixn的高可用，一般主备双机之类的，真到Nginx扛不住的那时候，首先应该考虑的是架构的问题了。得上微服务了。</p>
@@ -850,6 +1598,8 @@
   });
 </script>
 
+
+  <script  src="https://lib.baomitu.com/prism/1.26.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
 
   <script>
   (function() {

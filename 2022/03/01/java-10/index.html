@@ -45,6 +45,8 @@
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
 
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.26.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
   <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
 
 
@@ -233,7 +235,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          848 字
+          835 字
         
       </span>
     
@@ -244,7 +246,7 @@
         
         
         
-          8 分钟
+          7 分钟
         
       </span>
     
@@ -458,17 +460,17 @@
               <p>postgresql和mysql差不多，都是免费开源的的数据库软件，在免费数据库，postgresql算是一个后起之秀。好像是比Mysql要优异一点，在各方面上。对于开发者来说，学习一个东西的第一步，肯定是先安装，然后再使用，使用我还没有在项目中使用过，不过我感觉都是sql标准，大差不差吧。</p>
 <h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p><a target="_blank" rel="noopener" href="https://www.baidu.com/s?ie=UTF-8&wd=PostgreSQL">百度一下</a></p>
 <p>官网上下载。我这边下载的是14.2的版本，压缩包的安装方式，下载解压进入<code>pgsql</code>文件夹下，新建一个data文件夹，用来存放数据文件，cmd进入<code>pgsql</code>目录。执行命令。</p>
-<h3 id="初始化数据库"><a href="#初始化数据库" class="headerlink" title="初始化数据库"></a>初始化数据库</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">bin\initdb -D data -U postgres -A password -E utf8 --locale=C -W<br></code></pre></td></tr></table></figure>
+<h3 id="初始化数据库"><a href="#初始化数据库" class="headerlink" title="初始化数据库"></a>初始化数据库</h3><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">bin<span class="token punctuation">\</span>initdb -D data -U postgres -A password -E utf8 --locale<span class="token operator">=</span>C -W<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 
 <div class="note note-info">
             <p>-D  data                       指定初始化的数据库目录(此处为当前目录的data文件夹)<br>-U  postgres                数据库超级用户名（此处为postgres，如果不设置，会用当前windows用户名为账号）<br>-A  password              数据库使用密码授权<br>-E  utf8                       数据库编码格式<br>–locale&#x3D;C                  数据库簇使用的本地化语言<br>-W                              命令行执行后 输入密码</p>
           </div>
 
 <p>执行命令过后输入密码，应该要输入两遍，输入一个自己记得住的密码，其他的从参数输入 <code>initdb --help</code>查看</p>
-<h3 id="启动数据库"><a href="#启动数据库" class="headerlink" title="启动数据库"></a>启动数据库</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">bin\pg_ctl -D data start<br></code></pre></td></tr></table></figure>
+<h3 id="启动数据库"><a href="#启动数据库" class="headerlink" title="启动数据库"></a>启动数据库</h3><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">bin<span class="token punctuation">\</span>pg_ctl -D data start<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 
 <p>然后使用数据库连接软件连接查看即可。</p>
-<h3 id="注册到服务"><a href="#注册到服务" class="headerlink" title="注册到服务"></a>注册到服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">bin\pg_ctl register -N <span class="hljs-string">&quot;pgsql&quot;</span> -D xxxx<br></code></pre></td></tr></table></figure>
+<h3 id="注册到服务"><a href="#注册到服务" class="headerlink" title="注册到服务"></a>注册到服务</h3><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">bin<span class="token punctuation">\</span>pg_ctl register -N <span class="token string">"pgsql"</span> -D xxxx<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 
 <p>注意：</p>
 <div class="note note-info">
@@ -787,6 +789,8 @@
   });
 </script>
 
+
+  <script  src="https://lib.baomitu.com/prism/1.26.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
 
   <script>
   (function() {

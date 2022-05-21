@@ -46,6 +46,8 @@
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
 
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.26.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
   <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
 
 
@@ -234,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.6k 字
+          1.5k 字
         
       </span>
     
@@ -245,7 +247,7 @@
         
         
         
-          14 分钟
+          13 分钟
         
       </span>
     
@@ -378,35 +380,78 @@
               <p>NPM老牌工具，Yarn后起之秀。作为一个后端程序员，可以理解成Maven和Gradle。Node.js为JS这个原本只能在浏览器中运行的语言，提供了一个运行环境，你可以理解成Java的JDK，使原本被浏览器限制的JS放飞自我了。</p>
 <p>NPM和Yarn都是项目管理工具。核心是管理依赖的功能，为项目的运行提供一些支持。</p>
 <h2 id="查看npm，yarn全局安装的包"><a href="#查看npm，yarn全局安装的包" class="headerlink" title="查看npm，yarn全局安装的包"></a>查看npm，yarn全局安装的包</h2><p>npm</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm list -g --depth 0<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> list -g --depth <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 
 <p>yarn</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">yarn global list<br><br><span class="hljs-comment"># 或者</span><br>yarn global list --depth=0<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">yarn</span> global list
+
+<span class="token comment"># 或者</span>
+<span class="token function">yarn</span> global list --depth<span class="token operator">=</span><span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <h2 id="nrm相关命令"><a href="#nrm相关命令" class="headerlink" title="nrm相关命令"></a>nrm相关命令</h2><p>nrm(npm registry manager )是npm的镜像源管理工具，有时候国外资源太慢，那么我们可以用这个来切换镜像源。<br><strong>安装nrm</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install -g nrm<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> -g nrm<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 
-<h3 id="列出可用源"><a href="#列出可用源" class="headerlink" title="列出可用源"></a>列出可用源</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">nrm <span class="hljs-built_in">ls</span><br></code></pre></td></tr></table></figure>
+<h3 id="列出可用源"><a href="#列出可用源" class="headerlink" title="列出可用源"></a>列出可用源</h3><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">nrm <span class="token function">ls</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 
-<h3 id="切换源"><a href="#切换源" class="headerlink" title="切换源"></a>切换源</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">nrm use taobao<br></code></pre></td></tr></table></figure>
+<h3 id="切换源"><a href="#切换源" class="headerlink" title="切换源"></a>切换源</h3><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">nrm use taobao<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 
-<h2 id="npm-x2F-yarn查看当前使用源与设置其它源"><a href="#npm-x2F-yarn查看当前使用源与设置其它源" class="headerlink" title="npm&#x2F;yarn查看当前使用源与设置其它源"></a>npm&#x2F;yarn查看当前使用源与设置其它源</h2><h3 id="npm"><a href="#npm" class="headerlink" title="npm"></a>npm</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看npm当前镜像源</span><br>npm config get registry  <br><br><span class="hljs-comment"># 设置npm当前镜像源</span><br>npm config <span class="hljs-built_in">set</span> registry https://registry.npmjs.org<br></code></pre></td></tr></table></figure>
+<h2 id="npm-x2F-yarn查看当前使用源与设置其它源"><a href="#npm-x2F-yarn查看当前使用源与设置其它源" class="headerlink" title="npm&#x2F;yarn查看当前使用源与设置其它源"></a>npm&#x2F;yarn查看当前使用源与设置其它源</h2><h3 id="npm"><a href="#npm" class="headerlink" title="npm"></a>npm</h3><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看npm当前镜像源</span>
+<span class="token function">npm</span> config get registry  
 
-<h3 id="yarn"><a href="#yarn" class="headerlink" title="yarn"></a>yarn</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看yarn当前镜像源</span><br>yarn config get registry<br><br><span class="hljs-comment"># 设置yarn当前镜像源</span><br>yarn config <span class="hljs-built_in">set</span> registry https://registry.yarnpkg.com <br></code></pre></td></tr></table></figure>
+<span class="token comment"># 设置npm当前镜像源</span>
+<span class="token function">npm</span> config <span class="token builtin class-name">set</span> registry https://registry.npmjs.org<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h3 id="yarn"><a href="#yarn" class="headerlink" title="yarn"></a>yarn</h3><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看yarn当前镜像源</span>
+<span class="token function">yarn</span> config get registry
+
+<span class="token comment"># 设置yarn当前镜像源</span>
+<span class="token function">yarn</span> config <span class="token builtin class-name">set</span> registry https://registry.yarnpkg.com <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <h2 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h2><p>这个我是真的不是很想写，因为这东西官网上很详细，而且一点进去就能看到，有些东西，在官网上藏得比较深，又或者语言不同的问题。yarn有个敷衍的中文官网，npm连敷衍都不敷衍，大家优先用哪个知道了么🤣🤣🤣</p>
-<h3 id="yarn常用"><a href="#yarn常用" class="headerlink" title="yarn常用"></a>yarn常用</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">全局添加依赖，添加全局依赖建议yarn和npm两者选其一，</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">如果同时都添加了全局依赖，我也不知道哪个优先。</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">所以二者选其一即可</span><br>yarn global add &lt;package...&gt;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">正常项目中的添加依赖（默认添加到运行依赖中）</span><br>yarn add &lt;package...&gt;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">使用--dev或-D将在您的 开发依赖中，和运行依赖的区别就是打包时开发依赖不打包进去</span><br>yarn add &lt;package...&gt; [--dev/-D]<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">删除依赖，同时删除开发依赖和运行依赖</span><br>yarn remove &lt;package...&gt;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">安装本地node_modules文件夹中package.json中列出的所有依赖项。(这百度翻译翻译的可以啊)</span><br>yarn install<br><br></code></pre></td></tr></table></figure>
+<h3 id="yarn常用"><a href="#yarn常用" class="headerlink" title="yarn常用"></a>yarn常用</h3><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 全局添加依赖，添加全局依赖建议yarn和npm两者选其一，</span>
+<span class="token comment"># 如果同时都添加了全局依赖，我也不知道哪个优先。</span>
+<span class="token comment"># 所以二者选其一即可</span>
+<span class="token function">yarn</span> global <span class="token function">add</span> <span class="token operator">&lt;</span>package<span class="token punctuation">..</span>.<span class="token operator">></span>
 
-<h3 id="npm常用"><a href="#npm常用" class="headerlink" title="npm常用"></a>npm常用</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">对应 yarn install</span><br>npm install<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">对应 yarn add &lt;package...&gt;</span><br>npm install [package] --save<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">对应 yarn add &lt;package...&gt; [--dev/-D]</span><br>npm install [package] --save-dev<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">对应 yarn global add &lt;package...&gt;</span><br>npm install [package] --global<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">对应 yarn remove &lt;package...&gt;</span><br>npm uninstall [package]<br></code></pre></td></tr></table></figure>
+<span class="token comment"># 正常项目中的添加依赖（默认添加到运行依赖中）</span>
+<span class="token function">yarn</span> <span class="token function">add</span> <span class="token operator">&lt;</span>package<span class="token punctuation">..</span>.<span class="token operator">></span>
+
+<span class="token comment"># 使用--dev或-D将在您的 开发依赖中，和运行依赖的区别就是打包时开发依赖不打包进去</span>
+<span class="token function">yarn</span> <span class="token function">add</span> <span class="token operator">&lt;</span>package<span class="token punctuation">..</span>.<span class="token operator">></span> <span class="token punctuation">[</span>--dev/-D<span class="token punctuation">]</span>
+
+<span class="token comment"># 删除依赖，同时删除开发依赖和运行依赖</span>
+<span class="token function">yarn</span> remove <span class="token operator">&lt;</span>package<span class="token punctuation">..</span>.<span class="token operator">></span>
+
+<span class="token comment"># 安装本地node_modules文件夹中package.json中列出的所有依赖项。(这百度翻译翻译的可以啊)</span>
+<span class="token function">yarn</span> <span class="token function">install</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h3 id="npm常用"><a href="#npm常用" class="headerlink" title="npm常用"></a>npm常用</h3><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 对应 yarn install</span>
+<span class="token function">npm</span> <span class="token function">install</span>
+
+<span class="token comment"># 对应 yarn add &lt;package...></span>
+<span class="token function">npm</span> <span class="token function">install</span> <span class="token punctuation">[</span>package<span class="token punctuation">]</span> --save
+
+<span class="token comment"># 对应 yarn add &lt;package...> [--dev/-D]</span>
+<span class="token function">npm</span> <span class="token function">install</span> <span class="token punctuation">[</span>package<span class="token punctuation">]</span> --save-dev
+
+<span class="token comment"># 对应 yarn global add &lt;package...></span>
+<span class="token function">npm</span> <span class="token function">install</span> <span class="token punctuation">[</span>package<span class="token punctuation">]</span> --global
+
+<span class="token comment"># 对应 yarn remove &lt;package...></span>
+<span class="token function">npm</span> uninstall <span class="token punctuation">[</span>package<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>简单的介绍了一下，详细的可以去官网上自行查看，这里只列举了一些常用的。</p>
 <h2 id="快速删除node-modules文件"><a href="#快速删除node-modules文件" class="headerlink" title="快速删除node_modules文件"></a>快速删除node_modules文件</h2><h3 id="使用rimraf模块的命令"><a href="#使用rimraf模块的命令" class="headerlink" title="使用rimraf模块的命令"></a>使用rimraf模块的命令</h3><p>全局安装rimraf模块，然后通过其命令来快速删除node_modules目录：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm install rimraf -g<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">进入项目文件夹中</span><br>rimraf node_modules<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> rimraf -g
+
+<span class="token comment"># 进入项目文件夹中</span>
+rimraf node_modules<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <h3 id="使用命令来删除目录"><a href="#使用命令来删除目录" class="headerlink" title="使用命令来删除目录"></a>使用命令来删除目录</h3><h4 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h4><p>首先在cmd窗口中进入到node_modules文件夹所在的路径，接着执行命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">rmdir /s/q node_modules<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">rmdir</span> /s/q node_modules<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 
-<h4 id="linux下"><a href="#linux下" class="headerlink" title="linux下"></a>linux下</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">rm -f /node_modules<br></code></pre></td></tr></table></figure>
+<h4 id="linux下"><a href="#linux下" class="headerlink" title="linux下"></a>linux下</h4><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">rm</span> -f /node_modules<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 
 <h2 id="封"><a href="#封" class="headerlink" title="封"></a>封</h2><p><img src="https://tva4.sinaimg.cn/large/005NNTS5ly1gt3p80og1jj338q1o0b2a.jpg" srcset="/img/loading.gif" lazyload alt="美少女"></p>
 
@@ -720,6 +765,8 @@
   });
 </script>
 
+
+  <script  src="https://lib.baomitu.com/prism/1.26.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
 
   <script>
   (function() {

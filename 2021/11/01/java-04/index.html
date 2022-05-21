@@ -46,6 +46,8 @@
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
 
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.26.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
   <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
 
 
@@ -234,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.9k 字
+          4.5k 字
         
       </span>
     
@@ -245,7 +247,7 @@
         
         
         
-          41 分钟
+          38 分钟
         
       </span>
     
@@ -464,7 +466,25 @@
 <p>现在的关系型数据库大多都支持事务控制，事务的四大特性，我还真记不太清，原子性，隔离性，一致性，还有一个特性是什么来着，我查查，查到了，还有一个持久性。持久性没啥好说的，我就记不住。原子性，一致性，这个都好理解，就是都成功或者都失败。隔离性，这个就需要注意一点。具体情况具体处理。理论知识就不赘述了。</p>
 <p>接下来进入下一话题，《母猪的产后护理》，对不起，拿错书了，</p>
 <p>介绍一下spring提供的事务控制，分为编程式和声明式，先说我们用的多的声明式事务控制，且不建议使用编程式的事务控制，springboot2.5.x系列默认就开启了注解式事务控制，只需要在类上或方法上加上<code>@Transactional</code>注解就可以了，加在类上，表示此类中的所有方法都添加了默认的事务支持，如果 类上和方法上同时加了注解，以方法上的注解为准。只要方法抛出了RuntimeException，事务就进行回滚的操作，但如果你把异常try catch了，且没有在catch块里抛出RuntimeException，这种情况下出现异常事务是不会进行回滚的。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ServiceA</span>&#123;<br>    <span class="hljs-meta">@Transactional</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setTest</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-comment">// 这种情况下出现异常是不会进行事务回滚的。</span><br>        <span class="hljs-keyword">try</span> &#123;<br>            updateById(<span class="hljs-literal">null</span>);<br>        &#125;<span class="hljs-keyword">catch</span> (Exception e)&#123;<br>            e.printStackTrace();<br>        &#125;<br>        <br>        <span class="hljs-comment">// 会进行事务回滚的写法</span><br>        <span class="hljs-keyword">try</span> &#123;<br>            updateById(<span class="hljs-literal">null</span>);<br>        &#125;<span class="hljs-keyword">catch</span> (Exception e)&#123;<br>            e.printStackTrace();<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(<span class="hljs-string">&quot;测试&quot;</span>);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ServiceA</span><span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@Transactional</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token comment">// 这种情况下出现异常是不会进行事务回滚的。</span>
+        <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+            <span class="token function">updateById</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span><span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        
+        <span class="token comment">// 会进行事务回滚的写法</span>
+        <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+            <span class="token function">updateById</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span><span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">RuntimeException</span><span class="token punctuation">(</span><span class="token string">"测试"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <h2 id="详解-Transactional注解"><a href="#详解-Transactional注解" class="headerlink" title="详解@Transactional注解"></a>详解@Transactional注解</h2><h3 id="rollbackFor参数"><a href="#rollbackFor参数" class="headerlink" title="rollbackFor参数"></a>rollbackFor参数</h3><p>这个参数是表明捕获什么异常进行回滚数据的。默认只有捕获到RuntimeException和Error才会进行回滚，（基于springboot2.5.x，不同版本可能有差异，请自己查看代码。）不会回滚的是什么异常呢，就是那种需要声明的异常，springboot事务控制是不会捕获到，并回滚数据的，至于为啥，很简单啊，因为声明的异常，大多都是自己手动处理的，继续往上抛或者Try Catch一下，如果不手动处理，程序无法编译。比如IO异常，这些是不会被事务控制捕捉到的。</p>
 <h3 id="propagation参数"><a href="#propagation参数" class="headerlink" title="propagation参数"></a>propagation参数</h3><p>propagation 代表事务的传播行为，默认值为<code>Propagation.REQUIRED</code>，其他的属性信息如下：</p>
@@ -487,13 +507,93 @@
 </ul>
 <p>更多参数可以百度了解。</p>
 <h2 id="实际的问题"><a href="#实际的问题" class="headerlink" title="实际的问题"></a>实际的问题</h2><p>本人处理一些银行账务动账信息时，比如一个记账操作时，我需要把需要记账的数据的状态先改成在处理的状态，且需要提交事务，且需要确定下一个事务开启时需要记账的数据状态已经是修改过后的状态，防止重复操作同一笔数据，那么问题就来了，在使用spring声明事务控制时，如何进行这样的操作。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ServiceA</span>&#123;<br>    <span class="hljs-meta">@Transactional</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setTest</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-comment">// 检查数据状态是否处于正常状态，如果在处理中就不进行操作</span><br>        <span class="hljs-keyword">if</span> (status == <span class="hljs-string">&quot;2&quot;</span>)&#123;<br>          log.info(<span class="hljs-string">&quot;此数据正在修改中，无法操作&quot;</span>);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br><br>        <span class="hljs-comment">// 先更新一下状态</span><br>        setStatus(<span class="hljs-string">&quot;2&quot;</span>);<br>        <span class="hljs-comment">// 此时需要提交</span><br><br>        <span class="hljs-comment">// 下面进行一些耗时的操作，</span><br><br>        <span class="hljs-comment">//操作结束后,还需进行一些需要事务控制的操作</span><br>        <br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ServiceA</span><span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@Transactional</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token comment">// 检查数据状态是否处于正常状态，如果在处理中就不进行操作</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>status <span class="token operator">==</span> <span class="token string">"2"</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+          log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"此数据正在修改中，无法操作"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token comment">// 先更新一下状态</span>
+        <span class="token function">setStatus</span><span class="token punctuation">(</span><span class="token string">"2"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 此时需要提交</span>
+
+        <span class="token comment">// 下面进行一些耗时的操作，</span>
+
+        <span class="token comment">//操作结束后,还需进行一些需要事务控制的操作</span>
+        
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>这种情况就默认的事务控制一个方法内只能有一个事务，所以中间那步的提交操作以我的解决方式，既然一个方法只能有一个事务，那我把逻辑单独提一个方法不就行了，说干就干，这是修改后的代码。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs java"><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ServiceA</span>&#123;<br>    <span class="hljs-meta">@Transactional</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setTest2</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-comment">// 先更新一下状态</span><br>        setStatus(<span class="hljs-string">&quot;2&quot;</span>);<br>        <br>    &#125;<br><br>    <span class="hljs-meta">@Transactional</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setTest</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-comment">// 检查数据状态是否处于正常状态，如果在处理中就不进行操作</span><br>        <span class="hljs-keyword">if</span> (status == <span class="hljs-string">&quot;2&quot;</span>)&#123;<br>          log.info(<span class="hljs-string">&quot;此数据正在修改中，无法操作&quot;</span>);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br><br>        <span class="hljs-comment">// 先更新一下状态</span><br>        <span class="hljs-comment">// setStatus(&quot;2&quot;);</span><br>        <span class="hljs-comment">// 调用方法</span><br>        <span class="hljs-built_in">this</span>.setTest2();<br>        <span class="hljs-comment">// 此时需要提交</span><br><br>        <span class="hljs-comment">// 下面进行一些耗时的操作，</span><br><br>        <span class="hljs-comment">//操作结束后,还需进行一些需要事务控制的操作</span><br>        <br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java">
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ServiceA</span><span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@Transactional</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setTest2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token comment">// 先更新一下状态</span>
+        <span class="token function">setStatus</span><span class="token punctuation">(</span><span class="token string">"2"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Transactional</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token comment">// 检查数据状态是否处于正常状态，如果在处理中就不进行操作</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>status <span class="token operator">==</span> <span class="token string">"2"</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+          log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"此数据正在修改中，无法操作"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token comment">// 先更新一下状态</span>
+        <span class="token comment">// setStatus("2");</span>
+        <span class="token comment">// 调用方法</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setTest2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 此时需要提交</span>
+
+        <span class="token comment">// 下面进行一些耗时的操作，</span>
+
+        <span class="token comment">//操作结束后,还需进行一些需要事务控制的操作</span>
+        
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>这个时候信心满满的操作发现setTest2方法调用过后，发现还是只有一个事务，且setTest2的更新操作还是没有分开提交，原因是，JDK的动态代理。在SpringIoC容器中返回的调用的对象是代理对象而不是真实的对象，只有被动态代理直接调用的才会产生事务。这里的this是自身是真实对象而不是代理对象，问题到这里已经很明朗了，这样啊，既然this调用的话事务不能起作用，spring最擅长的不就是注入，我注入一个，然后代码如下。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ServiceA</span>&#123;<br>  <span class="hljs-comment">// 这是我注入的，实际就是从容器里面取出自己的代理类</span><br>    <span class="hljs-meta">@Resource</span><br>    ServiceA serviceA;<br><br>    <span class="hljs-meta">@Transactional</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setTest2</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-comment">// 先更新一下状态</span><br>        setStatus(<span class="hljs-string">&quot;2&quot;</span>);<br>        <br>    &#125;<br><br>    <span class="hljs-meta">@Transactional</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setTest</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-comment">// 检查数据状态是否处于正常状态，如果在处理中就不进行操作</span><br>        <span class="hljs-keyword">if</span> (status == <span class="hljs-string">&quot;2&quot;</span>)&#123;<br>          log.info(<span class="hljs-string">&quot;此数据正在修改中，无法操作&quot;</span>);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br><br>        <span class="hljs-comment">// 先更新一下状态</span><br>        <span class="hljs-comment">// setStatus(&quot;2&quot;);</span><br>        <span class="hljs-comment">// 调用方法</span><br>        <span class="hljs-comment">// this.setTest2();</span><br>        <span class="hljs-comment">// 使用注入的对象调用方法，就能触发事务了，</span><br>        serviceA.setTest2();<br>        <span class="hljs-comment">// 此时需要提交</span><br><br>        <span class="hljs-comment">// 下面进行一些耗时的操作，</span><br><br>        <span class="hljs-comment">//操作结束后,还需进行一些需要事务控制的操作</span><br>        <br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ServiceA</span><span class="token punctuation">&#123;</span>
+  <span class="token comment">// 这是我注入的，实际就是从容器里面取出自己的代理类</span>
+    <span class="token annotation punctuation">@Resource</span>
+    <span class="token class-name">ServiceA</span> serviceA<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Transactional</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setTest2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token comment">// 先更新一下状态</span>
+        <span class="token function">setStatus</span><span class="token punctuation">(</span><span class="token string">"2"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Transactional</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token comment">// 检查数据状态是否处于正常状态，如果在处理中就不进行操作</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>status <span class="token operator">==</span> <span class="token string">"2"</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+          log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"此数据正在修改中，无法操作"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token comment">// 先更新一下状态</span>
+        <span class="token comment">// setStatus("2");</span>
+        <span class="token comment">// 调用方法</span>
+        <span class="token comment">// this.setTest2();</span>
+        <span class="token comment">// 使用注入的对象调用方法，就能触发事务了，</span>
+        serviceA<span class="token punctuation">.</span><span class="token function">setTest2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 此时需要提交</span>
+
+        <span class="token comment">// 下面进行一些耗时的操作，</span>
+
+        <span class="token comment">//操作结束后,还需进行一些需要事务控制的操作</span>
+        
+    <span class="token punctuation">&#125;</span>
+
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>到这步，心里想着应该就可以了，但实际上还是不行，这个时候我们就要看这个了<a href="#propagation%E5%8F%82%E6%95%B0">注解</a>，默认的规则是</p>
 <div class="note note-info">
@@ -506,11 +606,59 @@
           </div>
 
 <p>代码如下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ServiceA</span>&#123;<br>   <span class="hljs-meta">@Resource</span><br>    ServiceA serviceA;<br><br>    <span class="hljs-meta">@Transactional(propagation = Propagation.REQUIRES_NEW)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setTest2</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-comment">// 先更新一下状态</span><br>        setStatus(<span class="hljs-string">&quot;2&quot;</span>);<br>        <br>    &#125;<br><br>    <span class="hljs-meta">@Transactional</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setTest</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-comment">// 检查数据状态是否处于正常状态，如果在处理中就不进行操作</span><br>        <span class="hljs-keyword">if</span> (status == <span class="hljs-string">&quot;2&quot;</span>)&#123;<br>          log.info(<span class="hljs-string">&quot;此数据正在修改中，无法操作&quot;</span>);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br><br>        <span class="hljs-comment">// 先更新一下状态</span><br>        <span class="hljs-comment">// setStatus(&quot;2&quot;);</span><br>        <span class="hljs-comment">// 调用方法</span><br>        <span class="hljs-comment">// this.setTest2();</span><br>        <span class="hljs-comment">// 使用注入的对象调用方法，就能触发事务了，</span><br>        serviceA.setTest2();<br>        <span class="hljs-comment">// 此时需要提交</span><br><br>        <span class="hljs-comment">// 下面进行一些耗时的操作，</span><br><br>        <span class="hljs-comment">//操作结束后,还需进行一些需要事务控制的操作</span><br>        <br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ServiceA</span><span class="token punctuation">&#123;</span>
+   <span class="token annotation punctuation">@Resource</span>
+    <span class="token class-name">ServiceA</span> serviceA<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Transactional</span><span class="token punctuation">(</span>propagation <span class="token operator">=</span> <span class="token class-name">Propagation</span><span class="token punctuation">.</span>REQUIRES_NEW<span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setTest2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token comment">// 先更新一下状态</span>
+        <span class="token function">setStatus</span><span class="token punctuation">(</span><span class="token string">"2"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Transactional</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token comment">// 检查数据状态是否处于正常状态，如果在处理中就不进行操作</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>status <span class="token operator">==</span> <span class="token string">"2"</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+          log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"此数据正在修改中，无法操作"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token comment">// 先更新一下状态</span>
+        <span class="token comment">// setStatus("2");</span>
+        <span class="token comment">// 调用方法</span>
+        <span class="token comment">// this.setTest2();</span>
+        <span class="token comment">// 使用注入的对象调用方法，就能触发事务了，</span>
+        serviceA<span class="token punctuation">.</span><span class="token function">setTest2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 此时需要提交</span>
+
+        <span class="token comment">// 下面进行一些耗时的操作，</span>
+
+        <span class="token comment">//操作结束后,还需进行一些需要事务控制的操作</span>
+        
+    <span class="token punctuation">&#125;</span>
+
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>注意看控制台，应该会出现两个事务，这个时候我的需求就算是完成了。给你带来方便的事务总会多多少少给你带来些许的不便，这些不便的地方叫做规则，因为你用了别人开发的技术，你就需要研究和遵守别人的定下的规则。一开始可能会让你束手束脚的，但是一旦你掌握了规则，你的编码能力会得到大大的提升。</p>
 <h2 id="手动控制事务"><a href="#手动控制事务" class="headerlink" title="手动控制事务"></a>手动控制事务</h2><p>不建议使用，在一些特殊的场景里可以使用，如多线程的情况下，直接看代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 需要注入的对象</span><br><span class="hljs-meta">@Autowired</span><br><span class="hljs-keyword">private</span> DataSourceTransactionManager dataSourceTransactionManager;<br><span class="hljs-meta">@Autowired</span><br><span class="hljs-keyword">private</span> TransactionDefinition transactionDefinition;<br><br><span class="hljs-comment">// 开启事务</span><br><br>TransactionStatus transactionStatus=dataSourceTransactionManager.getTransaction(transactionDefinition);<br><br><span class="hljs-comment">// 提交事务</span><br>dataSourceTransactionManager.commit(transactionStatus);<br><br><span class="hljs-comment">// 回滚事务</span><br>dataSourceTransactionManager.rollback(transactionStatus);<br><br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 需要注入的对象</span>
+<span class="token annotation punctuation">@Autowired</span>
+<span class="token keyword">private</span> <span class="token class-name">DataSourceTransactionManager</span> dataSourceTransactionManager<span class="token punctuation">;</span>
+<span class="token annotation punctuation">@Autowired</span>
+<span class="token keyword">private</span> <span class="token class-name">TransactionDefinition</span> transactionDefinition<span class="token punctuation">;</span>
+
+<span class="token comment">// 开启事务</span>
+
+<span class="token class-name">TransactionStatus</span> transactionStatus<span class="token operator">=</span>dataSourceTransactionManager<span class="token punctuation">.</span><span class="token function">getTransaction</span><span class="token punctuation">(</span>transactionDefinition<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 提交事务</span>
+dataSourceTransactionManager<span class="token punctuation">.</span><span class="token function">commit</span><span class="token punctuation">(</span>transactionStatus<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 回滚事务</span>
+dataSourceTransactionManager<span class="token punctuation">.</span><span class="token function">rollback</span><span class="token punctuation">(</span>transactionStatus<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>具体使用方法根据自己的业务来编写代码就可以了</p>
 <h2 id="封"><a href="#封" class="headerlink" title="封"></a>封</h2><p><img src="https://tvax3.sinaimg.cn/large/005NNTS5ly1gw5ui05viuj33341wo1kz.jpg" srcset="/img/loading.gif" lazyload alt="女孩子 风景 外廊 冬景色 夕阳 晚霞"></p>
@@ -825,6 +973,8 @@
   });
 </script>
 
+
+  <script  src="https://lib.baomitu.com/prism/1.26.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
 
   <script>
   (function() {
