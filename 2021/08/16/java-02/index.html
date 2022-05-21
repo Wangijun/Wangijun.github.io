@@ -1,0 +1,1121 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="无良芳">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="并不想重复造轮子，只想研究轮子如何使用。myexcel的详细文档。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Excel导入导出。">
+<meta property="og:url" content="http://example.com/2021/08/16/java-02/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="并不想重复造轮子，只想研究轮子如何使用。myexcel的详细文档。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tvax3.sinaimg.cn/large/005NNTS5ly1grgj7do4e0j32yo1o04qp.jpg">
+<meta property="article:published_time" content="2021-08-16T09:03:13.000Z">
+<meta property="article:modified_time" content="2021-08-16T09:03:13.000Z">
+<meta property="article:author" content="无良芳">
+<meta property="article:tag" content="excel">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://tvax3.sinaimg.cn/large/005NNTS5ly1grgj7do4e0j32yo1o04qp.jpg">
+  
+  
+  
+  <title>Excel导入导出。 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>挽君博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://tvax3.sinaimg.cn/large/005NNTS5ly1grgj7do4e0j32yo1o04qp.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Excel导入导出。"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-08-16 17:03" pubdate>
+          2021年8月16日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          16k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          132 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Java"
+        id="heading-d52387880e1ea22817a72d3759213819" role="tab" data-toggle="collapse" href="#collapse-d52387880e1ea22817a72d3759213819"
+        aria-expanded="true"
+      >
+        Java
+        <span class="list-group-count">(14)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-d52387880e1ea22817a72d3759213819"
+           role="tabpanel" aria-labelledby="heading-d52387880e1ea22817a72d3759213819">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/08/16/java-02/" title="Excel导入导出。"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">Excel导入导出。</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/04/02/java-13/" title="Java DecimalFormat的主要功能及使用方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Java DecimalFormat的主要功能及使用方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/04/02/java-12/" title="Oracle版本对应匹配的ojdbc版本及JDK版本"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Oracle版本对应匹配的ojdbc版本及JDK版本</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/03/01/java-10/" title="PostgreSQL数据库安装"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL数据库安装</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/05/10/java-14/" title="Spring Boot与缓存：使用JCache（JSR-107）注解简化开发"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Spring Boot与缓存：使用JCache（JSR-107）注解简化开发</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/11/22/java-05/" title="SpringBoot2.5.x整合Quartz并持久化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">SpringBoot2.5.x整合Quartz并持久化</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/12/java-01/" title="java8的stream的使用方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">java8的stream的使用方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/11/01/java-04/" title="springboot事务三两言"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">springboot事务三两言</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/10/20/java-03/" title="springboot打包二三事"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">springboot打包二三事</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/02/18/java-09/" title="springboot项目记录http请求记录"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">springboot项目记录http请求记录</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/01/05/java-07/" title="关于Java程序的日志处理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">关于Java程序的日志处理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/03/11/java-11/" title="动态数据源，多数据源，读写分离"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">动态数据源，多数据源，读写分离</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/12/25/java-06/" title="数据校验二三事"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数据校验二三事</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/01/16/java-08/" title="请求第三方接口的各种姿势"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">请求第三方接口的各种姿势</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Excel导入导出。</h1>
+            
+            <div class="markdown-body">
+              
+              <div class="note note-info">
+            <p>介绍一下Excel的导入导出，用到的开源项目MyExcel，这是个十分好用的轮子，开发者的代码功底十分了得，</p><p>说起这个’了得‘，有意思的是了得和了不得，是一个意思。代码功底十分了得，代码功底十分了不得，表达的是一个意思。中国的文字，确实有点难为老外。</p><p>这个项目的文档已经详细到一种让人感觉到啰嗦的地步，功能也十分健壮，涵盖了各种使用场景。话不多说。进入正文</p>
+          </div>
+
+<h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><blockquote>
+<p>版本号建议一致，项目中如果有之前的POI的依赖可能会导致版本冲突，解决依赖冲突的方法，请自行百度。</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!--excel导入导出--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.github.liaochong<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>myexcel<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.11.4<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-comment">&lt;!--使用模板导出时过程中如果报包含Ognl关键字的异常，导入此依赖--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>ognl<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>ognl<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.2.21<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="Excel导入"><a href="#Excel导入" class="headerlink" title="Excel导入"></a>Excel导入</h2><p>导入分为一般导入、sax导入，二者的区别在于sax导入更关注内存，内存使用更少，且sax方式导入功能增强，建议使用sax方式导入（可读取公式值）</p>
+<h3 id="一般导入（不支持csv文件导入，支持图片读取）"><a href="#一般导入（不支持csv文件导入，支持图片读取）" class="headerlink" title="一般导入（不支持csv文件导入，支持图片读取）"></a>一般导入（不支持csv文件导入，支持图片读取）</h3><p>一般导入又分为两种方式，两种方式的区别：</p>
+<ul>
+<li>全部读取：速度快，相对一行一行读取要占内存一点</li>
+<li>一行一行读取：省内存，在高并发下不易引发OOM</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">URL</span> <span class="hljs-variable">htmlToExcelEampleURL</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.getClass().getResource(<span class="hljs-string">&quot;/templates/read_example.xlsx&quot;</span>);<br><span class="hljs-type">Path</span> <span class="hljs-variable">path</span> <span class="hljs-operator">=</span> Paths.get(htmlToExcelEampleURL.toURI());<br><br><span class="hljs-comment">// 方式一：全部读取后处理</span><br>List&lt;ArtCrowd&gt; result = DefaultExcelReader.of(ArtCrowd.class)<br>        .sheet(<span class="hljs-number">0</span>) <span class="hljs-comment">// 0代表第一个，如果为0，可省略该操作，也可sheet(&quot;名称&quot;)读取</span><br>        .rowFilter(row -&gt; row.getRowNum() &gt; <span class="hljs-number">0</span>) <span class="hljs-comment">// 如无需过滤，可省略该操作，0代表第一行</span><br>        .beanFilter(ArtCrowd::isDance) <span class="hljs-comment">// bean过滤</span><br>        .startSheet(sheet-&gt;System.out.println(sheet.getName())) <span class="hljs-comment">// 在开始读取sheet前执行指定操作</span><br>        .read(path.toFile());<span class="hljs-comment">// 可接收inputStream</span><br><br><span class="hljs-comment">// 方式二：读取一行处理一行，可自行决定终止条件</span><br><span class="hljs-comment">// readThen有两种重写接口，返回Boolean型接口允许在返回False情况下直接终止读取</span><br>DefaultExcelReader.of(ArtCrowd.class)<br>        .sheet(<span class="hljs-number">0</span>) <span class="hljs-comment">// 0代表第一个，如果为0，可省略该操作，也可sheet(&quot;名称&quot;)读取</span><br>        .rowFilter(row -&gt; row.getRowNum() &gt; <span class="hljs-number">0</span>) <span class="hljs-comment">// 如无需过滤，可省略该操作，0代表第一行</span><br>        .beanFilter(ArtCrowd::isDance) <span class="hljs-comment">// bean过滤</span><br>        .readThen(path.toFile() ,artCrowd -&gt; &#123;System.out.println(artCrowd.getName);&#125;);<span class="hljs-comment">// 可接收inputStream</span><br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ArtCrowd</span> &#123;<br>    <span class="hljs-comment">// index代表列索引，从0开始</span><br>    <span class="hljs-meta">@ExcelColumn(index = 0)</span><br>    <span class="hljs-keyword">private</span> String name;<br><br>    <span class="hljs-meta">@ExcelColumn(index = 1)</span><br>    <span class="hljs-keyword">private</span> String age;<br><br>    <span class="hljs-meta">@ExcelColumn(index = 2,format=&quot;yyyy-MM-dd&quot;)</span><br>    <span class="hljs-keyword">private</span> Date birthday;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<div class="note note-info">
+            <p>可不使用@ExcelColumn注解，如不使用，则使用字段默认顺序读取，意思是。excel中从左到右，对应bean中从上到下。</p>
+          </div>
+
+<h2 id="Excel默认导出"><a href="#Excel默认导出" class="headerlink" title="Excel默认导出"></a>Excel默认导出</h2><p>默认导出采用普通方式导出List&lt; Bean &gt;，适合小数据量场景，如数据量很大-10万+，建议使用DefaultStreamExcelBuilder，避免内存占用过多。<br><strong>导出需使用到如下注解</strong></p>
+<ul>
+<li>@ExcelModel(includeAllField,excludeParent,workbookType,sheetName,useFieldNameAsTitle,defaultValue)（可选，用于全局设定， 一般情况下只需要使用sheetName）</li>
+<li>@IgnoreColumn（可选，用于排出不需要导出的字段）</li>
+<li>@ExcelColumn(title,order,format,groups,defaultValue,style)</li>
+</ul>
+<blockquote>
+<p>默认导出默认计算宽度、斑马线背景色，若无需上述样式，请调用 noStyle() 方法</p>
+</blockquote>
+<p>对应注解详情请见：<a href="#%E6%B3%A8%E8%A7%A3">注解</a></p>
+<p><code>附件导出示例：</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@GetMapping(&quot;/default/excel/example&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">defaultBuild</span><span class="hljs-params">(HttpServletResponse response)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>    List&lt;ArtCrowd&gt; dataList = <span class="hljs-built_in">this</span>.getDataList();<br>    <span class="hljs-type">Workbook</span> <span class="hljs-variable">workbook</span> <span class="hljs-operator">=</span> DefaultExcelBuilder.of(ArtCrowd.class)<br>            .build(dataList);<br>    AttachmentExportUtil.export(workbook, <span class="hljs-string">&quot;艺术生信息&quot;</span>, response);<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p><code>附件加密导出示例：</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@GetMapping(&quot;/default/excel/example&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">defaultBuild</span><span class="hljs-params">(HttpServletResponse response)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>    List&lt;ArtCrowd&gt; dataList = <span class="hljs-built_in">this</span>.getDataList();<br>    <span class="hljs-type">Workbook</span> <span class="hljs-variable">workbook</span> <span class="hljs-operator">=</span> DefaultExcelBuilder.of(ArtCrowd.class)<br>            .build(dataList);<br>    AttachmentExportUtil.encryptExport(workbook, <span class="hljs-string">&quot;艺术生信息&quot;</span>, response,<span class="hljs-string">&quot;123456&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>文件导出示例：</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;ArtCrowd&gt; dataList = <span class="hljs-built_in">this</span>.getDataList();<br><span class="hljs-type">Workbook</span> <span class="hljs-variable">workbook</span> <span class="hljs-operator">=</span> DefaultExcelBuilder.of(ArtCrowd.class)<br>         .build(dataList);<br>FileExportUtil.export(workbook, <span class="hljs-keyword">new</span> <span class="hljs-title class_">File</span>(<span class="hljs-string">&quot;/User/demo.xlsx&quot;</span>));<br><br></code></pre></td></tr></table></figure>
+
+<p><code>文件加密导出示例：</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;ArtCrowd&gt; dataList = <span class="hljs-built_in">this</span>.getDataList();<br><span class="hljs-type">Workbook</span> <span class="hljs-variable">workbook</span> <span class="hljs-operator">=</span> DefaultExcelBuilder.of(ArtCrowd.class)<br>         .build(dataList);<br>FileExportUtil.encryptExport(workbook, <span class="hljs-keyword">new</span> <span class="hljs-title class_">File</span>(<span class="hljs-string">&quot;/User/demo.xlsx&quot;</span>),<span class="hljs-string">&quot;123456&quot;</span>);<br><br></code></pre></td></tr></table></figure>
+
+<p><code>单纯数据获取：</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> List&lt;ArtCrowd&gt; <span class="hljs-title function_">getDataList</span><span class="hljs-params">()</span> &#123;<br>    List&lt;ArtCrowd&gt; dataList = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;(<span class="hljs-number">1000</span>);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">1000</span>; i++) &#123;<br>        <span class="hljs-type">ArtCrowd</span> <span class="hljs-variable">artCrowd</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArtCrowd</span>();<br>         artCrowd.setName(<span class="hljs-string">&quot;李四&quot;</span>);<br>         artCrowd.setAge(<span class="hljs-number">18</span>);<br>         artCrowd.setGender(<span class="hljs-string">&quot;Woman&quot;</span>);<br>         artCrowd.setPaintingLevel(<span class="hljs-string">&quot;一级证书&quot;</span>);<br>         artCrowd.setDance(<span class="hljs-literal">true</span>);<br>         artCrowd.setAssessmentTime(LocalDateTime.now());<br>         artCrowd.setHobby(<span class="hljs-string">&quot;钓鱼&quot;</span>);<br>        dataList.add(artCrowd);<br>    &#125;<br>    <span class="hljs-keyword">return</span> dataList;<br>&#125;<br><br><span class="hljs-meta">@ExcelModel(sheetName = &quot;艺术生&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ArtCrowd</span> &#123;<br><br>    <span class="hljs-meta">@ExcelColumn(order = 0, title = &quot;姓名&quot;)</span><br>    <span class="hljs-keyword">private</span> String name;<br><br>    <span class="hljs-meta">@ExcelColumn(order = 1, title = &quot;年龄&quot;)</span><br>    <span class="hljs-keyword">private</span> Integer age;<br><br>    <span class="hljs-meta">@ExcelColumn(order = 2, title = &quot;性别&quot;)</span><br>    <span class="hljs-keyword">private</span> String gender;<br><br>    <span class="hljs-meta">@ExcelColumn(order = 3,title = &quot;绘画等级&quot;)</span><br>    <span class="hljs-keyword">private</span> String paintingLevel;<br><br>    <span class="hljs-meta">@ExcelColumn(order = 4, title = &quot;是否会跳舞&quot;)</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span> dance;<br><br>    <span class="hljs-meta">@ExcelColumn(order = 5, title = &quot;考核时间&quot;, format = &quot;yyyy-MM-dd HH:mm:ss&quot;)</span><br>    <span class="hljs-keyword">private</span> LocalDateTime assessmentTime;<br><br>    <span class="hljs-meta">@IgnoreColumn</span><br>    <span class="hljs-keyword">private</span> String hobby;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h2 id="Excel模板构建"><a href="#Excel模板构建" class="headerlink" title="Excel模板构建"></a>Excel模板构建</h2><blockquote>
+<p>所有Excel构建器均不可单例化，务必注意！！！<br>模板构建，核心原理是根据模板引擎渲染出符合需求布局的Html Table元素，构建器迭代table元素中的单元格渲染出Excel单元格。</p>
+</blockquote>
+<h3 id="导出模板引擎选定"><a href="#导出模板引擎选定" class="headerlink" title="导出模板引擎选定"></a>导出模板引擎选定</h3><blockquote>
+<p>以下模板引擎默认均未被引入，使用者可根据自身需要选择在pom.xml中声明引入。<br>以下模板引擎版本为最低版本号。</p>
+</blockquote>
+<p>使用时根据实际需要自行选择就行了，或者你会哪个引擎就用哪个引擎就Ok。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.ibeetl<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>beetl<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.7.23<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.freemarker<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>freemarker<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.3.23<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.codehaus.groovy<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>groovy-templates<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.4.13<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.thymeleaf<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>thymeleaf<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.1.6.RELEASE<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.velocity<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>velocity<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.7<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.jfinal<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>enjoy<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>4.8<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Workbook生成"><a href="#Workbook生成" class="headerlink" title="Workbook生成"></a>Workbook生成</h3><p>已存在Html文件时，使用这种方式，Html文件不局限于放在项目的classpath（如：resources）下，也无需模板引擎</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// get html file</span><br><span class="hljs-type">File</span> <span class="hljs-variable">htmlFile</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">File</span>(<span class="hljs-string">&quot;/Users/liaochong/Downloads/example.html&quot;</span>);<br><br><span class="hljs-comment">// read the html file and use default excel style to create excel</span><br><span class="hljs-type">Workbook</span> <span class="hljs-variable">workbook</span> <span class="hljs-operator">=</span> HtmlToExcelFactory.readHtml(htmlFile).useDefaultStyle().build();<br><br><span class="hljs-comment">// this is a example,you can write the workbook to any valid outputstream</span><br>FileExportUtil.export(workbook, <span class="hljs-keyword">new</span> <span class="hljs-title class_">File</span>(<span class="hljs-string">&quot;/Users/liaochong/Downloads/excel.xlsx&quot;</span>));<br></code></pre></td></tr></table></figure>
+
+<p>使用内置的Freemarker等模板引擎Excel构建器，模板文件应当存放在classpath下，具体请参照项目中的example</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">* use non-default-style excel builder</span><br><span class="hljs-comment">* 模板文件放置在resources下</span><br><span class="hljs-comment">*</span><br><span class="hljs-comment">* <span class="hljs-doctag">@param</span> response response</span><br><span class="hljs-comment">*/</span><br><span class="hljs-meta">@GetMapping(&quot;/freemarker/example&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">build</span><span class="hljs-params">(HttpServletResponse response)</span> &#123;<br>     Map&lt;String, Object&gt; dataMap = <span class="hljs-built_in">this</span>.getDataMap();<br>     <span class="hljs-keyword">try</span> (<span class="hljs-type">ExcelBuilder</span> <span class="hljs-variable">excelBuilder</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FreemarkerExcelBuilder</span>()) &#123;<br>          <span class="hljs-type">Workbook</span> <span class="hljs-variable">workbook</span> <span class="hljs-operator">=</span> excelBuilder<br>                   <span class="hljs-comment">// fileTemplate(dirPath,fileName)</span><br>                   .classpathTemplate(<span class="hljs-string">&quot;/templates/freemarkerToExcelExample.ftl&quot;</span>)<br>                   .build(dataMap);<br>          AttachmentExportUtil.export(workbook, <span class="hljs-string">&quot;freemarker_excel&quot;</span>, response);<br>     &#125;<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment">* use default-style excel builder</span><br><span class="hljs-comment">* 模板文件放置在resources下</span><br><span class="hljs-comment">*</span><br><span class="hljs-comment">* <span class="hljs-doctag">@param</span> response response</span><br><span class="hljs-comment">*/</span><br><span class="hljs-meta">@GetMapping(&quot;/freemarker/defaultStyle/example&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">buildWithDefaultStyle</span><span class="hljs-params">(HttpServletResponse response)</span> &#123;<br>    Map&lt;String, Object&gt; dataMap = <span class="hljs-built_in">this</span>.getDataMap();<br>    <span class="hljs-keyword">try</span> (<span class="hljs-type">ExcelBuilder</span> <span class="hljs-variable">excelBuilder</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FreemarkerExcelBuilder</span>())&#123;<br>         <span class="hljs-type">Workbook</span> <span class="hljs-variable">workbook</span> <span class="hljs-operator">=</span> excelBuilder<br>                  <span class="hljs-comment">// fileTemplate(dirPath,fileName)</span><br>                  .classpathTemplate(<span class="hljs-string">&quot;/templates/freemarkerToExcelExample.ftl&quot;</span>)<br>                  .useDefaultStyle()<br>                  .build(dataMap);<br>         AttachmentExportUtil.export(workbook, <span class="hljs-string">&quot;freemarker_excel&quot;</span>, response);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">private</span> Map&lt;String, Object&gt; <span class="hljs-title function_">getDataMap</span><span class="hljs-params">()</span> &#123;<br>    Map&lt;String, Object&gt; dataMap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>    dataMap.put(<span class="hljs-string">&quot;sheetName&quot;</span>, <span class="hljs-string">&quot;freemarker_excel_example&quot;</span>);<br><br>    List&lt;String&gt; titles = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>    titles.add(<span class="hljs-string">&quot;Category&quot;</span>);<br>    titles.add(<span class="hljs-string">&quot;Product Name&quot;</span>);<br>    titles.add(<span class="hljs-string">&quot;Count&quot;</span>);<br>    dataMap.put(<span class="hljs-string">&quot;titles&quot;</span>, titles);<br><br>    List&lt;Product&gt; data = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++) &#123;<br>        <span class="hljs-type">Product</span> <span class="hljs-variable">product</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Product</span>();<br>        <span class="hljs-keyword">if</span> (i % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>) &#123;<br>            product.setCategory(<span class="hljs-string">&quot;蔬菜&quot;</span>);<br>            product.setName(<span class="hljs-string">&quot;小白菜&quot;</span>);<br>            product.setCount(<span class="hljs-number">100</span>);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            product.setCategory(<span class="hljs-string">&quot;电子产品&quot;</span>);<br>            product.setName(<span class="hljs-string">&quot;ipad&quot;</span>);<br>            product.setCount(<span class="hljs-number">999</span>);<br>        &#125;<br>        data.add(product);<br>    &#125;<br>    dataMap.put(<span class="hljs-string">&quot;data&quot;</span>, data);<br>    <span class="hljs-keyword">return</span> dataMap;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="模板示例"><a href="#模板示例" class="headerlink" title="模板示例"></a>模板示例</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">table</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">caption</span>&gt;</span>$&#123;sheetName&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">caption</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">thead</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">tr</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;background-color: #6495ED&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">th</span> <span class="hljs-attr">colspan</span>=<span class="hljs-string">&quot;3&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;text-align: center;vertical-align: middle;font-weight: bold;font-size: 14px;&quot;</span>&gt;</span>产品介绍<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span><br>        &lt;#list titles as title&gt;<br>            <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>$&#123;title&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span><br>        &lt;/#list&gt;<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">thead</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">tbody</span>&gt;</span><br>    &lt;#list data as item&gt;<br>        <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>$&#123;item.category&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>$&#123;item.name&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>$&#123;item.count&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">url</span>&gt;</span>百度地址<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span><br>    &lt;/#list&gt;<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">tbody</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>模板中的样式请看这里<a href="#%E6%A0%B7%E5%BC%8F%E6%94%AF%E6%8C%81">样式支持</a></p>
+<h2 id="csv文件导出"><a href="#csv文件导出" class="headerlink" title="csv文件导出"></a>csv文件导出</h2><h3 id="一般方式导出"><a href="#一般方式导出" class="headerlink" title="一般方式导出"></a>一般方式导出</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">try</span>(<span class="hljs-type">Csv</span> <span class="hljs-variable">csv</span> <span class="hljs-operator">=</span> CsvBuilder.of(People.class).build(getDataList()))&#123;<br>    AttachmentExportUtil.export(csv.getFilePath(), <span class="hljs-string">&quot;test.csv&quot;</span>, response);<br>    <span class="hljs-comment">// csv.write(Paths.get(&quot;/User/append.csv&quot;));</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="Map导出"><a href="#Map导出" class="headerlink" title="Map导出"></a>Map导出</h3><blockquote>
+<p>Map类型为Map&lt;String,Object&gt;</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">try</span>(<span class="hljs-type">Csv</span> <span class="hljs-variable">csv</span> <span class="hljs-operator">=</span> CsvBuilder.of(Map.class).build(getMapList()))&#123;<br>    AttachmentExportUtil.export(csv.getFilePath(), <span class="hljs-string">&quot;test.csv&quot;</span>, response);<br>    <span class="hljs-comment">// csv.write(Paths.get(&quot;/User/append.csv&quot;));</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="追加方式导出"><a href="#追加方式导出" class="headerlink" title="追加方式导出"></a>追加方式导出</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">try</span>(CsvBuilder&lt;CsvPeople&gt; csvBuilder = CsvBuilder.of(People.class))&#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++) &#123;<br>        csvBuilder.append(data(<span class="hljs-number">1000</span>));<br>    &#125;<br>    <span class="hljs-type">Csv</span> <span class="hljs-variable">csv</span> <span class="hljs-operator">=</span> csvBuilder.build();<br>    AttachmentExportUtil.export(csv.getFilePath(), <span class="hljs-string">&quot;test.csv&quot;</span>, response);<br>    <span class="hljs-comment">// csv.write(Paths.get(&quot;/User/append.csv&quot;));</span><br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="二次文件追加"><a href="#二次文件追加" class="headerlink" title="二次文件追加"></a>二次文件追加</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">try</span>(CsvBuilder&lt;CsvPeople&gt; csvBuilder = CsvBuilder.of(People.class).noTitles())&#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++) &#123;<br>        csvBuilder.append(data(<span class="hljs-number">1000</span>));<br>    &#125;<br>    <span class="hljs-type">Csv</span> <span class="hljs-variable">csv</span> <span class="hljs-operator">=</span> csvBuilder.build();<br>    <span class="hljs-comment">// 该种方式会在原append.csv文件继续追加数据，而不是覆盖</span><br>    csv.write(Paths.get(<span class="hljs-string">&quot;/User/append.csv&quot;</span>),<span class="hljs-literal">true</span>);<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p><code>Bean定义</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">People</span> &#123;<br><br>    <span class="hljs-meta">@ExcelColumn(order = 0, title = &quot;姓名&quot;)</span><br>    <span class="hljs-keyword">private</span> String name;<br><br>    <span class="hljs-meta">@ExcelColumn(order = 1, title = &quot;年龄&quot;)</span><br>    <span class="hljs-keyword">private</span> Integer age;<br><br>    <span class="hljs-meta">@ExcelColumn(order = 2, title = &quot;性别&quot;)</span><br>    <span class="hljs-keyword">private</span> String gender;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>与excel导出注解相比，支持属性减少，width、style属性将不被支持，注解请移步: <a href="#%E6%B3%A8%E8%A7%A3">注解</a></p>
+</blockquote>
+<h2 id="多sheet导入"><a href="#多sheet导入" class="headerlink" title="多sheet导入"></a>多sheet导入</h2><p>多sheet导入，指的是SaxExcelReader多sheet导入，不包含DefaultExcelReader。</p>
+<h3 id="按sheet索引多sheet导入"><a href="#按sheet索引多sheet导入" class="headerlink" title="按sheet索引多sheet导入"></a>按sheet索引多sheet导入</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">SaxExcelReader.of(People.class).sheets(<span class="hljs-number">0</span>,<span class="hljs-number">1</span>).read(excelFile);<br></code></pre></td></tr></table></figure>
+
+<h3 id="按sheet名称多sheet导入"><a href="#按sheet名称多sheet导入" class="headerlink" title="按sheet名称多sheet导入"></a>按sheet名称多sheet导入</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">SaxExcelReader.of(People.class).sheets(<span class="hljs-string">&quot;sheet名称1&quot;</span>,<span class="hljs-string">&quot;sheet名称2&quot;</span>).read(excelFile);<br></code></pre></td></tr></table></figure>
+
+<h2 id="多sheet导出"><a href="#多sheet导出" class="headerlink" title="多sheet导出"></a>多sheet导出</h2><h3 id="DefaultExcelBuilder、DefaultStreamExcelBuilder"><a href="#DefaultExcelBuilder、DefaultStreamExcelBuilder" class="headerlink" title="DefaultExcelBuilder、DefaultStreamExcelBuilder"></a>DefaultExcelBuilder、DefaultStreamExcelBuilder</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">Workbook workbook1=DefaultExcelBuilder.of(A.class).build(dataList);<br><span class="hljs-comment">// of(class,workbook)</span><br>Workbook workbook2=DefaultExcelBuilder.of(B.class , workbook1).build(dataList);<br></code></pre></td></tr></table></figure>
+
+<h3 id="模板导出"><a href="#模板导出" class="headerlink" title="模板导出"></a>模板导出</h3><p>模板导出情况下，每一个table就是一个sheet。</p>
+<blockquote>
+<p>如需多table导出在同一sheet中，使用sheetStrategy(SheetStrategy.ONE_SHEET)</p>
+</blockquote>
+<h2 id="自定义样式"><a href="#自定义样式" class="headerlink" title="自定义样式"></a>自定义样式</h2><blockquote>
+<p>本模块仅针对DefaultExcelBuilder、DefaultStreamExcelBuilder，模板构建天然支持。</p>
+</blockquote>
+<h3 id="标题（title）样式自定义"><a href="#标题（title）样式自定义" class="headerlink" title="标题（title）样式自定义"></a>标题（title）样式自定义</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@ExcelColumn(style=&#123;&quot;title-&gt;color:red&quot;,&quot;cell-&gt;color:green&quot;&#125;)</span><br>Integer age;<br></code></pre></td></tr></table></figure>
+
+<h3 id="内容行样式自定义"><a href="#内容行样式自定义" class="headerlink" title="内容行样式自定义"></a>内容行样式自定义</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@ExcelColumn(style=&quot;cell-&gt;color:green&quot;)</span><br>Integer age;<br></code></pre></td></tr></table></figure>
+
+<h3 id="方法调用设定样式"><a href="#方法调用设定样式" class="headerlink" title="方法调用设定样式"></a>方法调用设定样式</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">DefaultExcelBuilder.of(ArtCrowd.class)<br>                   .style(<span class="hljs-string">&quot;title-&gt;color:red&quot;</span>,<span class="hljs-string">&quot;background-color:green;&quot;</span>)<br>                   .build(dataList);<br></code></pre></td></tr></table></figure>
+
+<p>使用 -&gt; 分隔符：</p>
+<ul>
+<li>title标明该样式针对标题；</li>
+<li>cell标明该样式针对内容行；</li>
+<li>odd标明该样式针对奇数内容行；</li>
+<li>even标明该样式针对偶数内容行；</li>
+</ul>
+<p>具体样式支持，请移步<a href="#%E6%A0%B7%E5%BC%8F%E6%94%AF%E6%8C%81">样式支持</a></p>
+<h2 id="单元格内换行"><a href="#单元格内换行" class="headerlink" title="单元格内换行"></a>单元格内换行</h2><h3 id="DefaultExcelBuilder-x2F-DefaultSteamExcelBuilder"><a href="#DefaultExcelBuilder-x2F-DefaultSteamExcelBuilder" class="headerlink" title="DefaultExcelBuilder&#x2F;DefaultSteamExcelBuilder"></a>DefaultExcelBuilder&#x2F;DefaultSteamExcelBuilder</h3><p>默认上述构建器会自动换行，@ExcelModel(wrapText&#x3D;true)</p>
+<h3 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h3><p>如需在模板的单元格内换行，请使用<code>&lt;br/&gt;</code>或p标签。</p>
+<h2 id="图片导出"><a href="#图片导出" class="headerlink" title="图片导出"></a>图片导出</h2><h3 id="DefaultExcelBuilder、DefaultStreamExcelBuilder图片导出"><a href="#DefaultExcelBuilder、DefaultStreamExcelBuilder图片导出" class="headerlink" title="DefaultExcelBuilder、DefaultStreamExcelBuilder图片导出"></a>DefaultExcelBuilder、DefaultStreamExcelBuilder图片导出</h3><p>图片导出属性定义：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@ExcelColumn(fileType = FileType.IMAGE)</span><br>File image;<br></code></pre></td></tr></table></figure>
+
+<p>属性类型必须是File，后续会增加其他类型支持。</p>
+<h3 id="模板图片导出"><a href="#模板图片导出" class="headerlink" title="模板图片导出"></a>模板图片导出</h3><p>td单元格内含图片即可</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;图片绝对路径&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="图片导入"><a href="#图片导入" class="headerlink" title="图片导入"></a>图片导入</h2><p>图片导入仅DefaultExcelReader支持，属性类型为InputStream，实际赋值类型为ByteArrayInputStream。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">People</span> &#123;<br>   <span class="hljs-meta">@ExcelColumn(index=0)</span><br>   InputStream picture;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="单元格设置"><a href="#单元格设置" class="headerlink" title="单元格设置"></a>单元格设置</h2><p>默认情况下，程序会自动判别单元格内容类型，目前自动识别类型有以下三种：</p>
+<ul>
+<li>String</li>
+<li>Double</li>
+<li>Boolean</li>
+</ul>
+<p>如果String的内容全为数字时，导出时有可能会被使用科学计数法展示。解决这种情况强制使用String的方式构建即可。</p>
+<h3 id="设置为字符串类型数据可做如下操作"><a href="#设置为字符串类型数据可做如下操作" class="headerlink" title="设置为字符串类型数据可做如下操作"></a>设置为字符串类型数据可做如下操作</h3><p>在td上增加属性string设置该单元格类型为字符串</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">table</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">string</span>&gt;</span>19<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="设置为数值类型数据可做如下操作"><a href="#设置为数值类型数据可做如下操作" class="headerlink" title="设置为数值类型数据可做如下操作"></a>设置为数值类型数据可做如下操作</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">table</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">double</span>&gt;</span>19<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="设置为布尔类型数据可做如下操作"><a href="#设置为布尔类型数据可做如下操作" class="headerlink" title="设置为布尔类型数据可做如下操作"></a>设置为布尔类型数据可做如下操作</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">table</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">boolean</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="添加水印"><a href="#添加水印" class="headerlink" title="添加水印"></a>添加水印</h2><blockquote>
+<p>不支持.xls文件添加水印，支持XSSF、SXSSF模式下添加水印，如数据量过大，可能会造成内存溢出，请注意⚠️</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> com.github.liaochong.myexcel.utils.WatermarkUtil;<br><br>List&lt;ArtCrowd&gt; dataList = <span class="hljs-built_in">this</span>.getDataList();<br><span class="hljs-type">Workbook</span> <span class="hljs-variable">workbook</span> <span class="hljs-operator">=</span> DefaultExcelBuilder.of(ArtCrowd.class).build(dataList);<br><span class="hljs-comment">// 使用水印工具添加水印</span><br>WatermarkUtil.addWatermark(workbook,<span class="hljs-string">&quot;艺术生水印&quot;</span>);<br>AttachmentExportUtil.export(workbook, <span class="hljs-string">&quot;艺术生信息&quot;</span>, response);<br></code></pre></td></tr></table></figure>
+
+<h2 id="模板相关"><a href="#模板相关" class="headerlink" title="模板相关"></a>模板相关</h2><h3 id="在html中设置excel的sheet名称"><a href="#在html中设置excel的sheet名称" class="headerlink" title="在html中设置excel的sheet名称"></a>在html中设置excel的sheet名称</h3><blockquote>
+<p>设置sheet name：在表格里添加<code>&lt;caption&gt;</code>sheet名称</caption></p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br> <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br> <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Document<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br> <span class="hljs-tag">&lt;<span class="hljs-name">table</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">caption</span>&gt;</span>sheet名称<span class="hljs-tag">&lt;/<span class="hljs-name">caption</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">thead</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span><br>   <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">thead</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">tbody</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><br>   <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">tbody</span>&gt;</span><br> <span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="样式支持"><a href="#样式支持" class="headerlink" title="样式支持"></a>样式支持</h2><div class="note note-info">
+            <h3 id="宽度（widht）"><a href="#宽度（widht）" class="headerlink" title="宽度（widht）"></a>宽度（widht）</h3><table><thead><tr><th>CSS</th><th>Value</th><th>Example</th></tr></thead><tbody><tr><td>width</td><td>数值，如15px</td><td>style&#x3D;”width: 15px”</td></tr></tbody></table>
+          </div>
+
+<div class="note note-info">
+            <h3 id="高度（height）"><a href="#高度（height）" class="headerlink" title="高度（height）"></a>高度（height）</h3><table><thead><tr><th>CSS</th><th>Value</th><th>Example</th></tr></thead><tbody><tr><td>height</td><td>数值，如15px，特别注意⚠️：如模板使用，该样式只能放置在 tr 上</td><td>style&#x3D;”height: 15px”</td></tr></tbody></table>
+          </div>
+
+<div class="note note-info">
+            <h3 id="背景色（background）"><a href="#背景色（background）" class="headerlink" title="背景色（background）"></a>背景色（background）</h3><table><thead><tr><th>CSS</th><th>Value</th><th>Example</th></tr></thead><tbody><tr><td>background-color</td><td>十六进制：#FFFFFF、RGB：rgb(0,255,255)、常用背景色名称：green，推荐使用十六进制</td><td>style&#x3D;”background-color:#ABFF00”</td></tr></tbody></table>
+          </div>
+
+<div class="note note-info">
+            <h3 id="边框（border）"><a href="#边框（border）" class="headerlink" title="边框（border）"></a>边框（border）</h3><table><thead><tr><th>CSS</th><th>Value</th><th>Example</th></tr></thead><tbody><tr><td>border-style</td><td>thin、dashed、medium、dotted、thick、double、hair、medium_dashed、dash_dot</td><td>style&#x3D;”border-style:thin”</td></tr><tr><td>border-top-style</td><td>thin、dashed、medium、dotted、thick、double、hair、medium_dashed、dash_dot</td><td>style&#x3D;”border-top-style:thin”</td></tr><tr><td>border-right-style</td><td>thin、dashed、medium、dotted、thick、double、hair、medium_dashed、dash_dot</td><td>style&#x3D;”border-right-style:thin”</td></tr><tr><td>border-bottom-style</td><td>thin、dashed、medium、dotted、thick、double、hair、medium_dashed、dash_dot</td><td>style&#x3D;”border-bottom-style:thin”</td></tr><tr><td>border-left-style</td><td>thin、dashed、medium、dotted、thick、double、hair、medium_dashed、dash_dot</td><td>style&#x3D;”border-left-style:thin”</td></tr></tbody></table>
+          </div>
+
+<div class="note note-info">
+            <h3 id="字体（font）"><a href="#字体（font）" class="headerlink" title="字体（font）"></a>字体（font）</h3><table><thead><tr><th>CSS</th><th>Value</th><th>Example</th></tr></thead><tbody><tr><td>color</td><td>green</td><td>style&#x3D;”color:green;”</td></tr><tr><td>font-size</td><td>数值：14px（只会截取数值，非数值部分会被删除）</td><td>style&#x3D;”font-size:14px”</td></tr><tr><td>font-family</td><td>Times New Roman（不支持备选字体）</td><td>style&#x3D;”font-family:Times New Roman”</td></tr><tr><td>font-style</td><td>italic</td><td>style&#x3D;”font-style:italic”</td></tr><tr><td>font-weight</td><td>bold</td><td>style&#x3D;”font-weight:bold”</td></tr><tr><td>text-decoration</td><td>text-decoration</td><td>style&#x3D;”text-decoration: underline”</td></tr></tbody></table>
+          </div>
+
+<div class="note note-info">
+            <h3 id="对齐方式（align）"><a href="#对齐方式（align）" class="headerlink" title="对齐方式（align）"></a>对齐方式（align）</h3><table><thead><tr><th>CSS</th><th>Value</th><th>Example</th></tr></thead><tbody><tr><td>text-align</td><td>general,left,center,right,fill,justify,center_selection,distributed</td><td>style&#x3D;”text-align:center”</td></tr><tr><td>vertical-align</td><td>top,center,bottom,justify,distributed</td><td>style&#x3D;”vertical-align:center”</td></tr></tbody></table>
+          </div>
+
+<div class="note note-info">
+            <h3 id="隐藏（visibility）"><a href="#隐藏（visibility）" class="headerlink" title="隐藏（visibility）"></a>隐藏（visibility）</h3><table><thead><tr><th>CSS</th><th>Value</th><th>Example</th></tr></thead><tbody><tr><td>visibility</td><td>hidden：隐藏，目前仅设置在tr上生效</td><td>&lt; tr style&#x3D;”visibility: hidden” &gt;</td></tr></tbody></table>
+          </div>
+
+<div class="note note-info">
+            <h3 id="自动换行（word-break）"><a href="#自动换行（word-break）" class="headerlink" title="自动换行（word-break）"></a>自动换行（word-break）</h3><table><thead><tr><th>CSS</th><th>Value</th><th>Example</th></tr></thead><tbody><tr><td>word-break</td><td>break-all：自动换行</td><td>&lt; tr style&#x3D;”word-break: break-all” &gt;、&lt; td style&#x3D;”word-break: break-all” &gt;</td></tr></tbody></table>
+          </div>
+
+<h2 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h2><p>注解说明</p>
+<ul>
+<li>注解</li>
+</ul>
+<blockquote>
+<p>@ExcelModel</p>
+</blockquote>
+<ul>
+<li>位置</li>
+</ul>
+<blockquote>
+<p>Class</p>
+</blockquote>
+<ul>
+<li><p>方法</p>
+<ul>
+<li>includeAllField：是否导出该类的所有字段，默认为true</li>
+<li>excludeParent：是否排除父类字段，默认为false</li>
+<li>workbookType：设置工作簿类型，默认WorkbookType.SXLSX，不建议修改</li>
+<li>sheetName：设置导出的工作簿sheet名称</li>
+<li>useFieldNameAsTitle：设置是否直接使用字段名称作为导出标题，默认false</li>
+<li>defaultValue：设置全局导出时，字段为Null时的默认值，如字段也包含defaultValue，则进行覆盖</li>
+<li>wrapText：是否开启自动换行，默认开启</li>
+</ul>
+</li>
+<li><p>dateFormat：设置全局LocalDate格式，默认为yyyy-MM-dd</p>
+</li>
+<li><p>dateTimeFormat：设置全局Date\LocalDateTime格式，默认为yyyy-MM-dd HH:mm:ss</p>
+</li>
+<li><p>ignoreStaticFields：是否忽略静态字段导出，默认忽略</p>
+</li>
+<li><p>titleSeparator：标题分离器，用于多级标题，默认为“-&gt;”</p>
+</li>
+<li><p>|设置导出Excel的公共属性 @ExcelColumn|Field|</p>
+</li>
+<li><p>title：导出时使用，该字段对应导出列标题</p>
+</li>
+<li><p>order：导出时使用，该字段对应的导出展示顺序，初始为0，建议按列顺序设置，如字段顺序就是列顺序，可不设置</p>
+</li>
+<li><p>format：导入导出时使用，当字段类型为时间类型、金钱类型时生效，用于设置该时间类型字段格式化，如<code>yyyy-MM-dd HH:mm:ss</code></p>
+</li>
+<li><p>groups：导出时使用，当前字段所属分组，构建时根据传入的分组选择导出的字段</p>
+</li>
+<li><p>index：导入时使用，用于标志该字段对应的Excel列，从0开始，不允许重复</p>
+</li>
+<li><p>defaultValue：导出时使用，设置导出时字段为Null时的默认值</p>
+</li>
+<li><p>width：导出时使用，用于自定义单元格宽度，配合AutoWidthStrategy.CUSTOM_WIDTH使用</p>
+</li>
+<li><p>style：自定义样式</p>
+</li>
+<li><p>设置导入、导出字段属性 @IgnoreColumn,排除该字段的导出</p>
+</li>
+</ul>
+<h2 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h2><p><a target="_blank" rel="noopener" href="https://github.com/liaochong/myexcel">myexcel</a></p>
+<h2 id="封"><a href="#封" class="headerlink" title="封"></a>封</h2><p><img src="https://tvax3.sinaimg.cn/large/005NNTS5ly1grgj7do4e0j32yo1o04qp.jpg" srcset="/img/loading.gif" lazyload alt="伴我同行"></p>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/excel/">#excel</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Excel导入导出。</div>
+      <div>http://example.com/2021/08/16/java-02/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>无良芳</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年8月16日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/08/30/vue-04/" title="yarn和npm操作指南">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">yarn和npm操作指南</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/12/java-01/" title="java8的stream的使用方法">
+                        <span class="hidden-mobile">java8的stream的使用方法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      皖ICP备20012572号
+    </a>
+  </span>
+  
+    
+      <span>
+        <a
+          href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=34042202000089"
+          rel="nofollow noopener"
+          class="beian-police"
+          target="_blank"
+        >
+          
+            <span style="visibility: hidden; width: 0">|</span>
+            <img src="/img/police_beian.png" srcset="/img/loading.gif" lazyload alt="police-icon"/>
+          
+          <span>京公网安备34042202000089号</span>
+        </a>
+      </span>
+    
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

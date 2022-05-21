@@ -1,0 +1,924 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="无良芳">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="说一说日志，及springboot默认的logback日志实现的一些配置">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于Java程序的日志处理">
+<meta property="og:url" content="http://example.com/2022/01/05/java-07/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="说一说日志，及springboot默认的logback日志实现的一些配置">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tva3.sinaimg.cn/large/005NNTS5ly1gy6gxzioj4j32yo1o0gv3.jpg">
+<meta property="article:published_time" content="2022-01-05T10:30:16.000Z">
+<meta property="article:modified_time" content="2022-01-05T10:30:16.000Z">
+<meta property="article:author" content="无良芳">
+<meta property="article:tag" content="log">
+<meta property="article:tag" content="logback">
+<meta property="article:tag" content="slf4j">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://tva3.sinaimg.cn/large/005NNTS5ly1gy6gxzioj4j32yo1o0gv3.jpg">
+  
+  
+  
+  <title>关于Java程序的日志处理 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>挽君博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://tva3.sinaimg.cn/large/005NNTS5ly1gy6gxzioj4j32yo1o0gv3.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="关于Java程序的日志处理"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-01-05 18:30" pubdate>
+          2022年1月5日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          17k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          146 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Java"
+        id="heading-d52387880e1ea22817a72d3759213819" role="tab" data-toggle="collapse" href="#collapse-d52387880e1ea22817a72d3759213819"
+        aria-expanded="true"
+      >
+        Java
+        <span class="list-group-count">(14)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-d52387880e1ea22817a72d3759213819"
+           role="tabpanel" aria-labelledby="heading-d52387880e1ea22817a72d3759213819">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/08/16/java-02/" title="Excel导入导出。"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Excel导入导出。</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/04/02/java-13/" title="Java DecimalFormat的主要功能及使用方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Java DecimalFormat的主要功能及使用方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/04/02/java-12/" title="Oracle版本对应匹配的ojdbc版本及JDK版本"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Oracle版本对应匹配的ojdbc版本及JDK版本</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/03/01/java-10/" title="PostgreSQL数据库安装"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL数据库安装</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/05/10/java-14/" title="Spring Boot与缓存：使用JCache（JSR-107）注解简化开发"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Spring Boot与缓存：使用JCache（JSR-107）注解简化开发</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/11/22/java-05/" title="SpringBoot2.5.x整合Quartz并持久化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">SpringBoot2.5.x整合Quartz并持久化</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/12/java-01/" title="java8的stream的使用方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">java8的stream的使用方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/11/01/java-04/" title="springboot事务三两言"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">springboot事务三两言</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/10/20/java-03/" title="springboot打包二三事"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">springboot打包二三事</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/02/18/java-09/" title="springboot项目记录http请求记录"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">springboot项目记录http请求记录</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/01/05/java-07/" title="关于Java程序的日志处理"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">关于Java程序的日志处理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/03/11/java-11/" title="动态数据源，多数据源，读写分离"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">动态数据源，多数据源，读写分离</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/12/25/java-06/" title="数据校验二三事"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数据校验二三事</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/01/16/java-08/" title="请求第三方接口的各种姿势"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">请求第三方接口的各种姿势</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">关于Java程序的日志处理</h1>
+            
+            <div class="markdown-body">
+              
+              <p>日志记录这块，简单的控制台打印也是日志，输出log文件也是日志，跨服务器输出日志，也是日志。这还没说复杂的日志监控，日志监控，需要对代码打印日志的标准有要求。这个就比较复杂了，</p>
+<p>首先我们要知道，日志是有级别的，log4j,我记得好像有7个级别，slf4j，有五个级别。首先我们得知道log4j和slf4j是什么东西，为啥把这两个放在一起说。题外话说一下命名，这个4j应该不少人有疑问，因为这东西不符合Java的驼峰命名规则啊，为啥要起这个名呢，好吧，其实就是For Java的音译加缩写。据说是传统，比如什么dom4j等等。这个级别是用来控制日志输出内容的，你设置的级别越高，打印的日志就越少，你配置级别最低，则打印全部级别的日志。准确来说是包含关系，就像一个金字塔结构一样。</p>
+<p>还有Log4j和Slf4j这两个并不负责输出日志，准确的说这两个是Java日志的门面，又或者是标准，门面是什么意思，就是服务员，你去吃饭，只需要和服务员说，我要一碗蛋炒饭。至于服务员去找哪个厨师帮你做，你不用管，这两个东西也是一样，你和slf4j说，我要打印日志，slf4j得去找实现给你打印日志，但是只有slf4j是没有办法给你打印日志的。这个时候你就需要去找一个厨师，就是实现。logback是直接实现了slf4j的一个日志实现。好了。应该说明白了。</p>
+<p>实际上<a target="_blank" rel="noopener" href="https://logback.qos.ch/">logback官网</a>上是有十分详细的介绍，尬就尬在，是英文文档。</p>
+<h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><p>普通的Java项目</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">implementation <span class="hljs-string">&#x27;ch.qos.logback:logback-classic:1.2.10&#x27;</span><br>implementation <span class="hljs-string">&#x27;ch.qos.logback:logback-core:1.2.10&#x27;</span><br>implementation <span class="hljs-string">&#x27;org.slf4j:slf4j-api:1.7.32&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>springboot中无需此依赖，默认的日志就是lagback。</p>
+<h2 id="配置文件介绍"><a href="#配置文件介绍" class="headerlink" title="配置文件介绍"></a>配置文件介绍</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span> ?&gt;</span><br><span class="hljs-comment">&lt;!--</span><br><span class="hljs-comment">    configuration节点有三个属性</span><br><span class="hljs-comment">    scan:当此属性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true</span><br><span class="hljs-comment">    scanPeriod:设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位默认单位是毫秒，当scan为true时此属性生效，默认时间间隔为1分钟</span><br><span class="hljs-comment">    de<span class="hljs-doctag">bug:</span>当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态，默认值为false</span><br><span class="hljs-comment"> --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">configuration</span> <span class="hljs-attr">scan</span>=<span class="hljs-string">&quot;true&quot;</span> <span class="hljs-attr">scanPeriod</span>=<span class="hljs-string">&quot;2 seconds&quot;</span> <span class="hljs-attr">debug</span>=<span class="hljs-string">&quot;false&quot;</span>&gt;</span><br><br>    <span class="hljs-comment">&lt;!-- </span><br><span class="hljs-comment">        设置上下文名称，每个&lt;logger&gt;都关联到&lt;logger&gt;上下文，默认上下文名称为default,但可以使用设置成其他名字，用于区分不同应用程序的记录,一旦设置，不能修改,可以通过 %contextName 来打印日志上下文名称，一般来说我们不用这个属性，可有可无。</span><br><span class="hljs-comment">     --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">contextName</span>&gt;</span>demo<span class="hljs-tag">&lt;/<span class="hljs-name">contextName</span>&gt;</span><br>    <br><br>    <span class="hljs-comment">&lt;!-- </span><br><span class="hljs-comment">        用来定义变量的节点，定义变量后，可以使$&#123;&#125;来使用变量,两个属性</span><br><span class="hljs-comment">        这个属性只有在springboot环境中使用才可以，且配置文件名要为logback-spring.xml才可正常使用。</span><br><span class="hljs-comment">        name: 和下文中的name一样</span><br><span class="hljs-comment">        scope：一般就填context就行了，具体配置可查看官网</span><br><span class="hljs-comment">        source: 读取application.yml或application.properties文件中的配置，</span><br><span class="hljs-comment">     --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">springProperty</span> <span class="hljs-attr">scope</span>=<span class="hljs-string">&quot;context&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;app_name&quot;</span> <span class="hljs-attr">source</span>=<span class="hljs-string">&quot;logging.file.name&quot;</span>/&gt;</span><br><br>    <span class="hljs-comment">&lt;!-- </span><br><span class="hljs-comment">        用来定义变量的节点，定义变量后，可以使$&#123;&#125;来使用变量,两个属性,当定义了多个&lt;appender&gt;的时候还是很有用的：</span><br><span class="hljs-comment">        name：变量名</span><br><span class="hljs-comment">        value：变量值</span><br><span class="hljs-comment">     --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;log.dir&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;logs&quot;</span>/&gt;</span><br>    <span class="hljs-comment">&lt;!--</span><br><span class="hljs-comment">    定义滚动记录文件appender 作用:滚动记录文件,先将日志记录到指定文件,当符合某个条件时,将日志记录到其他文件</span><br><span class="hljs-comment">    RollingFileAppender class=&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;</span><br><span class="hljs-comment">        参数：</span><br><span class="hljs-comment">        &lt;append&gt;:如果是true日志被追加到文件结尾，如果是false清空现存文件,默认是true</span><br><span class="hljs-comment">        &lt;fileNamePattern&gt;:被写入的文件名，可以是相对目录也可以是绝对目录，如果上级目录不存在会自动创建，没有默认值</span><br><span class="hljs-comment">        &lt;rollingPolicy&gt;:当发生滚动时，决定RollingFileAppender的行为，涉及文件移动和重命名</span><br><span class="hljs-comment">        &lt;triggeringPolicy&gt;:告知RollingFileAppender合适激活滚动</span><br><span class="hljs-comment">        &lt;prudent&gt;:当为true时不支持FixedWindowRollingPolicy支持TimeBasedRollingPolicy，但是有两个限制:1不支持也不允许文件压缩,2不能设置file属性必须留空</span><br><span class="hljs-comment">    --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">appender</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;fileAppender&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;</span>&gt;</span><br>        <span class="hljs-comment">&lt;!-- 如果是true,日志被追加到文件结尾，如果是false,清空现存文件.默认是true --&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">append</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">append</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">prudent</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">prudent</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">rollingPolicy</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;</span>&gt;</span><br>            <span class="hljs-comment">&lt;!-- 每天滚动一次的日志 只保留30天内的日志文件 --&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">fileNamePattern</span>&gt;</span>logs/%d&#123;yyyy-MM-dd&#125;/info%i.log<span class="hljs-tag">&lt;/<span class="hljs-name">fileNamePattern</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">maxHistory</span>&gt;</span>30<span class="hljs-tag">&lt;/<span class="hljs-name">maxHistory</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">timeBasedFileNamingAndTriggeringPolicy</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP&quot;</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">maxFileSize</span>&gt;</span>10MB<span class="hljs-tag">&lt;/<span class="hljs-name">maxFileSize</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">timeBasedFileNamingAndTriggeringPolicy</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">rollingPolicy</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">encoder</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.classic.encoder.PatternLayoutEncoder&quot;</span>&gt;</span><br>            <span class="hljs-comment">&lt;!-- 对日志进行格式化 --&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">pattern</span>&gt;</span>%date %level [%thread] %logger&#123;10&#125;.%class&#123;0&#125;#%method[%file:%line] %n%msg%n<span class="hljs-tag">&lt;/<span class="hljs-name">pattern</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">charset</span>&gt;</span>utf-8<span class="hljs-tag">&lt;/<span class="hljs-name">charset</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">encoder</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">appender</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">appender</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;errorAppender&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">prudent</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">prudent</span>&gt;</span><br><br>        <span class="hljs-comment">&lt;!--日志名称，如果没有File 属性，那么只会使用FileNamePattern的文件路径规则</span><br><span class="hljs-comment">            如果同时有&lt;File&gt;和&lt;FileNamePattern&gt;，那么当天日志是&lt;File&gt;，明天会自动把今天</span><br><span class="hljs-comment">            的日志改名为今天的日期。即，&lt;File&gt; 的日志都是当天的。</span><br><span class="hljs-comment">        --&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">File</span>&gt;</span>logs/error.log<span class="hljs-tag">&lt;/<span class="hljs-name">File</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">append</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">append</span>&gt;</span><br>        <span class="hljs-comment">&lt;!-- </span><br><span class="hljs-comment">            当为true时不支持FixedWindowRollingPolicy支持TimeBasedRollingPolicy，但是有两个限制:1不支持也不允许文件压缩,2不能设置file属性必须留空</span><br><span class="hljs-comment">         --&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">prudent</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">prudent</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">rollingPolicy</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">fileNamePattern</span>&gt;</span>logs/%d&#123;yyyy-MM-dd&#125;/error%i.log<span class="hljs-tag">&lt;/<span class="hljs-name">fileNamePattern</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">maxHistory</span>&gt;</span>30<span class="hljs-tag">&lt;/<span class="hljs-name">maxHistory</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">timeBasedFileNamingAndTriggeringPolicy</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP&quot;</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">maxFileSize</span>&gt;</span>10MB<span class="hljs-tag">&lt;/<span class="hljs-name">maxFileSize</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">timeBasedFileNamingAndTriggeringPolicy</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">rollingPolicy</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">encoder</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">pattern</span>&gt;</span>%date %level [%thread] %logger&#123;10&#125;.%class&#123;0&#125;#%method[%file:%line] %n%msg%n<span class="hljs-tag">&lt;/<span class="hljs-name">pattern</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">charset</span>&gt;</span>utf-8<span class="hljs-tag">&lt;/<span class="hljs-name">charset</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">encoder</span>&gt;</span><br>        <span class="hljs-comment">&lt;!--</span><br><span class="hljs-comment">             配置日志级别过滤器 作用:根据日志级别进行过滤，如果日志级别等于配置级别过滤器会根据onMath和onMismatch接收或拒绝日志</span><br><span class="hljs-comment">             参数:</span><br><span class="hljs-comment">             &lt;level&gt;:设置过滤级别</span><br><span class="hljs-comment">             &lt;onMatch&gt;:用于配置符合过滤条件的操作</span><br><span class="hljs-comment">             &lt;onMismatch&gt;:用于配置不符合过滤条件的操作</span><br><span class="hljs-comment">                                       此处配置为只接收ERROR日志级别信息</span><br><span class="hljs-comment">         --&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">filter</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.classic.filter.LevelFilter&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">level</span>&gt;</span>ERROR<span class="hljs-tag">&lt;/<span class="hljs-name">level</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">onMatch</span>&gt;</span>ACCEPT<span class="hljs-tag">&lt;/<span class="hljs-name">onMatch</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">onMismatch</span>&gt;</span>DENY<span class="hljs-tag">&lt;/<span class="hljs-name">onMismatch</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">filter</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">appender</span>&gt;</span><br><br>    <span class="hljs-comment">&lt;!-- 定义控制台appender 作用:把日志输出到控制台 class=&quot;ch.qos.logback.core.ConsoleAppender&quot; --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">appender</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;console&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.core.ConsoleAppender&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">layout</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.classic.PatternLayout&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">pattern</span>&gt;</span>%date %level [%thread] %logger&#123;10&#125;.%class&#123;0&#125;#%method[%file:%line] %n%msg%n<span class="hljs-tag">&lt;/<span class="hljs-name">pattern</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">layout</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">appender</span>&gt;</span><br><br>    <span class="hljs-comment">&lt;!--</span><br><span class="hljs-comment">       logger用来设置某一个包的日志打印级别</span><br><span class="hljs-comment">       &lt;loger&gt; 仅有一个name属性,一个可选的level和一个可选的addtivity属性</span><br><span class="hljs-comment">               name:用来指定受此loger约束的某一个包或者具体的某一个类</span><br><span class="hljs-comment">               level:用来设置打印级别,大小写无关:TRACE, DEBUG, INFO, WARN, ERROR, ALL 和 OFF</span><br><span class="hljs-comment">               addtivity:是否向上级loger传递打印信息。默认是true,会将信息输入到root配置指定的地方,可以包含多个appender-ref，标识这个appender会添加到这个logger</span><br><span class="hljs-comment">   --&gt;</span><br>    <span class="hljs-comment">&lt;!--    &lt;logger name=&quot;com.xcbeyond.springboot&quot; level=&quot;debug&quot;/&gt;--&gt;</span><br>    <span class="hljs-comment">&lt;!-- 将root的打印级别设置为&quot;error&quot;,指定了名字为&quot;console&quot;,&quot;fileAppender&quot;,&quot;errorAppender&quot;的appender --&gt;</span><br><br>    <span class="hljs-comment">&lt;!-- </span><br><span class="hljs-comment">        springProfile标签用来处理开发环境和生产环境的不同配置</span><br><span class="hljs-comment">        name: 读取spring.profiles.active的值</span><br><span class="hljs-comment">        profile即根据不同的环境使用不同的日志策略，这里举例开发和生产环境：</span><br><span class="hljs-comment">     --&gt;</span><br><br>     <span class="hljs-comment">&lt;!-- 开发环境输出到控制台 --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">springProfile</span>  <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;dev&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">root</span> <span class="hljs-attr">level</span>=<span class="hljs-string">&quot;DEBUG&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">appender-ref</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;STDOUT&quot;</span> /&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">root</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">springProfile</span>&gt;</span><br><br>    <span class="hljs-comment">&lt;!-- 生产环境输出到文件 --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">springProfile</span>  <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;prod&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">root</span> <span class="hljs-attr">level</span>=<span class="hljs-string">&quot;INFO&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">appender-ref</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;FILE_LOG&quot;</span> /&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">root</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">springProfile</span>&gt;</span>   <br><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">root</span> <span class="hljs-attr">level</span>=<span class="hljs-string">&quot;debug&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">appender-ref</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;console&quot;</span>/&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">appender-ref</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;fileAppender&quot;</span>/&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">appender-ref</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;errorAppender&quot;</span>/&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">root</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br><br></code></pre></td></tr></table></figure>
+
+<p>应该是介绍的比较详细了，因为这东西平时很少有人去专门去记一下，我也是弄好一套，然后CV一下就可以了，<strong>注意上面的配置只是用来演示的，并不能直接CV下来用。下面我配置几种常用的配置，可以直接CV下来用的。</strong></p>
+<h2 id="全部日志一个文件"><a href="#全部日志一个文件" class="headerlink" title="全部日志一个文件"></a>全部日志一个文件</h2><div class="note note-info">
+            <p>控制台打印日志，并输出日志文件。</p>
+          </div>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span> ?&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span><br>    <span class="hljs-comment">&lt;!-- </span><br><span class="hljs-comment">        输出日志到控制台</span><br><span class="hljs-comment">    --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">appender</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;soutAppender&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.core.ConsoleAppender&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">layout</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.classic.PatternLayout&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">pattern</span>&gt;</span>%date %level [%thread] %logger&#123;10&#125;.%class&#123;0&#125;#%method[%file:%line] %n%msg%n<span class="hljs-tag">&lt;/<span class="hljs-name">pattern</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">layout</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">appender</span>&gt;</span><br><br>    <span class="hljs-comment">&lt;!-- </span><br><span class="hljs-comment">        输出日志到文件</span><br><span class="hljs-comment">     --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">appender</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;fileAppender&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">append</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">append</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">prudent</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">prudent</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">File</span>&gt;</span>logs/log.log<span class="hljs-tag">&lt;/<span class="hljs-name">File</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">rollingPolicy</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">fileNamePattern</span>&gt;</span>logs/%d&#123;yyyy-MM-dd&#125;/log%i.log<span class="hljs-tag">&lt;/<span class="hljs-name">fileNamePattern</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">maxHistory</span>&gt;</span>30<span class="hljs-tag">&lt;/<span class="hljs-name">maxHistory</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">timeBasedFileNamingAndTriggeringPolicy</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP&quot;</span>&gt;</span><br>                <span class="hljs-comment">&lt;!-- 单个日志文件最大体积 --&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">maxFileSize</span>&gt;</span>10MB<span class="hljs-tag">&lt;/<span class="hljs-name">maxFileSize</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">timeBasedFileNamingAndTriggeringPolicy</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">rollingPolicy</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">encoder</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.classic.encoder.PatternLayoutEncoder&quot;</span>&gt;</span><br>            <span class="hljs-comment">&lt;!-- 对日志进行格式化 --&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">pattern</span>&gt;</span>%date %level [%thread] %logger&#123;10&#125;.%class&#123;0&#125;#%method[%file:%line] %n%msg%n<span class="hljs-tag">&lt;/<span class="hljs-name">pattern</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">charset</span>&gt;</span>utf-8<span class="hljs-tag">&lt;/<span class="hljs-name">charset</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">encoder</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">appender</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">root</span> <span class="hljs-attr">level</span>=<span class="hljs-string">&quot;all&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">appender-ref</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;soutAppender&quot;</span>/&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">appender-ref</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;fileAppender&quot;</span>/&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">root</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="不同级别不同文件"><a href="#不同级别不同文件" class="headerlink" title="不同级别不同文件"></a>不同级别不同文件</h2><div class="note note-info">
+            <p>控制台打印太基础我就不说了，加强主要针对log文件，这个配置我们按日志级别输出对应级别的日志。方便我们定位和查找。一般来说，我们只需要info和error级别的日志即可。</p>
+          </div>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span><br>    <span class="hljs-comment">&lt;!-- </span><br><span class="hljs-comment">        输出日志到控制台</span><br><span class="hljs-comment">    --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">appender</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;soutAppender&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.core.ConsoleAppender&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">layout</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.classic.PatternLayout&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">pattern</span>&gt;</span>%date %level [%thread] %logger&#123;10&#125;.%class&#123;0&#125;#%method[%file:%line] %n%msg%n<span class="hljs-tag">&lt;/<span class="hljs-name">pattern</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">layout</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">appender</span>&gt;</span><br><br>    <span class="hljs-comment">&lt;!-- </span><br><span class="hljs-comment">        输出日志到文件</span><br><span class="hljs-comment">     --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">appender</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;infoAppender&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;</span>&gt;</span><br>        <span class="hljs-comment">&lt;!-- 如果是true,日志被追加到文件结尾，如果是false,清空现存文件.默认是true --&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">append</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">append</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">prudent</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">prudent</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">File</span>&gt;</span>logs/info.log<span class="hljs-tag">&lt;/<span class="hljs-name">File</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">rollingPolicy</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">fileNamePattern</span>&gt;</span>logs/%d&#123;yyyy-MM-dd&#125;/info%i.log<span class="hljs-tag">&lt;/<span class="hljs-name">fileNamePattern</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">maxHistory</span>&gt;</span>30<span class="hljs-tag">&lt;/<span class="hljs-name">maxHistory</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">timeBasedFileNamingAndTriggeringPolicy</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP&quot;</span>&gt;</span><br>                <span class="hljs-comment">&lt;!-- 单个日志文件最大体积 --&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">maxFileSize</span>&gt;</span>10MB<span class="hljs-tag">&lt;/<span class="hljs-name">maxFileSize</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">timeBasedFileNamingAndTriggeringPolicy</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">rollingPolicy</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">encoder</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.classic.encoder.PatternLayoutEncoder&quot;</span>&gt;</span><br>            <span class="hljs-comment">&lt;!-- 对日志进行格式化 --&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">pattern</span>&gt;</span>%date %level [%thread] %logger&#123;10&#125;.%class&#123;0&#125;#%method[%file:%line] %n%msg%n<span class="hljs-tag">&lt;/<span class="hljs-name">pattern</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">charset</span>&gt;</span>utf-8<span class="hljs-tag">&lt;/<span class="hljs-name">charset</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">encoder</span>&gt;</span><br>        <span class="hljs-comment">&lt;!-- 两个过滤器过滤warn和error基本的日志 --&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">filter</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.classic.filter.LevelFilter&quot;</span>&gt;</span><br>            <span class="hljs-comment">&lt;!--过滤 WARN--&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">level</span>&gt;</span>WARN<span class="hljs-tag">&lt;/<span class="hljs-name">level</span>&gt;</span><br>            <span class="hljs-comment">&lt;!--匹配到就禁止--&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">onMatch</span>&gt;</span>DENY<span class="hljs-tag">&lt;/<span class="hljs-name">onMatch</span>&gt;</span><br>            <span class="hljs-comment">&lt;!--没有匹配到就允许--&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">onMismatch</span>&gt;</span>ACCEPT<span class="hljs-tag">&lt;/<span class="hljs-name">onMismatch</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">filter</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">filter</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.classic.filter.LevelFilter&quot;</span>&gt;</span><br>            <span class="hljs-comment">&lt;!--过滤 Error--&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">level</span>&gt;</span>ERROR<span class="hljs-tag">&lt;/<span class="hljs-name">level</span>&gt;</span><br>            <span class="hljs-comment">&lt;!--匹配到就禁止--&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">onMatch</span>&gt;</span>DENY<span class="hljs-tag">&lt;/<span class="hljs-name">onMatch</span>&gt;</span><br>            <span class="hljs-comment">&lt;!--没有匹配到就允许--&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">onMismatch</span>&gt;</span>ACCEPT<span class="hljs-tag">&lt;/<span class="hljs-name">onMismatch</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">filter</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">appender</span>&gt;</span><br><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">appender</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;errorAppender&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;</span>&gt;</span><br>        <span class="hljs-comment">&lt;!-- 如果是true,日志被追加到文件结尾，如果是false,清空现存文件.默认是true --&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">append</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">append</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">prudent</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">prudent</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">File</span>&gt;</span>logs/error.log<span class="hljs-tag">&lt;/<span class="hljs-name">File</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">rollingPolicy</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">fileNamePattern</span>&gt;</span>logs/%d&#123;yyyy-MM-dd&#125;/error%i.log<span class="hljs-tag">&lt;/<span class="hljs-name">fileNamePattern</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">maxHistory</span>&gt;</span>30<span class="hljs-tag">&lt;/<span class="hljs-name">maxHistory</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">timeBasedFileNamingAndTriggeringPolicy</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP&quot;</span>&gt;</span><br>                <span class="hljs-comment">&lt;!-- 单个日志文件最大体积 --&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">maxFileSize</span>&gt;</span>10MB<span class="hljs-tag">&lt;/<span class="hljs-name">maxFileSize</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">timeBasedFileNamingAndTriggeringPolicy</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">rollingPolicy</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">encoder</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.classic.encoder.PatternLayoutEncoder&quot;</span>&gt;</span><br>            <span class="hljs-comment">&lt;!-- 对日志进行格式化 --&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">pattern</span>&gt;</span>%date %level [%thread] %logger&#123;10&#125;.%class&#123;0&#125;#%method[%file:%line] %n%msg%n<span class="hljs-tag">&lt;/<span class="hljs-name">pattern</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">charset</span>&gt;</span>utf-8<span class="hljs-tag">&lt;/<span class="hljs-name">charset</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">encoder</span>&gt;</span><br>        <span class="hljs-comment">&lt;!-- </span><br><span class="hljs-comment">            过滤日志，只包含warn以及warn以上级别的日志也就是error的日志</span><br><span class="hljs-comment">         --&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">filter</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.classic.filter.ThresholdFilter&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">level</span>&gt;</span>WARN<span class="hljs-tag">&lt;/<span class="hljs-name">level</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">filter</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">appender</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">root</span> <span class="hljs-attr">level</span>=<span class="hljs-string">&quot;all&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">appender-ref</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;soutAppender&quot;</span>/&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">appender-ref</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;infoAppender&quot;</span>/&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">appender-ref</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;errorAppender&quot;</span>/&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">root</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>最终结果是会输出两个日志文件，<code>info.log</code>和<code>error.log</code>, info包括info级别以及以下级别的日志，<code>error.log</code>包括<code>warn</code>和<code>error</code>两个级别的日志。</p>
+<h2 id="不同包不同日志文件"><a href="#不同包不同日志文件" class="headerlink" title="不同包不同日志文件"></a>不同包不同日志文件</h2><p>我们一般的系统基本都有几层架构，有controller层，以及service层，logback可以根据不同的包来输出日志，也可以精确到具体的某一个类名。主要使用<code>logger</code>这个标签来完成。<strong>这个没有办法CV，因为不同的项目包名不一样，根据自己的项目需要修改一下</strong>。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span><br>    <span class="hljs-comment">&lt;!--</span><br><span class="hljs-comment">        输出日志到控制台</span><br><span class="hljs-comment">    --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">appender</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;soutAppender&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.core.ConsoleAppender&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">layout</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.classic.PatternLayout&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">pattern</span>&gt;</span>%date %level [%thread] %logger&#123;10&#125;.%class&#123;0&#125;#%method[%file:%line] %n%msg%n<span class="hljs-tag">&lt;/<span class="hljs-name">pattern</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">layout</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">appender</span>&gt;</span><br><br>    <span class="hljs-comment">&lt;!--</span><br><span class="hljs-comment">        输出日志到文件</span><br><span class="hljs-comment">     --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">appender</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;infoAppender&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;</span>&gt;</span><br>        <span class="hljs-comment">&lt;!-- 如果是true,日志被追加到文件结尾，如果是false,清空现存文件.默认是true --&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">append</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">append</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">prudent</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">prudent</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">File</span>&gt;</span>logs/info.log<span class="hljs-tag">&lt;/<span class="hljs-name">File</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">rollingPolicy</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">fileNamePattern</span>&gt;</span>logs/%d&#123;yyyy-MM-dd&#125;/info%i.log<span class="hljs-tag">&lt;/<span class="hljs-name">fileNamePattern</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">maxHistory</span>&gt;</span>30<span class="hljs-tag">&lt;/<span class="hljs-name">maxHistory</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">timeBasedFileNamingAndTriggeringPolicy</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP&quot;</span>&gt;</span><br>                <span class="hljs-comment">&lt;!-- 单个日志文件最大体积 --&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">maxFileSize</span>&gt;</span>10MB<span class="hljs-tag">&lt;/<span class="hljs-name">maxFileSize</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">timeBasedFileNamingAndTriggeringPolicy</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">rollingPolicy</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">encoder</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.classic.encoder.PatternLayoutEncoder&quot;</span>&gt;</span><br>            <span class="hljs-comment">&lt;!-- 对日志进行格式化 --&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">pattern</span>&gt;</span>%date %level [%thread] %logger&#123;10&#125;.%class&#123;0&#125;#%method[%file:%line] %n%msg%n<span class="hljs-tag">&lt;/<span class="hljs-name">pattern</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">charset</span>&gt;</span>utf-8<span class="hljs-tag">&lt;/<span class="hljs-name">charset</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">encoder</span>&gt;</span><br><br>        <span class="hljs-tag">&lt;<span class="hljs-name">filter</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.classic.filter.LevelFilter&quot;</span>&gt;</span><br>            <span class="hljs-comment">&lt;!--过滤 WARN--&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">level</span>&gt;</span>WARN<span class="hljs-tag">&lt;/<span class="hljs-name">level</span>&gt;</span><br>            <span class="hljs-comment">&lt;!--匹配到就禁止--&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">onMatch</span>&gt;</span>DENY<span class="hljs-tag">&lt;/<span class="hljs-name">onMatch</span>&gt;</span><br>            <span class="hljs-comment">&lt;!--没有匹配到就允许--&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">onMismatch</span>&gt;</span>ACCEPT<span class="hljs-tag">&lt;/<span class="hljs-name">onMismatch</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">filter</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">filter</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.classic.filter.LevelFilter&quot;</span>&gt;</span><br>            <span class="hljs-comment">&lt;!--过滤 Error--&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">level</span>&gt;</span>ERROR<span class="hljs-tag">&lt;/<span class="hljs-name">level</span>&gt;</span><br>            <span class="hljs-comment">&lt;!--匹配到就禁止--&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">onMatch</span>&gt;</span>DENY<span class="hljs-tag">&lt;/<span class="hljs-name">onMatch</span>&gt;</span><br>            <span class="hljs-comment">&lt;!--没有匹配到就允许--&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">onMismatch</span>&gt;</span>ACCEPT<span class="hljs-tag">&lt;/<span class="hljs-name">onMismatch</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">filter</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">appender</span>&gt;</span><br><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">appender</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;errorAppender&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;</span>&gt;</span><br>        <span class="hljs-comment">&lt;!-- 如果是true,日志被追加到文件结尾，如果是false,清空现存文件.默认是true --&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">append</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">append</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">prudent</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">prudent</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">File</span>&gt;</span>logs/error.log<span class="hljs-tag">&lt;/<span class="hljs-name">File</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">rollingPolicy</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">fileNamePattern</span>&gt;</span>logs/%d&#123;yyyy-MM-dd&#125;/error%i.log<span class="hljs-tag">&lt;/<span class="hljs-name">fileNamePattern</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">maxHistory</span>&gt;</span>30<span class="hljs-tag">&lt;/<span class="hljs-name">maxHistory</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">timeBasedFileNamingAndTriggeringPolicy</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP&quot;</span>&gt;</span><br>                <span class="hljs-comment">&lt;!-- 单个日志文件最大体积 --&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">maxFileSize</span>&gt;</span>10MB<span class="hljs-tag">&lt;/<span class="hljs-name">maxFileSize</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">timeBasedFileNamingAndTriggeringPolicy</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">rollingPolicy</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">encoder</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.classic.encoder.PatternLayoutEncoder&quot;</span>&gt;</span><br>            <span class="hljs-comment">&lt;!-- 对日志进行格式化 --&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">pattern</span>&gt;</span>%date %level [%thread] %logger&#123;10&#125;.%class&#123;0&#125;#%method[%file:%line] %n%msg%n<span class="hljs-tag">&lt;/<span class="hljs-name">pattern</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">charset</span>&gt;</span>utf-8<span class="hljs-tag">&lt;/<span class="hljs-name">charset</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">encoder</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">filter</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.classic.filter.ThresholdFilter&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">level</span>&gt;</span>WARN<span class="hljs-tag">&lt;/<span class="hljs-name">level</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">filter</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">appender</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">appender</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;wlfAppender&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;</span>&gt;</span><br>        <span class="hljs-comment">&lt;!-- 如果是true,日志被追加到文件结尾，如果是false,清空现存文件.默认是true --&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">append</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">append</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">prudent</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">prudent</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">File</span>&gt;</span>logs/wlf/wlf.log<span class="hljs-tag">&lt;/<span class="hljs-name">File</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">rollingPolicy</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">fileNamePattern</span>&gt;</span>logs/wlf/%d&#123;yyyy-MM-dd&#125;/wlf%i.log<span class="hljs-tag">&lt;/<span class="hljs-name">fileNamePattern</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">maxHistory</span>&gt;</span>30<span class="hljs-tag">&lt;/<span class="hljs-name">maxHistory</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">timeBasedFileNamingAndTriggeringPolicy</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP&quot;</span>&gt;</span><br>                <span class="hljs-comment">&lt;!-- 单个日志文件最大体积 --&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">maxFileSize</span>&gt;</span>10MB<span class="hljs-tag">&lt;/<span class="hljs-name">maxFileSize</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">timeBasedFileNamingAndTriggeringPolicy</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">rollingPolicy</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">encoder</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ch.qos.logback.classic.encoder.PatternLayoutEncoder&quot;</span>&gt;</span><br>            <span class="hljs-comment">&lt;!-- 对日志进行格式化 --&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">pattern</span>&gt;</span>%date %level [%thread] %logger&#123;10&#125;.%class&#123;0&#125;#%method[%file:%line] %n%msg%n<span class="hljs-tag">&lt;/<span class="hljs-name">pattern</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">charset</span>&gt;</span>utf-8<span class="hljs-tag">&lt;/<span class="hljs-name">charset</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">encoder</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">appender</span>&gt;</span><br>    <span class="hljs-comment">&lt;!-- </span><br><span class="hljs-comment">        这个配置表示把com.wlf包下的日志以wlfAppender的配置进行打印日志</span><br><span class="hljs-comment">        level： 代表日志级别，不配置默认为all</span><br><span class="hljs-comment">    --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">logger</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;com.wlf&quot;</span> <span class="hljs-attr">level</span>=<span class="hljs-string">&quot;debug&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">appender-ref</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;wlfAppender&quot;</span>/&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">logger</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">root</span> <span class="hljs-attr">level</span>=<span class="hljs-string">&quot;all&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">appender-ref</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;soutAppender&quot;</span>/&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">appender-ref</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;infoAppender&quot;</span>/&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">appender-ref</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;errorAppender&quot;</span>/&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">root</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>这个不怎么常用，只需要知道就行了，一般只使用第二个配置就行了，直接CV就行。至于和springboot中使用，可以整，但是没啥必要。具体的配置还是多看看介绍，多多学习。或者直接CV。😁😁</p>
+<h2 id="尾"><a href="#尾" class="headerlink" title="尾"></a>尾</h2><p>主要内容到这里就介绍完了，logback的配置十分的灵活，但想要灵活的使用，还是需要多多的了解。当然打印日志归打印日志，如果你写代码打日志时不按照标准输出，再牛逼的配置也救不了。打印日志也需要规范一点。开发使用debug，需要留存的日志信息用info，异常信息用error。</p>
+<h2 id="封面"><a href="#封面" class="headerlink" title="封面"></a>封面</h2><p><img src="https://tva1.sinaimg.cn/large/005NNTS5ly1gy6gxzioj4j32yo1o0gv3.jpg" srcset="/img/loading.gif" lazyload alt="2022新年快乐"></p>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/log/">#log</a>
+      
+        <a href="/tags/logback/">#logback</a>
+      
+        <a href="/tags/slf4j/">#slf4j</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>关于Java程序的日志处理</div>
+      <div>http://example.com/2022/01/05/java-07/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>无良芳</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年1月5日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/01/16/java-08/" title="请求第三方接口的各种姿势">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">请求第三方接口的各种姿势</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/12/25/java-06/" title="数据校验二三事">
+                        <span class="hidden-mobile">数据校验二三事</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      皖ICP备20012572号
+    </a>
+  </span>
+  
+    
+      <span>
+        <a
+          href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=34042202000089"
+          rel="nofollow noopener"
+          class="beian-police"
+          target="_blank"
+        >
+          
+            <span style="visibility: hidden; width: 0">|</span>
+            <img src="/img/police_beian.png" srcset="/img/loading.gif" lazyload alt="police-icon"/>
+          
+          <span>京公网安备34042202000089号</span>
+        </a>
+      </span>
+    
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

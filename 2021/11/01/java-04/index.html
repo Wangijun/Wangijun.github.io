@@ -1,0 +1,949 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="无良芳">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="请君莫羡解语花，腹有诗书气自华。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="springboot事务三两言">
+<meta property="og:url" content="http://example.com/2021/11/01/java-04/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="请君莫羡解语花，腹有诗书气自华。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/005NNTS5ly1gw5ui05viuj33341wo1kz.jpg">
+<meta property="article:published_time" content="2021-11-01T04:21:44.000Z">
+<meta property="article:modified_time" content="2021-11-01T04:21:44.000Z">
+<meta property="article:author" content="无良芳">
+<meta property="article:tag" content="spring">
+<meta property="article:tag" content="事务控制">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/005NNTS5ly1gw5ui05viuj33341wo1kz.jpg">
+  
+  
+  
+  <title>springboot事务三两言 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>挽君博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://tva1.sinaimg.cn/large/005NNTS5ly1gw5ui05viuj33341wo1kz.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="springboot事务三两言"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-11-01 12:21" pubdate>
+          2021年11月1日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          41 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Java"
+        id="heading-d52387880e1ea22817a72d3759213819" role="tab" data-toggle="collapse" href="#collapse-d52387880e1ea22817a72d3759213819"
+        aria-expanded="true"
+      >
+        Java
+        <span class="list-group-count">(14)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-d52387880e1ea22817a72d3759213819"
+           role="tabpanel" aria-labelledby="heading-d52387880e1ea22817a72d3759213819">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/08/16/java-02/" title="Excel导入导出。"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Excel导入导出。</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/04/02/java-13/" title="Java DecimalFormat的主要功能及使用方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Java DecimalFormat的主要功能及使用方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/04/02/java-12/" title="Oracle版本对应匹配的ojdbc版本及JDK版本"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Oracle版本对应匹配的ojdbc版本及JDK版本</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/03/01/java-10/" title="PostgreSQL数据库安装"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL数据库安装</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/05/10/java-14/" title="Spring Boot与缓存：使用JCache（JSR-107）注解简化开发"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Spring Boot与缓存：使用JCache（JSR-107）注解简化开发</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/11/22/java-05/" title="SpringBoot2.5.x整合Quartz并持久化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">SpringBoot2.5.x整合Quartz并持久化</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/12/java-01/" title="java8的stream的使用方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">java8的stream的使用方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/11/01/java-04/" title="springboot事务三两言"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">springboot事务三两言</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/10/20/java-03/" title="springboot打包二三事"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">springboot打包二三事</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/02/18/java-09/" title="springboot项目记录http请求记录"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">springboot项目记录http请求记录</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/01/05/java-07/" title="关于Java程序的日志处理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">关于Java程序的日志处理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/03/11/java-11/" title="动态数据源，多数据源，读写分离"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">动态数据源，多数据源，读写分离</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/12/25/java-06/" title="数据校验二三事"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数据校验二三事</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/01/16/java-08/" title="请求第三方接口的各种姿势"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">请求第三方接口的各种姿势</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">springboot事务三两言</h1>
+            
+            <div class="markdown-body">
+              
+              <div class="note note-info">
+            <p>经历是会潜移默化改变人的，连自己都不知道，还以为自己内心永远单纯。</p>
+          </div>
+
+<p>聊事务，先明白什么是事务，举个烂大街的例子，银行转账，转出方减钱，转入方加钱。这种情况下是不允许其中一个环节单独失败的，但是这种情况又必须执行两次以上的数据库操作语句，保证语句执行结果的一致性功能就是事务功能。</p>
+<p>现在的关系型数据库大多都支持事务控制，事务的四大特性，我还真记不太清，原子性，隔离性，一致性，还有一个特性是什么来着，我查查，查到了，还有一个持久性。持久性没啥好说的，我就记不住。原子性，一致性，这个都好理解，就是都成功或者都失败。隔离性，这个就需要注意一点。具体情况具体处理。理论知识就不赘述了。</p>
+<p>接下来进入下一话题，《母猪的产后护理》，对不起，拿错书了，</p>
+<p>介绍一下spring提供的事务控制，分为编程式和声明式，先说我们用的多的声明式事务控制，且不建议使用编程式的事务控制，springboot2.5.x系列默认就开启了注解式事务控制，只需要在类上或方法上加上<code>@Transactional</code>注解就可以了，加在类上，表示此类中的所有方法都添加了默认的事务支持，如果 类上和方法上同时加了注解，以方法上的注解为准。只要方法抛出了RuntimeException，事务就进行回滚的操作，但如果你把异常try catch了，且没有在catch块里抛出RuntimeException，这种情况下出现异常事务是不会进行回滚的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ServiceA</span>&#123;<br>    <span class="hljs-meta">@Transactional</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setTest</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-comment">// 这种情况下出现异常是不会进行事务回滚的。</span><br>        <span class="hljs-keyword">try</span> &#123;<br>            updateById(<span class="hljs-literal">null</span>);<br>        &#125;<span class="hljs-keyword">catch</span> (Exception e)&#123;<br>            e.printStackTrace();<br>        &#125;<br>        <br>        <span class="hljs-comment">// 会进行事务回滚的写法</span><br>        <span class="hljs-keyword">try</span> &#123;<br>            updateById(<span class="hljs-literal">null</span>);<br>        &#125;<span class="hljs-keyword">catch</span> (Exception e)&#123;<br>            e.printStackTrace();<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(<span class="hljs-string">&quot;测试&quot;</span>);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="详解-Transactional注解"><a href="#详解-Transactional注解" class="headerlink" title="详解@Transactional注解"></a>详解@Transactional注解</h2><h3 id="rollbackFor参数"><a href="#rollbackFor参数" class="headerlink" title="rollbackFor参数"></a>rollbackFor参数</h3><p>这个参数是表明捕获什么异常进行回滚数据的。默认只有捕获到RuntimeException和Error才会进行回滚，（基于springboot2.5.x，不同版本可能有差异，请自己查看代码。）不会回滚的是什么异常呢，就是那种需要声明的异常，springboot事务控制是不会捕获到，并回滚数据的，至于为啥，很简单啊，因为声明的异常，大多都是自己手动处理的，继续往上抛或者Try Catch一下，如果不手动处理，程序无法编译。比如IO异常，这些是不会被事务控制捕捉到的。</p>
+<h3 id="propagation参数"><a href="#propagation参数" class="headerlink" title="propagation参数"></a>propagation参数</h3><p>propagation 代表事务的传播行为，默认值为<code>Propagation.REQUIRED</code>，其他的属性信息如下：</p>
+<ul>
+<li><p><code>Propagation.REQUIRED</code>：如果当前存在事务，则加入该事务，如果当前不存在事务，则创建一个新的事务。( 也就是说如果A方法和B方法都添加了注解，在默认传播模式下，A方法内部调用B方法，会把两个方法的事务合并为一个事务 ）</p>
+</li>
+<li><p><code>Propagation.SUPPORTS</code>：如果当前存在事务，则加入该事务；如果当前不存在事务，则以非事务的方式继续运行。</p>
+</li>
+<li><p><code>Propagation.MANDATORY</code>：如果当前存在事务，则加入该事务；如果当前不存在事务，则抛出异常。</p>
+</li>
+<li><p><code>Propagation.REQUIRES_NEW</code>：重新创建一个新的事务，如果当前存在事务，暂停当前的事务。( 当类A中的 a 方法用默认Propagation.REQUIRED模式，类B中的 b方法加上采用 Propagation.REQUIRES_NEW模式，然后在 a 方法中调用 b方法操作数据库，然而 a方法抛出异常后，b方法并没有进行回滚，因为Propagation.REQUIRES_NEW会暂停 a方法的事务 )</p>
+</li>
+</ul>
+<p>-<code>Propagation.NOT_SUPPORTED</code>：以非事务的方式运行，如果当前存在事务，暂停当前的事务。</p>
+<ul>
+<li><p><code>Propagation.NEVER</code>：以非事务的方式运行，如果当前存在事务，则抛出异常。</p>
+</li>
+<li><p><code>Propagation.NESTED</code> ：和 Propagation.REQUIRED 效果一样。</p>
+</li>
+</ul>
+<p>更多参数可以百度了解。</p>
+<h2 id="实际的问题"><a href="#实际的问题" class="headerlink" title="实际的问题"></a>实际的问题</h2><p>本人处理一些银行账务动账信息时，比如一个记账操作时，我需要把需要记账的数据的状态先改成在处理的状态，且需要提交事务，且需要确定下一个事务开启时需要记账的数据状态已经是修改过后的状态，防止重复操作同一笔数据，那么问题就来了，在使用spring声明事务控制时，如何进行这样的操作。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ServiceA</span>&#123;<br>    <span class="hljs-meta">@Transactional</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setTest</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-comment">// 检查数据状态是否处于正常状态，如果在处理中就不进行操作</span><br>        <span class="hljs-keyword">if</span> (status == <span class="hljs-string">&quot;2&quot;</span>)&#123;<br>          log.info(<span class="hljs-string">&quot;此数据正在修改中，无法操作&quot;</span>);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br><br>        <span class="hljs-comment">// 先更新一下状态</span><br>        setStatus(<span class="hljs-string">&quot;2&quot;</span>);<br>        <span class="hljs-comment">// 此时需要提交</span><br><br>        <span class="hljs-comment">// 下面进行一些耗时的操作，</span><br><br>        <span class="hljs-comment">//操作结束后,还需进行一些需要事务控制的操作</span><br>        <br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这种情况就默认的事务控制一个方法内只能有一个事务，所以中间那步的提交操作以我的解决方式，既然一个方法只能有一个事务，那我把逻辑单独提一个方法不就行了，说干就干，这是修改后的代码。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs java"><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ServiceA</span>&#123;<br>    <span class="hljs-meta">@Transactional</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setTest2</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-comment">// 先更新一下状态</span><br>        setStatus(<span class="hljs-string">&quot;2&quot;</span>);<br>        <br>    &#125;<br><br>    <span class="hljs-meta">@Transactional</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setTest</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-comment">// 检查数据状态是否处于正常状态，如果在处理中就不进行操作</span><br>        <span class="hljs-keyword">if</span> (status == <span class="hljs-string">&quot;2&quot;</span>)&#123;<br>          log.info(<span class="hljs-string">&quot;此数据正在修改中，无法操作&quot;</span>);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br><br>        <span class="hljs-comment">// 先更新一下状态</span><br>        <span class="hljs-comment">// setStatus(&quot;2&quot;);</span><br>        <span class="hljs-comment">// 调用方法</span><br>        <span class="hljs-built_in">this</span>.setTest2();<br>        <span class="hljs-comment">// 此时需要提交</span><br><br>        <span class="hljs-comment">// 下面进行一些耗时的操作，</span><br><br>        <span class="hljs-comment">//操作结束后,还需进行一些需要事务控制的操作</span><br>        <br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这个时候信心满满的操作发现setTest2方法调用过后，发现还是只有一个事务，且setTest2的更新操作还是没有分开提交，原因是，JDK的动态代理。在SpringIoC容器中返回的调用的对象是代理对象而不是真实的对象，只有被动态代理直接调用的才会产生事务。这里的this是自身是真实对象而不是代理对象，问题到这里已经很明朗了，这样啊，既然this调用的话事务不能起作用，spring最擅长的不就是注入，我注入一个，然后代码如下。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ServiceA</span>&#123;<br>  <span class="hljs-comment">// 这是我注入的，实际就是从容器里面取出自己的代理类</span><br>    <span class="hljs-meta">@Resource</span><br>    ServiceA serviceA;<br><br>    <span class="hljs-meta">@Transactional</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setTest2</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-comment">// 先更新一下状态</span><br>        setStatus(<span class="hljs-string">&quot;2&quot;</span>);<br>        <br>    &#125;<br><br>    <span class="hljs-meta">@Transactional</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setTest</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-comment">// 检查数据状态是否处于正常状态，如果在处理中就不进行操作</span><br>        <span class="hljs-keyword">if</span> (status == <span class="hljs-string">&quot;2&quot;</span>)&#123;<br>          log.info(<span class="hljs-string">&quot;此数据正在修改中，无法操作&quot;</span>);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br><br>        <span class="hljs-comment">// 先更新一下状态</span><br>        <span class="hljs-comment">// setStatus(&quot;2&quot;);</span><br>        <span class="hljs-comment">// 调用方法</span><br>        <span class="hljs-comment">// this.setTest2();</span><br>        <span class="hljs-comment">// 使用注入的对象调用方法，就能触发事务了，</span><br>        serviceA.setTest2();<br>        <span class="hljs-comment">// 此时需要提交</span><br><br>        <span class="hljs-comment">// 下面进行一些耗时的操作，</span><br><br>        <span class="hljs-comment">//操作结束后,还需进行一些需要事务控制的操作</span><br>        <br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>到这步，心里想着应该就可以了，但实际上还是不行，这个时候我们就要看这个了<a href="#propagation%E5%8F%82%E6%95%B0">注解</a>，默认的规则是</p>
+<div class="note note-info">
+            <p>如果当前存在事务，则加入该事务，如果当前不存在事务，则创建一个新的事务。</p>
+          </div>
+
+<p>很显然这个不是我想要的，因为我就是需要两个事务分别提交，你还给我加入同一个事务里，闹呢，一个一个看，配置事务的隔离性配置为<code>Propagation.REQUIRES_NEW</code>。</p>
+<div class="note note-info">
+            <p><code>REQUIRES_NEW</code>，重新创建一个新的事务，如果当前存在事务，暂停当前的事务。且新增的事务处理完成后在处理当前的事务</p>
+          </div>
+
+<p>代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ServiceA</span>&#123;<br>   <span class="hljs-meta">@Resource</span><br>    ServiceA serviceA;<br><br>    <span class="hljs-meta">@Transactional(propagation = Propagation.REQUIRES_NEW)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setTest2</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-comment">// 先更新一下状态</span><br>        setStatus(<span class="hljs-string">&quot;2&quot;</span>);<br>        <br>    &#125;<br><br>    <span class="hljs-meta">@Transactional</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setTest</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-comment">// 检查数据状态是否处于正常状态，如果在处理中就不进行操作</span><br>        <span class="hljs-keyword">if</span> (status == <span class="hljs-string">&quot;2&quot;</span>)&#123;<br>          log.info(<span class="hljs-string">&quot;此数据正在修改中，无法操作&quot;</span>);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br><br>        <span class="hljs-comment">// 先更新一下状态</span><br>        <span class="hljs-comment">// setStatus(&quot;2&quot;);</span><br>        <span class="hljs-comment">// 调用方法</span><br>        <span class="hljs-comment">// this.setTest2();</span><br>        <span class="hljs-comment">// 使用注入的对象调用方法，就能触发事务了，</span><br>        serviceA.setTest2();<br>        <span class="hljs-comment">// 此时需要提交</span><br><br>        <span class="hljs-comment">// 下面进行一些耗时的操作，</span><br><br>        <span class="hljs-comment">//操作结束后,还需进行一些需要事务控制的操作</span><br>        <br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>注意看控制台，应该会出现两个事务，这个时候我的需求就算是完成了。给你带来方便的事务总会多多少少给你带来些许的不便，这些不便的地方叫做规则，因为你用了别人开发的技术，你就需要研究和遵守别人的定下的规则。一开始可能会让你束手束脚的，但是一旦你掌握了规则，你的编码能力会得到大大的提升。</p>
+<h2 id="手动控制事务"><a href="#手动控制事务" class="headerlink" title="手动控制事务"></a>手动控制事务</h2><p>不建议使用，在一些特殊的场景里可以使用，如多线程的情况下，直接看代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 需要注入的对象</span><br><span class="hljs-meta">@Autowired</span><br><span class="hljs-keyword">private</span> DataSourceTransactionManager dataSourceTransactionManager;<br><span class="hljs-meta">@Autowired</span><br><span class="hljs-keyword">private</span> TransactionDefinition transactionDefinition;<br><br><span class="hljs-comment">// 开启事务</span><br><br>TransactionStatus transactionStatus=dataSourceTransactionManager.getTransaction(transactionDefinition);<br><br><span class="hljs-comment">// 提交事务</span><br>dataSourceTransactionManager.commit(transactionStatus);<br><br><span class="hljs-comment">// 回滚事务</span><br>dataSourceTransactionManager.rollback(transactionStatus);<br><br></code></pre></td></tr></table></figure>
+
+<p>具体使用方法根据自己的业务来编写代码就可以了</p>
+<h2 id="封"><a href="#封" class="headerlink" title="封"></a>封</h2><p><img src="https://tvax3.sinaimg.cn/large/005NNTS5ly1gw5ui05viuj33341wo1kz.jpg" srcset="/img/loading.gif" lazyload alt="女孩子 风景 外廊 冬景色 夕阳 晚霞"></p>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/spring/">#spring</a>
+      
+        <a href="/tags/%E4%BA%8B%E5%8A%A1%E6%8E%A7%E5%88%B6/">#事务控制</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>springboot事务三两言</div>
+      <div>http://example.com/2021/11/01/java-04/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>无良芳</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年11月1日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/11/08/other-04/" title="郭德纲写给儿子郭麒麟的信">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">郭德纲写给儿子郭麒麟的信</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/10/20/java-03/" title="springboot打包二三事">
+                        <span class="hidden-mobile">springboot打包二三事</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      皖ICP备20012572号
+    </a>
+  </span>
+  
+    
+      <span>
+        <a
+          href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=34042202000089"
+          rel="nofollow noopener"
+          class="beian-police"
+          target="_blank"
+        >
+          
+            <span style="visibility: hidden; width: 0">|</span>
+            <img src="/img/police_beian.png" srcset="/img/loading.gif" lazyload alt="police-icon"/>
+          
+          <span>京公网安备34042202000089号</span>
+        </a>
+      </span>
+    
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

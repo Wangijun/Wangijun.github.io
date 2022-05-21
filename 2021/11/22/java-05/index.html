@@ -1,0 +1,924 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="无良芳">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="springboot2.6.0正式发布了，旧曲新唱。整一个2.5.x的整合Quartz的项目">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot2.5.x整合Quartz并持久化">
+<meta property="og:url" content="http://example.com/2021/11/22/java-05/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="springboot2.6.0正式发布了，旧曲新唱。整一个2.5.x的整合Quartz的项目">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tvax3.sinaimg.cn/large/005NNTS5ly1gwp89wm2nwj33n61o0x6q.jpg">
+<meta property="article:published_time" content="2021-11-22T13:48:01.000Z">
+<meta property="article:modified_time" content="2021-11-22T13:48:01.000Z">
+<meta property="article:author" content="无良芳">
+<meta property="article:tag" content="quartz">
+<meta property="article:tag" content="springboot">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://tvax3.sinaimg.cn/large/005NNTS5ly1gwp89wm2nwj33n61o0x6q.jpg">
+  
+  
+  
+  <title>SpringBoot2.5.x整合Quartz并持久化 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>挽君博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://tvax3.sinaimg.cn/large/005NNTS5ly1gwp89wm2nwj33n61o0x6q.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="SpringBoot2.5.x整合Quartz并持久化"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-11-22 21:48" pubdate>
+          2021年11月22日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          15k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          124 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Java"
+        id="heading-d52387880e1ea22817a72d3759213819" role="tab" data-toggle="collapse" href="#collapse-d52387880e1ea22817a72d3759213819"
+        aria-expanded="true"
+      >
+        Java
+        <span class="list-group-count">(14)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-d52387880e1ea22817a72d3759213819"
+           role="tabpanel" aria-labelledby="heading-d52387880e1ea22817a72d3759213819">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/08/16/java-02/" title="Excel导入导出。"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Excel导入导出。</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/04/02/java-13/" title="Java DecimalFormat的主要功能及使用方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Java DecimalFormat的主要功能及使用方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/04/02/java-12/" title="Oracle版本对应匹配的ojdbc版本及JDK版本"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Oracle版本对应匹配的ojdbc版本及JDK版本</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/03/01/java-10/" title="PostgreSQL数据库安装"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PostgreSQL数据库安装</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/05/10/java-14/" title="Spring Boot与缓存：使用JCache（JSR-107）注解简化开发"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Spring Boot与缓存：使用JCache（JSR-107）注解简化开发</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/11/22/java-05/" title="SpringBoot2.5.x整合Quartz并持久化"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">SpringBoot2.5.x整合Quartz并持久化</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/12/java-01/" title="java8的stream的使用方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">java8的stream的使用方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/11/01/java-04/" title="springboot事务三两言"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">springboot事务三两言</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/10/20/java-03/" title="springboot打包二三事"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">springboot打包二三事</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/02/18/java-09/" title="springboot项目记录http请求记录"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">springboot项目记录http请求记录</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/01/05/java-07/" title="关于Java程序的日志处理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">关于Java程序的日志处理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/03/11/java-11/" title="动态数据源，多数据源，读写分离"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">动态数据源，多数据源，读写分离</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/12/25/java-06/" title="数据校验二三事"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数据校验二三事</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/01/16/java-08/" title="请求第三方接口的各种姿势"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">请求第三方接口的各种姿势</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">SpringBoot2.5.x整合Quartz并持久化</h1>
+            
+            <div class="markdown-body">
+              
+              <p>风风火火，恍恍惚惚，springboot2.6.0正式版也发布了，同时也宣布了2.4x版本停止维护。2.5.x系列也是目前自己写Demo在用的，为什么要记录下来呢， 主要我把项目升级到2.6之后项目跑不起来了，原因我知道，但是我不知道怎么解决，看了看机翻的更新文档，有处可能是影响我项目跑不起来的原因，就是限制了依赖的循环导入，现在依赖循环导入，项目是会直接跑不起来。我的问题是项目里获取不到DataSource数据源，我用了各种姿势，都获取不到，靓仔在线疑惑。既然不能无缝升级，那我就记下来一个正常的版本。</p>
+<p>定时任务是很常用的一个功能，比如简单的生日提醒，每天定点查询用户的生日信息。然后发出一系列的提示操作。不了解你就感觉很难，但是现在spring给我们带来了很多的便利，看一看，在头脑风暴一下，也不难。编程一途，殊途同归。</p>
+<p>主要工作中好多同步代码感觉都可以使用定时任务来处理，然而实际上用的是一个一个的Main方法，吐槽吧，人家那代码又不是不能跑，不仅能跑，还能赚钱。没啥好吐槽的，就是维护时想骂娘，骂娘就骂娘，还十分容易出错。</p>
+<h2 id="核心配置类"><a href="#核心配置类" class="headerlink" title="核心配置类"></a>核心配置类</h2><p>用了这个配置类，腰不酸了，腿不痛了，一次能爬五层楼。觉也睡的香了。好吧，前面纯属扯淡，写了这个yml中就不需要配置了，大致看一下每行的注释，测试学习中以先跑起来为主，然后再慢慢研究即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.wangijun.springbootdemo.config;<br><br><span class="hljs-keyword">import</span> ...;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * quartz配置类</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">QuartzConfig</span> &#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 此种注入方式，在springboot2.6中获取不到，</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> DataSource dataSource;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * Describe: 定时任务工厂</span><br><span class="hljs-comment">     * Param: DataSource</span><br><span class="hljs-comment">     * Return: ScheduleFactoryBean</span><br><span class="hljs-comment">     * */</span><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> SchedulerFactoryBean <span class="hljs-title function_">schedulerFactoryBean</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">Properties</span> <span class="hljs-variable">prop</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Properties</span>();<br>        <span class="hljs-comment">// QlScheduler这个值可以自定义</span><br>        prop.put(<span class="hljs-string">&quot;org.quartz.scheduler.instanceName&quot;</span>, <span class="hljs-string">&quot;QlScheduler&quot;</span>);<br>        <span class="hljs-comment">// 设置为AUTO时使用，默认的实现org.quartz.scheduler.SimpleInstanceGenerator是基于主机名称和时间戳生成。</span><br>        prop.put(<span class="hljs-string">&quot;org.quartz.scheduler.instanceId&quot;</span>, <span class="hljs-string">&quot;AUTO&quot;</span>);<br>        <span class="hljs-comment">// 线程池相关配置</span><br>        prop.put(<span class="hljs-string">&quot;org.quartz.threadPool.class&quot;</span>, <span class="hljs-string">&quot;org.quartz.simpl.SimpleThreadPool&quot;</span>);<br>        prop.put(<span class="hljs-string">&quot;org.quartz.threadPool.threadCount&quot;</span>, <span class="hljs-string">&quot;20&quot;</span>);<br>        prop.put(<span class="hljs-string">&quot;org.quartz.threadPool.threadPriority&quot;</span>, <span class="hljs-string">&quot;5&quot;</span>);<br>        <span class="hljs-comment">// JobStoreTX在每次执行任务后都使用commit或者rollback来提交更改。</span><br>        prop.put(<span class="hljs-string">&quot;org.quartz.jobStore.class&quot;</span>, <span class="hljs-string">&quot;org.quartz.impl.jdbcjobstore.JobStoreTX&quot;</span>);<br>        <span class="hljs-comment">// 集群配置：如果有多个调度器实体的话则必须设置为true，如果项目部署了多个，就设置为true</span><br>        prop.put(<span class="hljs-string">&quot;org.quartz.jobStore.isClustered&quot;</span>, <span class="hljs-string">&quot;false&quot;</span>);<br>        <span class="hljs-comment">// 集群配置：检查集群下的其他调度器实体的时间间隔</span><br>        prop.put(<span class="hljs-string">&quot;org.quartz.jobStore.clusterCheckinInterval&quot;</span>, <span class="hljs-string">&quot;15000&quot;</span>);<br>        <span class="hljs-comment">// 设置一个频度(毫秒)，用于实例报告给集群中的其他实例</span><br>        prop.put(<span class="hljs-string">&quot;org.quartz.jobStore.maxMisfiresToHandleAtATime&quot;</span>, <span class="hljs-string">&quot;5000&quot;</span>);<br>        <span class="hljs-comment">// 触发器触发失败后再次触犯的时间间隔</span><br>        prop.put(<span class="hljs-string">&quot;org.quartz.jobStore.misfireThreshold&quot;</span>, <span class="hljs-string">&quot;12000&quot;</span>);<br><br>        <span class="hljs-comment">// 数据库表前缀 重点这个和建表SQL是对应的关系，如果改了需要改动建表语句</span><br><br>        prop.put(<span class="hljs-string">&quot;org.quartz.jobStore.tablePrefix&quot;</span>, <span class="hljs-string">&quot;schedule_&quot;</span>);<br>        <span class="hljs-comment">// 从 LOCKS 表查询一行并对这行记录加锁的 SQL 语句</span><br>        prop.put(<span class="hljs-string">&quot;org.quartz.jobStore.selectWithLockSQL&quot;</span>, <span class="hljs-string">&quot;SELECT * FROM &#123;0&#125;LOCKS UPDLOCK WHERE LOCK_NAME = ?&quot;</span>);<br><br>        <span class="hljs-type">SchedulerFactoryBean</span> <span class="hljs-variable">factory</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SchedulerFactoryBean</span>();<br>        <span class="hljs-comment">// 数据源</span><br>        factory.setDataSource(dataSource);<br>        <span class="hljs-comment">// 上面的配置</span><br>        factory.setQuartzProperties(prop);<br>        <span class="hljs-comment">// 可自定义</span><br>        factory.setSchedulerName(<span class="hljs-string">&quot;QlScheduler&quot;</span>);<br>        <span class="hljs-comment">// 项目启动后30秒后启动开始执行定时任务</span><br>        factory.setStartupDelay(<span class="hljs-number">30</span>);<br>        factory.setApplicationContextSchedulerContextKey(<span class="hljs-string">&quot;applicationContextKey&quot;</span>);<br>        factory.setOverwriteExistingJobs(<span class="hljs-literal">true</span>);<br>        <span class="hljs-comment">// 自动启动</span><br>        factory.setAutoStartup(<span class="hljs-literal">true</span>);<br>        <span class="hljs-keyword">return</span> factory;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<div class="note note-info">
+            <p>此种配置的Quartz是持久化到数据库的，就是项目重启定时任务的状态并不会丢失。</p>
+          </div>
+
+<h2 id="用于Web管理Bean"><a href="#用于Web管理Bean" class="headerlink" title="用于Web管理Bean"></a>用于Web管理Bean</h2><p>可以自定义，要点看代码注释。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.wangijun.springbootdemo.pojo;<br><br><span class="hljs-keyword">import</span> ...;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment">    * 定时任务</span><br><span class="hljs-comment">    */</span><br><span class="hljs-meta">@Data</span><br><span class="hljs-meta">@TableName(value = &quot;schedule_job&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ScheduleJob</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Serializable</span> &#123; <span class="hljs-comment">// 必须序列化</span><br><br>    <span class="hljs-comment">// 必须要有</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">JOB_PARAM_KEY</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;JOB_PARAM_KEY&quot;</span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 任务id</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@TableId(value = &quot;id&quot;, type = IdType.ASSIGN_ID)</span><br>    <span class="hljs-keyword">private</span> String id;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * spring bean名称</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@TableField(value = &quot;bean_name&quot;)</span><br>    <span class="hljs-keyword">private</span> String beanName;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 参数</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@TableField(value = &quot;params&quot;)</span><br>    <span class="hljs-keyword">private</span> String params;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * cron表达式</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@TableField(value = &quot;cron_expression&quot;)</span><br>    <span class="hljs-keyword">private</span> String cronExpression;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 任务状态  0：正常  1：暂停</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@TableField(value = &quot;`status`&quot;)</span><br>    <span class="hljs-keyword">private</span> Byte status;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 备注</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@TableField(value = &quot;remark&quot;)</span><br>    <span class="hljs-keyword">private</span> String remark;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 创建时间</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@TableField(value = &quot;create_time&quot;)</span><br>    <span class="hljs-keyword">private</span> LocalDateTime createTime;<br><br>    <span class="hljs-meta">@TableField(value = &quot;job_name&quot;)</span><br>    <span class="hljs-keyword">private</span> String jobName;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">long</span> <span class="hljs-variable">serialVersionUID</span> <span class="hljs-operator">=</span> <span class="hljs-number">1L</span>; <span class="hljs-comment">// 必须要有</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="定时任务执行日志Bean"><a href="#定时任务执行日志Bean" class="headerlink" title="定时任务执行日志Bean"></a>定时任务执行日志Bean</h2><p>主要就是记录一下日志，可根据自己需求，自行扩展。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.wangijun.qluiserver.pojo;<br><br><span class="hljs-keyword">import</span> ...;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment">    * 定时任务日志</span><br><span class="hljs-comment">    */</span><br><span class="hljs-meta">@Data</span><br><span class="hljs-meta">@TableName(value = &quot;schedule_log&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ScheduleLog</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Serializable</span> &#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 任务日志id</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@TableId(value = &quot;id&quot;, type = IdType.INPUT)</span><br>    <span class="hljs-keyword">private</span> String id;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 任务id</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@TableField(value = &quot;job_id&quot;)</span><br>    <span class="hljs-keyword">private</span> String jobId;<br><br>    <span class="hljs-meta">@TableField(value = &quot;job_name&quot;)</span><br>    <span class="hljs-keyword">private</span> String jobName;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 参数</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@TableField(value = &quot;params&quot;)</span><br>    <span class="hljs-keyword">private</span> String params;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 任务状态    0：成功    1：失败</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@TableField(value = &quot;`status`&quot;)</span><br>    <span class="hljs-keyword">private</span> String status;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 失败信息</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@TableField(value = &quot;error&quot;)</span><br>    <span class="hljs-keyword">private</span> String error;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 耗时(单位：毫秒)</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@TableField(value = &quot;times&quot;)</span><br>    <span class="hljs-keyword">private</span> Integer times;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 创建时间</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@TableField(value = &quot;create_time&quot;)</span><br>    <span class="hljs-keyword">private</span> LocalDateTime createTime;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * spring bean名称</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@TableField(value = &quot;bean_name&quot;)</span><br>    <span class="hljs-keyword">private</span> String beanName;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">long</span> <span class="hljs-variable">serialVersionUID</span> <span class="hljs-operator">=</span> <span class="hljs-number">1L</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="执行定时任务的上下文"><a href="#执行定时任务的上下文" class="headerlink" title="执行定时任务的上下文"></a>执行定时任务的上下文</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.wangijun.springbootdemo.schedule;<br><br><span class="hljs-keyword">import</span> ...;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Describe: 定时任务执行上下文</span><br><span class="hljs-comment"> * Author: 就免仪式</span><br><span class="hljs-comment"> * CreateTime: 2019/10/23</span><br><span class="hljs-comment"> * */</span><br><span class="hljs-meta">@Slf4j</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ScheduleContext</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">QuartzJobBean</span> &#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * Describe: 执行任务并记录日志</span><br><span class="hljs-comment">     * Param: JobExecutionContext</span><br><span class="hljs-comment">     * Return: 无返回值</span><br><span class="hljs-comment">     * */</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">executeInternal</span><span class="hljs-params">(JobExecutionContext context)</span> &#123;<br>        <span class="hljs-type">Object</span> <span class="hljs-variable">o</span> <span class="hljs-operator">=</span> context.getMergedJobDataMap().get(ScheduleJob.JOB_PARAM_KEY);<br>        <span class="hljs-type">ScheduleJob</span> <span class="hljs-variable">jobBean</span> <span class="hljs-operator">=</span> (ScheduleJob) o;<br>        <span class="hljs-type">ScheduleLogService</span> <span class="hljs-variable">scheduleJobLogService</span> <span class="hljs-operator">=</span> (ScheduleLogService) SpringUtil.getBean(<span class="hljs-string">&quot;scheduleLogService&quot;</span>);<br>        <span class="hljs-type">ScheduleLog</span> <span class="hljs-variable">logBean</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScheduleLog</span>() ;<br>        logBean.setId(IdWorker.getIdStr());<br>        logBean.setJobId(jobBean.getId());<br>        logBean.setJobName(jobBean.getJobName());<br>        logBean.setBeanName(jobBean.getBeanName());<br>        logBean.setParams(jobBean.getParams());<br>        logBean.setCreateTime(LocalDateTime.now());<br>        <span class="hljs-type">long</span> <span class="hljs-variable">beginTime</span> <span class="hljs-operator">=</span> System.currentTimeMillis() ;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-type">Object</span> <span class="hljs-variable">target</span> <span class="hljs-operator">=</span> SpringUtil.getBean(jobBean.getBeanName());<br>            <span class="hljs-type">Method</span> <span class="hljs-variable">method</span> <span class="hljs-operator">=</span> target.getClass().getDeclaredMethod(<span class="hljs-string">&quot;run&quot;</span>, String.class);<br>            method.invoke(target, jobBean.getParams());<br>            <span class="hljs-type">long</span> <span class="hljs-variable">executeTime</span> <span class="hljs-operator">=</span> System.currentTimeMillis() - beginTime;<br>            logBean.setTimes((<span class="hljs-type">int</span>) executeTime);<br>            logBean.setStatus(<span class="hljs-string">&quot;0&quot;</span>);<br>            log.info(<span class="hljs-string">&quot;定时器 === &gt;&gt; &quot;</span> + jobBean.getJobName() + <span class="hljs-string">&quot;执行成功,耗时 === &gt;&gt; &quot;</span> + executeTime);<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e)&#123;<br>            <span class="hljs-type">long</span> <span class="hljs-variable">executeTime</span> <span class="hljs-operator">=</span> System.currentTimeMillis() - beginTime;<br>            logBean.setTimes((<span class="hljs-type">int</span>)executeTime);<br>            logBean.setStatus(<span class="hljs-string">&quot;1&quot;</span>);<br>            logBean.setError(e.getCause().getMessage());<br>            e.getCause().printStackTrace();<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            scheduleJobLogService.save(logBean);<br>        &#125;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h2 id="定时任务处理器"><a href="#定时任务处理器" class="headerlink" title="定时任务处理器"></a>定时任务处理器</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.wangijun.springbootdemo.schedule;<br><br><br><span class="hljs-keyword">import</span> ...;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Describe: 定时任务处理器</span><br><span class="hljs-comment"> * Author: 就免仪式</span><br><span class="hljs-comment"> * CreateTime: 2019/10/23</span><br><span class="hljs-comment"> * */</span><br><span class="hljs-meta">@NoArgsConstructor</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ScheduleHandler</span> &#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 定时任务标识 Key,</span><br><span class="hljs-comment">     * */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">SCHEDULE_NAME</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Ql_&quot;</span> ;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 触发器 KEY</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> TriggerKey <span class="hljs-title function_">getTriggerKey</span><span class="hljs-params">(Long jobId)</span>&#123;<br>        <span class="hljs-keyword">return</span> TriggerKey.triggerKey(SCHEDULE_NAME + jobId) ;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 定时器 Key</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> JobKey <span class="hljs-title function_">getJobKey</span> <span class="hljs-params">(Long jobId)</span>&#123;<br>        <span class="hljs-keyword">return</span> JobKey.jobKey(SCHEDULE_NAME+jobId) ;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 表达式触发器</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> CronTrigger <span class="hljs-title function_">getCronTrigger</span> <span class="hljs-params">(Scheduler scheduler, Long jobId)</span>&#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-keyword">return</span> (CronTrigger)scheduler.getTrigger(getTriggerKey(jobId)) ;<br>        &#125; <span class="hljs-keyword">catch</span> (SchedulerException e)&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * Describe: 创建定时任务</span><br><span class="hljs-comment">     * Param: Scheduler ScheduleJobBean</span><br><span class="hljs-comment">     * Return: null</span><br><span class="hljs-comment">     * */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">createJob</span> <span class="hljs-params">(Scheduler scheduler, ScheduleJob scheduleJob)</span>&#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">// 构建定时器</span><br>            <span class="hljs-type">JobDetail</span> <span class="hljs-variable">jobDetail</span> <span class="hljs-operator">=</span> JobBuilder.newJob(ScheduleContext.class).withIdentity(getJobKey(Long.parseLong(scheduleJob.getId()))).build() ;<br>            <span class="hljs-type">CronScheduleBuilder</span> <span class="hljs-variable">scheduleBuilder</span> <span class="hljs-operator">=</span> CronScheduleBuilder<br>                    .cronSchedule(scheduleJob.getCronExpression())<br>                    .withMisfireHandlingInstructionDoNothing() ;<br>            <span class="hljs-type">CronTrigger</span> <span class="hljs-variable">trigger</span> <span class="hljs-operator">=</span> TriggerBuilder.newTrigger()<br>                    .withIdentity(getTriggerKey(Long.parseLong(scheduleJob.getId())))<br>                    .withSchedule(scheduleBuilder).build();<br>            jobDetail.getJobDataMap().put(ScheduleJob.JOB_PARAM_KEY,scheduleJob);<br>            scheduler.scheduleJob(jobDetail,trigger);<br>            <span class="hljs-comment">// 如果该定时器处于暂停状态</span><br>            <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;1&quot;</span>.equals(scheduleJob.getStatus()))&#123;<br>                pauseJob(scheduler,Long.parseLong(scheduleJob.getId())) ;<br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (SchedulerException e)&#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(<span class="hljs-string">&quot;createJob Fail&quot;</span>,e) ;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * Describe: 更新定时任务</span><br><span class="hljs-comment">     * Param: Scheduler ScheduleJobBean</span><br><span class="hljs-comment">     * Return: null</span><br><span class="hljs-comment">     * */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">updateJob</span><span class="hljs-params">(Scheduler scheduler, ScheduleJob scheduleJob)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-type">TriggerKey</span> <span class="hljs-variable">triggerKey</span> <span class="hljs-operator">=</span> getTriggerKey(Long.parseLong(scheduleJob.getId()));<br>            <span class="hljs-type">CronScheduleBuilder</span> <span class="hljs-variable">scheduleBuilder</span> <span class="hljs-operator">=</span> CronScheduleBuilder.cronSchedule(scheduleJob.getCronExpression()).withMisfireHandlingInstructionDoNothing();<br>            <span class="hljs-type">CronTrigger</span> <span class="hljs-variable">trigger</span> <span class="hljs-operator">=</span> getCronTrigger(scheduler, Long.parseLong(scheduleJob.getId()));<br>            <span class="hljs-keyword">assert</span> trigger != <span class="hljs-literal">null</span>;<br>            trigger = trigger.getTriggerBuilder().withIdentity(triggerKey).withSchedule(scheduleBuilder).build();<br>            trigger.getJobDataMap().put(ScheduleJob.JOB_PARAM_KEY, scheduleJob);<br>            scheduler.rescheduleJob(triggerKey, trigger);<br>            <span class="hljs-keyword">if</span>(<span class="hljs-string">&quot;1&quot;</span>.equals(scheduleJob.getStatus()))&#123;<br>                pauseJob(scheduler, Long.parseLong(scheduleJob.getId()));<br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (SchedulerException e) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(<span class="hljs-string">&quot;updateJob Fail&quot;</span>,e);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * Describe: 停止定时任务</span><br><span class="hljs-comment">     * Param: Scheduler ScheduleJobBean</span><br><span class="hljs-comment">     * Return: null</span><br><span class="hljs-comment">     * */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">pauseJob</span> <span class="hljs-params">(Scheduler scheduler, Long jobId)</span>&#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            scheduler.pauseJob(getJobKey(jobId));<br>        &#125; <span class="hljs-keyword">catch</span> (SchedulerException e)&#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(<span class="hljs-string">&quot;pauseJob Fail&quot;</span>,e);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * Describe: 恢复定时任务</span><br><span class="hljs-comment">     * Param: Scheduler ScheduleJobBean</span><br><span class="hljs-comment">     * Return: null</span><br><span class="hljs-comment">     * */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">resumeJob</span> <span class="hljs-params">(Scheduler scheduler, Long jobId)</span>&#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            scheduler.resumeJob(getJobKey(jobId));<br>        &#125; <span class="hljs-keyword">catch</span> (SchedulerException e)&#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(<span class="hljs-string">&quot;resumeJob Fail&quot;</span>,e);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * Describe: 删除定时任务</span><br><span class="hljs-comment">     * Param: Scheduler ScheduleJobBean</span><br><span class="hljs-comment">     * Return: null</span><br><span class="hljs-comment">     * */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">deleteJob</span> <span class="hljs-params">(Scheduler scheduler, Long jobId)</span>&#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            scheduler.deleteJob(getJobKey(jobId));<br>        &#125; <span class="hljs-keyword">catch</span> (SchedulerException e)&#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(<span class="hljs-string">&quot;deleteJob Fail&quot;</span>,e);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * Describe: 执行定时任务</span><br><span class="hljs-comment">     * Param: Scheduler ScheduleJobBean</span><br><span class="hljs-comment">     * Return: null</span><br><span class="hljs-comment">     * */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span> <span class="hljs-params">(Scheduler scheduler, ScheduleJob scheduleJob)</span>&#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-type">JobDataMap</span> <span class="hljs-variable">dataMap</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">JobDataMap</span>() ;<br>            dataMap.put(ScheduleJob.JOB_PARAM_KEY,scheduleJob);<br>            scheduler.triggerJob(getJobKey(Long.parseLong(scheduleJob.getId())),dataMap);<br>        &#125; <span class="hljs-keyword">catch</span> (SchedulerException e)&#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(<span class="hljs-string">&quot;run Fail&quot;</span>,e) ;<br>        &#125;<br>    &#125;<br><br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h2 id="定时任务启动处理类"><a href="#定时任务启动处理类" class="headerlink" title="定时任务启动处理类"></a>定时任务启动处理类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.wangijun.springbootdemo.schedule;<br><br><span class="hljs-keyword">import</span> ...;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Describe: 定时任务启动处理类</span><br><span class="hljs-comment"> * Author: 就眠仪式</span><br><span class="hljs-comment"> * CreateTime: 2019/10/23</span><br><span class="hljs-comment"> * */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ScheduleStarted</span> &#123;<br><br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> Scheduler scheduler ;<br><br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> ScheduleJobService scheduleJobService;<br><br>    <span class="hljs-meta">@PostConstruct</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">init</span> <span class="hljs-params">()</span>&#123;<br>        List&lt;ScheduleJob&gt; scheduleJobList = scheduleJobService.list();<br>        <span class="hljs-keyword">for</span> (ScheduleJob scheduleJob : scheduleJobList) &#123;<br>            <span class="hljs-type">CronTrigger</span> <span class="hljs-variable">cronTrigger</span> <span class="hljs-operator">=</span> com.wangijun.springbootdemo.schedule.ScheduleHandler.getCronTrigger(scheduler,Long.parseLong(scheduleJob.getId())) ;<br>            <span class="hljs-keyword">if</span> (cronTrigger == <span class="hljs-literal">null</span>)&#123;<br>                com.wangijun.springbootdemo.schedule.ScheduleHandler.createJob(scheduler,scheduleJob);<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                com.wangijun.springbootdemo.schedule.ScheduleHandler.updateJob(scheduler,scheduleJob);<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h2 id="Web接口"><a href="#Web接口" class="headerlink" title="Web接口"></a>Web接口</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.wangijun.springbootdemo;<br><br><span class="hljs-keyword">import</span> ...;<br><br><span class="hljs-meta">@RestController</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ScheduleController</span> &#123;<br>    <span class="hljs-meta">@Resource</span><br>    ScheduleJobService jobService;<br>    <span class="hljs-meta">@Resource</span><br>    ScheduleLogService logService;<br>    <span class="hljs-meta">@Resource</span><br>    Scheduler scheduler;<br>    <br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 根据任务ID运行一个任务</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> id 任务ID</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 运行状态</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@GetMapping(&quot;task_run&quot;)</span><br>    ResponseEntity&lt;Object&gt; <span class="hljs-title function_">taskRun</span><span class="hljs-params">(String id)</span> &#123;<br>        <span class="hljs-type">ScheduleJob</span> <span class="hljs-variable">job</span> <span class="hljs-operator">=</span> jobService.getById(jobId);<br>        ScheduleHandler.run(scheduler, job);<br>        <span class="hljs-keyword">return</span> ResponseEntity.ok(<span class="hljs-string">&quot;成功&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 保存任务</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> job 任务实体</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 保存结果</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@PostMapping(&quot;task_save&quot;)</span><br>    ResponseEntity&lt;Object&gt; <span class="hljs-title function_">taskSave</span><span class="hljs-params">(ScheduleJob job)</span> &#123;<br>        job.setId(IdWorker.getIdStr());<br>        job.setCreateTime(LocalDateTime.now());<br>        jobService.save(job);<br>        ScheduleHandler.createJob(scheduler, job);<br>        <span class="hljs-keyword">return</span> ResponseEntity.ok(<span class="hljs-string">&quot;成功&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 更新任务</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> job 任务数据</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 更新结果</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@PostMapping(&quot;task_update&quot;)</span><br>    ResponseEntity&lt;Object&gt; <span class="hljs-title function_">taskUpdate</span><span class="hljs-params">(ScheduleJob job)</span> &#123;<br>        jobService.updateById(job);<br>        ScheduleHandler.updateJob(scheduler, job);<br>        <span class="hljs-keyword">return</span> ResponseEntity.ok(<span class="hljs-string">&quot;成功&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 停止定时任务</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> id 任务Id</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 执行结果</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@GetMapping(&quot;task_pause&quot;)</span><br>    ResponseEntity&lt;Object&gt; <span class="hljs-title function_">taskPause</span><span class="hljs-params">(String id)</span> &#123;<br>        <span class="hljs-type">ScheduleJob</span> <span class="hljs-variable">scheduleJob</span> <span class="hljs-operator">=</span> jobService.getById(jobId);<br>        ScheduleHandler.pauseJob(scheduler, Long.parseLong(jobId));<br>        scheduleJob.setStatus(<span class="hljs-string">&quot;1&quot;</span>);<br>        jobService.updateById(scheduleJob);<br>        <span class="hljs-keyword">return</span> ResponseEntity.ok(<span class="hljs-string">&quot;成功&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 恢复定时任务</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> id 任务Id</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 执行结果</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@GetMapping(&quot;task_resume&quot;)</span><br>    ResponseEntity&lt;Object&gt; <span class="hljs-title function_">taskResume</span><span class="hljs-params">(String id)</span> &#123;<br>        <span class="hljs-type">ScheduleJob</span> <span class="hljs-variable">scheduleJob</span> <span class="hljs-operator">=</span> jobService.getById(jobId);<br>        ScheduleHandler.resumeJob(scheduler, Long.parseLong(jobId));<br>        scheduleJob.setStatus(<span class="hljs-string">&quot;0&quot;</span>);<br>        jobService.updateById(scheduleJob);<br>        <span class="hljs-keyword">return</span> ResponseEntity.ok(<span class="hljs-string">&quot;成功&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 删除一个任务</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> jobId 任务ID</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 删除结果</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@GetMapping(&quot;task_del&quot;)</span><br>    ResponseEntity&lt;Object&gt; <span class="hljs-title function_">taskDel</span><span class="hljs-params">(String jobId)</span> &#123;<br>        ScheduleHandler.deleteJob(scheduler, Long.parseLong(jobId));<br>        jobService.removeById(jobId);<br>        <span class="hljs-keyword">return</span> ResponseEntity.ok(<span class="hljs-string">&quot;成功&quot;</span>);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h2 id="定时任务类"><a href="#定时任务类" class="headerlink" title="定时任务类"></a>定时任务类</h2><h3 id="新增接口接口BaseTaskService-java"><a href="#新增接口接口BaseTaskService-java" class="headerlink" title="新增接口接口BaseTaskService.java"></a>新增接口接口BaseTaskService.java</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.wangijun.springbootdemo.task.base;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">BaseTaskService</span> &#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 任 务 实 现</span><br><span class="hljs-comment">     * */</span><br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">(String params)</span> <span class="hljs-keyword">throws</span> Exception;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="通用定时任务"><a href="#通用定时任务" class="headerlink" title="通用定时任务"></a>通用定时任务</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.wangijun.springbootdemo.task;<br><br><span class="hljs-keyword">import</span> ...;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Describe: 示例任务</span><br><span class="hljs-comment"> * Author: 就免仪式</span><br><span class="hljs-comment"> * CreateTime: 2019/10/23</span><br><span class="hljs-comment"> * */</span><br><span class="hljs-meta">@Slf4j</span><br><span class="hljs-meta">@Component(&quot;commonTask&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CommonTaskImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">BaseTaskService</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">SimpleDateFormat</span> <span class="hljs-variable">FORMAT</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SimpleDateFormat</span>(<span class="hljs-string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>) ;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 任务实现</span><br><span class="hljs-comment">     * */</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">(String params)</span> &#123;<br>        log.info(<span class="hljs-string">&quot;Params === &gt;&gt; &quot;</span> + params);<br>        log.info(<span class="hljs-string">&quot;当前时间::::&quot;</span> + FORMAT.format(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>()));<br>        System.out.println(<span class="hljs-string">&quot;执行成功&quot;</span>);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="异常的定时任务"><a href="#异常的定时任务" class="headerlink" title="异常的定时任务"></a>异常的定时任务</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.wangijun.springbootdemo.task;<br><br><br><span class="hljs-keyword">import</span> ...;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Describe: 示例任务</span><br><span class="hljs-comment"> * Author: 就免仪式</span><br><span class="hljs-comment"> * CreateTime: 2019/10/23</span><br><span class="hljs-comment"> * 异常任务</span><br><span class="hljs-comment"> * */</span><br><span class="hljs-meta">@Slf4j</span><br><span class="hljs-meta">@Component(&quot;exceptionTask&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ExceptionTaskImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">BaseTaskService</span> &#123;<br><br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">SimpleDateFormat</span> <span class="hljs-variable">FORMAT</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SimpleDateFormat</span>(<span class="hljs-string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>) ;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 任务实现</span><br><span class="hljs-comment">     * */</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">(String params)</span> <span class="hljs-keyword">throws</span> Exception&#123;<br>        log.info(<span class="hljs-string">&quot;当前时间::::&quot;</span> + FORMAT.format(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>()));<br>        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Exception</span>(<span class="hljs-string">&quot;发生异常&quot;</span>);<br>    &#125;<br>&#125;<br><br><br></code></pre></td></tr></table></figure>
+
+<h2 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h2><p>建表语句以及测试项目源码，mock.http文件中里面有测试数据，IDEA可以很方便的测试。</p>
+<p><a target="_blank" rel="noopener" href="https://gitee.com/wlf213/springboot-quartz">源码</a></p>
+<h2 id="封面"><a href="#封面" class="headerlink" title="封面"></a>封面</h2><p><img src="https://tvax1.sinaimg.cn/large/005NNTS5ly1gwp89wm2nwj33n61o0x6q.jpg" srcset="/img/loading.gif" lazyload alt="新璃月空港"></p>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/quartz/">#quartz</a>
+      
+        <a href="/tags/springboot/">#springboot</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>SpringBoot2.5.x整合Quartz并持久化</div>
+      <div>http://example.com/2021/11/22/java-05/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>无良芳</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年11月22日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/11/29/vue-03/" title="Vue+TS+默认组合式API">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Vue+TS+默认组合式API</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/11/19/vue-02/" title="Vue3+TS+SetUp">
+                        <span class="hidden-mobile">Vue3+TS+SetUp</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      皖ICP备20012572号
+    </a>
+  </span>
+  
+    
+      <span>
+        <a
+          href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=34042202000089"
+          rel="nofollow noopener"
+          class="beian-police"
+          target="_blank"
+        >
+          
+            <span style="visibility: hidden; width: 0">|</span>
+            <img src="/img/police_beian.png" srcset="/img/loading.gif" lazyload alt="police-icon"/>
+          
+          <span>京公网安备34042202000089号</span>
+        </a>
+      </span>
+    
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
