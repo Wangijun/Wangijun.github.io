@@ -359,7 +359,7 @@
               
               <p><a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/64769.html">原文链接</a></p>
 <h3 id="Cron表达式介绍"><a href="#Cron表达式介绍" class="headerlink" title="Cron表达式介绍"></a>Cron表达式介绍</h3><blockquote>
-<p>Cron表达式是一个具有时间含义的字符串，字符串以5<del>6个空格隔开，分为6</del>7个域，格式为<code>X X X X X X X</code>。其中<code>X</code>是一个域的占位符。最后一个代表年份的域非必须，可省略。单个域有多个取值时，使用半角逗号<code>,</code>隔开取值。每个域可以是确定的取值，也可以是具有逻辑意义的特殊字符。每个域最多支持一个前导零。</p>
+<p>Cron表达式是一个具有时间含义的字符串，字符串以<code>5~6</code>个空格隔开，分为<code>6~7</code>个域，格式为<code>X X X X X X X</code>。其中<code>X</code>是一个域的占位符。最后一个代表年份的域非必须，可省略。单个域有多个取值时，使用半角逗号<code>,</code>隔开取值。每个域可以是确定的取值，也可以是具有逻辑意义的特殊字符。每个域最多支持一个前导零。</p>
 </blockquote>
 <div class="note note-info">
             <p><code>说明</code> 如指定2022年每天上午8:15执行任务，Cron表达式可指定为<code>0 15 8 ? * * 2022</code>或<code>0 15 08 ? * * 2022</code>，而不能指定为<code>0 15 008 ? * * 2022</code>。</p>
