@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>快速删除文件夹</title>
+    <link href="/2022/08/03/other-06/"/>
+    <url>/2022/08/03/other-06/</url>
+    
+    <content type="html"><![CDATA[<p>大伙应该都经历过删除一个webpack项目删了十几分钟的经历吧😆😆</p><p>快速删除命令</p><h2 id="win"><a href="#win" class="headerlink" title="win"></a>win</h2><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">rmdir</span> /s/q <span class="token punctuation">[</span>文件夹名称<span class="token punctuation">]</span><span class="token comment"># 举个栗子</span><span class="token function">rmdir</span> /s/q app<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><h2 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h2><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 强制删除文件，无需确认，如果是文件夹那就是删除文件夹。</span><span class="token function">rm</span> -rf <span class="token punctuation">[</span>文件夹名称<span class="token punctuation">]</span><span class="token comment"># 举个栗子</span><span class="token function">rm</span> -rf app<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><h2 id="封"><a href="#封" class="headerlink" title="封"></a>封</h2><p><img src="https://tva1.sinaimg.cn/large/005NNTS5ly1h4te74p99xj32yo1o0kjl.jpg" alt="阿狸 cosplay"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Other</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>rm</tag>
+      
+      <tag>删除</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>网络编程三两言</title>
     <link href="/2022/08/02/net-01/"/>
     <url>/2022/08/02/net-01/</url>
