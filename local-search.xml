@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>网络编程三两言</title>
+    <link href="/2022/08/02/net-01/"/>
+    <url>/2022/08/02/net-01/</url>
+    
+    <content type="html"><![CDATA[<p>浅学了一段时间的网络编程知识，从基础的bio,到nio,再到aio(nio2.0)，国产框架里看了tio，国外看了netty,<br>大致总结网络框架，实际就是实现网络的IO操作，要想跑的快，异步，多线程，零拷贝，三者缺一不可。还好有现在的框架。</p><p>说下学习思路，学的时候不要觉得框架复杂，信我，如果需要手撸一个网络通信功能时，使用稍微复杂点的NIO，想写出一个先不提速度，就单说可靠，实用的网络通信代码时，一时半会是撸不出来，异步，多线程，这技术，对于编码能力有一定的要求。</p><p>网络通信这块，在现在学习编程的氛围中，好像没有被那么重视，一部分是现在各种框架封装的太好了，一部分是现在的工作氛围吧，都追求低代码了，你说你去学网络编程，闹呢。</p><h2 id="几种IO模型"><a href="#几种IO模型" class="headerlink" title="几种IO模型"></a>几种IO模型</h2><ul><li>BIO-同步阻塞IO<ul><li>传统IO，是JDK1.4之前的传统IO模型，既然说起这个模型，网上大把的图，光看图会有点难懂，找点基础代码写写，再回看这个模型，就能懂了，核心可以理解，一个线程只能处理一个客户端，肯定支持不了如今的网络盛况。不过，该说不说，我所处的工作单位依旧有使用这种IO来进行网络传输的。</li></ul></li><li>NIO-同步非阻塞IO<ul><li>新一代的网络传输IO模型，加了三个东西Select，Buffer，还有channel（通道），这三个组合了一下，鸟枪换炮了。网络上模型图很多，看了之后找点代码敲一下，主要是为了理解这个模型去敲代码，至于实战，还得用框架。大致说一下，就是一个select管理了多个channel，一个channel对应一个buffer，一个客户端也对应一个channel，客户端的channel和服务的channel之间使用buffer进行数据交互，buffer这里是数据载体，交换任务是channel做的。一个select需要一个线程，但是一个select可以管理多个channel，且是非阻塞模式，是由事件驱动的，这样就大大的节省的系统资源，让高并发有了可能，</li></ul></li><li>AIO-异步非阻塞IO<ul><li>就是NIO2.0，还在nio包下。加了异步，多多关注nio即可。</li></ul></li></ul><h2 id="封面"><a href="#封面" class="headerlink" title="封面"></a>封面</h2><p><img src="https://tvax3.sinaimg.cn/large/005NNTS5ly1h4tdo39n18j32yo1o0qv5.jpg" alt="巴图BaTu"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>网络编程</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>网络编程</tag>
+      
+      <tag>IO</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Java18的一个特性引发的IDEA控制台中文乱码的问题</title>
     <link href="/2022/06/26/java-16/"/>
     <url>/2022/06/26/java-16/</url>
