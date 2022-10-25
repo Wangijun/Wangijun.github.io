@@ -4,7 +4,7 @@
   
   
   <entry>
-    <title>网络编程框架BB两句</title>
+    <title>网络框架三两言</title>
     <link href="/2022/10/25/net-05/"/>
     <url>/2022/10/25/net-05/</url>
     
@@ -97,11 +97,11 @@
     
     <tags>
       
+      <tag>net</tag>
+      
       <tag>netty</tag>
       
       <tag>tio</tag>
-      
-      <tag>net</tag>
       
     </tags>
     
