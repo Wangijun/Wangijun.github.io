@@ -75,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"wangijun.com","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"wangijun.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -84,6 +84,8 @@
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
+  
+
 
   
 <meta name="generator" content="Hexo 6.2.0"></head>
@@ -392,20 +394,13 @@
             <!-- SEO header -->
             <h1 style="display: none">Mysql安装8.0+版本,以及主从复制的配置。</h1>
             
-              <p class="note note-info">
-                
-                  
-                    本文最后更新于：2 个月前
-                  
-                
-              </p>
             
-            <div class="markdown-body">
-              
-              <h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p><a target="_blank" rel="noopener" href="https://dev.mysql.com/downloads/mysql/">下载地址</a></p>
+              <div class="markdown-body">
+                
+                <h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p><a target="_blank" rel="noopener" href="https://dev.mysql.com/downloads/mysql/">下载地址</a></p>
 <p>这里下载软件是压缩包形式的，由于我们需要搭建主从复制，所有我们需要安装多个Mysql实例，使用压缩包形式的便于管理和安装。</p>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>解压下载文件，包含bin目录的为根目录，在根目录下面新建<code>my.ini</code>文件，<br>文件内容</p>
-<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>mysqld<span class="token punctuation">]</span>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>mysqld<span class="token punctuation">]</span>
 <span class="token comment"># 设置3306端口</span>
 <span class="token assign-left variable">port</span><span class="token operator">=</span><span class="token number">3308</span>
 <span class="token comment"># 设置mysql的安装目录</span>
@@ -431,7 +426,7 @@ default-character-set<span class="token operator">=</span>utf8mb4
 <span class="token comment"># 设置mysql客户端连接服务端时默认使用的端口</span>
 <span class="token assign-left variable">port</span><span class="token operator">=</span><span class="token number">3308</span>
 default-character-set<span class="token operator">=</span>utf8mb4
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>解释一下，端口不是3306是因为我需要在电脑上装多个Mysql，安装位置和数据存储位置，自己修改。</p>
 <p>下面就就是执行安装命令，使用管理员权限打开cmd,然后进入根目录中的bin目录下，执行,<code>mysqld install mysql_11</code>命令,最后为服务名称，就是我们执行<code>net start</code> 命令时启动的服务，我这里设置成了<code>mysql_11</code>,那么我执行的命令启动命令就应该是，<code>net start mysql</code>。</p>
@@ -443,35 +438,35 @@ default-character-set<span class="token operator">=</span>utf8mb4
 <p>如果前面对<code>mysql</code>进行初始化使用的是<code>--initialize-insecure</code>命令，则密码为空，在输入密码时直接按回车即可。登录之后，不用修改密码即可直接使用<code>MySQL</code>。例如：创建数据库等操作。<br>如果前面对<code>mysql</code>进行初始化使用的是<code>--initialize</code>命令，则密码为系统随机生成的一个字符串。登录之后需要修改密码才能使用。<br>若不修改密码，直接操作数据库，会出现如下错误：<br><code>ERROR 1820 (HY000): You must reset your password using ALTER USER statement before executing this statement.</code><br>使用如下命令修改密码：<br><code>set password=&#39;new_password&#39;;</code>注意：新的密码前后有单引号。在<code>mysql</code>中，单引号之间表示的是字符串。<br><code>alter user &#39;root&#39;@&#39;localhost&#39; password expire never;</code>设置密码永不过期。<br><code>flush privileges;</code>刷新权限。<br>之后退出（使用<code>q</code>，或者<code>exit</code>或者<code>quit</code>都可以退出），然后重新登录即可。<br>至此，可以正常使用MySQL了。</p>
 <h2 id="安装多个"><a href="#安装多个" class="headerlink" title="安装多个"></a>安装多个</h2><p>端口不能一致，然后<code>mysql install [服务名]</code>，服务名不能一致。就酱。</p>
 <h2 id="主从复制配置"><a href="#主从复制配置" class="headerlink" title="主从复制配置"></a>主从复制配置</h2><h3 id="安装多个数据库"><a href="#安装多个数据库" class="headerlink" title="安装多个数据库"></a>安装多个数据库</h3><p>安装教程就是上面在重新装一个即可，改一下端口号以及服务的名称即可。当然这是在一台机器上，实际上主从复制应该是在不同机器上进行的操作。</p>
-<h3 id="配置主库"><a href="#配置主库" class="headerlink" title="配置主库"></a>配置主库</h3><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#在mysqld下增加配置</span>
+<h3 id="配置主库"><a href="#配置主库" class="headerlink" title="配置主库"></a>配置主库</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#在mysqld下增加配置</span>
 <span class="token comment">#服务器ID标志，必须配置，每个节点不同</span>
 <span class="token assign-left variable">server_id</span><span class="token operator">=</span><span class="token number">1</span>
 <span class="token comment">#开启bin log日志文件，文件名为mysql-bin的前缀</span>
-log-bin<span class="token operator">=</span>mysql-bin<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+log-bin<span class="token operator">=</span>mysql-bin<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>重启主库</p>
 <p>查看主库状态</p>
-<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">show master status<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">show master status<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
 <p>主要关注<code>File</code> 和 <code>Position</code>字段</p>
 <h3 id="设置从库"><a href="#设置从库" class="headerlink" title="设置从库"></a>设置从库</h3><p>从库设置<code>server_id</code>和主库不一样就行了，设置后重启。</p>
 <p>如果需要设置从库只读则加上这两行</p>
-<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">read_only</span><span class="token operator">=</span><span class="token number">1</span> <span class="token comment">#限定普通用户只读</span>
-<span class="token assign-left variable">super_read_only</span><span class="token operator">=</span>on <span class="token comment">#限定root只读</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">read_only</span><span class="token operator">=</span><span class="token number">1</span> <span class="token comment">#限定普通用户只读</span>
+<span class="token assign-left variable">super_read_only</span><span class="token operator">=</span>on <span class="token comment">#限定root只读</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
 
 <p>然后在从库客户端配置连接主库相关信息：</p>
-<div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">change master <span class="token keyword">to</span> 
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">change master <span class="token keyword">to</span> 
     master_host <span class="token operator">=</span> <span class="token string">'192.168.127.147'</span><span class="token punctuation">,</span> 
     master_user <span class="token operator">=</span> <span class="token string">'replica'</span><span class="token punctuation">,</span> 
     master_port<span class="token operator">=</span><span class="token number">3306</span><span class="token punctuation">,</span> 
     master_password<span class="token operator">=</span><span class="token string">'123456'</span><span class="token punctuation">,</span> 
     master_log_file <span class="token operator">=</span> <span class="token string">'mysql-bin.000001'</span><span class="token punctuation">,</span> 
-    master_log_pos<span class="token operator">=</span><span class="token number">156</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+    master_log_pos<span class="token operator">=</span><span class="token number">156</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>里面的内容自己修改成对应的主库地址用户以及密码。</p>
 <p>开启主从复制</p>
-<div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">start</span> slave<span class="token punctuation">;</span>
-<span class="token keyword">show</span> slave <span class="token keyword">status</span>\G<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">start</span> slave<span class="token punctuation">;</span>
+<span class="token keyword">show</span> slave <span class="token keyword">status</span>\G<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
 
 <div class="note note-info">
             <p>这次操作只是简单的演示了一下，主从操作，还有很多情况并未一一详述，比如主库中有数据时怎么处理，又或者只同步一个库应该怎么配置，还有如何设置从库只读，等等，这些都需要多多去学习，去操作。</p>
@@ -480,8 +475,9 @@ log-bin<span class="token operator">=</span>mysql-bin<span aria-hidden="true" cl
 <h2 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h2><p>解压版的卸载很简单啊，首先停止服务<code>net stop mysql</code>,在执行命令<code>mysqld -remove [服务名]</code>   如 <code>mysqld -remove MySQL</code>, 最后删除文件即可。解压版的不需要清理注册表。</p>
 <h2 id="封"><a href="#封" class="headerlink" title="封"></a>封</h2><p><img src="https://tva3.sinaimg.cn/large/005NNTS5ly1h5gm5kyihnj32yo1tdaz9.jpg" srcset="/img/loading.gif" lazyload alt="麻匪 女孩 脸 红色的花 唯美"></p>
 
-              
-            </div>
+                
+              </div>
+            
             <hr/>
             <div>
               <div class="post-metas my-3">
@@ -540,21 +536,23 @@ log-bin<span class="token operator">=</span>mysql-bin<span aria-hidden="true" cl
         </div>
       
       
-      <div class="license-meta-item">
-        <div>许可协议</div>
-        <div>
-          
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
             
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
             
-              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-              <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                <i class="iconfont icon-by"></i>
-              </span>
-              </a>
-            
-          
+          </div>
         </div>
-      </div>
+      
     </div>
     <div class="license-icon iconfont"></div>
   </div>
@@ -631,6 +629,7 @@ log-bin<span class="token operator">=</span>mysql-bin<span aria-hidden="true" cl
 
 
   
+
 
 
 
@@ -752,8 +751,6 @@ log-bin<span class="token operator">=</span>mysql-bin<span aria-hidden="true" cl
 
 
 
-
-
   
     <script  src="/js/img-lazyload.js" ></script>
   
@@ -769,96 +766,43 @@ log-bin<span class="token operator">=</span>mysql-bin<span aria-hidden="true" cl
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init({
+    window.tocbot.init(Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
-      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
       linkClass       : 'tocbot-link',
       activeLinkClass : 'tocbot-active-link',
       listClass       : 'tocbot-list',
       isCollapsedClass: 'tocbot-is-collapsed',
       collapsibleClass: 'tocbot-is-collapsible',
-      collapseDepth   : CONFIG.toc.collapseDepth || 0,
       scrollSmooth    : true,
-      headingsOffset  : -boardTop
-    });
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
   });
 </script>
 
 
   <script  src="https://lib.baomitu.com/prism/1.26.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
 
-  <script>
-  (function() {
-    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
-    var enableCopy = CONFIG.copy_btn;
-    if (!enableLang && !enableCopy) {
-      return;
-    }
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
 
-    function getBgClass(ele) {
-      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
-    }
-
-    var copyTmpl = '';
-    copyTmpl += '<div class="code-widget">';
-    copyTmpl += 'LANG';
-    copyTmpl += '</div>';
-    jQuery('.markdown-body pre').each(function() {
-      var $pre = jQuery(this);
-      if ($pre.find('code.mermaid').length > 0) {
-        return;
-      }
-      if ($pre.find('span.line').length > 0) {
-        return;
-      }
-
-      var lang = '';
-
-      if (enableLang) {
-        lang = CONFIG.code_language.default;
-        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
-          lang = $pre[0].children[0].classList[1];
-        } else if ($pre[0].getAttribute('data-language')) {
-          lang = $pre[0].getAttribute('data-language');
-        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
-          lang = $pre[0].children[0].classList[1];
-          $pre.parent().addClass('code-wrapper');
-        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
-          $pre.wrap('<div class="code-wrapper"></div>');
-        }
-        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
-      }
-      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
-        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
-
-      if (enableCopy) {
-        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
-          var clipboard = new window.ClipboardJS('.copy-btn', {
-            target: function(trigger) {
-              var nodes = trigger.parentNode.childNodes;
-              for (var i = 0; i < nodes.length; i++) {
-                if (nodes[i].tagName === 'CODE') {
-                  return nodes[i];
-                }
-              }
-            }
-          });
-          clipboard.on('success', function(e) {
-            e.clearSelection();
-            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
-            setTimeout(function() {
-              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
-            }, 2000);
-          });
-        });
-      }
-    });
-  })();
-</script>
+  <script>Fluid.plugins.codeWidget();</script>
 
 
   
@@ -880,6 +824,21 @@ log-bin<span class="token operator">=</span>mysql-bin<span aria-hidden="true" cl
       window.anchors.options.class = 'anchorjs-link-left';
     }
     window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
   });
 </script>
 

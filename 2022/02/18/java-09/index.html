@@ -76,7 +76,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"wangijun.com","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"wangijun.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -85,6 +85,8 @@
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
+  
+
 
   
 <meta name="generator" content="Hexo 6.2.0"></head>
@@ -474,39 +476,32 @@
             <!-- SEO header -->
             <h1 style="display: none">springboot项目记录http请求记录</h1>
             
-              <p class="note note-info">
-                
-                  
-                    本文最后更新于：8 个月前
-                  
-                
-              </p>
             
-            <div class="markdown-body">
-              
-              <p>代码来咯，看代码多是一件美事呦，你他奶奶的为什么不看代码，给我看。</p>
+              <div class="markdown-body">
+                
+                <p>代码来咯，看代码多是一件美事呦，你他奶奶的为什么不看代码，给我看。</p>
 <p>工作的时候，尤其是接口联调的时候，打印http请求记录是甩锅和解决问题的最好的方式。尤其是请求体里的内容。就是这个获取请求体的内容其实还有点门道，我就被坑过，你直接在拦截器里直接获取request里面的body，拦截器里能获取到，Controller里面就获取不到了。具体原因不深究，就是Body是用流传的，你读取了之后这个流就被消耗了，然后后面的代码再从request里面就读取不到了。</p>
-<h2 id="引入spring-boot-starter-actuator"><a href="#引入spring-boot-starter-actuator" class="headerlink" title="引入spring-boot-starter-actuator"></a>引入<code>spring-boot-starter-actuator</code></h2><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!-- 依赖 --></span>
+<h2 id="引入spring-boot-starter-actuator"><a href="#引入spring-boot-starter-actuator" class="headerlink" title="引入spring-boot-starter-actuator"></a>引入<code>spring-boot-starter-actuator</code></h2><figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!-- 依赖 --></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-actuator<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>引入之后，配置存储方式<code>httpTraceRepository</code>，这个实例就是添加在内存中存储最近100次请求记录</p>
-<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Configuration</span>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Configuration</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ConfigTrace</span> <span class="token punctuation">&#123;</span>
     <span class="token annotation punctuation">@Bean</span>
     <span class="token keyword">public</span> <span class="token class-name">HttpTraceRepository</span> <span class="token function">httpTraceRepository</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
         <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">InMemoryHttpTraceRepository</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>最后在application.properties中加入</p>
-<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">management.endpoints.web.exposure.include<span class="token operator">=</span>*<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">management.endpoints.web.exposure.include<span class="token operator">=</span>*<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
 <p>运行项目访问<code>http://localhost:8080/actuator/httptrace</code></p>
 <p>得到这样的JSON数据（已经格式化），</p>
-<div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+<figure><div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
   <span class="token property">"traces"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token punctuation">&#123;</span>
       <span class="token property">"timestamp"</span><span class="token operator">:</span> <span class="token string">"2022-02-19T05:08:05.370267100Z"</span><span class="token punctuation">,</span>
@@ -557,11 +552,11 @@
       <span class="token property">"timeTaken"</span><span class="token operator">:</span> <span class="token number">120</span>
     <span class="token punctuation">&#125;</span>
   <span class="token punctuation">]</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>引入这个依赖的好处，就是几乎不需要写任何代码，引入，然后配置一下即可查看，缺点也有就是不能记录post请求的请求体，也无法记录返回值，持久化，目前我没有研究，但是我感觉可以。可以自行查阅资料研究。</p>
 <h2 id="使用springmvc自带的一个类"><a href="#使用springmvc自带的一个类" class="headerlink" title="使用springmvc自带的一个类"></a>使用springmvc自带的一个类</h2><p>增加一个配置类</p>
-<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Bean</span>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Bean</span>
     <span class="token class-name">CommonsRequestLoggingFilter</span> <span class="token function">loggingFilter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
         <span class="token class-name">CommonsRequestLoggingFilter</span> loggingFilter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CommonsRequestLoggingFilter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token comment">// 记录 客户端 IP信息</span>
@@ -577,10 +572,10 @@
         <span class="token comment">//记录请求路径中的query参数</span>
         loggingFilter<span class="token punctuation">.</span><span class="token function">setIncludeQueryString</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">return</span> loggingFilter<span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+    <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p><code>CommonsRequestLoggingFilter</code>可以点进去看一下，就是一个springboot提供得一个类。可以自己进行改造。接下来再配置一下logback就行。配置如下。看不懂或者不理解看这个<a href="https://wangijun.com/2022/01/05/java-07/">logback配置详情</a></p>
-<div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8" ?></span>
+<figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8" ?></span>
 
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>configuration</span><span class="token punctuation">></span></span>
     <span class="token comment">&lt;!--
@@ -622,10 +617,10 @@
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>appender-ref</span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>soutAppender<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>appender-ref</span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fileAppender<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>root</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>configuration</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>configuration</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>配置好打印的日志应该是这样</p>
-<div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token number">2022</span><span class="token number">-02</span><span class="token number">-19</span> <span class="token number">19</span><span class="token operator">:</span><span class="token number">02</span><span class="token operator">:</span><span class="token number">28</span><span class="token punctuation">,</span><span class="token number">608</span> DEBUG <span class="token punctuation">[</span>http-nio<span class="token number">-8080</span>-exec<span class="token number">-1</span><span class="token punctuation">]</span> o.s.w.f.CommonsRequestLoggingFilter.CommonsRequestLoggingFilter#beforeRequest<span class="token punctuation">[</span>CommonsRequestLoggingFilter.java<span class="token operator">:</span><span class="token number">47</span><span class="token punctuation">]</span> 
+<figure><div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token number">2022</span><span class="token number">-02</span><span class="token number">-19</span> <span class="token number">19</span><span class="token operator">:</span><span class="token number">02</span><span class="token operator">:</span><span class="token number">28</span><span class="token punctuation">,</span><span class="token number">608</span> DEBUG <span class="token punctuation">[</span>http-nio<span class="token number">-8080</span>-exec<span class="token number">-1</span><span class="token punctuation">]</span> o.s.w.f.CommonsRequestLoggingFilter.CommonsRequestLoggingFilter#beforeRequest<span class="token punctuation">[</span>CommonsRequestLoggingFilter.java<span class="token operator">:</span><span class="token number">47</span><span class="token punctuation">]</span> 
 Before request <span class="token punctuation">[</span>GET /index?a=%E4%BB%8E%E5%<span class="token number">89</span>%8D%E4%BB%8E%E5%<span class="token number">89</span>%8D&amp;b=%E6%9C%<span class="token number">89</span>%E4%B8%AA%E4%BA%BA%E7%<span class="token number">88</span>%B1%E4%BD%A0%E5%BE%<span class="token number">88</span>%E4%B9%<span class="token number">85</span><span class="token punctuation">,</span> client=<span class="token number">127.0</span>.<span class="token number">0.1</span><span class="token punctuation">,</span> headers=<span class="token punctuation">[</span>host<span class="token operator">:</span><span class="token string">"localhost:8080"</span><span class="token punctuation">,</span> connection<span class="token operator">:</span><span class="token string">"Keep-Alive"</span><span class="token punctuation">,</span> user-agent<span class="token operator">:</span><span class="token string">"Apache-HttpClient/4.5.13 (Java/11.0.12)"</span><span class="token punctuation">,</span> accept-encoding<span class="token operator">:</span><span class="token string">"gzip,deflate"</span><span class="token punctuation">,</span> Content-Type<span class="token operator">:</span><span class="token string">"application/x-www-form-urlencoded;charset=UTF-8"</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
 <span class="token number">2022</span><span class="token number">-02</span><span class="token number">-19</span> <span class="token number">19</span><span class="token operator">:</span><span class="token number">02</span><span class="token operator">:</span><span class="token number">28</span><span class="token punctuation">,</span><span class="token number">668</span> DEBUG <span class="token punctuation">[</span>http-nio<span class="token number">-8080</span>-exec<span class="token number">-1</span><span class="token punctuation">]</span> o.s.w.f.CommonsRequestLoggingFilter.CommonsRequestLoggingFilter#afterRequest<span class="token punctuation">[</span>CommonsRequestLoggingFilter.java<span class="token operator">:</span><span class="token number">55</span><span class="token punctuation">]</span> 
 After request <span class="token punctuation">[</span>GET /index?a=%E4%BB%8E%E5%<span class="token number">89</span>%8D%E4%BB%8E%E5%<span class="token number">89</span>%8D&amp;b=%E6%9C%<span class="token number">89</span>%E4%B8%AA%E4%BA%BA%E7%<span class="token number">88</span>%B1%E4%BD%A0%E5%BE%<span class="token number">88</span>%E4%B9%<span class="token number">85</span><span class="token punctuation">,</span> client=<span class="token number">127.0</span>.<span class="token number">0.1</span><span class="token punctuation">,</span> headers=<span class="token punctuation">[</span>host<span class="token operator">:</span><span class="token string">"localhost:8080"</span><span class="token punctuation">,</span> connection<span class="token operator">:</span><span class="token string">"Keep-Alive"</span><span class="token punctuation">,</span> user-agent<span class="token operator">:</span><span class="token string">"Apache-HttpClient/4.5.13 (Java/11.0.12)"</span><span class="token punctuation">,</span> accept-encoding<span class="token operator">:</span><span class="token string">"gzip,deflate"</span><span class="token punctuation">,</span> Content-Type<span class="token operator">:</span><span class="token string">"application/x-www-form-urlencoded;charset=UTF-8"</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
@@ -633,11 +628,11 @@ After request <span class="token punctuation">[</span>GET /index?a=%E4%BB%8E%E5%
 Before request <span class="token punctuation">[</span>POST /save<span class="token punctuation">,</span> client=<span class="token number">127.0</span>.<span class="token number">0.1</span><span class="token punctuation">,</span> headers=<span class="token punctuation">[</span>content-length<span class="token operator">:</span><span class="token string">"14"</span><span class="token punctuation">,</span> host<span class="token operator">:</span><span class="token string">"localhost:8080"</span><span class="token punctuation">,</span> connection<span class="token operator">:</span><span class="token string">"Keep-Alive"</span><span class="token punctuation">,</span> user-agent<span class="token operator">:</span><span class="token string">"Apache-HttpClient/4.5.13 (Java/11.0.12)"</span><span class="token punctuation">,</span> accept-encoding<span class="token operator">:</span><span class="token string">"gzip,deflate"</span><span class="token punctuation">,</span> Content-Type<span class="token operator">:</span><span class="token string">"application/x-www-form-urlencoded;charset=UTF-8"</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
 <span class="token number">2022</span><span class="token number">-02</span><span class="token number">-19</span> <span class="token number">19</span><span class="token operator">:</span><span class="token number">02</span><span class="token operator">:</span><span class="token number">39</span><span class="token punctuation">,</span><span class="token number">743</span> DEBUG <span class="token punctuation">[</span>http-nio<span class="token number">-8080</span>-exec<span class="token number">-3</span><span class="token punctuation">]</span> o.s.w.f.CommonsRequestLoggingFilter.CommonsRequestLoggingFilter#afterRequest<span class="token punctuation">[</span>CommonsRequestLoggingFilter.java<span class="token operator">:</span><span class="token number">55</span><span class="token punctuation">]</span> 
 After request <span class="token punctuation">[</span>POST /save<span class="token punctuation">,</span> client=<span class="token number">127.0</span>.<span class="token number">0.1</span><span class="token punctuation">,</span> headers=<span class="token punctuation">[</span>content-length<span class="token operator">:</span><span class="token string">"14"</span><span class="token punctuation">,</span> host<span class="token operator">:</span><span class="token string">"localhost:8080"</span><span class="token punctuation">,</span> connection<span class="token operator">:</span><span class="token string">"Keep-Alive"</span><span class="token punctuation">,</span> user-agent<span class="token operator">:</span><span class="token string">"Apache-HttpClient/4.5.13 (Java/11.0.12)"</span><span class="token punctuation">,</span> accept-encoding<span class="token operator">:</span><span class="token string">"gzip,deflate"</span><span class="token punctuation">,</span> Content-Type<span class="token operator">:</span><span class="token string">"application/x-www-form-urlencoded;charset=UTF-8"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> payload=a=%E4%BD%A0%E5%A5%BD%E4%B8%<span class="token number">96</span>%E7%<span class="token number">95</span>%8C<span class="token punctuation">]</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>payload中得东西为请求体。一次请求会打印两条日志，Before request为过滤器前，After request为过滤器后的记录，这种方式其实已经挺好用了。但是还有个问题就是不能记录返回值，也有方法。</p>
 <h2 id="记录返回值"><a href="#记录返回值" class="headerlink" title="记录返回值"></a>记录返回值</h2><p>继承<code>ResponseBodyAdvice</code>和使用<code>RestControllerAdvice</code>注解来实现。</p>
-<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java">
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java">
 <span class="token annotation punctuation">@Slf4j</span>
 <span class="token annotation punctuation">@RestControllerAdvice</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RestBodyAdvice</span> <span class="token keyword">implements</span> <span class="token class-name">ResponseBodyAdvice</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Object</span><span class="token punctuation">></span></span> <span class="token punctuation">&#123;</span>
@@ -749,24 +744,25 @@ After request <span class="token punctuation">[</span>POST /save<span class="tok
         <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>然后再配置logback</p>
-<div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>logger</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>com.example.springboothttptrace.RestBodyAdvice<span class="token punctuation">"</span></span> <span class="token attr-name">level</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>debug<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>logger</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>com.example.springboothttptrace.RestBodyAdvice<span class="token punctuation">"</span></span> <span class="token attr-name">level</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>debug<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
 
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>logger</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>logger</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>配置一下，输出的日志为</p>
-<div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token number">2022</span><span class="token number">-02</span><span class="token number">-21</span> <span class="token number">10</span><span class="token operator">:</span><span class="token number">19</span><span class="token operator">:</span><span class="token number">29</span><span class="token punctuation">,</span><span class="token number">880</span> DEBUG <span class="token punctuation">[</span>http-nio<span class="token number">-8080</span>-exec<span class="token number">-3</span><span class="token punctuation">]</span> c.e.s.RestBodyAdvice.RestBodyAdvice#beforeBodyWrite<span class="token punctuation">[</span>RestBodyAdvice.java<span class="token operator">:</span><span class="token number">64</span><span class="token punctuation">]</span> 
+<figure><div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token number">2022</span><span class="token number">-02</span><span class="token number">-21</span> <span class="token number">10</span><span class="token operator">:</span><span class="token number">19</span><span class="token operator">:</span><span class="token number">29</span><span class="token punctuation">,</span><span class="token number">880</span> DEBUG <span class="token punctuation">[</span>http-nio<span class="token number">-8080</span>-exec<span class="token number">-3</span><span class="token punctuation">]</span> c.e.s.RestBodyAdvice.RestBodyAdvice#beforeBodyWrite<span class="token punctuation">[</span>RestBodyAdvice.java<span class="token operator">:</span><span class="token number">64</span><span class="token punctuation">]</span> 
 Request <span class="token punctuation">[</span>POST /save<span class="token punctuation">,</span> client=<span class="token number">127.0</span>.<span class="token number">0.1</span><span class="token punctuation">,</span> headers=<span class="token punctuation">[</span>content-length<span class="token operator">:</span><span class="token string">"14"</span><span class="token punctuation">,</span> host<span class="token operator">:</span><span class="token string">"localhost:8080"</span><span class="token punctuation">,</span> connection<span class="token operator">:</span><span class="token string">"Keep-Alive"</span><span class="token punctuation">,</span> user-agent<span class="token operator">:</span><span class="token string">"Apache-HttpClient/4.5.13 (Java/11.0.12)"</span><span class="token punctuation">,</span> accept-encoding<span class="token operator">:</span><span class="token string">"gzip,deflate"</span><span class="token punctuation">,</span> Content-Type<span class="token operator">:</span><span class="token string">"application/x-www-form-urlencoded;charset=UTF-8"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> payload=a=%E4%BD%A0%E5%A5%BD%E4%B8%<span class="token number">96</span>%E7%<span class="token number">95</span>%8C<span class="token punctuation">]</span>
 <span class="token number">2022</span><span class="token number">-02</span><span class="token number">-21</span> <span class="token number">10</span><span class="token operator">:</span><span class="token number">19</span><span class="token operator">:</span><span class="token number">29</span><span class="token punctuation">,</span><span class="token number">880</span> DEBUG <span class="token punctuation">[</span>http-nio<span class="token number">-8080</span>-exec<span class="token number">-3</span><span class="token punctuation">]</span> c.e.s.RestBodyAdvice.RestBodyAdvice#beforeBodyWrite<span class="token punctuation">[</span>RestBodyAdvice.java<span class="token operator">:</span><span class="token number">66</span><span class="token punctuation">]</span> 
-Response Body <span class="token punctuation">[</span><span class="token string">"你好世界"</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div>
+Response Body <span class="token punctuation">[</span><span class="token string">"你好世界"</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>至此，http的请求记录就全部记录到了，payload中为请求体，请求体和返回内容。自己可以按需使用，开发过程中建议打印全部日志，方便调试，上线后，可以不打印。去掉也很方便，直接在logback配置中配置一下就可以了。</p>
 <h2 id="封面"><a href="#封面" class="headerlink" title="封面"></a>封面</h2><p><img src="https://tvax2.sinaimg.cn/large/005NNTS5ly1gzkx54or65j32yo1o01ky.jpg" srcset="/img/loading.gif" lazyload alt="坐在树上的美女宋仁何 绿色裙子 美腿 护眼森系"></p>
 
-              
-            </div>
+                
+              </div>
+            
             <hr/>
             <div>
               <div class="post-metas my-3">
@@ -827,21 +823,23 @@ Response Body <span class="token punctuation">[</span><span class="token string"
         </div>
       
       
-      <div class="license-meta-item">
-        <div>许可协议</div>
-        <div>
-          
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
             
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
             
-              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-              <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                <i class="iconfont icon-by"></i>
-              </span>
-              </a>
-            
-          
+          </div>
         </div>
-      </div>
+      
     </div>
     <div class="license-icon iconfont"></div>
   </div>
@@ -918,6 +916,7 @@ Response Body <span class="token punctuation">[</span><span class="token string"
 
 
   
+
 
 
 
@@ -1039,8 +1038,6 @@ Response Body <span class="token punctuation">[</span><span class="token string"
 
 
 
-
-
   
     <script  src="/js/img-lazyload.js" ></script>
   
@@ -1056,96 +1053,43 @@ Response Body <span class="token punctuation">[</span><span class="token string"
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init({
+    window.tocbot.init(Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
-      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
       linkClass       : 'tocbot-link',
       activeLinkClass : 'tocbot-active-link',
       listClass       : 'tocbot-list',
       isCollapsedClass: 'tocbot-is-collapsed',
       collapsibleClass: 'tocbot-is-collapsible',
-      collapseDepth   : CONFIG.toc.collapseDepth || 0,
       scrollSmooth    : true,
-      headingsOffset  : -boardTop
-    });
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
   });
 </script>
 
 
   <script  src="https://lib.baomitu.com/prism/1.26.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
 
-  <script>
-  (function() {
-    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
-    var enableCopy = CONFIG.copy_btn;
-    if (!enableLang && !enableCopy) {
-      return;
-    }
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
 
-    function getBgClass(ele) {
-      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
-    }
-
-    var copyTmpl = '';
-    copyTmpl += '<div class="code-widget">';
-    copyTmpl += 'LANG';
-    copyTmpl += '</div>';
-    jQuery('.markdown-body pre').each(function() {
-      var $pre = jQuery(this);
-      if ($pre.find('code.mermaid').length > 0) {
-        return;
-      }
-      if ($pre.find('span.line').length > 0) {
-        return;
-      }
-
-      var lang = '';
-
-      if (enableLang) {
-        lang = CONFIG.code_language.default;
-        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
-          lang = $pre[0].children[0].classList[1];
-        } else if ($pre[0].getAttribute('data-language')) {
-          lang = $pre[0].getAttribute('data-language');
-        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
-          lang = $pre[0].children[0].classList[1];
-          $pre.parent().addClass('code-wrapper');
-        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
-          $pre.wrap('<div class="code-wrapper"></div>');
-        }
-        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
-      }
-      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
-        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
-
-      if (enableCopy) {
-        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
-          var clipboard = new window.ClipboardJS('.copy-btn', {
-            target: function(trigger) {
-              var nodes = trigger.parentNode.childNodes;
-              for (var i = 0; i < nodes.length; i++) {
-                if (nodes[i].tagName === 'CODE') {
-                  return nodes[i];
-                }
-              }
-            }
-          });
-          clipboard.on('success', function(e) {
-            e.clearSelection();
-            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
-            setTimeout(function() {
-              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
-            }, 2000);
-          });
-        });
-      }
-    });
-  })();
-</script>
+  <script>Fluid.plugins.codeWidget();</script>
 
 
   
@@ -1167,6 +1111,21 @@ Response Body <span class="token punctuation">[</span><span class="token string"
       window.anchors.options.class = 'anchorjs-link-left';
     }
     window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
   });
 </script>
 

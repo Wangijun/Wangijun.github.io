@@ -76,7 +76,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"wangijun.com","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"wangijun.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -85,6 +85,8 @@
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
+  
+
 
   
 <meta name="generator" content="Hexo 6.2.0"></head>
@@ -375,21 +377,14 @@
             <!-- SEO header -->
             <h1 style="display: none">Nginx详细配置</h1>
             
-              <p class="note note-info">
-                
-                  
-                    本文最后更新于：7 个月前
-                  
-                
-              </p>
             
-            <div class="markdown-body">
-              
-              <p>Nginx的配置记了忘，忘了记，这东西，一般就是一套配置，到处复制，然后改改，绝大多数时候对于我们的要求就是需要知道改什么地方，nginx相关的博客，我好像不止写了一次，然而属实不怎么常用，学得快，忘得更快，然后借这次吧，重新再写一下。nginx的配置难以理解的地方。就是配置https，其实也没有什么复杂的。</p>
+              <div class="markdown-body">
+                
+                <p>Nginx的配置记了忘，忘了记，这东西，一般就是一套配置，到处复制，然后改改，绝大多数时候对于我们的要求就是需要知道改什么地方，nginx相关的博客，我好像不止写了一次，然而属实不怎么常用，学得快，忘得更快，然后借这次吧，重新再写一下。nginx的配置难以理解的地方。就是配置https，其实也没有什么复杂的。</p>
 <h2 id="教程准备"><a href="#教程准备" class="headerlink" title="教程准备"></a>教程准备</h2><h3 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h3><p>如日中天的CenterOs倒了（停止维护）。于是我就换上了Ubuntu。</p>
 <p>Linux系统：Ubuntu20.x.x</p>
 <h3 id="安装方式"><a href="#安装方式" class="headerlink" title="安装方式"></a>安装方式</h3><p>两种安装方式，使用命令式的安装是最为简单的，但受限于网络。下载源码编译安装最为通用，但是有一点繁琐。</p>
-<h4 id="APT（软件源）安装"><a href="#APT（软件源）安装" class="headerlink" title="APT（软件源）安装"></a>APT（软件源）安装</h4><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 安装之前的准备</span>
+<h4 id="APT（软件源）安装"><a href="#APT（软件源）安装" class="headerlink" title="APT（软件源）安装"></a>APT（软件源）安装</h4><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 安装之前的准备</span>
 <span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> <span class="token function">curl</span> gnupg2 ca-certificates lsb-release ubuntu-keyring
 
 <span class="token comment"># 导入官方的nginx签名密钥，以便apt能够验证软件包的真实性</span>
@@ -442,12 +437,12 @@ Commercial support is available at
 <span class="token operator">&lt;</span>p<span class="token operator">></span><span class="token operator">&lt;</span>em<span class="token operator">></span>Thank you <span class="token keyword">for</span> using nginx.<span class="token operator">&lt;</span>/em<span class="token operator">></span><span class="token operator">&lt;</span>/p<span class="token operator">></span>
 <span class="token operator">&lt;</span>/body<span class="token operator">></span>
 <span class="token operator">&lt;</span>/html<span class="token operator">></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>按照上面的操作如果出现最后的Html文档说明已经正确安装了。</p>
 <h4 id="源码安装"><a href="#源码安装" class="headerlink" title="源码安装"></a>源码安装</h4><p>比较通用的一种安装方法。首先下载安装包。<a target="_blank" rel="noopener" href="http://nginx.org/en/download.html">nginx下载</a>，下载稳定版的即可。我这里下载的是<a target="_blank" rel="noopener" href="http://nginx.org/download/nginx-1.20.2.tar.gz">nginx-1.20.2</a>，点击下载到本地，上传到你的Linux服务器上。上传方法不限，弄到服务器的文件夹里即可。</p>
 <p>进入存放tar.gz文件的目录下</p>
-<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 解压源码文件</span>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 解压源码文件</span>
 <span class="token function">tar</span> -zxcf nginx-1.20.2.tar.gz
 
 <span class="token comment"># 进入解压后的文件中</span>
@@ -501,7 +496,7 @@ checking <span class="token keyword">for</span> C compiler <span class="token pu
   nginx http uwsgi temporary files: <span class="token string">"/var/temp/nginx/uwsgi"</span>
   nginx http scgi temporary files: <span class="token string">"/var/temp/nginx/scgi"</span>
 
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <div class="note note-info">
             <p>配置相关信息汇总，看表格</p>
@@ -566,7 +561,7 @@ checking <span class="token keyword">for</span> C compiler <span class="token pu
 <td>启用Https模块</td>
 </tr>
 </tbody></table>
-<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># make编译</span>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># make编译</span>
 <span class="token function">make</span>
 
 <span class="token comment"># 安装</span>
@@ -581,7 +576,7 @@ checking <span class="token keyword">for</span> C compiler <span class="token pu
 ./nginx -s stop
 
 <span class="token comment"># 重新加载：</span>
-./nginx -s reload<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+./nginx -s reload<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>在Ubuntu上nginx安装的两种方式都已介绍完毕，如果你用的是CentOs,那很可惜，教程并不适用。我这边呢是建议使用apt,yum这种工具去安装nginx的，优点有很多。</p>
 <p>第一：节省服务器空间因为不需要编译环境，第二，节省开发者生命。</p>
@@ -594,7 +589,7 @@ checking <span class="token keyword">for</span> C compiler <span class="token pu
             <p>apt（Advanced Packaging Tool）是一个在 Debian 和 Ubuntu 中的 Shell 前端软件包管理器。<br>apt 命令提供了查找、安装、升级、删除某一个、一组甚至全部软件包的命令，而且命令简洁而又好记。<br>apt 命令执行需要超级管理员权限(root)。</p>
           </div>
 
-<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@ubuntu:/usr/local/nginx/sbin<span class="token comment"># apt -h</span>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@ubuntu:/usr/local/nginx/sbin<span class="token comment"># apt -h</span>
 <span class="token function">apt</span> <span class="token number">2.0</span>.6 <span class="token punctuation">(</span>amd64<span class="token punctuation">)</span>
 用法： <span class="token function">apt</span> <span class="token punctuation">[</span>选项<span class="token punctuation">]</span> 命令
 
@@ -621,13 +616,13 @@ checking <span class="token keyword">for</span> C compiler <span class="token pu
 欲知如何配置软件源，请参阅 sources.list<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>。
 软件包及其版本偏好可以通过 apt_preferences<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span> 来设置。
 关于安全方面的细节可以参考 apt-secure<span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">)</span>.
-                                         本 APT 具有超级牛力。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+                                         本 APT 具有超级牛力。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <h3 id="Yum"><a href="#Yum" class="headerlink" title="Yum"></a>Yum</h3><div class="note note-info">
             <p>yum（ Yellow dog Updater, Modified）是一个在 Fedora 和 RedHat 以及 SUSE 中的 Shell 前端软件包管理器。（一般CentOS就用这个）<br>基于 RPM 包管理，能够从指定的服务器自动下载 RPM 包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软件包，无须繁琐地一次次下载、安装。<br>yum 提供了查找、安装、删除某一个、一组甚至全部软件包的命令，而且命令简洁而又好记。</p>
           </div>
 
-<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>. 列出所有可更新的软件清单命令：yum check-update
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>. 列出所有可更新的软件清单命令：yum check-update
 
 <span class="token number">2</span>. 更新所有软件命令：yum update
 
@@ -646,9 +641,9 @@ checking <span class="token keyword">for</span> C compiler <span class="token pu
 yum clean packages: 清除缓存目录下的软件包
 yum clean headers: 清除缓存目录下的 headers
 yum clean oldheaders: 清除缓存目录下旧的 headers
-yum clean, yum clean all <span class="token punctuation">(</span><span class="token operator">=</span> yum clean packages<span class="token punctuation">;</span> yum clean oldheaders<span class="token punctuation">)</span> :清除缓存目录下的软件包及旧的 headers<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+yum clean, yum clean all <span class="token punctuation">(</span><span class="token operator">=</span> yum clean packages<span class="token punctuation">;</span> yum clean oldheaders<span class="token punctuation">)</span> :清除缓存目录下的软件包及旧的 headers<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<h2 id="默认配置解读"><a href="#默认配置解读" class="headerlink" title="默认配置解读"></a>默认配置解读</h2><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 运行用户，一般设置成root用户即可，百度了一下是用来控制权限的。根据Liunx系统的用户来配置即可，话说通过shell窗口来操作Linux的用户的相关命令，应该不常用。</span>
+<h2 id="默认配置解读"><a href="#默认配置解读" class="headerlink" title="默认配置解读"></a>默认配置解读</h2><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 运行用户，一般设置成root用户即可，百度了一下是用来控制权限的。根据Liunx系统的用户来配置即可，话说通过shell窗口来操作Linux的用户的相关命令，应该不常用。</span>
 user www-data<span class="token punctuation">;</span>
 
 <span class="token comment"># 启动进程,通常设置成和cpu的数量相等，auto 表示自动</span>
@@ -752,9 +747,9 @@ http <span class="token punctuation">&#123;</span>
 <span class="token comment">#  protocol   imap;</span>
 <span class="token comment">#  proxy      on;</span>
 <span class="token comment"># &#125;</span>
-<span class="token comment">#&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span class="token comment">#&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<h3 id="Default文件"><a href="#Default文件" class="headerlink" title="Default文件"></a>Default文件</h3><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">##</span>
+<h3 id="Default文件"><a href="#Default文件" class="headerlink" title="Default文件"></a>Default文件</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">##</span>
 <span class="token comment"># 你应该看看下面的网址，以便掌握一个坚实的理解</span>
 <span class="token comment"># 为了充分发挥Nginx的威力，需要使用Nginx配置文件。</span>
 <span class="token comment"># https://www.nginx.com/resources/wiki/start/</span>
@@ -849,19 +844,19 @@ server <span class="token punctuation">&#123;</span>
 <span class="token comment"># location / &#123;</span>
 <span class="token comment">#  try_files $uri $uri/ =404;</span>
 <span class="token comment"># &#125;</span>
-<span class="token comment">#&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span class="token comment">#&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>学习一途，欲速则不达，真的当你完全弄懂这些配置中的符号的意思之后，你再看这些配置你的感觉是不一样的。当然我也是在一点一点的学习，我甚至装了个有图形化的Ubuntu虚拟机，为了研究nginx,这个默认生成的配置文件，我一开始是看不懂的，我也看了很长时间。😂😂😂</p>
 <h2 id="安装nginx没有生成各类目录文件问题解决"><a href="#安装nginx没有生成各类目录文件问题解决" class="headerlink" title="安装nginx没有生成各类目录文件问题解决"></a>安装nginx没有生成各类目录文件问题解决</h2><p>由于途中我需要手动安装一次，我就把使用apt安装的nginx给卸载了，并且把配置文件给删了，我再次使用apt安装时，发现不重新生成默认配置了。解决办法。依次执行。</p>
-<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> --purge remove nginx-common
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> --purge remove nginx-common
 
 <span class="token function">sudo</span> <span class="token function">apt-get</span> --purge remove nginx*
 
 <span class="token function">sudo</span> <span class="token function">apt-get</span> autoremove
 
-<span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> nginx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> nginx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<h2 id="常用配置的介绍以及样例"><a href="#常用配置的介绍以及样例" class="headerlink" title="常用配置的介绍以及样例"></a>常用配置的介绍以及样例</h2><h3 id="侦听端口"><a href="#侦听端口" class="headerlink" title="侦听端口"></a>侦听端口</h3><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">server <span class="token punctuation">&#123;</span>  
+<h2 id="常用配置的介绍以及样例"><a href="#常用配置的介绍以及样例" class="headerlink" title="常用配置的介绍以及样例"></a>常用配置的介绍以及样例</h2><h3 id="侦听端口"><a href="#侦听端口" class="headerlink" title="侦听端口"></a>侦听端口</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">server <span class="token punctuation">&#123;</span>  
 <span class="token comment"># Standard HTTP Protocol  </span>
 listen <span class="token number">80</span><span class="token punctuation">;</span>  
 <span class="token comment"># Standard HTTPS Protocol  </span>
@@ -872,16 +867,16 @@ listen <span class="token number">443</span> ssl http2<span class="token punctua
 listen <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:80<span class="token punctuation">;</span>  
 <span class="token comment"># Listen only on using IPv6  </span>
 listen <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:80 <span class="token assign-left variable">ipv6only</span><span class="token operator">=</span>on<span class="token punctuation">;</span>  
-<span class="token punctuation">&#125;</span>  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span class="token punctuation">&#125;</span>  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<h3 id="访问日志"><a href="#访问日志" class="headerlink" title="访问日志"></a>访问日志</h3><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">server <span class="token punctuation">&#123;</span>  
+<h3 id="访问日志"><a href="#访问日志" class="headerlink" title="访问日志"></a>访问日志</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">server <span class="token punctuation">&#123;</span>  
 <span class="token comment"># Relative or full path to log file  </span>
 access_log /path/to/file.log<span class="token punctuation">;</span>  
 <span class="token comment"># Turn 'on' or 'off'    </span>
 access_log on<span class="token punctuation">;</span>  
-<span class="token punctuation">&#125;</span>  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span class="token punctuation">&#125;</span>  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<h3 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h3><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">
+<h3 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">
 server <span class="token punctuation">&#123;</span>  
 <span class="token comment"># Listen to yourdomain.com  </span>
 server_name yourdomain.com<span class="token punctuation">;</span>  
@@ -892,18 +887,18 @@ server_name *.yourdomain.com<span class="token punctuation">;</span>
 server_name yourdomain.*<span class="token punctuation">;</span>  
 <span class="token comment"># Listen to unspecified Hostnames (Listens to IP address itself)  </span>
 server_name <span class="token string">""</span><span class="token punctuation">;</span>  
-<span class="token punctuation">&#125;</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span class="token punctuation">&#125;</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<h3 id="静态资产"><a href="#静态资产" class="headerlink" title="静态资产"></a>静态资产</h3><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">
+<h3 id="静态资产"><a href="#静态资产" class="headerlink" title="静态资产"></a>静态资产</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">
 server <span class="token punctuation">&#123;</span>  
 listen <span class="token number">80</span><span class="token punctuation">;</span>  
 server_name yourdomain.com<span class="token punctuation">;</span>  
 location / <span class="token punctuation">&#123;</span>  
 root /path/to/website<span class="token punctuation">;</span>  
 <span class="token punctuation">&#125;</span>  
-<span class="token punctuation">&#125;</span>  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span class="token punctuation">&#125;</span>  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<h3 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h3><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">server <span class="token punctuation">&#123;</span>  
+<h3 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">server <span class="token punctuation">&#123;</span>  
 listen <span class="token number">80</span><span class="token punctuation">;</span>  
 server_name www.yourdomain.com<span class="token punctuation">;</span>  
 <span class="token builtin class-name">return</span> <span class="token number">301</span> http://yourdomain.com<span class="token variable">$request_uri</span><span class="token punctuation">;</span>  
@@ -914,9 +909,9 @@ server_name www.yourdomain.com<span class="token punctuation">;</span>
 location /redirect-url <span class="token punctuation">&#123;</span>  
 <span class="token builtin class-name">return</span> <span class="token number">301</span> http://otherdomain.com<span class="token punctuation">;</span>  
 <span class="token punctuation">&#125;</span>  
-<span class="token punctuation">&#125;</span>  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span class="token punctuation">&#125;</span>  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h3><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># []表示需要填写，</span>
+<h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># []表示需要填写，</span>
 <span class="token comment"># nginx默认采用轮训的方式进行负载均衡</span>
 upstream <span class="token punctuation">[</span>proxyName<span class="token punctuation">]</span> <span class="token punctuation">&#123;</span>
     server <span class="token number">192.168</span>.1.173:8080<span class="token punctuation">;</span>
@@ -962,9 +957,9 @@ upstream <span class="token punctuation">[</span>proxyName<span class="token pun
     server <span class="token number">192.168</span>.1.174:8080<span class="token punctuation">;</span>
     server <span class="token number">192.168</span>.1.175:8080<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<h4 id="keepalived"><a href="#keepalived" class="headerlink" title="keepalived"></a>keepalived</h4><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">upstream <span class="token punctuation">[</span>proxyName<span class="token punctuation">]</span> <span class="token punctuation">&#123;</span>
+<h4 id="keepalived"><a href="#keepalived" class="headerlink" title="keepalived"></a>keepalived</h4><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">upstream <span class="token punctuation">[</span>proxyName<span class="token punctuation">]</span> <span class="token punctuation">&#123;</span>
     server <span class="token number">192.168</span>.1.173:8080 <span class="token assign-left variable">weight</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
     server <span class="token number">192.168</span>.1.174:8080 <span class="token assign-left variable">weight</span><span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">;</span>
     server <span class="token number">192.168</span>.1.175:8080 <span class="token assign-left variable">weight</span><span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">;</span>
@@ -981,9 +976,9 @@ server <span class="token punctuation">&#123;</span>
         proxy_http_version <span class="token number">1.1</span><span class="token punctuation">;</span> <span class="token comment">#连接的协议版本</span>
         proxy_set_header Connection <span class="token string">""</span><span class="token punctuation">;</span> 清空连接请求头
     <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<h4 id="控制浏览器缓存"><a href="#控制浏览器缓存" class="headerlink" title="控制浏览器缓存"></a>控制浏览器缓存</h4><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">server <span class="token punctuation">&#123;</span>
+<h4 id="控制浏览器缓存"><a href="#控制浏览器缓存" class="headerlink" title="控制浏览器缓存"></a>控制浏览器缓存</h4><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">server <span class="token punctuation">&#123;</span>
     listem  <span class="token number">80</span><span class="token punctuation">;</span>
     server_name www.tomcats.com<span class="token punctuation">;</span>
 
@@ -996,9 +991,9 @@ server <span class="token punctuation">&#123;</span>
                <span class="token comment">#expires off  #缓存关闭，浏览器自己控制缓存</span>
                <span class="token comment">#expires max  #最大过期时间</span>
     <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<h4 id="反向代理缓存"><a href="#反向代理缓存" class="headerlink" title="反向代理缓存"></a>反向代理缓存</h4><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">upstream <span class="token punctuation">[</span>proxyName<span class="token punctuation">]</span> <span class="token punctuation">&#123;</span>
+<h4 id="反向代理缓存"><a href="#反向代理缓存" class="headerlink" title="反向代理缓存"></a>反向代理缓存</h4><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">upstream <span class="token punctuation">[</span>proxyName<span class="token punctuation">]</span> <span class="token punctuation">&#123;</span>
     server <span class="token number">192.168</span>.1.173:8080 <span class="token assign-left variable">weight</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
     server <span class="token number">192.168</span>.1.174:8080 <span class="token assign-left variable">weight</span><span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">;</span>
     server <span class="token number">192.168</span>.1.175:8080 <span class="token assign-left variable">weight</span><span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">;</span>
@@ -1022,18 +1017,18 @@ server <span class="token punctuation">&#123;</span>
     location / <span class="token punctuation">&#123;</span>
         proxy_pass http://tomcats<span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<h3 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h3><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">server <span class="token punctuation">&#123;</span>  
+<h3 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">server <span class="token punctuation">&#123;</span>  
 listen <span class="token number">80</span><span class="token punctuation">;</span>  
 server_name yourdomain.com<span class="token punctuation">;</span>  
 location / <span class="token punctuation">&#123;</span>  
 proxy_pass http://0.0.0.0:3000<span class="token punctuation">;</span>  
 <span class="token comment"># where 0.0.0.0:3000 is your application server (Ex: node.js) bound on 0.0.0.0 listening on port 3000  </span>
 <span class="token punctuation">&#125;</span>  
-<span class="token punctuation">&#125;</span>  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span class="token punctuation">&#125;</span>  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<h3 id="SSL-协议"><a href="#SSL-协议" class="headerlink" title="SSL 协议"></a>SSL 协议</h3><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">server <span class="token punctuation">&#123;</span>  
+<h3 id="SSL-协议"><a href="#SSL-协议" class="headerlink" title="SSL 协议"></a>SSL 协议</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">server <span class="token punctuation">&#123;</span>  
 listen <span class="token number">443</span> ssl<span class="token punctuation">;</span>  
 server_name yourdomain.com<span class="token punctuation">;</span>  
 ssl on<span class="token punctuation">;</span>  
@@ -1053,14 +1048,14 @@ server
 listen <span class="token number">80</span><span class="token punctuation">;</span>  
 server_name yourdomain.com<span class="token punctuation">;</span>  
 <span class="token builtin class-name">return</span> <span class="token number">301</span> https://<span class="token variable">$host</span><span class="token variable">$request_uri</span><span class="token punctuation">;</span>  
-<span class="token punctuation">&#125;</span>  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span class="token punctuation">&#125;</span>  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <div class="note note-info">
             <p>其实可以采用可视化的方式对 Nginx 进行配置，我在 GitHub 上发现了一款可以一键生成 Nginx 配置的神器，相当给力。</p><p>先来看看它都支持什么功能的配置：反向代理、HTTPS、HTTP&#x2F;2、IPv6, 缓存、WordPress、CDN、Node.js 支持、 Python (Django) 服务器等等。</p><p>如果你想在线进行配置，只需要打开网站：<a target="_blank" rel="noopener" href="https://nginxconfig.io/">https://nginxconfig.io/</a>，按照自己的需求进行操作就行了。</p><p>操作这个的前提，也是需要你懂！！别人的理所当然是了如指掌做到的。</p>
           </div>
 
 <h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><h3 id="简单的部署前后台分离的项目配置"><a href="#简单的部署前后台分离的项目配置" class="headerlink" title="简单的部署前后台分离的项目配置"></a>简单的部署前后台分离的项目配置</h3><p>部署前后台分离的项目，随便新建个html项目，里面写一个按钮用来发送Ajax请求。多说两句，webpack项目只是”方便“了开发，最终的产物依然是Html，Css，JavaScript。我们先手撸一个简单的项目前台项目。项目要求就是有个页面，有个按钮。点击能发送Ajax请求，且能把请求的返回内容回馈给用户。需求有了，idea打开，开码！！！</p>
-<div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">></span></span>
+<figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>utf-8<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
@@ -1106,13 +1101,13 @@ server_name yourdomain.com<span class="token punctuation">;</span>
   </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>代码写好了，部署。这个很简单啊，你要是图省事，直接覆盖默认配置文件夹中的index.html即可，</p>
 <p><img src="https://tvax4.sinaimg.cn/large/005NNTS5ly1h0s2ijjcdbj31z418gtm3.jpg" srcset="/img/loading.gif" lazyload alt="前台部署成功"></p>
 <p>很快啊，前台项目部署好了。</p>
 <p>这时候我们需要部署后端项目了。idea打开新建springboot项目。开码！！！</p>
-<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/* 用来获取端口号项目运行的端口号，后面测试负载均衡时用到 */</span>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/* 用来获取端口号项目运行的端口号，后面测试负载均衡时用到 */</span>
 <span class="token annotation punctuation">@Component</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ConfigWeb</span> <span class="token keyword">implements</span> <span class="token class-name">ApplicationListener</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">WebServerInitializedEvent</span><span class="token punctuation">></span></span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">private</span> <span class="token keyword">int</span> serverPort<span class="token punctuation">;</span>
@@ -1129,10 +1124,10 @@ server_name yourdomain.com<span class="token punctuation">;</span>
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onApplicationEvent</span><span class="token punctuation">(</span><span class="token class-name">WebServerInitializedEvent</span> event<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
         <span class="token keyword">this</span><span class="token punctuation">.</span>serverPort <span class="token operator">=</span> event<span class="token punctuation">.</span><span class="token function">getWebServer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getPort</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>核心代码，get请求返回项目运行端口号。</p>
-<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@RestController</span>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@RestController</span>
 <span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/api"</span><span class="token punctuation">)</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">IndexController</span> <span class="token punctuation">&#123;</span>
     <span class="token annotation punctuation">@Resource</span>
@@ -1143,15 +1138,15 @@ server_name yourdomain.com<span class="token punctuation">;</span>
         map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"msg"</span><span class="token punctuation">,</span><span class="token string">"服务端口"</span><span class="token operator">+</span>configWeb<span class="token punctuation">.</span><span class="token function">getUrl</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">return</span> <span class="token class-name">ResponseEntity</span><span class="token punctuation">.</span><span class="token function">ok</span><span class="token punctuation">(</span>map<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>核心代码如上图。</p>
 <p>很快啊后端也不，后端快不起来，需要装Java环境。稍等，很快啊后端也部署好了。后台服务的端口是8081。这时候我们很自然的想到了，把之前的Ajax中的请求url<code>api/get</code>换成<code>http://localhost:8081/api/get</code>,这样前后台应该就能连通了。于是改了一下刷新页面，再次点击，还是不行。</p>
 <p>报错信息：</p>
-<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">已拦截跨源请求：同源策略禁止读取位于 http://localhost:8081/api/get 的远程资源。（原因：CORS 头缺少 <span class="token string">'Access-Control-Allow-Origin'</span>）。状态码：200。<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">已拦截跨源请求：同源策略禁止读取位于 http://localhost:8081/api/get 的远程资源。（原因：CORS 头缺少 <span class="token string">'Access-Control-Allow-Origin'</span>）。状态码：200。<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
 <p>火狐浏览器是这样提示的，别的浏览器可能会有些许的差别，但不重要，重要的是，我们的前后台并没有连通！！<br>这个时候我们需要配置反向代理了，来规避跨域的错误。</p>
-<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在配置文件的根目录中块，upstream 后面的字符并不是标识符，</span>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在配置文件的根目录中块，upstream 后面的字符并不是标识符，</span>
 <span class="token comment"># 你可以写别的如tomcat,我这里是写成了nginx。</span>
 <span class="token comment"># 这个块里的server是可以有多个的。这就是传说中的负载均衡。</span>
 <span class="token comment"># 你配一个就用来做简单的反向代理即可。配多个就是负载均衡。 默认使用轮询，</span>
@@ -1165,11 +1160,11 @@ upstream nginx <span class="token punctuation">&#123;</span>
 location /api/ <span class="token punctuation">&#123;</span>
   <span class="token comment"># 这里就是反向代理，http://后面的字符对应上面upstream块后的字符。</span>
  roxy_pass http://nginx<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>到这里配置结束，项目就是就可以正常启动了。需要弄负载均衡，你就多跑几个服务，能进行负载均衡的项目，对项目有一点点要求，要求项目本身必须是无状态的，不然的话可能会影响到正常使用，比如如果你这个项目中是在项目里也就是内存里保存的用户的登录状态，那么你负载均衡时，就会出问题，因为负载均衡默认是轮询，你可以理解成这个节点，你登陆过，你刷新一个页面，然后就访问了新的节点，但是你的登录信息是保存在上一个节点中的，这个新节点，并没有保存你的登录信息，你就需要重新登录。这就影响功能了。所以这种情况一般使用Redis来保存一些状态信息。就可以想跑几个项目就跑几个项目了。状态，这个概念可能难以理解，但是，官方文档英文就是这个意思，理解了自然也就理解了。加油。</p>
 <p>全部配置文件<code>nginx.conf</code></p>
-<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">user www-data<span class="token punctuation">;</span>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">user www-data<span class="token punctuation">;</span>
 worker_processes auto<span class="token punctuation">;</span>
 pid /run/nginx.pid<span class="token punctuation">;</span>
 include /etc/nginx/modules-enabled/*.conf<span class="token punctuation">;</span>
@@ -1213,15 +1208,15 @@ http <span class="token punctuation">&#123;</span>
   <span class="token punctuation">&#125;</span>
   <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <h3 id="配置SSL"><a href="#配置SSL" class="headerlink" title="配置SSL"></a>配置SSL</h3><h4 id="使用openssl生成证书"><a href="#使用openssl生成证书" class="headerlink" title="使用openssl生成证书"></a>使用openssl生成证书</h4><p>openssl是目前最流行的SSL密码库工具，其提供了一个通用、健壮、功能完备的工具套件，用以支持SSL&#x2F;TLS协议的实现。</p>
 <p>比如生成到：<code>/usr/local/ssl</code></p>
-<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">openssl req -x509 -nodes -days <span class="token number">36500</span> -newkey rsa:2048 -keyout /usr/local/ssl/nginx.key -out /usr/local/ssl/nginx.crt<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">openssl req -x509 -nodes -days <span class="token number">36500</span> -newkey rsa:2048 -keyout /usr/local/ssl/nginx.key -out /usr/local/ssl/nginx.crt<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
 <p>生成好了，一般我们直接强制https，只需要配置一个重定向即可。</p>
 <p>完整的配置nginx.conf</p>
-<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">
 user www-data<span class="token punctuation">;</span>
 worker_processes auto<span class="token punctuation">;</span>
 pid /run/nginx.pid<span class="token punctuation">;</span>
@@ -1290,14 +1285,15 @@ server <span class="token punctuation">&#123;</span>
 <span class="token punctuation">&#125;</span>
  
 <span class="token punctuation">&#125;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>常用的一般是反向代理和负载均衡。关于负载均衡的地方可以多看看，如果负载均衡中一个服务挂了的情况，会是怎么个处理情况，不同的负载均衡模式下，又有什么不同。等等，都是需要思考的。</p>
 <p>最后应该是关于Ngixn的高可用，作为静态服务器时，Nginx的性能应该够用，反向代理时，我们主要考虑的应该是反向代理目标服务器的稳定。所以就暂且不研究Ngixn的高可用，一般主备双机之类的，真到Nginx扛不住的那时候，首先应该考虑的是架构的问题了。得上微服务了。</p>
 <h2 id="封"><a href="#封" class="headerlink" title="封"></a>封</h2><p><img src="https://tvax4.sinaimg.cn/large/005NNTS5ly1h0v3nbhzz0j32yo1o0u0y.jpg" srcset="/img/loading.gif" lazyload alt="原神和煦希望之风"></p>
 
-              
-            </div>
+                
+              </div>
+            
             <hr/>
             <div>
               <div class="post-metas my-3">
@@ -1358,21 +1354,23 @@ server <span class="token punctuation">&#123;</span>
         </div>
       
       
-      <div class="license-meta-item">
-        <div>许可协议</div>
-        <div>
-          
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
             
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
             
-              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-              <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                <i class="iconfont icon-by"></i>
-              </span>
-              </a>
-            
-          
+          </div>
         </div>
-      </div>
+      
     </div>
     <div class="license-icon iconfont"></div>
   </div>
@@ -1449,6 +1447,7 @@ server <span class="token punctuation">&#123;</span>
 
 
   
+
 
 
 
@@ -1570,8 +1569,6 @@ server <span class="token punctuation">&#123;</span>
 
 
 
-
-
   
     <script  src="/js/img-lazyload.js" ></script>
   
@@ -1587,96 +1584,43 @@ server <span class="token punctuation">&#123;</span>
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init({
+    window.tocbot.init(Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
-      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
       linkClass       : 'tocbot-link',
       activeLinkClass : 'tocbot-active-link',
       listClass       : 'tocbot-list',
       isCollapsedClass: 'tocbot-is-collapsed',
       collapsibleClass: 'tocbot-is-collapsible',
-      collapseDepth   : CONFIG.toc.collapseDepth || 0,
       scrollSmooth    : true,
-      headingsOffset  : -boardTop
-    });
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
   });
 </script>
 
 
   <script  src="https://lib.baomitu.com/prism/1.26.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
 
-  <script>
-  (function() {
-    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
-    var enableCopy = CONFIG.copy_btn;
-    if (!enableLang && !enableCopy) {
-      return;
-    }
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
 
-    function getBgClass(ele) {
-      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
-    }
-
-    var copyTmpl = '';
-    copyTmpl += '<div class="code-widget">';
-    copyTmpl += 'LANG';
-    copyTmpl += '</div>';
-    jQuery('.markdown-body pre').each(function() {
-      var $pre = jQuery(this);
-      if ($pre.find('code.mermaid').length > 0) {
-        return;
-      }
-      if ($pre.find('span.line').length > 0) {
-        return;
-      }
-
-      var lang = '';
-
-      if (enableLang) {
-        lang = CONFIG.code_language.default;
-        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
-          lang = $pre[0].children[0].classList[1];
-        } else if ($pre[0].getAttribute('data-language')) {
-          lang = $pre[0].getAttribute('data-language');
-        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
-          lang = $pre[0].children[0].classList[1];
-          $pre.parent().addClass('code-wrapper');
-        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
-          $pre.wrap('<div class="code-wrapper"></div>');
-        }
-        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
-      }
-      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
-        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
-
-      if (enableCopy) {
-        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
-          var clipboard = new window.ClipboardJS('.copy-btn', {
-            target: function(trigger) {
-              var nodes = trigger.parentNode.childNodes;
-              for (var i = 0; i < nodes.length; i++) {
-                if (nodes[i].tagName === 'CODE') {
-                  return nodes[i];
-                }
-              }
-            }
-          });
-          clipboard.on('success', function(e) {
-            e.clearSelection();
-            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
-            setTimeout(function() {
-              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
-            }, 2000);
-          });
-        });
-      }
-    });
-  })();
-</script>
+  <script>Fluid.plugins.codeWidget();</script>
 
 
   
@@ -1698,6 +1642,21 @@ server <span class="token punctuation">&#123;</span>
       window.anchors.options.class = 'anchorjs-link-left';
     }
     window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
   });
 </script>
 

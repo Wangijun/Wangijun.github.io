@@ -76,7 +76,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"wangijun.com","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"wangijun.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -85,6 +85,8 @@
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
+  
+
 
   
 <meta name="generator" content="Hexo 6.2.0"></head>
@@ -474,17 +476,10 @@
             <!-- SEO header -->
             <h1 style="display: none">springboot事务三两言</h1>
             
-              <p class="note note-info">
-                
-                  
-                    本文最后更新于：1 年前
-                  
-                
-              </p>
             
-            <div class="markdown-body">
-              
-              <div class="note note-info">
+              <div class="markdown-body">
+                
+                <div class="note note-info">
             <p>经历是会潜移默化改变人的，连自己都不知道，还以为自己内心永远单纯。</p>
           </div>
 
@@ -492,7 +487,7 @@
 <p>现在的关系型数据库大多都支持事务控制，事务的四大特性，我还真记不太清，原子性，隔离性，一致性，还有一个特性是什么来着，我查查，查到了，还有一个持久性。持久性没啥好说的，我就记不住。原子性，一致性，这个都好理解，就是都成功或者都失败。隔离性，这个就需要注意一点。具体情况具体处理。理论知识就不赘述了。</p>
 <p>接下来进入下一话题，《母猪的产后护理》，对不起，拿错书了，</p>
 <p>介绍一下spring提供的事务控制，分为编程式和声明式，先说我们用的多的声明式事务控制，且不建议使用编程式的事务控制，springboot2.5.x系列默认就开启了注解式事务控制，只需要在类上或方法上加上<code>@Transactional</code>注解就可以了，加在类上，表示此类中的所有方法都添加了默认的事务支持，如果 类上和方法上同时加了注解，以方法上的注解为准。只要方法抛出了RuntimeException，事务就进行回滚的操作，但如果你把异常try catch了，且没有在catch块里抛出RuntimeException，这种情况下出现异常事务是不会进行回滚的。</p>
-<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ServiceA</span><span class="token punctuation">&#123;</span>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ServiceA</span><span class="token punctuation">&#123;</span>
     <span class="token annotation punctuation">@Transactional</span>
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
         <span class="token comment">// 这种情况下出现异常是不会进行事务回滚的。</span>
@@ -510,7 +505,7 @@
             <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">RuntimeException</span><span class="token punctuation">(</span><span class="token string">"测试"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">&#125;</span>
     <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <h2 id="详解-Transactional注解"><a href="#详解-Transactional注解" class="headerlink" title="详解@Transactional注解"></a>详解@Transactional注解</h2><h3 id="rollbackFor参数"><a href="#rollbackFor参数" class="headerlink" title="rollbackFor参数"></a>rollbackFor参数</h3><p>这个参数是表明捕获什么异常进行回滚数据的。默认只有捕获到RuntimeException和Error才会进行回滚，（基于springboot2.5.x，不同版本可能有差异，请自己查看代码。）不会回滚的是什么异常呢，就是那种需要声明的异常，springboot事务控制是不会捕获到，并回滚数据的，至于为啥，很简单啊，因为声明的异常，大多都是自己手动处理的，继续往上抛或者Try Catch一下，如果不手动处理，程序无法编译。比如IO异常，这些是不会被事务控制捕捉到的。</p>
 <h3 id="propagation参数"><a href="#propagation参数" class="headerlink" title="propagation参数"></a>propagation参数</h3><p>propagation 代表事务的传播行为，默认值为<code>Propagation.REQUIRED</code>，其他的属性信息如下：</p>
@@ -533,7 +528,7 @@
 </ul>
 <p>更多参数可以百度了解。</p>
 <h2 id="实际的问题"><a href="#实际的问题" class="headerlink" title="实际的问题"></a>实际的问题</h2><p>本人处理一些银行账务动账信息时，比如一个记账操作时，我需要把需要记账的数据的状态先改成在处理的状态，且需要提交事务，且需要确定下一个事务开启时需要记账的数据状态已经是修改过后的状态，防止重复操作同一笔数据，那么问题就来了，在使用spring声明事务控制时，如何进行这样的操作。</p>
-<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ServiceA</span><span class="token punctuation">&#123;</span>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ServiceA</span><span class="token punctuation">&#123;</span>
     <span class="token annotation punctuation">@Transactional</span>
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
         <span class="token comment">// 检查数据状态是否处于正常状态，如果在处理中就不进行操作</span>
@@ -551,10 +546,10 @@
         <span class="token comment">//操作结束后,还需进行一些需要事务控制的操作</span>
         
     <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>这种情况就默认的事务控制一个方法内只能有一个事务，所以中间那步的提交操作以我的解决方式，既然一个方法只能有一个事务，那我把逻辑单独提一个方法不就行了，说干就干，这是修改后的代码。</p>
-<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java">
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java">
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ServiceA</span><span class="token punctuation">&#123;</span>
     <span class="token annotation punctuation">@Transactional</span>
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setTest2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
@@ -582,10 +577,10 @@
         <span class="token comment">//操作结束后,还需进行一些需要事务控制的操作</span>
         
     <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>这个时候信心满满的操作发现setTest2方法调用过后，发现还是只有一个事务，且setTest2的更新操作还是没有分开提交，原因是，JDK的动态代理。在SpringIoC容器中返回的调用的对象是代理对象而不是真实的对象，只有被动态代理直接调用的才会产生事务。这里的this是自身是真实对象而不是代理对象，问题到这里已经很明朗了，这样啊，既然this调用的话事务不能起作用，spring最擅长的不就是注入，我注入一个，然后代码如下。</p>
-<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ServiceA</span><span class="token punctuation">&#123;</span>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ServiceA</span><span class="token punctuation">&#123;</span>
   <span class="token comment">// 这是我注入的，实际就是从容器里面取出自己的代理类</span>
     <span class="token annotation punctuation">@Resource</span>
     <span class="token class-name">ServiceA</span> serviceA<span class="token punctuation">;</span>
@@ -619,7 +614,7 @@
         
     <span class="token punctuation">&#125;</span>
 
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>到这步，心里想着应该就可以了，但实际上还是不行，这个时候我们就要看这个了<a href="#propagation%E5%8F%82%E6%95%B0">注解</a>，默认的规则是</p>
 <div class="note note-info">
@@ -632,7 +627,7 @@
           </div>
 
 <p>代码如下</p>
-<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ServiceA</span><span class="token punctuation">&#123;</span>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ServiceA</span><span class="token punctuation">&#123;</span>
    <span class="token annotation punctuation">@Resource</span>
     <span class="token class-name">ServiceA</span> serviceA<span class="token punctuation">;</span>
 
@@ -665,11 +660,11 @@
         
     <span class="token punctuation">&#125;</span>
 
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>注意看控制台，应该会出现两个事务，这个时候我的需求就算是完成了。给你带来方便的事务总会多多少少给你带来些许的不便，这些不便的地方叫做规则，因为你用了别人开发的技术，你就需要研究和遵守别人的定下的规则。一开始可能会让你束手束脚的，但是一旦你掌握了规则，你的编码能力会得到大大的提升。</p>
 <h2 id="手动控制事务"><a href="#手动控制事务" class="headerlink" title="手动控制事务"></a>手动控制事务</h2><p>不建议使用，在一些特殊的场景里可以使用，如多线程的情况下，直接看代码</p>
-<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 需要注入的对象</span>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 需要注入的对象</span>
 <span class="token annotation punctuation">@Autowired</span>
 <span class="token keyword">private</span> <span class="token class-name">DataSourceTransactionManager</span> dataSourceTransactionManager<span class="token punctuation">;</span>
 <span class="token annotation punctuation">@Autowired</span>
@@ -684,13 +679,14 @@ dataSourceTransactionManager<span class="token punctuation">.</span><span class=
 
 <span class="token comment">// 回滚事务</span>
 dataSourceTransactionManager<span class="token punctuation">.</span><span class="token function">rollback</span><span class="token punctuation">(</span>transactionStatus<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>具体使用方法根据自己的业务来编写代码就可以了</p>
 <h2 id="封"><a href="#封" class="headerlink" title="封"></a>封</h2><p><img src="https://tvax3.sinaimg.cn/large/005NNTS5ly1gw5ui05viuj33341wo1kz.jpg" srcset="/img/loading.gif" lazyload alt="女孩子 风景 外廊 冬景色 夕阳 晚霞"></p>
 
-              
-            </div>
+                
+              </div>
+            
             <hr/>
             <div>
               <div class="post-metas my-3">
@@ -751,21 +747,23 @@ dataSourceTransactionManager<span class="token punctuation">.</span><span class=
         </div>
       
       
-      <div class="license-meta-item">
-        <div>许可协议</div>
-        <div>
-          
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
             
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
             
-              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-              <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                <i class="iconfont icon-by"></i>
-              </span>
-              </a>
-            
-          
+          </div>
         </div>
-      </div>
+      
     </div>
     <div class="license-icon iconfont"></div>
   </div>
@@ -842,6 +840,7 @@ dataSourceTransactionManager<span class="token punctuation">.</span><span class=
 
 
   
+
 
 
 
@@ -963,8 +962,6 @@ dataSourceTransactionManager<span class="token punctuation">.</span><span class=
 
 
 
-
-
   
     <script  src="/js/img-lazyload.js" ></script>
   
@@ -980,96 +977,43 @@ dataSourceTransactionManager<span class="token punctuation">.</span><span class=
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init({
+    window.tocbot.init(Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
-      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
       linkClass       : 'tocbot-link',
       activeLinkClass : 'tocbot-active-link',
       listClass       : 'tocbot-list',
       isCollapsedClass: 'tocbot-is-collapsed',
       collapsibleClass: 'tocbot-is-collapsible',
-      collapseDepth   : CONFIG.toc.collapseDepth || 0,
       scrollSmooth    : true,
-      headingsOffset  : -boardTop
-    });
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
   });
 </script>
 
 
   <script  src="https://lib.baomitu.com/prism/1.26.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
 
-  <script>
-  (function() {
-    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
-    var enableCopy = CONFIG.copy_btn;
-    if (!enableLang && !enableCopy) {
-      return;
-    }
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
 
-    function getBgClass(ele) {
-      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
-    }
-
-    var copyTmpl = '';
-    copyTmpl += '<div class="code-widget">';
-    copyTmpl += 'LANG';
-    copyTmpl += '</div>';
-    jQuery('.markdown-body pre').each(function() {
-      var $pre = jQuery(this);
-      if ($pre.find('code.mermaid').length > 0) {
-        return;
-      }
-      if ($pre.find('span.line').length > 0) {
-        return;
-      }
-
-      var lang = '';
-
-      if (enableLang) {
-        lang = CONFIG.code_language.default;
-        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
-          lang = $pre[0].children[0].classList[1];
-        } else if ($pre[0].getAttribute('data-language')) {
-          lang = $pre[0].getAttribute('data-language');
-        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
-          lang = $pre[0].children[0].classList[1];
-          $pre.parent().addClass('code-wrapper');
-        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
-          $pre.wrap('<div class="code-wrapper"></div>');
-        }
-        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
-      }
-      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
-        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
-
-      if (enableCopy) {
-        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
-          var clipboard = new window.ClipboardJS('.copy-btn', {
-            target: function(trigger) {
-              var nodes = trigger.parentNode.childNodes;
-              for (var i = 0; i < nodes.length; i++) {
-                if (nodes[i].tagName === 'CODE') {
-                  return nodes[i];
-                }
-              }
-            }
-          });
-          clipboard.on('success', function(e) {
-            e.clearSelection();
-            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
-            setTimeout(function() {
-              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
-            }, 2000);
-          });
-        });
-      }
-    });
-  })();
-</script>
+  <script>Fluid.plugins.codeWidget();</script>
 
 
   
@@ -1091,6 +1035,21 @@ dataSourceTransactionManager<span class="token punctuation">.</span><span class=
       window.anchors.options.class = 'anchorjs-link-left';
     }
     window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
   });
 </script>
 
