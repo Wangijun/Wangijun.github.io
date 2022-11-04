@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>一个前端UI框架，javaexUI</title>
+    <link href="/2022/11/04/other-08/"/>
+    <url>/2022/11/04/other-08/</url>
+    
+    <content type="html"><![CDATA[<p>无聊刷国内的开源社区时，发现的一个UI框架，看仓库中的介绍是基于Jquery的，当时都不打算往下看了，看见有个文档地址，寻思既然都维护文档了，应该差不到哪里去。</p><p>进去看了之后，虽然这个文档Element里Element气的，但是组件的质量看起来不错的样子，组件的风格也十分的清新，我一开始以为是当成一个Layui来看的，看了之后，好像比Layui要好看点，组件也多了不少，至于使用体验，大致看了Crud仔用的较多的表格组件，貌似异步渲染的功能，目前还不支持。这个可能会限制一部分用户，因为现在哪还有自己绘制表格的，大多数就是写个接口，配置个字段Id，然后返回数据里就包含了主体数据及分页参数，然后一个表格就可以了用了。</p><p>就是如果重度使用表格组件的话，不建议用这个框架，如果是前后端不分离，用这个框架体验可能会很好。这个框架的表格组件还需在进行封装一下，至少支持通过纯JS渲染表格。</p><p>一些组件截图，更多详情还需去<a href="https://www.javaex.cn/doc-5.0.0/index.html">官网</a>查看。</p><p><img src="https://tva2.sinaimg.cn/large/005NNTS5ly1h7tbc9lfvwj318e0tdn9x.jpg" alt="image1"></p><p><img src="https://tvax4.sinaimg.cn/large/005NNTS5ly1h7tbo7zi0pj31bp0vsn8n.jpg" alt="image2"></p><p><img src="https://tva3.sinaimg.cn/large/005NNTS5ly1h7tbp5ytasj31bv0uv42k.jpg" alt="image3"></p><h2 id="封"><a href="#封" class="headerlink" title="封"></a>封</h2><p><img src="https://tvax2.sinaimg.cn/large/005NNTS5ly1h7tbpruzn3j36683h0u0x.jpg" alt="早安 打工人 可爱 桌面分区 8k 电脑 壁纸_彼岸图网"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Other</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>jquery</tag>
+      
+      <tag>javaexUI</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>傲寒</title>
     <link href="/2022/11/02/gossip-11/"/>
     <url>/2022/11/02/gossip-11/</url>
