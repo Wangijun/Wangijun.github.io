@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>关于pnpm</title>
+    <link href="/2022/11/08/other-09/"/>
+    <url>/2022/11/08/other-09/</url>
+    
+    <content type="html"><![CDATA[<p>pnpm是前端的包管理器，和yarn，npm是一种东西。</p><p>不知道是前端的原因，还是什么原因，万恶的node_modules，貌似是个前端或类似我这种半吊子前端都要上前喷两句，我喷这个的原因就是这东西太多了，在我不会快速删除时，刚接触Vue工程项目时，一个项目删除时可以耗时十几分钟甚至半个小时，我当时就感觉这东西多少有点布盒里，当时还是处于一个虚心求教的心理，</p><p>感觉这是特性，前端开发的特性。</p><p>看着pnpm的兴起，我感觉这个特性可能不能称之为特性了，可以说是缺陷了。</p><h2 id="pnpm介绍"><a href="#pnpm介绍" class="headerlink" title="pnpm介绍"></a>pnpm介绍</h2><p>快速的，节省磁盘空间的包管理工具。</p><h2 id="pnpm的特点"><a href="#pnpm的特点" class="headerlink" title="pnpm的特点"></a>pnpm的特点</h2><h3 id="快速"><a href="#快速" class="headerlink" title="快速"></a>快速</h3><p>pnpm比其他包管理器快2倍。</p><h3 id="高效"><a href="#高效" class="headerlink" title="高效"></a>高效</h3><p>node_modules 中的文件为复制或链接自特定的内容寻址存储库。</p><h3 id="支持monorepos"><a href="#支持monorepos" class="headerlink" title="支持monorepos"></a>支持monorepos</h3><p>pnpm内置支持单仓多包。</p><h3 id="严格"><a href="#严格" class="headerlink" title="严格"></a>严格</h3><p>pnpm 默认创建了一个非平铺的 node_modules，因此代码无法访问任意包。</p><h2 id="pnpm到底做了什么"><a href="#pnpm到底做了什么" class="headerlink" title="pnpm到底做了什么"></a>pnpm到底做了什么</h2><ul><li><p>当使用npm或yarn时，如果你有100个项目，并且所有项目都有一个相同的依赖包，那么，你在硬盘上就需要保存100份该相同依赖包的副本。</p></li><li><p>如果是使用pnpm,依赖包将被存放在一个统一的位置，因此：</p><ul><li>如果你对同一依赖包使用相同的版本，那么磁盘上只有这个依赖包的一份文件；</li><li>如果你对同一依赖包需要使用不同的版本，则仅有版本之间不同的文件会被存储起来；</li><li>所有文件都保存在硬盘的统一的位置：</li><li>当安装软件包时，其包含的所有文件都会硬链接到此位置，而不会占用而外的硬盘空间；</li></ul></li><li><p>这让你可以在项目之间方便地共享相同版本的依赖包。</p></li></ul><h2 id="pnpm创建非平铺的node-modules目录"><a href="#pnpm创建非平铺的node-modules目录" class="headerlink" title="pnpm创建非平铺的node_modules目录"></a>pnpm创建非平铺的node_modules目录</h2><h3 id="npm和yarn"><a href="#npm和yarn" class="headerlink" title="npm和yarn"></a>npm和yarn</h3><p>当使用npm或yarn安装依赖包时，所以软件包都被提升到node_modules的根目录下；<br>其结果是，源码可以访问本不属于当前项目所设定的依赖包。</p><h3 id="pnpm"><a href="#pnpm" class="headerlink" title="pnpm"></a>pnpm</h3><p>使用pnpm安装依赖包时，只有安装的那个包会在node_modules的根目录下，并且以软链接(符号链接)的方式存在；</p><p>在node_modules的根目录下同时还会有一个.pnpm文件，里面保存的是所有包的硬链接；其结果是，源码不可以访问本不属于当前项目所设定的依赖包。</p><h3 id="npm与pnpm命令对比"><a href="#npm与pnpm命令对比" class="headerlink" title="npm与pnpm命令对比"></a>npm与pnpm命令对比</h3><table><thead><tr><th>npm命令</th><th>pnpm等价命令</th></tr></thead><tbody><tr><td>npm install</td><td>pnpm install</td></tr><tr><td>npm install 包名</td><td>pnpm add 包名</td></tr><tr><td>npm uninstall 包名</td><td>pnpm remove 包名</td></tr><tr><td>npm run 脚本</td><td>pnpm 脚本</td></tr></tbody></table><h3 id="pnpm常用命令"><a href="#pnpm常用命令" class="headerlink" title="pnpm常用命令"></a>pnpm常用命令</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">pnpm</span> store path  // 获取包仓库地址（pnpm的仓库不能跨磁盘）<span class="token function">pnpm</span> store prune  // 从store中删除当前未被引用的包来释放store的空间<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure><h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>文中对于软链接和硬链接等概念（操作系统里面的概念）并没有过多解释，但是这些概念对于理解pnpm的特点却又至关重要，建议先去了解一下。<br>想要了解更多，请移步官网：<a href="https://www.pnpm.cn/">pnpm中文官网链接</a></p><h2 id="封"><a href="#封" class="headerlink" title="封"></a>封</h2><p><img src="https://tva2.sinaimg.cn/large/005NNTS5ly1h7y11f3rwvj33341w0u0y.jpg" alt="4k 长辫子女孩 耳环 侧脸 唯美 梅花 红色背影"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Other</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>pnpm</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>一声叹息</title>
     <link href="/2022/11/07/gossip-12/"/>
     <url>/2022/11/07/gossip-12/</url>
@@ -33,7 +58,7 @@
     <link href="/2022/11/04/other-08/"/>
     <url>/2022/11/04/other-08/</url>
     
-    <content type="html"><![CDATA[<p>无聊刷国内的开源社区时，发现的一个UI框架，看仓库中的介绍是基于Jquery的，当时都不打算往下看了，看见有个文档地址，寻思既然都维护文档了，应该差不到哪里去。</p><p>进去看了之后，虽然这个文档Element里Element气的，但是组件的质量看起来不错的样子，组件的风格也十分的清新，我一开始以为是当成一个Layui来看的，看了之后，好像比Layui要好看点，组件也多了不少，至于使用体验，大致看了Crud仔用的较多的表格组件，貌似异步渲染的功能，目前还不支持。这个可能会限制一部分用户，因为现在哪还有自己绘制表格的，大多数就是写个接口，配置个字段Id，然后返回数据里就包含了主体数据及分页参数，然后一个表格就可以了用了。</p><p>就是如果重度使用表格组件的话，不建议用这个框架，如果是前后端不分离，用这个框架体验可能会很好。这个框架的表格组件还需在进行封装一下，至少支持通过纯JS渲染表格。</p><p>一些组件截图，更多详情还需去<a href="https://www.javaex.cn/doc-5.0.0/index.html">官网</a>查看。</p><p><img src="https://tva2.sinaimg.cn/large/005NNTS5ly1h7tbc9lfvwj318e0tdn9x.jpg" alt="image1"></p><p><img src="https://tvax4.sinaimg.cn/large/005NNTS5ly1h7tbo7zi0pj31bp0vsn8n.jpg" alt="image2"></p><p><img src="https://tva3.sinaimg.cn/large/005NNTS5ly1h7tbp5ytasj31bv0uv42k.jpg" alt="image3"></p><h2 id="封"><a href="#封" class="headerlink" title="封"></a>封</h2><p><img src="https://tvax2.sinaimg.cn/large/005NNTS5ly1h7tbpruzn3j36683h0u0x.jpg" alt="早安 打工人 可爱 桌面分区 8k 电脑 壁纸_彼岸图网"></p>]]></content>
+    <content type="html"><![CDATA[<p>无聊刷国内的开源社区时，发现的一个UI框架，看仓库中的介绍是基于Jquery的，当时都不打算往下看了，看见有个文档地址，寻思既然都维护文档了，应该差不到哪里去。</p><p>进去看了之后，虽然这个文档Element里Element气的，但是组件的质量看起来不错的样子，组件的风格也十分的清新，我一开始以为是当成一个Layui来看的，看了之后，好像比Layui要好看点，组件也多了不少，至于使用体验，大致看了Crud仔用的较多的表格组件，貌似异步渲染的功能，目前还不支持。这个可能会限制一部分用户，因为现在哪还有自己绘制表格的，大多数就是写个接口，配置个字段Id，然后返回数据里就包含了主体数据及分页参数，然后一个表格就可以了用了。</p><p>就是如果重度使用表格组件的话，不建议用这个框架，如果是前后端不分离，用这个框架体验可能会很好。这个框架的表格组件还需在进行封装一下，至少支持通过纯JS渲染表格。</p><p>一些组件截图，更多详情还需去<a href="https://www.javaex.cn/doc-5.0.0/index.html">官网</a>查看。</p><p><img src="https://tva2.sinaimg.cn/large/005NNTS5ly1h7tbc9lfvwj318e0tdn9x.jpg" alt="image1"></p><p><img src="https://tvax4.sinaimg.cn/large/005NNTS5ly1h7tbo7zi0pj31bp0vsn8n.jpg" alt="image2"></p><p><img src="https://tva3.sinaimg.cn/large/005NNTS5ly1h7tbp5ytasj31bv0uv42k.jpg" alt="image3"></p><h2 id="封"><a href="#封" class="headerlink" title="封"></a>封</h2><p><img src="https://tvax2.sinaimg.cn/large/005NNTS5ly1h7tbpruzn3j36683h0u0x.jpg" alt="早安 打工人 可爱 桌面分区"></p>]]></content>
     
     
     <categories>
