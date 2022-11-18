@@ -299,11 +299,11 @@
     
     <tags>
       
+      <tag>net</tag>
+      
       <tag>netty</tag>
       
       <tag>tio</tag>
-      
-      <tag>net</tag>
       
     </tags>
     
@@ -958,9 +958,9 @@
     
     <tags>
       
-      <tag>quartz</tag>
-      
       <tag>springboot</tag>
+      
+      <tag>quartz</tag>
       
     </tags>
     
