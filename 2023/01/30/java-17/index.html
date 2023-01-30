@@ -239,7 +239,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          681 字
+          666 字
         
       </span>
     
@@ -489,17 +489,16 @@
             
               <div class="markdown-body">
                 
-                <p>模式schema，并不是全部所有数据库都支持，没有去罗列，Mysql没有模式这个概念，postgresql是有这个概念的。<br>以大家比较熟悉的MYSQL举例子，Pgsql的模式就对应MySQL里不同的库。可以理解成MySQL只有一层，但是pgsql有二层，MySQL是直接选择哪个库，进行连接。PGSQL有两层，连接库时不指定模式则默认选择public模式，（PGSQL新建数据库时，会默认新建一个public模式）模式和模式之间是完全隔离的。</p>
+                <p>模式schema，并不是全部所有数据库都支持，没有去罗列，以MYSQL为例，Mysql没有模式这个概念，postgresql则有。</p>
+<p>Pgsql的模式就对应MySQL里不同的库。可以理解成MySQL只有一层，但是pgsql有二层。</p>
+<p>MySQL是直接选择哪个库，进行连接。</p>
+<p>PGSQL有两层，连接库时不指定模式则默认选择public模式，（PGSQL新建数据库时，会默认新建一个public模式）模式和模式之间是完全隔离的。</p>
 <h2 id="连接指定模式"><a href="#连接指定模式" class="headerlink" title="连接指定模式"></a>连接指定模式</h2><div class="note note-info">
-            <p>jdbc:postgresql:l&#x2F;localhost:5432&#x2F;postgresql<br>1、在这种连接方式下，默认连接使用的是postgresql数据库的public模式、在业务场景中有时允许多个用户使用一个数据库并且不会互相干扰。</p>
-          </div>
-
-<p>这时需要在使用同一个<br>数据库新建其他模式进行连接。这时在springboot的数据源jdbc配置时注意。</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">#postgresql-&gt; 9.3及以前的版本指定方式
-spring.datasource.url&#x3D;jdbc:postgresql:&#x2F;localhost:5432&#x2F;postgresql?searchpath&#x3D;newschema<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
-<figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">#postgresql-&gt; 9.4及以后的版本指定方式
+            <figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">jdbc:postgresql:l&#x2F;localhost:5432&#x2F;postgresql<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure><p>在这种连接方式下，默认连接使用的是postgresql数据库的public模式、在业务场景中有时允许多个用户使用一个数据库并且不会互相干扰。这时需要在使用同一个数据库新建其他模式进行连接。这时在springboot的数据源jdbc配置时注意。</p><figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">#postgresql-&gt; 9.3及以前的版本指定方式
+spring.datasource.url&#x3D;jdbc:postgresql:&#x2F;localhost:5432&#x2F;postgresql?searchpath&#x3D;newschema<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure><figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">#postgresql-&gt; 9.4及以后的版本指定方式
 spring.datasource.url&#x3D;jdbc:postgresql:&#x2F;&#x2F;localhost:5432&#x2F;postgresql?currentSchema&#x3D;newschema
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+          </div>
 
 <h2 id="封面"><a href="#封面" class="headerlink" title="封面"></a>封面</h2><p><img src="https://snimg.jamyido.top/large/005NNTS5ly1haltemse87j32yo1o07wi.jpg" srcset="/img/loading.gif" lazyload alt="原神 云堇"></p>
 
