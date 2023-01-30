@@ -4,11 +4,38 @@
   
   
   <entry>
+    <title>Postgresql模式的概念以及连接方法</title>
+    <link href="/2023/01/30/java-17/"/>
+    <url>/2023/01/30/java-17/</url>
+    
+    <content type="html"><![CDATA[<p>模式schema，并不是全部所有数据库都支持，没有去罗列，Mysql没有模式这个概念，postgresql是有这个概念的。<br>以大家比较熟悉的MYSQL举例子，Pgsql的模式就对应MySQL里不同的库。可以理解成MySQL只有一层，但是pgsql有二层，MySQL是直接选择哪个库，进行连接。PGSQL有两层，连接库时不指定模式则默认选择public模式，（PGSQL新建数据库时，会默认新建一个public模式）模式和模式之间是完全隔离的。</p><h2 id="连接指定模式"><a href="#连接指定模式" class="headerlink" title="连接指定模式"></a>连接指定模式</h2><div class="note note-info">            <p>jdbc:postgresql:l&#x2F;localhost:5432&#x2F;postgresql<br>1、在这种连接方式下，默认连接使用的是postgresql数据库的public模式、在业务场景中有时允许多个用户使用一个数据库并且不会互相干扰。</p>          </div><p>这时需要在使用同一个<br>数据库新建其他模式进行连接。这时在springboot的数据源jdbc配置时注意。</p><figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">#postgresql-&gt; 9.3及以前的版本指定方式spring.datasource.url&#x3D;jdbc:postgresql:&#x2F;localhost:5432&#x2F;postgresql?searchpath&#x3D;newschema<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure><figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">#postgresql-&gt; 9.4及以后的版本指定方式spring.datasource.url&#x3D;jdbc:postgresql:&#x2F;&#x2F;localhost:5432&#x2F;postgresql?currentSchema&#x3D;newschema<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure><h2 id="封面"><a href="#封面" class="headerlink" title="封面"></a>封面</h2><p><img src="https://snimg.jamyido.top/large/005NNTS5ly1haltemse87j32yo1o07wi.jpg" alt="原神 云堇"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Java</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>数据库</tag>
+      
+      <tag>POSTGRESQL</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>最近图片加载不出来的问题</title>
     <link href="/2023/01/03/other-10/"/>
     <url>/2023/01/03/other-10/</url>
     
-    <content type="html"><![CDATA[<p>最近不知道什么原因，博客好多图片都加载不出来了，不知道什么原因好像图床有点问题，统一修改了一下。</p><p>微博开始限制外链了，后期会改图片的存储地址</p><p>新年快乐。</p><h2 id="封"><a href="#封" class="headerlink" title="封"></a>封</h2><p><img src="https://snimg.jamyido.top/large/005NNTS5ly1h9q6kk3pnwj36683h0tw6.jpg" alt="事事顺心 好运常在"></p>]]></content>
+    <content type="html"><![CDATA[<p>最近不知道什么原因，博客好多图片都加载不出来了，不知道什么原因好像图床有点问题，统一修改了一下。</p><p>微博开始限制外链了，后期会改图片的存储地址。</p><p>暂且这样吧，也不知道能维持多久，目前图片可以查看了。</p><p>新年快乐。</p><h2 id="封"><a href="#封" class="headerlink" title="封"></a>封</h2><p><img src="https://snimg.jamyido.top/large/005NNTS5ly1h9q6kk3pnwj36683h0tw6.jpg" alt="事事顺心 好运常在"></p>]]></content>
     
     
     <categories>
@@ -449,11 +476,11 @@
     
     <tags>
       
-      <tag>net</tag>
-      
       <tag>netty</tag>
       
       <tag>tio</tag>
+      
+      <tag>net</tag>
       
     </tags>
     
