@@ -18,25 +18,25 @@
   <meta name="author" content="无良芳">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前端工程化已成趋势的时代，作为工程化的搭建工具还是需要会用的。">
+    <meta name="description" content="最近看一些TS的前端项目，有些代码有点看不懂了，索性简单学习一下TS相关的高阶语法，学习TS的方法以及思路需要准备，便记录一下。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="yarn和npm操作指南">
-<meta property="og:url" content="https://wangijun.com/2021/08/30/vue-04/index.html">
+<meta property="og:title" content="关于学习TS的一些准备">
+<meta property="og:url" content="https://wangijun.com/2023/02/09/vue-06/index.html">
 <meta property="og:site_name" content="挽君博客">
-<meta property="og:description" content="前端工程化已成趋势的时代，作为工程化的搭建工具还是需要会用的。">
+<meta property="og:description" content="最近看一些TS的前端项目，有些代码有点看不懂了，索性简单学习一下TS相关的高阶语法，学习TS的方法以及思路需要准备，便记录一下。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://image.baidu.com/search/down?url=https://tvax1.sinaimg.cn/large/005NNTS5ly1gt3p80og1jj338q1o0b2a.jpg">
-<meta property="article:published_time" content="2021-08-30T09:09:56.000Z">
-<meta property="article:modified_time" content="2021-08-30T09:09:56.000Z">
+<meta property="og:image" content="https://image.baidu.com/search/down?url=https://tva3.sinaimg.cn/large/005NNTS5ly1haxbd3oiyfj32yo1qpkjl.jpg">
+<meta property="article:published_time" content="2023-02-09T01:53:56.000Z">
+<meta property="article:modified_time" content="2023-02-09T01:53:56.000Z">
 <meta property="article:author" content="无良芳">
-<meta property="article:tag" content="yarn">
-<meta property="article:tag" content="npm">
+<meta property="article:tag" content="ts">
+<meta property="article:tag" content="ts-node">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://image.baidu.com/search/down?url=https://tvax1.sinaimg.cn/large/005NNTS5ly1gt3p80og1jj338q1o0b2a.jpg">
+<meta name="twitter:image" content="https://image.baidu.com/search/down?url=https://tva3.sinaimg.cn/large/005NNTS5ly1haxbd3oiyfj32yo1qpkjl.jpg">
   
   
   
-  <title>yarn和npm操作指南 - 挽君博客</title>
+  <title>关于学习TS的一些准备 - 挽君博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -210,13 +210,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('https://image.baidu.com/search/down?url=https://tvax1.sinaimg.cn/large/005NNTS5ly1gt3p80og1jj338q1o0b2a.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('https://image.baidu.com/search/down?url=https://tva3.sinaimg.cn/large/005NNTS5ly1haxbd3oiyfj32yo1qpkjl.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="yarn和npm操作指南"></span>
+            <span id="subtitle" data-typed-text="关于学习TS的一些准备"></span>
           
         </div>
 
@@ -227,8 +227,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2021-08-30 17:09" pubdate>
-          2021年8月30日 下午
+        <time datetime="2023-02-09 09:53" pubdate>
+          2023年2月9日 上午
         </time>
       </span>
     
@@ -239,7 +239,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          1.6k 字
         
       </span>
     
@@ -250,7 +250,7 @@
         
         
         
-          13 分钟
+          14 分钟
         
       </span>
     
@@ -352,7 +352,7 @@
       
         <a href="/2021/08/30/vue-04/" title="yarn和npm操作指南"
            class="list-group-item list-group-item-action
-           active">
+           ">
           <span class="category-post">yarn和npm操作指南</span>
         </a>
       
@@ -361,7 +361,7 @@
       
         <a href="/2023/02/09/vue-06/" title="关于学习TS的一些准备"
            class="list-group-item list-group-item-action
-           ">
+           active">
           <span class="category-post">关于学习TS的一些准备</span>
         </a>
       
@@ -394,88 +394,89 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">yarn和npm操作指南</h1>
+            <h1 style="display: none">关于学习TS的一些准备</h1>
             
             
               <div class="markdown-body">
                 
-                <p>NPM老牌工具，Yarn后起之秀。作为一个后端程序员，可以理解成Maven和Gradle。Node.js为JS这个原本只能在浏览器中运行的语言，提供了一个运行环境，你可以理解成Java的JDK，使原本被浏览器限制的JS放飞自我了。</p>
-<p>NPM和Yarn都是项目管理工具。核心是管理依赖的功能，为项目的运行提供一些支持。</p>
-<h2 id="查看npm，yarn全局安装的包"><a href="#查看npm，yarn全局安装的包" class="headerlink" title="查看npm，yarn全局安装的包"></a>查看npm，yarn全局安装的包</h2><p>npm</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> list -g --depth <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+                <p>官网是最好的学习方法，这点毋庸置疑，奈何英文水平不咋地，也不能去埋怨为什么没有中文文档，文字看不很懂，代码看得懂日子也还过得下去这样子。</p>
+<p>要去了解TS之前，对于JS还是要有一定深度的理解，这个理解我想说的是对于语言本身的理解，而非一些框架的理解，框架今天这个流行，明天那个落后的，但是这些框架所用的语言JS&#x2F;TS，落伍的可能性远远要比框架要低，框架变来变去，所以对于语言的学习理解，是不亏的，磨刀不误砍柴工的道理吧。</p>
+<p>工具的学习和使用，VsCode无需多言，前端御用，至少目前在编写TS这块，WebStorm不如VsCode，VsCode的基础用法以及工作区的概念，不过也无需过多深入，能用就行，简单用来写写学习的Demo挺简单。</p>
+<p>一些环境，Node的安装，npm的配置，pnpm（推荐用这个）的配置，不配置也能用，配置了用的话也许会好点，配置包管理器的缓存地址会缓解Win系统C盘的占用问题，配置镜像是为了不去穿那层墙，以获取更快的包下载速度。如果有人能够忍受？？</p>
+<p><a href="https://wangijun.com/2021/09/01/vue-07/">前端工具一条龙</a></p>
+<p>遇到问题的话，优先去官网查看，或者通过关于界面中我的信息找到我问问我即可（随缘）。</p>
+<p>一切准备就绪完成，在D盘根目录或者别的目录新建一个名为<code>ts_study</code>的文件夹，然后使用VsCode打开。</p>
+<p>好的，我们把这个文件夹当成VsCode的一个工作区，这个概念我不知道怎么解释，VsCode有个工作区的概念，一般我们正常使用就是一个文件夹一个工作区，有些时候我们需要一个一个目录中有多个文件夹，每个文件夹也是个独立的工作区时，我们就需要VsCode中工作空间（WorkSpace），感兴趣可以自行去了解了解。</p>
+<p>新建study.ts文件，编写如下内容</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-typescript" data-language="typescript"><code class="language-typescript"><span class="token keyword">interface</span> <span class="token class-name">User</span> <span class="token punctuation">&#123;</span>
+    name<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    age<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+    sax<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
 
-<p>yarn</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">yarn</span> global list
+<span class="token keyword">class</span> <span class="token class-name">UserAccunt</span> <span class="token punctuation">&#123;</span>
+    name<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    age<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+    sax<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
 
-<span class="token comment"># 或者</span>
-<span class="token function">yarn</span> global list --depth<span class="token operator">=</span><span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+    <span class="token function">constructor</span><span class="token punctuation">(</span>name<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> age<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">,</span> sax<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> age<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>sax <span class="token operator">=</span> sax<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">const</span> user<span class="token operator">:</span> User <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UserAccunt</span><span class="token punctuation">(</span><span class="token string">"charAt"</span><span class="token punctuation">,</span> <span class="token number">24</span><span class="token punctuation">,</span> <span class="token string">"男"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'23333'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<h2 id="nrm相关命令"><a href="#nrm相关命令" class="headerlink" title="nrm相关命令"></a>nrm相关命令</h2><p>nrm(npm registry manager )是npm的镜像源管理工具，有时候国外资源太慢，那么我们可以用这个来切换镜像源。<br><strong>安装nrm</strong></p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> -g nrm<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+<h2 id="初始化项目依赖。"><a href="#初始化项目依赖。" class="headerlink" title="初始化项目依赖。"></a>初始化项目依赖。</h2><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 进入的创建的文件夹下初始化package.json</span>
+pnmm init
 
-<h3 id="列出可用源"><a href="#列出可用源" class="headerlink" title="列出可用源"></a>列出可用源</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">nrm <span class="token function">ls</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+<span class="token comment"># 安装对应的依赖</span>
+<span class="token function">pnpm</span> <span class="token function">install</span> -D typescript
+<span class="token function">pnpm</span> <span class="token function">install</span> -D tslib @types/node
+<span class="token function">pnpm</span> <span class="token function">install</span> -D ts-node
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<h3 id="切换源"><a href="#切换源" class="headerlink" title="切换源"></a>切换源</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">nrm use taobao<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+<h2 id="TS编译成JS并运行"><a href="#TS编译成JS并运行" class="headerlink" title="TS编译成JS并运行"></a>TS编译成JS并运行</h2><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 如果是全局安装则可省略npx</span>
+npx tsc study.ts<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
 
-<h2 id="npm-x2F-yarn查看当前使用源与设置其它源"><a href="#npm-x2F-yarn查看当前使用源与设置其它源" class="headerlink" title="npm&#x2F;yarn查看当前使用源与设置其它源"></a>npm&#x2F;yarn查看当前使用源与设置其它源</h2><h3 id="npm"><a href="#npm" class="headerlink" title="npm"></a>npm</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看npm当前镜像源</span>
-<span class="token function">npm</span> config get registry  
+<p>不报错会在目录下生成同名的js文件</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> UserAccunt <span class="token operator">=</span> <span class="token comment">/** @class */</span> <span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">function</span> <span class="token function">UserAccunt</span><span class="token punctuation">(</span><span class="token parameter">name<span class="token punctuation">,</span> age<span class="token punctuation">,</span> sax</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> age<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>sax <span class="token operator">=</span> sax<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">return</span> UserAccunt<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> user <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UserAccunt</span><span class="token punctuation">(</span><span class="token string">"charAt"</span><span class="token punctuation">,</span> <span class="token number">24</span><span class="token punctuation">,</span> <span class="token string">"男"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'23333'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<span class="token comment"># 设置npm当前镜像源</span>
-<span class="token function">npm</span> config <span class="token builtin class-name">set</span> registry https://registry.npmjs.org<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 运行文件</span>
+<span class="token function">node</span> study.js
+<span class="token comment"># 输出`23333`说明环境正常</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<h3 id="yarn"><a href="#yarn" class="headerlink" title="yarn"></a>yarn</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看yarn当前镜像源</span>
-<span class="token function">yarn</span> config get registry
+<h2 id="不编译直接运行"><a href="#不编译直接运行" class="headerlink" title="不编译直接运行"></a>不编译直接运行</h2><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">npx ts-node study.ts<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<span class="token comment"># 设置yarn当前镜像源</span>
-<span class="token function">yarn</span> config <span class="token builtin class-name">set</span> registry https://registry.yarnpkg.com <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<h2 id="自动编译"><a href="#自动编译" class="headerlink" title="自动编译"></a>自动编译</h2><ol>
+<li>生成tsconfig.json配置文件</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">npx tsc --init<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<h2 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h2><p>这个我是真的不是很想写，因为这东西官网上很详细，而且一点进去就能看到，有些东西，在官网上藏得比较深，又或者语言不同的问题。yarn有个敷衍的中文官网，npm连敷衍都不敷衍，大家优先用哪个知道了么🤣🤣🤣</p>
-<h3 id="yarn常用"><a href="#yarn常用" class="headerlink" title="yarn常用"></a>yarn常用</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 全局添加依赖，添加全局依赖建议yarn和npm两者选其一，</span>
-<span class="token comment"># 如果同时都添加了全局依赖，我也不知道哪个优先。</span>
-<span class="token comment"># 所以二者选其一即可</span>
-<span class="token function">yarn</span> global <span class="token function">add</span> <span class="token operator">&lt;</span>package<span class="token punctuation">..</span>.<span class="token operator">></span>
+<ol start="2">
+<li>修改 tsconfig.json 配置文件</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token property">"outDir"</span><span class="token operator">:</span> <span class="token string">"./js"</span> <span class="token comment">/* 指定编译后的输出目录 */</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<span class="token comment"># 正常项目中的添加依赖（默认添加到运行依赖中）</span>
-<span class="token function">yarn</span> <span class="token function">add</span> <span class="token operator">&lt;</span>package<span class="token punctuation">..</span>.<span class="token operator">></span>
-
-<span class="token comment"># 使用--dev或-D将在您的 开发依赖中，和运行依赖的区别就是打包时开发依赖不打包进去</span>
-<span class="token function">yarn</span> <span class="token function">add</span> <span class="token operator">&lt;</span>package<span class="token punctuation">..</span>.<span class="token operator">></span> <span class="token punctuation">[</span>--dev/-D<span class="token punctuation">]</span>
-
-<span class="token comment"># 删除依赖，同时删除开发依赖和运行依赖</span>
-<span class="token function">yarn</span> remove <span class="token operator">&lt;</span>package<span class="token punctuation">..</span>.<span class="token operator">></span>
-
-<span class="token comment"># 安装本地node_modules文件夹中package.json中列出的所有依赖项。(这百度翻译翻译的可以啊)</span>
-<span class="token function">yarn</span> <span class="token function">install</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
-
-<h3 id="npm常用"><a href="#npm常用" class="headerlink" title="npm常用"></a>npm常用</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 对应 yarn install</span>
-<span class="token function">npm</span> <span class="token function">install</span>
-
-<span class="token comment"># 对应 yarn add &lt;package...></span>
-<span class="token function">npm</span> <span class="token function">install</span> <span class="token punctuation">[</span>package<span class="token punctuation">]</span> --save
-
-<span class="token comment"># 对应 yarn add &lt;package...> [--dev/-D]</span>
-<span class="token function">npm</span> <span class="token function">install</span> <span class="token punctuation">[</span>package<span class="token punctuation">]</span> --save-dev
-
-<span class="token comment"># 对应 yarn global add &lt;package...></span>
-<span class="token function">npm</span> <span class="token function">install</span> <span class="token punctuation">[</span>package<span class="token punctuation">]</span> --global
-
-<span class="token comment"># 对应 yarn remove &lt;package...></span>
-<span class="token function">npm</span> uninstall <span class="token punctuation">[</span>package<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
-
-<p>简单的介绍了一下，详细的可以去官网上自行查看，这里只列举了一些常用的。</p>
-<h2 id="快速删除node-modules文件"><a href="#快速删除node-modules文件" class="headerlink" title="快速删除node_modules文件"></a>快速删除node_modules文件</h2><h3 id="使用rimraf模块的命令"><a href="#使用rimraf模块的命令" class="headerlink" title="使用rimraf模块的命令"></a>使用rimraf模块的命令</h3><p>全局安装rimraf模块，然后通过其命令来快速删除node_modules目录：</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> rimraf -g
-
-<span class="token comment"># 进入项目文件夹中</span>
-rimraf node_modules<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
-
-<h3 id="使用命令来删除目录"><a href="#使用命令来删除目录" class="headerlink" title="使用命令来删除目录"></a>使用命令来删除目录</h3><h4 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h4><p>首先在cmd窗口中进入到node_modules文件夹所在的路径，接着执行命令：</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">rmdir</span> /s/q node_modules<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
-
-<h4 id="linux下"><a href="#linux下" class="headerlink" title="linux下"></a>linux下</h4><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">rm</span> -f /node_modules<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
-
-<h2 id="封"><a href="#封" class="headerlink" title="封"></a>封</h2><p><img src="https://image.baidu.com/search/down?url=https://tvax1.sinaimg.cn/large/005NNTS5ly1gt3p80og1jj338q1o0b2a.jpg" srcset="/img/loading.gif" lazyload alt="美少女"></p>
+<ol start="3">
+<li>测试</li>
+</ol>
+<p>VsCode中</p>
+<p>终端 –&gt; 运行任务 –&gt; 选择 tsc:监视-tsconfig.json</p>
+<p>这样在修改 ts 文件内容，保存时会自动编译。</p>
+<h2 id="封"><a href="#封" class="headerlink" title="封"></a>封</h2><p><img src="https://image.baidu.com/search/down?url=https://tva3.sinaimg.cn/large/005NNTS5ly1haxbd3oiyfj32yo1qpkjl.jpg" srcset="/img/loading.gif" lazyload alt="4k 美丽海边房子 动漫风景 天空"></p>
 
                 
               </div>
@@ -509,9 +510,9 @@ rimraf node_modules<span aria-hidden="true" class="line-numbers-rows"><span></sp
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/yarn/">#yarn</a>
+        <a href="/tags/ts/">#ts</a>
       
-        <a href="/tags/npm/">#npm</a>
+        <a href="/tags/ts-node/">#ts-node</a>
       
     </div>
   
@@ -523,8 +524,8 @@ rimraf node_modules<span aria-hidden="true" class="line-numbers-rows"><span></sp
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>yarn和npm操作指南</div>
-      <div>https://wangijun.com/2021/08/30/vue-04/</div>
+      <div>关于学习TS的一些准备</div>
+      <div>https://wangijun.com/2023/02/09/vue-06/</div>
     </div>
     <div class="license-meta">
       
@@ -536,7 +537,7 @@ rimraf node_modules<span aria-hidden="true" class="line-numbers-rows"><span></sp
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2021年8月30日</div>
+          <div>2023年2月9日</div>
         </div>
       
       
@@ -568,18 +569,12 @@ rimraf node_modules<span aria-hidden="true" class="line-numbers-rows"><span></sp
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/09/01/vue-01/" title="Vue3加TS使用Class写法">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Vue3加TS使用Class写法</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/08/16/java-02/" title="Excel导入导出。">
-                        <span class="hidden-mobile">Excel导入导出。</span>
+                      <a href="/2023/02/09/vue-07/" title="前端开发环境安装和准备">
+                        <span class="hidden-mobile">前端开发环境安装和准备</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
