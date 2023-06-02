@@ -4,6 +4,37 @@
   
   
   <entry>
+    <title>从0到一个前端后台管理框架(一)</title>
+    <link href="/2023/06/01/vue-08/"/>
+    <url>/2023/06/01/vue-08/</url>
+    
+    <content type="html"><![CDATA[<h2 id="最终项目地址"><a href="#最终项目地址" class="headerlink" title="最终项目地址"></a>最终项目地址</h2><p><a href="https://gitee.com/wlf213/wlf-admin">Wlf-Admin</a></p><p>此博客是想着一步一步实现一个后台管理框架，有经验的可以直接查看最终项目代码。想一步一步学习的，跟着博客一步一步走比较容易吸收。</p><h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>这段时间学了Ts以及Vue3和Setup，学了要用，怎么用，写项目，不可能从零开始写，要用材料(组件库)，用什么材料，</p><p><a href="https://quasar.dev/">Quasar</a></p><p>为什么不用<a href="https://element-plus.gitee.io/zh-CN/#attributes">ElementUI</a>，以及<a href="https://www.naiveui.com/zh-CN/os-theme">NativeUi</a> 等国内生态良好的组件库？</p><p>答：不够厉害，Quasar和上面列举的组件库是一种包含的关系，Quasar包含了组件但不仅限于组件，更像是一个功能完善的Vue开发环境框架。类似于Java的springboot。</p><h2 id="所用技术："><a href="#所用技术：" class="headerlink" title="所用技术："></a>所用技术：</h2><ul><li>Vue全家桶(Router,Pinia,Axios…)没特别说明Vue版本，默认为最新版本</li><li>TypeScript</li><li>Setup</li></ul><h2 id="功能清单："><a href="#功能清单：" class="headerlink" title="功能清单："></a>功能清单：</h2><ul><li>侧边动态菜单</li><li>面包屑</li><li>Tab页</li><li>主页布局</li><li>页面缓存</li><li>切换页面动画</li></ul><p>后台管理框架的基础功能，大致如上，还可以有很多功能，比如主题可设置，布局可设置，以及屏幕保护功能等等，但这些属于是井上添花的功能，不属于后台管理框架的核心。</p><p>这些功能不难实现，后台管理框架层出不穷，只要是个后台管理框架基本都有与之对应的功能，比如大名鼎鼎的若依，不可否认它的流行度，推广度，但你要吹技术，真没啥好吹的。因为再写一个也不难，只是没有必要去写，重复造轮子，有利有弊，好处是加深自己对轮子的理解，从开发思路去看代码，和直接看代码看到的东西不一样，直接看代码，直呼666，但也只能直呼666了。自己写过类似，看了会想，原来用了这种方式实现，并在大脑里想下这种实现方式的优劣以及限制。</p><p>开始的准备</p><ul><li>最新版本的Node，以及npm</li><li>安装quasar cli，安装命令<code>npm install -g @quasar/cli</code></li></ul><p>执行命令过后无报错即说明成功。不会安装Node，npm，以及设置npm镜像的，自己另行通过搜索引擎解决。</p><h2 id="学习之前"><a href="#学习之前" class="headerlink" title="学习之前"></a>学习之前</h2><p>1, 电脑上最好安装一个Git，用来同步代码，重点了解Git的clone，commit，push，pull，branches，重点学习如何拉取以及切换分支的操作，</p><p>问：为什么要重点了解GIt工具的操作？<br>答：因为教程一篇教程可能对应一个分支，不同分支的代码进度不一致，一上来直接看最终代码，可能会有点心智负担。</p><p>2, 安装VsCode，用来作为开发项目的IDE，核心依赖<code>Vue.volar</code>安装一下即可开发。</p><p>3, 熟读Vue全家桶文档，熟读Quasar文档，我认为只要熟读文档，就能掌握一个技术。没掌握那就是不熟文档。要知道，大部分三方解释，都是基于文档的，三方解释易懂，但不全也不详细，还有可能已经失效，索性我一般会直接去看文档，过于抽象的文档，我会单独搜索查看。记住，磨刀不误砍柴工，读文档就是磨刀。</p><p>4, 假设你在前端基础Html，Css,JavaScript之上会TypeScript，Vue，了解Node，Npm，WebPack概念，会基础的Git操作，没有这些基础的话，跟着学习的话会有一点吃力。</p><p>下一篇将正式进入后台管理框架的学习</p><h2 id="封面"><a href="#封面" class="headerlink" title="封面"></a>封面</h2>]]></content>
+    
+    
+    <categories>
+      
+      <category>Vue</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>ts</tag>
+      
+      <tag>quasar</tag>
+      
+      <tag>vue3</tag>
+      
+      <tag>setup</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Caddy一个类似Nginx的东东</title>
     <link href="/2023/03/14/other-12/"/>
     <url>/2023/03/14/other-12/</url>
