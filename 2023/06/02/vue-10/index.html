@@ -18,27 +18,27 @@
   <meta name="author" content="无良芳">
   <meta name="keywords" content="">
   
-    <meta name="description" content="汇总，前端常用工具安装和配置汇总篇">
+    <meta name="description" content="初始化默认Quasar项目，并运行，更改部分本地化配置">
 <meta property="og:type" content="article">
-<meta property="og:title" content="前端开发环境安装和准备">
-<meta property="og:url" content="https://wangijun.com/2023/02/09/vue-07/index.html">
+<meta property="og:title" content="从0到一个前端后台管理框架(二)">
+<meta property="og:url" content="https://wangijun.com/2023/06/02/vue-10/index.html">
 <meta property="og:site_name" content="挽君博客">
-<meta property="og:description" content="汇总，前端常用工具安装和配置汇总篇">
+<meta property="og:description" content="初始化默认Quasar项目，并运行，更改部分本地化配置">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://image.baidu.com/search/down?url=https://tvax2.sinaimg.cn/large/005NNTS5ly1haxbfaw5aoj32yo1o07wh.jpg">
-<meta property="article:published_time" content="2023-02-09T01:53:56.000Z">
-<meta property="article:modified_time" content="2023-02-09T01:53:56.000Z">
+<meta property="og:image" content="https://image.baidu.com/search/down?url=https://tvax4.sinaimg.cn/large/005NNTS5ly1hek6feautjj32yo1o0b2b.jpg">
+<meta property="article:published_time" content="2023-06-02T08:33:26.000Z">
+<meta property="article:modified_time" content="2023-06-02T08:33:26.000Z">
 <meta property="article:author" content="无良芳">
-<meta property="article:tag" content="pnpm">
-<meta property="article:tag" content="npm">
-<meta property="article:tag" content="node">
-<meta property="article:tag" content="nvm">
+<meta property="article:tag" content="ts">
+<meta property="article:tag" content="quasar">
+<meta property="article:tag" content="vue3">
+<meta property="article:tag" content="setup">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://image.baidu.com/search/down?url=https://tvax2.sinaimg.cn/large/005NNTS5ly1haxbfaw5aoj32yo1o07wh.jpg">
+<meta name="twitter:image" content="https://image.baidu.com/search/down?url=https://tvax4.sinaimg.cn/large/005NNTS5ly1hek6feautjj32yo1o0b2b.jpg">
   
   
   
-  <title>前端开发环境安装和准备 - 挽君博客</title>
+  <title>从0到一个前端后台管理框架(二) - 挽君博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -212,13 +212,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('https://image.baidu.com/search/down?url=https://tvax2.sinaimg.cn/large/005NNTS5ly1haxbfaw5aoj32yo1o07wh.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('https://image.baidu.com/search/down?url=https://tvax4.sinaimg.cn/large/005NNTS5ly1hek6feautjj32yo1o0b2b.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="前端开发环境安装和准备"></span>
+            <span id="subtitle" data-typed-text="从0到一个前端后台管理框架(二)"></span>
           
         </div>
 
@@ -229,8 +229,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-02-09 09:53" pubdate>
-          2023年2月9日 上午
+        <time datetime="2023-06-02 16:33" pubdate>
+          2023年6月2日 下午
         </time>
       </span>
     
@@ -241,7 +241,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k 字
+          1.3k 字
         
       </span>
     
@@ -381,7 +381,7 @@
       
         <a href="/2023/06/02/vue-10/" title="从0到一个前端后台管理框架(二)"
            class="list-group-item list-group-item-action
-           ">
+           active">
           <span class="category-post">从0到一个前端后台管理框架(二)</span>
         </a>
       
@@ -408,7 +408,7 @@
       
         <a href="/2023/02/09/vue-07/" title="前端开发环境安装和准备"
            class="list-group-item list-group-item-action
-           active">
+           ">
           <span class="category-post">前端开发环境安装和准备</span>
         </a>
       
@@ -432,68 +432,50 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">前端开发环境安装和准备</h1>
+            <h1 style="display: none">从0到一个前端后台管理框架(二)</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="安装Node"><a href="#安装Node" class="headerlink" title="安装Node"></a>安装Node</h2><p>安装Node有很多方式，这边使用<strong>nvm</strong>安装和管理Node，笔者平台是win,<a target="_blank" rel="noopener" href="https://github.com/coreybutler/nvm-windows/releases">下载页面</a><br>在下载页面选择 <code>nvm-noinstall.zip</code>文件安装方便管理。</p>
-<p>到这步你应该已经把文件下载下来并解压的到一个目录了，比如：<code>D:\node\nvm</code> 没有这个文件夹就新建一个</p>
-<p>这时我们再新建几个文件夹，后面会用得上。</p>
-<p><code>D:\node\nodejs</code><br>这个作为nodejs的文件夹</p>
-<p><code>D:\node\npm-global</code></p>
-<p>这个作为npm的全局安装路径</p>
-<p><code>D:\node\npm-cache</code></p>
-<p>这个作为npm的缓存路径</p>
-<p><code>D:\node\pnpm-store</code></p>
-<p>这个作为pnpm的仓库地址，不明白的可以去查看pnpm的官网。</p>
-<p><code>D:\node\pnpm-cache</code></p>
-<p>这个作为pnpm的缓存路径</p>
-<h2 id="环境变量设置"><a href="#环境变量设置" class="headerlink" title="环境变量设置"></a>环境变量设置</h2><p>把<code>D:\node\nvm</code>，<code>D:\node\nodejs</code>，<code>D:\node\npm-global</code>这三个位置添加到环境变量中的<code>Path</code>属性中。</p>
-<p>然后再新建环境环境变量：变量名称，属性</p>
-<ul>
-<li>NVM_HOME      <code>D:\node\nvm</code></li>
-<li>NVM_SYMLINK   <code>D:\node\nodejs</code></li>
-<li>PNPM_HOME     <code>D:\node\npm-global</code></li>
-</ul>
-<p>然后再到<code>D:\node\nvm</code>目录下新建<code>settings.txt</code>文件，粘贴如下内容，这里是和上面的路径对应的。如果上面改了，这里同样需要改。</p>
-<p><code>arch</code>这个属性根据自己的平台来，一般都是64位。</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">root: D:\node\nvm
-path: D:\node\nodejs
-arch: 64
-proxy: none
-node_mirror: https://npm.taobao.org/mirrors/node/
-npm_mirror: https://npm.taobao.org/mirrors/npm/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+                <hr>
+<p>title: 从0到一个前端后台管理框架(三)<br>date: 2023-06-02 21:50:13<br>updated: 2023-06-02 21:50:13<br>index_img: <a target="_blank" rel="noopener" href="https://image.baidu.com/search/down?url=">https://image.baidu.com/search/down?url=</a><br>banner_img: <a target="_blank" rel="noopener" href="https://image.baidu.com/search/down?url=">https://image.baidu.com/search/down?url=</a><br>excerpt: 实现侧边动态菜单<br>tags: [‘’]<br>categories: [‘’]</p>
+<hr>
+<h2 id="封"><a href="#封" class="headerlink" title="封"></a>封</h2><p><img src="https://image.baidu.com/search/down?url=" srcset="/img/loading.gif" lazyload><br>quasar是一个非常好用的框架，至于怎么好用的，请看，</p>
+<h2 id="初始化项目"><a href="#初始化项目" class="headerlink" title="初始化项目"></a>初始化项目</h2><p><img src="https://image.baidu.com/search/down?url=https://tvax4.sinaimg.cn/large/005NNTS5gy1hek018so3ig31qd0y5npf.gif" srcset="/img/loading.gif" lazyload alt="创建项目Gif"></p>
+<p>选择存放项目的文件夹，点击地址栏输入cmd回车即可在此路径中打开CMD，输入命令<code>npm init quasar</code>，按照gif中输入即可，上下键选择，空格键选中，回车表示确定。按照Gif中创建项目即可。</p>
+<p>这里Gif中我输入的文件夹名称为<code>wlf-admin-study</code>，所以我这里VsCode打开此文件夹，如果你填了别的文件夹名称，那就打开你填的名称的文件夹。</p>
+<p>VsCode里新建终端，输入<code>npm i</code>，安装依赖，无报错执行完毕过后，观察项目中是否多了一个node_modules文件夹，正常情况下是会生成此目录。如未生成，请核对哪一步搞错了。</p>
+<p>项目完整结构图</p>
+<p><img src="https://cdn.ipfsscan.io/weibo/large/005NNTS5gy1hek1ggxmzfj30f90p3dlk.jpg" srcset="/img/loading.gif" lazyload alt="项目完整结构图"></p>
+<p>编辑<code>package.json</code>文件中的<code>scripts</code>块，在里面添加</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token property">"dev"</span><span class="token operator">:</span> <span class="token string">"quasar dev"</span><span class="token punctuation">,</span>
+<span class="token property">"build"</span><span class="token operator">:</span> <span class="token string">"quasar build"</span><span class="token punctuation">,</span>
 
-<h2 id="安装node-及配置npm-pnpm"><a href="#安装node-及配置npm-pnpm" class="headerlink" title="安装node,及配置npm,pnpm"></a>安装node,及配置npm,pnpm</h2><p>现在以管理员身份打开命令行，输入</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">nvm -v<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p>正常输出版本号，则说明环境正常。</p>
-<p>接着执行命令</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">nvm <span class="token function">install</span> lts<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+<span class="token comment">// 添加过后完整scripts块</span>
+  <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"dev"</span><span class="token operator">:</span> <span class="token string">"quasar dev"</span><span class="token punctuation">,</span>
+    <span class="token property">"build"</span><span class="token operator">:</span> <span class="token string">"quasar build"</span><span class="token punctuation">,</span>
+    <span class="token property">"lint"</span><span class="token operator">:</span> <span class="token string">"eslint --ext .js,.ts,.vue ./"</span><span class="token punctuation">,</span>
+    <span class="token property">"format"</span><span class="token operator">:</span> <span class="token string">"prettier --write \"**/*.&#123;js,ts,vue,scss,html,md,json&#125;\" --ignore-path .gitignore"</span><span class="token punctuation">,</span>
+    <span class="token property">"test"</span><span class="token operator">:</span> <span class="token string">"echo \"No test specified\" &amp;&amp; exit 0"</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<p>这将默认安装最新的lts版本node，无报错的情况下，执行<code>node -v</code>, <code>npm -v</code>能正确输出版本号，则说明安装node,npm以及配置环境变量成功。</p>
-<p>因为npm是node自带的包管理器，所以安装node之后便自带安装了Npm，然后是配置。</p>
-<p><strong>配置npm</strong></p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> config <span class="token builtin class-name">set</span> prefix <span class="token string">"D:<span class="token entity" title="\n">\n</span>ode<span class="token entity" title="\n">\n</span>pm-global"</span>
-<span class="token function">npm</span> config <span class="token builtin class-name">set</span> cache <span class="token string">"D:<span class="token entity" title="\n">\n</span>ode<span class="token entity" title="\n">\n</span>pm-cache"</span>
-<span class="token function">npm</span> config <span class="token builtin class-name">set</span> registry https://registry.npmmirror.com/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+<p>终端中执行命令<code>npm run dev</code>，无报错应该会自动打开浏览器，出现下面这个界面即说明初始环境搭建成功，</p>
+<p><img src="https://cdn.ipfsscan.io/weibo/large/005NNTS5gy1hek1pdl23gj31yb13cqec.jpg" srcset="/img/loading.gif" lazyload alt="默认界面"></p>
+<p>初始化的时候项目会有些警告，是因为字符串双引号不符合Eslint校验，打开提示警告的文件，格式化或者保存一下即可。</p>
+<p>修改<code>quasar.config.js</code>文件中<code>framework.lang</code>配置为’zh-CN’</p>
+<p>到这一个基本环境就搭建好了，接下来分析一下src文件夹下的内容</p>
+<p><img src="https://cdn.ipfsscan.io/weibo/large/005NNTS5ly1hek736x8ffj30e70in0vs.jpg" srcset="/img/loading.gif" lazyload alt="src示意图"></p>
+<div class="note note-info">
+            <ul><li>src<ul><li>assets –静态文件</li><li>boot –启动时加载的一些操作</li><li>components – 通用组件</li><li>css –全局CSS</li><li>i18n –多语言包</li><li>layouts –整体布局</li><li>pages –页面</li><li>router –路由相关</li><li>stores –全局状态存储</li><li>App.vue –根组件</li><li>env.d.ts –系统变量TS类型定义</li><li>index.template.html –页面模板</li><li>quasar.d.ts –类型定义</li><li>shims-vue.d.ts –类型定义</li></ul></li></ul>
+          </div>
 
-<h2 id="安装Pnpm"><a href="#安装Pnpm" class="headerlink" title="安装Pnpm"></a>安装Pnpm</h2><p>没有报错说明成功，依次执行完成之后，安装pnpm</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> -g <span class="token function">pnpm</span>
+<div class="note note-light">
+            <p>在我们一行代码没敲的时候，基础开发环境已经搭建完成，包括全局状态存储，路由，多语言等Vue全家桶的集成，不用再去搜索Vue整合Vue路由，Vue整和状态存储，等等，，这就是QuasarCli的魅力</p>
+          </div>
 
-<span class="token comment"># 执行无报错报完成之后，执行</span>
-<span class="token function">pnpm</span> -v
-
-<span class="token comment"># 正确输出版本号，则说明pnpm安装成功。设置pnpm仓库地址以及缓存地址</span>
-
-<span class="token function">pnpm</span> config <span class="token builtin class-name">set</span> store-dir D:<span class="token punctuation">\</span>node<span class="token punctuation">\</span>pnpm-store
-<span class="token function">pnpm</span> config <span class="token builtin class-name">set</span> cache-dir D:<span class="token punctuation">\</span>node<span class="token punctuation">\</span>pnpm-cache
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
-
-<p>正常无误的执行成功之后，这个时候前端的基础环境已经安装好。</p>
-<p>目前前端就三个包管理器，npm,yarn,pnpm，至于什么cnpm，懂得都懂。剩一个yarn没有介绍，这个安装起来并不麻烦。由于yarn这个现在在慢慢衰亡了，所以，就不过多展开，都是类似。一个全局安装目录，一个缓存目录，一般设置成非C盘即可。然后把全局安装目录添加到<code>Path</code>环境变量中。</p>
-<h2 id="封"><a href="#封" class="headerlink" title="封"></a>封</h2><p><img src="https://image.baidu.com/search/down?url=https://tvax2.sinaimg.cn/large/005NNTS5ly1haxbfaw5aoj32yo1o07wh.jpg" srcset="/img/loading.gif" lazyload alt="4k 原神 夜兰"></p>
+<h2 id="此篇博客进度对代码分支——init"><a href="#此篇博客进度对代码分支——init" class="headerlink" title="此篇博客进度对代码分支——init"></a>此篇博客进度对代码分支——<a target="_blank" rel="noopener" href="https://gitee.com/wlf213/wlf-admin-study/tree/init/"><code>init</code></a></h2><h2 id="封-1"><a href="#封-1" class="headerlink" title="封"></a>封</h2><p><img src="https://image.baidu.com/search/down?url=https://tvax4.sinaimg.cn/large/005NNTS5ly1hek6feautjj32yo1o0b2b.jpg" srcset="/img/loading.gif" lazyload alt="封面"></p>
 
                 
               </div>
@@ -527,13 +509,13 @@ npm_mirror: https://npm.taobao.org/mirrors/npm/<span aria-hidden="true" class="l
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/pnpm/">#pnpm</a>
+        <a href="/tags/ts/">#ts</a>
       
-        <a href="/tags/npm/">#npm</a>
+        <a href="/tags/quasar/">#quasar</a>
       
-        <a href="/tags/node/">#node</a>
+        <a href="/tags/vue3/">#vue3</a>
       
-        <a href="/tags/nvm/">#nvm</a>
+        <a href="/tags/setup/">#setup</a>
       
     </div>
   
@@ -545,8 +527,8 @@ npm_mirror: https://npm.taobao.org/mirrors/npm/<span aria-hidden="true" class="l
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>前端开发环境安装和准备</div>
-      <div>https://wangijun.com/2023/02/09/vue-07/</div>
+      <div>从0到一个前端后台管理框架(二)</div>
+      <div>https://wangijun.com/2023/06/02/vue-10/</div>
     </div>
     <div class="license-meta">
       
@@ -558,7 +540,7 @@ npm_mirror: https://npm.taobao.org/mirrors/npm/<span aria-hidden="true" class="l
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年2月9日</div>
+          <div>2023年6月2日</div>
         </div>
       
       
@@ -590,9 +572,9 @@ npm_mirror: https://npm.taobao.org/mirrors/npm/<span aria-hidden="true" class="l
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/02/09/vue-06/" title="关于学习TS的一些准备">
+                      <a href="/2023/06/04/vue-11/" title="从0到一个前端后台管理框架(三)">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">关于学习TS的一些准备</span>
+                        <span class="hidden-mobile">从0到一个前端后台管理框架(三)</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -600,8 +582,8 @@ npm_mirror: https://npm.taobao.org/mirrors/npm/<span aria-hidden="true" class="l
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/01/30/java-17/" title="Postgresql模式的概念以及连接方法">
-                        <span class="hidden-mobile">Postgresql模式的概念以及连接方法</span>
+                      <a href="/2023/06/02/vue-09/" title="从0到一个前端后台管理框架(二)">
+                        <span class="hidden-mobile">从0到一个前端后台管理框架(二)</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
