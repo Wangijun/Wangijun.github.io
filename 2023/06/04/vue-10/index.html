@@ -302,7 +302,7 @@
         aria-expanded="true"
       >
         Vue
-        <span class="list-group-count">(10)</span>
+        <span class="list-group-count">(11)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -388,6 +388,15 @@
     
       
       
+        <a href="/2023/06/06/vue-11/" title="从0到一个前端后台管理框架(四)"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">从0到一个前端后台管理框架(四)</span>
+        </a>
+      
+    
+      
+      
         <a href="/2023/02/09/vue-06/" title="关于学习TS的一些准备"
            class="list-group-item list-group-item-action
            ">
@@ -428,24 +437,16 @@
             
               <div class="markdown-body">
                 
-                <h2 id="实现方案："><a href="#实现方案：" class="headerlink" title="实现方案："></a>实现方案：</h2><ul>
-<li>构建VueRouter的动态路由，遍历路由信息动态构建菜单。分为两步，第一步登陆时候根据后端返回内容获取动态路由信息，构建动态路由，第二步，遍历路由信息，根据路由信息构建菜单。<ul>
-<li>优势：个人见解，很熟悉Vue路由的情况下，这种方式可能构建起来会省些代码。我感觉没什么优势。</li>
-<li>劣势：个人见解，劣势很多，<ul>
-<li>路由信息不可见，对于刚接手的开发者没有后端服务的情况下，无法摸索精确找url对应的页面</li>
-<li>构建多级菜单时需要增加一个空页面作为子路由的载体，页面结构变复杂。</li>
-<li>根据后端构建动态路由有点难度，如构建<code> children: [&#123; path: &#39;&#39;, component: () =&gt; import(&#39;pages/IndexPage.vue&#39;) &#125;]</code>类似这样的代码。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>单独构建菜单树，使用单独的一个菜单树结构来构建菜单，使用url或者name来匹配对应的路由信息。<ul>
-<li>优势：原始路由清晰，易于调试，多级菜单不需要空页面作为路由载体，等等</li>
-<li>劣势：维护菜单树和路由树的对应关系时代码可能有点复杂，</li>
-</ul>
-</li>
-</ul>
-<p>这里笔者是用的第二种方式。</p>
+                <h2 id="实现方案："><a href="#实现方案：" class="headerlink" title="实现方案："></a>实现方案：</h2><h3 id="方案一、使用VueRouter的动态路由，遍历路由信息动态构建菜单。"><a href="#方案一、使用VueRouter的动态路由，遍历路由信息动态构建菜单。" class="headerlink" title="方案一、使用VueRouter的动态路由，遍历路由信息动态构建菜单。"></a>方案一、使用VueRouter的动态路由，遍历路由信息动态构建菜单。</h3><div class="note note-info">
+            <p>优势：熟悉Vue路由的情况下，这种方式可能构建起来会省部分代码。<br>劣势：路由信息不可见，对于刚接手的开发者没有后端服务的情况下，无法摸索精确找url对应的页面，构建多级菜单时需要增加一个空页面作为子路由的载体，页面结构变复杂。<br>根据后端构建动态路由有点难度，如构建<code> children: [{ path: &#39;&#39;, component: () =&gt; import(&#39;pages/IndexPage.vue&#39;) }]</code>类似这样的代码。</p>
+          </div>
+
+<h3 id="方案二、单独构建菜单树，使用单独的一个菜单树结构来构建菜单。"><a href="#方案二、单独构建菜单树，使用单独的一个菜单树结构来构建菜单。" class="headerlink" title="方案二、单独构建菜单树，使用单独的一个菜单树结构来构建菜单。"></a>方案二、单独构建菜单树，使用单独的一个菜单树结构来构建菜单。</h3><div class="note note-info">
+            <p>单独构建菜单树，使用单独的一个菜单树结构来构建菜单，使用url或者name来匹配对应的路由信息。<br>优势：原始路由清晰，易于调试，多级菜单不需要空页面作为路由载体，等等<br>劣势：维护菜单树和路由树的对应关系时代码可能有点复杂，</p>
+          </div>
+
+
+<p><strong>这里笔者是用的第二种方式。</strong></p>
 <h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><p>第一，我们需要构建一个菜单树，怎么构建树呢，我们需要子节点包含父节点信息的平级结构，然后把它转成树结构，只有子节点包含父节点的信息我们才能构建树结构，</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token punctuation">&#123;</span>
     <span class="token literal-property property">id</span><span class="token operator">:</span> <span class="token string">'main2'</span><span class="token punctuation">,</span> <span class="token comment">// 节点的Id信息</span>
@@ -895,6 +896,12 @@ layout.menuList &#x3D; myRoute as Array&lt;WJ.MenuItem&gt;;
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2023/06/06/vue-11/" title="从0到一个前端后台管理框架(四)">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">从0到一个前端后台管理框架(四)</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
