@@ -25,14 +25,14 @@
 <meta property="og:site_name" content="挽君博客">
 <meta property="og:description" content="Tio, 国内的的一个网络编程框架，一直对标的是netty，API足够简单，功能也足够强大，稳定性也有保障。开源不易，且用且珍惜。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://image.baidu.com/search/down?url=https://tvax1.sinaimg.cn/large/005NNTS5ly1h4wgwuso4bj32yo1p3kjl.jpg">
+<meta property="og:image" content="https://cdn.ipfsscan.io/weibo/large/005NNTS5ly1h4wgwuso4bj32yo1p3kjl.jpg">
 <meta property="article:published_time" content="2022-08-05T18:49:21.000Z">
 <meta property="article:modified_time" content="2022-08-05T18:49:21.000Z">
 <meta property="article:author" content="无良芳">
 <meta property="article:tag" content="网络编程">
 <meta property="article:tag" content="TIO">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://image.baidu.com/search/down?url=https://tvax1.sinaimg.cn/large/005NNTS5ly1h4wgwuso4bj32yo1p3kjl.jpg">
+<meta name="twitter:image" content="https://cdn.ipfsscan.io/weibo/large/005NNTS5ly1h4wgwuso4bj32yo1p3kjl.jpg">
   
   
   
@@ -76,7 +76,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"wangijun.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"wangijun.com","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"gtag":null},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -89,7 +89,7 @@
 
 
   
-<meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 
 <body>
@@ -210,7 +210,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('https://image.baidu.com/search/down?url=https://tvax1.sinaimg.cn/large/005NNTS5ly1h4wgwuso4bj32yo1p3kjl.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('https://cdn.ipfsscan.io/weibo/large/005NNTS5ly1h4wgwuso4bj32yo1p3kjl.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -375,8 +375,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">使用T-IO写的一个简易的聊天室Demo</h1>
+            <h1 id="seo-header">使用T-IO写的一个简易的聊天室Demo</h1>
             
             
               <div class="markdown-body">
@@ -420,16 +419,16 @@
     <span class="token comment">// 注意这里的长度，并不是指数字的长度，而是字节长度！请务必理解，</span>
     <span class="token comment">// 本人在这里迷惑了挺长时间。</span>
     <span class="token comment">// 此处代码也不建议修改，修改的话需要动编解码中的代码</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> HEAD_LENGTH <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> <span class="token constant">HEAD_LENGTH</span> <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">;</span>
     <span class="token keyword">private</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> body<span class="token punctuation">;</span>
 
     <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">ChatPack</span> <span class="token function">getPack</span><span class="token punctuation">(</span><span class="token class-name">String</span> msg<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
         <span class="token class-name">ChatPack</span> pack <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ChatPack</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        pack<span class="token punctuation">.</span><span class="token function">setBody</span><span class="token punctuation">(</span>msg<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token class-name">StandardCharsets</span><span class="token punctuation">.</span>UTF_8<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        pack<span class="token punctuation">.</span><span class="token function">setBody</span><span class="token punctuation">(</span>msg<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token class-name">StandardCharsets</span><span class="token punctuation">.</span><span class="token constant">UTF_8</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">return</span> pack<span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">toStr</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getBody</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token class-name">StandardCharsets</span><span class="token punctuation">.</span>UTF_8<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getBody</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token class-name">StandardCharsets</span><span class="token punctuation">.</span><span class="token constant">UTF_8</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
 
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
@@ -448,7 +447,7 @@
     <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">Packet</span> <span class="token function">decode</span><span class="token punctuation">(</span><span class="token class-name">ByteBuffer</span> buffer<span class="token punctuation">,</span><span class="token keyword">int</span> readableLength<span class="token punctuation">,</span> <span class="token class-name">ChannelContext</span> channelContext<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">TioDecodeException</span> <span class="token punctuation">&#123;</span>
         <span class="token comment">//提醒：buffer的开始位置并不一定是0，应用需要从buffer.position()开始读取数据</span>
         <span class="token comment">//收到的数据组不了业务包，则返回null以告诉框架数据不够</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>readableLength <span class="token operator">&lt;</span> <span class="token class-name">ChatPack</span><span class="token punctuation">.</span>HEAD_LENGTH<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>readableLength <span class="token operator">&lt;</span> <span class="token class-name">ChatPack</span><span class="token punctuation">.</span><span class="token constant">HEAD_LENGTH</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
             <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
         <span class="token punctuation">&#125;</span>
         <span class="token comment">//读取消息体的长度</span>
@@ -458,7 +457,7 @@
             <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">TioDecodeException</span><span class="token punctuation">(</span><span class="token string">"bodyLength ["</span> <span class="token operator">+</span> bodyLength <span class="token operator">+</span> <span class="token string">"] is not right, remote:"</span> <span class="token operator">+</span> channelContext<span class="token punctuation">.</span><span class="token function">getClientNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">&#125;</span>
         <span class="token comment">//计算本次需要的数据长度</span>
-        <span class="token keyword">int</span> neededLength <span class="token operator">=</span> <span class="token class-name">ChatPack</span><span class="token punctuation">.</span>HEAD_LENGTH <span class="token operator">+</span> bodyLength<span class="token punctuation">;</span>
+        <span class="token keyword">int</span> neededLength <span class="token operator">=</span> <span class="token class-name">ChatPack</span><span class="token punctuation">.</span><span class="token constant">HEAD_LENGTH</span> <span class="token operator">+</span> bodyLength<span class="token punctuation">;</span>
         <span class="token comment">//收到的数据是否足够组包</span>
         <span class="token keyword">int</span> isDataEnough <span class="token operator">=</span> readableLength <span class="token operator">-</span> neededLength<span class="token punctuation">;</span>
         <span class="token comment">// 不够消息体长度(剩下的buffer组不了消息体)</span>
@@ -491,7 +490,7 @@
             bodyLen <span class="token operator">=</span> body<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
         <span class="token punctuation">&#125;</span>
         <span class="token comment">//bytebuffer的总长度是 = 消息头的长度 + 消息体的长度</span>
-        <span class="token keyword">int</span> allLen <span class="token operator">=</span> <span class="token class-name">ChatPack</span><span class="token punctuation">.</span>HEAD_LENGTH <span class="token operator">+</span> bodyLen<span class="token punctuation">;</span>
+        <span class="token keyword">int</span> allLen <span class="token operator">=</span> <span class="token class-name">ChatPack</span><span class="token punctuation">.</span><span class="token constant">HEAD_LENGTH</span> <span class="token operator">+</span> bodyLen<span class="token punctuation">;</span>
         <span class="token comment">//创建一个新的bytebuffer</span>
         <span class="token class-name">ByteBuffer</span> buffer <span class="token operator">=</span> <span class="token class-name">ByteBuffer</span><span class="token punctuation">.</span><span class="token function">allocate</span><span class="token punctuation">(</span>allLen<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token comment">//设置字节序</span>
@@ -697,7 +696,7 @@
             <p>代码量算有一点小多的，但是这个代码确实可以直接放生产上，用来做一些报文的传输之类的，应该挺稳的。主要多多学习这个多客户端之间的通信操作吧，用这个Tio可以省很多时间。</p>
           </div>
 
-<h2 id="封面"><a href="#封面" class="headerlink" title="封面"></a>封面</h2><p><img src="https://image.baidu.com/search/down?url=https://tvax1.sinaimg.cn/large/005NNTS5ly1h4wgwuso4bj32yo1p3kjl.jpg" srcset="/img/loading.gif" lazyload alt="集原美 湖光中的睡美人"></p>
+<h2 id="封面"><a href="#封面" class="headerlink" title="封面"></a>封面</h2><p><img src="https://cdn.ipfsscan.io/weibo/large/005NNTS5ly1h4wgwuso4bj32yo1p3kjl.jpg" srcset="/img/loading.gif" lazyload alt="集原美 湖光中的睡美人"></p>
 
                 
               </div>
@@ -731,9 +730,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">#网络编程</a>
+        <a href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" class="print-no-link">#网络编程</a>
       
-        <a href="/tags/TIO/">#TIO</a>
+        <a href="/tags/TIO/" class="print-no-link">#TIO</a>
       
     </div>
   
@@ -769,7 +768,7 @@
             
               
               
-                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-by"></i>
                   </span>

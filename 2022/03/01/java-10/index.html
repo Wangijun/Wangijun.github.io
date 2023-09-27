@@ -25,13 +25,13 @@
 <meta property="og:site_name" content="挽君博客">
 <meta property="og:description" content="顺应时代的浪潮？MySQL老矣？pgsql当道。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://image.baidu.com/search/down?url=https://tvax1.sinaimg.cn/large/005NNTS5ly1gzwgk3spe5j32yo1o04qq.jpg">
+<meta property="og:image" content="https://cdn.ipfsscan.io/weibo/large/005NNTS5ly1gzwgk3spe5j32yo1o04qq.jpg">
 <meta property="article:published_time" content="2022-03-01T06:45:06.000Z">
 <meta property="article:modified_time" content="2022-03-01T06:45:06.000Z">
 <meta property="article:author" content="无良芳">
 <meta property="article:tag" content="数据库">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://image.baidu.com/search/down?url=https://tvax1.sinaimg.cn/large/005NNTS5ly1gzwgk3spe5j32yo1o04qq.jpg">
+<meta name="twitter:image" content="https://cdn.ipfsscan.io/weibo/large/005NNTS5ly1gzwgk3spe5j32yo1o04qq.jpg">
   
   
   
@@ -75,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"wangijun.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"wangijun.com","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"gtag":null},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -88,7 +88,7 @@
 
 
   
-<meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 
 <body>
@@ -209,7 +209,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('https://image.baidu.com/search/down?url=https://tvax1.sinaimg.cn/large/005NNTS5ly1gzwgk3spe5j32yo1o04qq.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('https://cdn.ipfsscan.io/weibo/large/005NNTS5ly1gzwgk3spe5j32yo1o04qq.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -482,8 +482,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">PostgreSQL数据库安装</h1>
+            <h1 id="seo-header">PostgreSQL数据库安装</h1>
             
             
               <div class="markdown-body">
@@ -491,17 +490,17 @@
                 <p>postgresql和mysql差不多，都是免费开源的的数据库软件，在免费数据库，postgresql算是一个后起之秀。好像是比Mysql要优异一点，在各方面上。对于开发者来说，学习一个东西的第一步，肯定是先安装，然后再使用，使用我还没有在项目中使用过，不过我感觉都是sql标准，大差不差吧。</p>
 <h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p><a target="_blank" rel="noopener" href="https://www.baidu.com/s?ie=UTF-8&wd=PostgreSQL">百度一下</a></p>
 <p>官网上下载。我这边下载的是14.2的版本，压缩包的安装方式，下载解压进入<code>pgsql</code>文件夹下，新建一个data文件夹，用来存放数据文件，cmd进入<code>pgsql</code>目录。执行命令。</p>
-<h3 id="初始化数据库"><a href="#初始化数据库" class="headerlink" title="初始化数据库"></a>初始化数据库</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">bin<span class="token punctuation">\</span>initdb -D data -U postgres -A password -E utf8 --locale<span class="token operator">=</span>C -W<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+<h3 id="初始化数据库"><a href="#初始化数据库" class="headerlink" title="初始化数据库"></a>初始化数据库</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">bin<span class="token punctuation">\</span>initdb <span class="token parameter variable">-D</span> data <span class="token parameter variable">-U</span> postgres <span class="token parameter variable">-A</span> password <span class="token parameter variable">-E</span> utf8 <span class="token parameter variable">--locale</span><span class="token operator">=</span>C <span class="token parameter variable">-W</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
 <div class="note note-info">
             <p>-D  data                       指定初始化的数据库目录(此处为当前目录的data文件夹)<br>-U  postgres                数据库超级用户名（此处为postgres，如果不设置，会用当前windows用户名为账号）<br>-A  password              数据库使用密码授权<br>-E  utf8                       数据库编码格式<br>–locale&#x3D;C                  数据库簇使用的本地化语言<br>-W                              命令行执行后 输入密码</p>
           </div>
 
 <p>执行命令过后输入密码，应该要输入两遍，输入一个自己记得住的密码，其他的从参数输入 <code>initdb --help</code>查看</p>
-<h3 id="启动数据库"><a href="#启动数据库" class="headerlink" title="启动数据库"></a>启动数据库</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">bin<span class="token punctuation">\</span>pg_ctl -D data start<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+<h3 id="启动数据库"><a href="#启动数据库" class="headerlink" title="启动数据库"></a>启动数据库</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">bin<span class="token punctuation">\</span>pg_ctl <span class="token parameter variable">-D</span> data start<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
 <p>然后使用数据库连接软件连接查看即可。</p>
-<h3 id="注册到服务"><a href="#注册到服务" class="headerlink" title="注册到服务"></a>注册到服务</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">bin<span class="token punctuation">\</span>pg_ctl register -N <span class="token string">"pgsql"</span> -D xxxx<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+<h3 id="注册到服务"><a href="#注册到服务" class="headerlink" title="注册到服务"></a>注册到服务</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">bin<span class="token punctuation">\</span>pg_ctl register <span class="token parameter variable">-N</span> <span class="token string">"pgsql"</span> <span class="token parameter variable">-D</span> xxxx<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
 <p>注意：</p>
 <div class="note note-info">
@@ -510,7 +509,7 @@
 
 <p>运行过后即可使用 <code>net start pgsql</code> 命令来启动数据库服务，也可以设置成开机自启。停止运行的命令<code>net stop pgsql</code>，执行net命令失败的话请使用管理员身份操作CMD</p>
 <h2 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h2><p>为什么要使用压缩包的安装方式？主要数据库这东西大多数都是在服务器上运行的，而现在小公司linux服务用的居多，多是没有操作界面的，使用压缩包的安装方式主要不挑系统。就是这个原因。话说有几个同学知道Linux解压文件的命令是什么。哈哈哈😆😆😆😆</p>
-<h2 id="封面"><a href="#封面" class="headerlink" title="封面"></a>封面</h2><p><img src="https://image.baidu.com/search/down?url=https://tvax1.sinaimg.cn/large/005NNTS5ly1gzwgk3spe5j32yo1o04qq.jpg" srcset="/img/loading.gif" lazyload alt="冬天雪风景"></p>
+<h2 id="封面"><a href="#封面" class="headerlink" title="封面"></a>封面</h2><p><img src="https://cdn.ipfsscan.io/weibo/large/005NNTS5ly1gzwgk3spe5j32yo1o04qq.jpg" srcset="/img/loading.gif" lazyload alt="冬天雪风景"></p>
 
                 
               </div>
@@ -544,7 +543,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">#数据库</a>
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="print-no-link">#数据库</a>
       
     </div>
   
@@ -580,7 +579,7 @@
             
               
               
-                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-by"></i>
                   </span>

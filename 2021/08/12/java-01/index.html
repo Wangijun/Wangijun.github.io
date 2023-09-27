@@ -25,13 +25,13 @@
 <meta property="og:site_name" content="挽君博客">
 <meta property="og:description" content="Java8引入的新的操作集合的Api，展示了一些常用用法的示例。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://image.baidu.com/search/down?url=https://tvax1.sinaimg.cn/wap720/005NNTS5ly1gl2iao94q0j32961n6qga.jpg">
+<meta property="og:image" content="https://cdn.ipfsscan.io/weibo/wap720/005NNTS5ly1gl2iao94q0j32961n6qga.jpg">
 <meta property="article:published_time" content="2021-08-12T14:26:55.000Z">
 <meta property="article:modified_time" content="2021-08-12T14:26:55.000Z">
 <meta property="article:author" content="无良芳">
 <meta property="article:tag" content="stream">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://image.baidu.com/search/down?url=https://tvax1.sinaimg.cn/wap720/005NNTS5ly1gl2iao94q0j32961n6qga.jpg">
+<meta name="twitter:image" content="https://cdn.ipfsscan.io/weibo/wap720/005NNTS5ly1gl2iao94q0j32961n6qga.jpg">
   
   
   
@@ -75,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"wangijun.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"wangijun.com","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"gtag":null},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -88,7 +88,7 @@
 
 
   
-<meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 
 <body>
@@ -209,7 +209,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('https://image.baidu.com/search/down?url=https://tvax1.sinaimg.cn/wap720/005NNTS5ly1gl2iao94q0j32961n6qga.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('https://cdn.ipfsscan.io/weibo/wap720/005NNTS5ly1gl2iao94q0j32961n6qga.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -482,8 +482,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">java8的stream的使用方法</h1>
+            <h1 id="seo-header">java8的stream的使用方法</h1>
             
             
               <div class="markdown-body">
@@ -679,7 +678,7 @@
             <p>其实这些方法，不用死记硬背，需要的时候查询一下就行了，当用的多了自然而然的就记住了。死记硬背，当时是背下来了，不常用到的话，也会很快的遗忘。</p><p>实际上在查询数据这方面，sql是全球第一的。不要小看任何一款数据库软件。数据库软件，可以说是人类智慧的结晶，是一群智商顶尖的人，并将数据结构和算法用到极致才开发出来的东西。一个几百兆的体积的数据库软件可以毫不费力的管理大于自身几百倍体积的数据。这种能力是真正编程的美丽。</p><p>我在整理这个流的操作时，如果我们把集合看成数据库里的一行行数据，Java这个对集合的流固然强大，可和SQL一比，也能理解，毕竟闻道有先后，术业有专攻。</p>
           </div>
 
-<h2 id="封"><a href="#封" class="headerlink" title="封"></a>封</h2><p><img src="https://image.baidu.com/search/down?url=https://tvax1.sinaimg.cn/large/005NNTS5ly1gl42sgpf56j32yo1o0kjl.jpg" srcset="/img/loading.gif" lazyload alt="塞尔菲娅"></p>
+<h2 id="封"><a href="#封" class="headerlink" title="封"></a>封</h2><p><img src="https://cdn.ipfsscan.io/weibo/large/005NNTS5ly1gl42sgpf56j32yo1o0kjl.jpg" srcset="/img/loading.gif" lazyload alt="塞尔菲娅"></p>
 
                 
               </div>
@@ -713,7 +712,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/stream/">#stream</a>
+        <a href="/tags/stream/" class="print-no-link">#stream</a>
       
     </div>
   
@@ -749,7 +748,7 @@
             
               
               
-                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-by"></i>
                   </span>

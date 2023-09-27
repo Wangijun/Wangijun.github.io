@@ -25,7 +25,7 @@
 <meta property="og:site_name" content="挽君博客">
 <meta property="og:description" content="说说export和export default 的区别，题外说下corepack">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://image.baidu.com/search/down?url=https://tvax2.sinaimg.cn/mw690/005NNTS5ly1hbzmka47iij32yo1o0hdt.jpg">
+<meta property="og:image" content="https://cdn.ipfsscan.io/weibo/mw690/005NNTS5ly1hbzmka47iij32yo1o0hdt.jpg">
 <meta property="article:published_time" content="2023-03-14T00:44:59.000Z">
 <meta property="article:modified_time" content="2023-03-14T00:44:59.000Z">
 <meta property="article:author" content="无良芳">
@@ -33,7 +33,7 @@
 <meta property="article:tag" content="import">
 <meta property="article:tag" content="corepack">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://image.baidu.com/search/down?url=https://tvax2.sinaimg.cn/mw690/005NNTS5ly1hbzmka47iij32yo1o0hdt.jpg">
+<meta name="twitter:image" content="https://cdn.ipfsscan.io/weibo/mw690/005NNTS5ly1hbzmka47iij32yo1o0hdt.jpg">
   
   
   
@@ -77,7 +77,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"wangijun.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"wangijun.com","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"gtag":null},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -90,7 +90,7 @@
 
 
   
-<meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 
 <body>
@@ -211,7 +211,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('https://image.baidu.com/search/down?url=https://tvax2.sinaimg.cn/mw690/005NNTS5ly1hbzmka47iij32yo1o0hdt.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('https://cdn.ipfsscan.io/weibo/mw690/005NNTS5ly1hbzmka47iij32yo1o0hdt.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -457,8 +457,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">export,export default 的意义以及区别</h1>
+            <h1 id="seo-header">export,export default 的意义以及区别</h1>
             
             
               <div class="markdown-body">
@@ -527,17 +526,17 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <p>简单就是yarn,pnpm这类包管理器的一个管理器，在node.js v14.19.0+版本自带，默认是禁用的，需要使用命令开启<code>corepack enable</code> 目前默认只管理yarn，和pnpm，因为npm现在依旧是node.js的官方默认包管理器。</p>
 <p>执行启用命令，就可以把自己安装在全局的Pnpm和Yarn给移除了，移除命令<code>npm uninstall -g yarn pnpm</code>，如果没安装则无需移除。</p>
 <p>为什么可以移除，因为现在全局环境中已经有Pnpm和Yarn命令了，</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># 查看npm全局依赖
-npm list -g
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看npm全局依赖</span>
+<span class="token function">npm</span> list <span class="token parameter variable">-g</span>
 
-# 输出
-# D:\wansoftware\devtool\node\node-global
-# +-- hexo-cli@4.3.0
-# &#96;-- npm@9.6.1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<span class="token comment"># 输出</span>
+<span class="token comment"># D:\wansoftware\devtool\node\node-global</span>
+<span class="token comment"># +-- hexo-cli@4.3.0</span>
+<span class="token comment"># `-- npm@9.6.1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>可以看到并没有yarn和pnpm的依赖</p>
 <p>但是执行<code>yarn -v</code>或者<code>pnpm -v</code> 依旧会有输出，这就是corepack的功劳</p>
-<h2 id="封"><a href="#封" class="headerlink" title="封"></a>封</h2><p><img src="https://image.baidu.com/search/down?url=https://tvax2.sinaimg.cn/large/005NNTS5ly1hbzmka47iij32yo1o0hdt.jpg" srcset="/img/loading.gif" lazyload alt="靓丽美女 鞠婧祎 黑色裙子"></p>
+<h2 id="封"><a href="#封" class="headerlink" title="封"></a>封</h2><p><img src="https://cdn.ipfsscan.io/weibo/large/005NNTS5ly1hbzmka47iij32yo1o0hdt.jpg" srcset="/img/loading.gif" lazyload alt="靓丽美女 鞠婧祎 黑色裙子"></p>
 
                 
               </div>
@@ -571,11 +570,11 @@ npm list -g
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/export/">#export</a>
+        <a href="/tags/export/" class="print-no-link">#export</a>
       
-        <a href="/tags/import/">#import</a>
+        <a href="/tags/import/" class="print-no-link">#import</a>
       
-        <a href="/tags/corepack/">#corepack</a>
+        <a href="/tags/corepack/" class="print-no-link">#corepack</a>
       
     </div>
   
@@ -611,7 +610,7 @@ npm list -g
             
               
               
-                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-by"></i>
                   </span>
