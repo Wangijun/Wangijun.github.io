@@ -25,7 +25,7 @@
 <meta property="og:site_name" content="挽君博客">
 <meta property="og:description" content="上一篇我们实现了基础的面包屑和Tab栏，但是现在还比较简陋，很多细节还需优化，比如侧边菜单选中应该有个样式，等等">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.ipfsscan.io/weibo/large/005NNTS5ly1hfikhq5z5rj32yo1o0e81.jpg">
+<meta property="og:image" content="https://image.baidu.com/search/down?url=https://tvax1.sinaimg.cn/large/005NNTS5ly1hfikhq5z5rj32yo1o0e81.jpg">
 <meta property="article:published_time" content="2023-06-21T14:44:57.000Z">
 <meta property="article:modified_time" content="2023-06-21T14:44:57.000Z">
 <meta property="article:author" content="无良芳">
@@ -34,7 +34,7 @@
 <meta property="article:tag" content="vue3">
 <meta property="article:tag" content="setup">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://cdn.ipfsscan.io/weibo/large/005NNTS5ly1hfikhq5z5rj32yo1o0e81.jpg">
+<meta name="twitter:image" content="https://image.baidu.com/search/down?url=https://tvax1.sinaimg.cn/large/005NNTS5ly1hfikhq5z5rj32yo1o0e81.jpg">
   
   
   
@@ -212,7 +212,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('https://cdn.ipfsscan.io/weibo/large/005NNTS5ly1hfikhq5z5rj32yo1o0e81.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('https://image.baidu.com/search/down?url=https://tvax1.sinaimg.cn/large/005NNTS5ly1hfikhq5z5rj32yo1o0e81.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -722,7 +722,7 @@ const handleClick &#x3D; (item: WJ.MenuItem) &#x3D;&gt; &#123;
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>刷新页面，再次查看，已经完成。</p>
-<p><img src="https://cdn.ipfsscan.io/weibo/large/005NNTS5ly1hfe9zs6gr3j30z5124tlj.jpg" srcset="/img/loading.gif" lazyload alt="例子"></p>
+<p><img src="https://image.baidu.com/search/down?url=https://tvax1.sinaimg.cn/large/005NNTS5ly1hfe9zs6gr3j30z5124tlj.jpg" srcset="/img/loading.gif" lazyload alt="例子"></p>
 <h2 id="实现侧边菜单根据路由高亮"><a href="#实现侧边菜单根据路由高亮" class="headerlink" title="实现侧边菜单根据路由高亮"></a>实现侧边菜单根据路由高亮</h2><h3 id="思路分析-1"><a href="#思路分析-1" class="headerlink" title="思路分析"></a>思路分析</h3><p>猛地一想并不复杂嗷，使用router获取当前路由然后根据菜单的path属性进行比对即可。这里会出现一个问题就是无法高亮父级菜单，不完美。</p>
 <p>完美应该怎么解决呢，这里可以用面包屑的信息判断当前菜单是否高亮，因为面包屑是包含所有层级菜单，思路有了，代码编写就很简单了。</p>
 <h3 id="编写代码-1"><a href="#编写代码-1" class="headerlink" title="编写代码"></a>编写代码</h3><p><strong>修改MenuItem.vue文件，修改过后完整代码如下</strong></p>
@@ -2153,7 +2153,7 @@ const getChipColor &#x3D; (status: string) &#x3D;&gt; &#123;
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>重启项目项目主页如图所示</p>
-<p><img src="https://cdn.ipfsscan.io/weibo/large/005NNTS5ly1hfild5negzj30yg108wq4.jpg" srcset="/img/loading.gif" lazyload alt="index"></p>
+<p><img src="https://image.baidu.com/search/down?url=https://tvax1.sinaimg.cn/large/005NNTS5ly1hfild5negzj30yg108wq4.jpg" srcset="/img/loading.gif" lazyload alt="index"></p>
 <p>此教程完结撒花~~~</p>
 <h2 id="文章列表："><a href="#文章列表：" class="headerlink" title="文章列表："></a>文章列表：</h2><ul>
 <li><a href="https://wangijun.com/2023/06/01/vue-08/">从0到一个前端后台管理框架(一)</a></li>
@@ -2162,7 +2162,7 @@ const getChipColor &#x3D; (status: string) &#x3D;&gt; &#123;
 <li><a href="https://wangijun.com/2023/06/06/vue-11/">从0到一个前端后台管理框架(四)</a></li>
 <li><a href="https://wangijun.com/2023/06/06/vue-12/">从0到一个前端后台管理框架(五)</a></li>
 </ul>
-<h2 id="此篇博客进度对代码分支——end"><a href="#此篇博客进度对代码分支——end" class="headerlink" title="此篇博客进度对代码分支——end"></a>此篇博客进度对代码分支——<a target="_blank" rel="noopener" href="https://gitee.com/wlf213/wlf-admin-study/tree/end/"><code>end</code></a></h2><h2 id="封"><a href="#封" class="headerlink" title="封"></a>封</h2><p><img src="https://cdn.ipfsscan.io/weibo/large/005NNTS5ly1hfikhq5z5rj32yo1o0e81.jpg" srcset="/img/loading.gif" lazyload alt="封面"></p>
+<h2 id="此篇博客进度对代码分支——end"><a href="#此篇博客进度对代码分支——end" class="headerlink" title="此篇博客进度对代码分支——end"></a>此篇博客进度对代码分支——<a target="_blank" rel="noopener" href="https://gitee.com/wlf213/wlf-admin-study/tree/end/"><code>end</code></a></h2><h2 id="封"><a href="#封" class="headerlink" title="封"></a>封</h2><p><img src="https://image.baidu.com/search/down?url=https://tvax1.sinaimg.cn/large/005NNTS5ly1hfikhq5z5rj32yo1o0e81.jpg" srcset="/img/loading.gif" lazyload alt="封面"></p>
 
                 
               </div>
